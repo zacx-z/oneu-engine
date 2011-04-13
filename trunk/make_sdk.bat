@@ -24,7 +24,7 @@ echo "a" | xcopy "Game\script\lua\lib" "..\OneU SDK\bin\script\lua\lib" /E /I
 rem write default main.lua
 copy "default_main.lua" "..\OneU SDK\bin\script\lua\main.lua"
 
-copy "Document For OneU\html\OneU.chm" "..\OneU SDK\OneU.chm"
+copy "Doxygen\Document\html\OneU.chm" "..\OneU SDK\OneU.chm"
 
 rem copy atoms
 mkdir "..\OneU SDK\bin\atom"
