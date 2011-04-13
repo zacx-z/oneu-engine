@@ -1,7 +1,0 @@
-<info>
-<weapon>
-< bullet src = "SF Res\Bullet\0.png"
-			x = 0 y = -80 interval = 10 type = straight velocity = 1800 hitt = 0 hitl = 0 hitr = 64 hitb = 16 
-			bangsrc = "SF Res\Bullet\Bang.png"></bullet>
-</weapon>
-</info>
