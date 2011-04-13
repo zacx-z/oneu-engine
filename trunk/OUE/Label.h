@@ -52,6 +52,8 @@ namespace OneU
 		virtual pcwstr getText() = 0;
 		virtual void setColor(color_t color) = 0;
 		virtual color_t getColor() = 0;
+		virtual void setAlpha(ubyte alpha) = 0;
+		ubyte getAlpha(){ return getColor().getAlpha(); }
 	};
 	/* ----------------------------------------------------------------------------*/
 	/**

@@ -1,3 +1,4 @@
 require "Atom"
-cSprite = Atom.G.Sprite
 Control = Atom.G.Control
+Sprite  = Atom.G.Sprite
+Label   = Atom.G.Label

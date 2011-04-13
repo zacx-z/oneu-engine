@@ -33,113 +33,127 @@ namespace OneU
 		class e_Sprite
 			: public exported
 		{
-			ISprite* e_sprite;
+			ISprite* _p;
 		public:
 			e_Sprite(value* arg){
-				value* v = arg->get<tuple>()->get(0);
 				image_t a;
-				if(v->type() == T_STR)
-					a = GetVideo().loadImage(v->get<String>()->c_str());
-				else if(v->type() == T_OBJ)
+				if(arg->get<tuple>()->get(0)->type() == T_STR)
+					a = GetVideo().loadImage(utoArg<String>(arg, 0).c_str());
+				else if(arg->get<tuple>()->get(0)->type() == T_OBJ)
 				{
-					obj* o = v->get<obj>();
+					obj* o = &utoArg<obj>(arg, 0);
 					value* t = ucall(o, L"_getNodePtr", NULL);
 					a = (video::IImage*)*t->get<void*>();
 				}
-				e_sprite = Sprite_create(a);
+				else ATOM_RAISE(L"arguments 1 wrong");
+				_p = Sprite_create(a);
 
 				//可选参数z
 				int z = 0;
-				if(arg->get<tuple>()->length() > 1)
+				if(uArgN(arg) > 1)
 					z = uto<int>(arg->get<tuple>()->get(1));
 
 				IScene* s = GetLocalScene();
 				if(s != NULL)
-					s->getRenderScene()->addChild(e_sprite, z);
+					s->getRenderScene()->addChild(_p, z);
 				else
-					GetVideo().getRoot().addChild(e_sprite, z);
+					GetVideo().getRoot().addChild(_p, z);
 			}
-			value* e_setX(value* v){
-				e_sprite->setX(ugetArg<float>(v, 0));
+			value* e_setX(value* arg){
+				_p->setX(utoArg<float>(arg, 0));
 				return NULL;
 			}
-			value* e_setY(value* v){
-				e_sprite->setY(ugetArg<float>(v, 0));
+			value* e_setY(value* arg){
+				_p->setY(utoArg<float>(arg, 0));
 				return NULL;
 			}
-			value* e_getX(value* v){
-			    return makeValue(e_sprite->getX());
-			}    
-			value* e_getY(value* v){
-			    return makeValue(e_sprite->getY());
-			}    
-			value* e_setRotation(value* v){
-			    e_sprite->setRotation(ugetArg<float>(v, 0));
+			value* e_getX(value* arg){
+			    return makeValue(_p->getX());
+			}
+			value* e_getY(value* arg){
+			    return makeValue(_p->getY());
+			}
+			value* e_setRotation(value* arg){
+			    _p->setRotation(utoArg<float>(arg, 0));
 			    return NULL;
 			}
-      	    value* e_getRotation(value* v){
-                return makeValue(e_sprite->getRotation());
+      	    value* e_getRotation(value* arg){
+                return makeValue(_p->getRotation());
             }
-            value* e_setScaleX(value* v){
-                e_sprite->setScaleX(ugetArg<float>(v, 0));
+            value* e_setScaleX(value* arg){
+                _p->setScaleX(utoArg<float>(arg, 0));
                 return NULL;
             }
-            value* e_getScaleX(value* v){
-                return makeValue(e_sprite->getScaleX());
-            }   
-            value* e_setScaleY(value* v){
-                e_sprite->setScaleY(ugetArg<float>(v, 0));
+            value* e_getScaleX(value* arg){
+                return makeValue(_p->getScaleX());
+			}
+            value* e_setScaleY(value* arg){
+                _p->setScaleY(utoArg<float>(arg, 0));
                 return NULL;
             }
-            value* e_getScaleY(value* v){
-                return makeValue(e_sprite->getScaleY());
-            }           
-            value* e_setCenterX(value* v){
-                e_sprite->setCenterX(ugetArg<float>(v, 0));
+            value* e_getScaleY(value* arg){
+                return makeValue(_p->getScaleY());
+            }
+            value* e_setCenterX(value* arg){
+                _p->setCenterX(utoArg<float>(arg, 0));
                 return NULL;
             }
-            value* e_getCenterX(value* v){
-                return makeValue(e_sprite->getCenterX());
-            }  
-            value* e_setCenterY(value* v){
-                e_sprite->setCenterY(ugetArg<float>(v, 0));
+            value* e_getCenterX(value* arg){
+                return makeValue(_p->getCenterX());
+            }
+            value* e_setCenterY(value* arg){
+                _p->setCenterY(utoArg<float>(arg, 0));
                 return NULL;
             }
-            value* e_getCenterY(value* v){
-                return makeValue(e_sprite->getCenterY());
-            } 
-            value* e_setColor(value* v){
+            value* e_getCenterY(value* arg){
+                return makeValue(_p->getCenterY());
+            }
+            value* e_setColor(value* arg){
 				color_t color;
-				color.setRed(ugetArg<int>(v, 0));
-				color.setBlue(ugetArg<int>(v, 1));
-				color.setGreen(ugetArg<int>(v, 2));
-                e_sprite->setColor(color);
+				color.setRed(utoArg<int>(arg, 0));
+				color.setBlue(utoArg<int>(arg, 1));
+				color.setGreen(utoArg<int>(arg, 2));
+                _p->setColor(color);
                 return NULL;
             }
-            value* e_getColor(value* v){
+            value* e_getColor(value* arg){
                 int r,g,b;
-                color_t color = e_sprite->getColor();
+                color_t color = _p->getColor();
                 r = int(color.getRed());
                 g = int(color.getGreen());
                 b = int(color.getBlue());
                 value* re = makeTupleWithElem(3, makeValue(r), makeValue(g), makeValue(b)); 
                 return re;
-            }       
-            value* e_setAlpha(value* v){
-                e_sprite->setAlpha((ubyte)ugetArg<int>(v, 0));
+            }
+            value* e_setAlpha(value* arg){
+                _p->setAlpha((ubyte)utoArg<int>(arg, 0));
                 return NULL;
             }
-            value* e_getAlpha(value* v){
-                return makeValue((int)e_sprite->getAlpha());
-            }   
+            value* e_getAlpha(value* arg){
+                return makeValue((int)_p->getAlpha());
+            }
+			value* e_setBlendMode(value* arg){
+				_p->setBlendMode((video::BLENDMODE)utoArg<int>(arg, 0));
+				return NULL;
+			}
+			value* e_getBlendMode(value* arg){
+				return makeValue((int)_p->getBlendMode());
+			}
+			value* e_setColorBlendMode(value* arg){
+				_p->setColorBlendMode(utoArg<int>(arg, 0));
+				return NULL;
+			}
+			value* e_getColorBlendMode(value* arg){
+				return makeValue((int)_p->getColorBlendMode());
+			}
 			~e_Sprite(){
-				e_sprite->destroy();
+				_p->destroy();
 			}
 		};
 		inline void export_Sprite(){
-			value* v = makeKlass<e_Sprite>();
-			klass* k = v->get<klass>();
-			GetAtom().getEnv()->createSymbol(L"Sprite", v);
+			value* arg = makeKlass<e_Sprite>();
+			klass* k = arg->get<klass>();
+			GetAtom().getEnv()->createSymbol(L"Sprite", arg);
 			uexportMethod(k, L"setX", &e_Sprite::e_setX);
 			uexportMethod(k, L"setY", &e_Sprite::e_setY);
 			uexportMethod(k, L"getX", &e_Sprite::e_getX);
@@ -158,6 +172,10 @@ namespace OneU
 			uexportMethod(k, L"getColor", &e_Sprite::e_getColor);
 			uexportMethod(k, L"setAlpha", &e_Sprite::e_setAlpha);
 			uexportMethod(k, L"getAlpha", &e_Sprite::e_getAlpha);
+			uexportMethod(k, L"setBlendMode", &e_Sprite::e_setBlendMode);
+			uexportMethod(k, L"getBlendMode", &e_Sprite::e_getBlendMode);
+			uexportMethod(k, L"setColorBlendMode", &e_Sprite::e_setColorBlendMode);
+			uexportMethod(k, L"getColorBlendMode", &e_Sprite::e_getColorBlendMode);
 		}
 	}
 }

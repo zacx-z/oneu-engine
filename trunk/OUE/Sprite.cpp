@@ -60,7 +60,9 @@ namespace OneU
 		float getCenterY() const { return m_CenterY; }
 
 		void setBlendMode(video::BLENDMODE mode){ m_Mode = mode;}
+		video::BLENDMODE getBlendMode(){ return m_Mode; }
 		void setColorBlendMode(dword mode){ m_CMode = mode; }
+		dword getColorBlendMode(){ return m_CMode; }
 
 
 		void setColor(color_t c){ color = c; }

@@ -220,6 +220,9 @@ namespace OneU
 		/*@cond INTERNAL*/
 		inline atom::value* _make_value();
 		/*@endcond*/
+
+		virtual void _pushRunningIp(atom::IInterpreter* ip) = 0;
+		virtual void _popRunningIp() = 0;
 	protected:
 		//仅用于Atom的实现访问value私有成员
 		//in AtValue.h

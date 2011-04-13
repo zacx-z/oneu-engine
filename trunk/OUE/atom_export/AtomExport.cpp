@@ -23,7 +23,6 @@ THE SOFTWARE.
 #include "AtomExport.h"
 #include "e_Sprite.h"
 #include "e_Control.h"
-#include "e_Video_INodeContainer.h"
 #include "e_Label.h"
 
 namespace OneU
@@ -31,7 +30,6 @@ namespace OneU
     void AtomExport(){
         atom_export::export_Sprite();
         atom_export::export_Control();
-        //atom_export::export_NodeContainer();
         atom_export::export_Label();
     }    
 }

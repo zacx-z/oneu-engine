@@ -37,11 +37,14 @@ namespace OneU
 		int value_outputer_tab_depth;
 
 
-		//负责各种语言错误处理
-		//ehm某个位上有标志表示使用了该语言，错误时弹出该解释器的栈
-		//如果出现多解释器，就更复杂了……
-		int ehm[L_END];
-		atom::IInterpreter* m_pInterpter[L_END];
+		//负责各种解释器的错误处理
+		//一个解释器执行代码时将其压入栈
+		//如果出错则将解释器栈里的解释器的栈信息弹出
+		//目前最大支持10个
+		atom::IInterpreter* m_pRunningIpSt[10];
+		int m_RunningIpTop;
+
+		atom::IInterpreter* m_pInterpreter[L_END];
 
 		//已加载的AtomLib
 		struct ModuleInfo{
@@ -55,10 +58,9 @@ namespace OneU
 		void value_outputer_add_tab(String& buffer);
 
 		Atom_Impl()
-			: value_outputer_tab_depth(0)
+			: value_outputer_tab_depth(0), m_RunningIpTop(-1)
 		{
-			memset(m_pInterpter, 0, sizeof(m_pInterpter));
-			memset(ehm, 0, sizeof(ehm));
+			memset(m_pInterpreter, 0, sizeof(m_pInterpreter));
 		}
 
 		//重写函数
@@ -77,19 +79,18 @@ namespace OneU
 		//错误处理部分
 		//调用该语言的某函数时应压栈 这样当出错时会有该语言的堆栈信息
 		//非接口，因为调用该函数的模块为解释器，属于该模块。
-		void _pushErrorHook(LANGUAGE e){
-			ehm[(int)e]++;
+		void _pushRunningIp(atom::IInterpreter* ip){
+			m_pRunningIpSt[++m_RunningIpTop] = ip;
 		}
-		void _popErrorHook(LANGUAGE e){
-			ehm[(int)e]--;
+		void _popRunningIp(){
+			--m_RunningIpTop; 
 		}
 		void raise(pcwstr error_message){
 			String out = error_message;
-			//通过判断是否给hook压栈来报错
-			if(ehm[L_LUA])
+			for(int i = 0; i <= m_RunningIpTop; ++i)
 			{
-				out.append(L"\nLua Stack:\n");
-				m_pInterpter[L_LUA]->_getStackInfo(out);
+				out.append(L"\nStack:\n");
+				m_pRunningIpSt[i]->_getStackInfo(out);
 			}
 			ONEU_RAISE(out.c_str());
 		}
@@ -102,7 +103,7 @@ namespace OneU
 		void unloadAllAtomLib();
 
 		atom::IInterpreter* getInterpreter(LANGUAGE language){
-			return m_pInterpter[language];
+			return m_pInterpreter[language];
 		}
 		atom::IInterpreter* createInterpreter(LANGUAGE language);
 	};

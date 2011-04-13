@@ -397,7 +397,7 @@ namespace OneU{
  * [property]表示是该类的属性，调用setXXX和getXXX函数来设置或获取该属性。<br>
  * <div style = "font-size:15px">
  * @b Sprite class<br>
- * Sprite(path, z) path为图像路径，z为显示深度。<br>
+ * Sprite(string path, int z) path为图像路径，z为显示深度。<br>
  * <small>
  * X[property] float X坐标<br>
  * Y[property] float Y坐标<br>
@@ -408,7 +408,16 @@ namespace OneU{
  * ScaleY[property] float Y轴缩放倍数<br>
  * Color[property] int, int, int 分别为R, G, B值<br>
  * Alpha[property] int Alpha值<br>
+ * BlendMode[property] int 混合模式 0为普通 1为相加<br>
+ * ColorBlendMode[property] int 与Color属性共用，颜色混合模式。0为普通，1为相加，2为调制；16左混合，32右混合，48上混合，64下混合。分号相隔的参数可相加来指定复杂混合模式。<br>
  * </small>
+ * @b Label class<br>
+ * Label(float width, float height, int fontsize[, string fontname]) width, height标签区域的宽高, fontsize字体大小, fontname字体名称。<br>
+ * X[property] float X坐标<br>
+ * Y[property] float Y坐标<br>
+ * Text[property] string 显示内容<br>
+ * Color[property] int, int, int 分别为R, G, B值<br>
+ * Alpha[property] int 透明度
  * @b Control object<br>
  * <small>
  * keyIsDown(int scancode):bool[o-function] 【键盘】判断该键是否在按下状态。<br>

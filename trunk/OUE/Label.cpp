@@ -51,6 +51,7 @@ namespace OneU
 		}
 		void setColor(color_t color){ m_Color = color; }
 		color_t getColor(){ return m_Color; }
+		void setAlpha(ubyte alpha){ m_Color.setAlpha(alpha); }
 
 		void paint(){
 			if(m_Text == L"") return;
