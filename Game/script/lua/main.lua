@@ -1,17 +1,15 @@
-require "Atom"
+require "stdlib"
 
-cSprite = Atom.G.Sprite
-Control = Atom.G.Control
 Atom.loadLib("../release/AtomDemo.at");
-cWaterfall = Atom.G["Waterfall"]
+Waterfall = Atom.G.Waterfall
 
 Scene = {}
 
 frame = 0;
 
 function Scene:init()
-	self.a = cSprite("../picture.png", -100)
-	self.w = cWaterfall();
+	self.a = Sprite(1, -100)
+	self.w = Waterfall();
 end
 
 function Scene:main()

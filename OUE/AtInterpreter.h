@@ -37,6 +37,13 @@ namespace OneU
 		class IInterpreter
 			: public Interface
 		{
+		protected:
+			void beforeExec(){
+				GetAtom()._pushRunningIp(this);
+			}
+			void afterExec(){
+				GetAtom()._popRunningIp();
+			}
 		public:
 			/* ----------------------------------------------------------------------------*/
 			/**

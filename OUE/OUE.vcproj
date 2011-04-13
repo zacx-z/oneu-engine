@@ -438,10 +438,6 @@
 					RelativePath=".\atom_export\e_Sprite.h"
 					>
 				</File>
-				<File
-					RelativePath=".\atom_export\e_Video_INodeContainer.h"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter

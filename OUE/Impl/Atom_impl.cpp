@@ -47,11 +47,11 @@ namespace OneU
 		system_env = system_env_v->get<atom::env>();
 
 		//³õÊ¼»¯½âÊÍÆ÷
-		m_pInterpter[L_LUA] = ONEU_NEW(atom::LuaInterpreter);
+		m_pInterpreter[L_LUA] = ONEU_NEW(atom::LuaInterpreter);
 	}
 
 	Atom_Impl::~Atom_Impl(){
-		m_pInterpter[L_LUA]->destroy();
+		m_pInterpreter[L_LUA]->destroy();
 
 		global_env_v->unacquire();
 		system_env_v->unacquire();

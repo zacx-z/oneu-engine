@@ -55,7 +55,7 @@ namespace OneU
 		 * @sa IVideo::setBlendColor
 		 */
 		/* ----------------------------------------------------------------------------*/
-		enum COLOR_BLENDMODE{ CBM_NONE = 0, CBM_MODULATE = 1, CBM_ADD = 2, 
+		enum COLOR_BLENDMODE{ CBM_NONE = 0, CBM_ADD = 1, CBM_MODULATE = 2,
 			CBM_LEFT = 0x10, CBM_RIGHT = 0x20, CBM_TOP = 0x30, CBM_DOWN = 0x40 };
 
 		/* ----------------------------------------------------------------------------*/

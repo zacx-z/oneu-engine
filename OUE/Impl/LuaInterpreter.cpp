@@ -154,7 +154,7 @@ namespace OneU
 
 		void LuaInterpreter::execFile(pcwstr filename)
 		{
-			((Atom_Impl&)GetAtom())._pushErrorHook(Atom_Impl::L_LUA);
+			beforeExec();
 			lua_getglobal(m_L, "oneu_errfunc");
 
 			if(luaL_loadfile(m_L, Wide2ANSI(filename)))
@@ -162,12 +162,12 @@ namespace OneU
 			if(lua_pcall(m_L, 0, 0, -2))
 				ONEU_RAISE(ANSI2Wide(lua_tostring(m_L, -1)));
 
-			((Atom_Impl&)GetAtom())._popErrorHook(Atom_Impl::L_LUA);
+			afterExec();
 		}
 
 		value* LuaInterpreter::exec(pcwstr code)
 		{
-			((Atom_Impl&)GetAtom())._pushErrorHook(Atom_Impl::L_LUA);
+			beforeExec();
 
 			lua_getglobal(m_L, "oneu_errfunc");
 			if(luaL_loadstring(m_L, Wide2ANSI(code)))
@@ -175,7 +175,7 @@ namespace OneU
 			if(lua_pcall(m_L, 0, 0, -2))
 				ONEU_RAISE(ANSI2Wide(lua_tostring(m_L, -1)));
 
-			((Atom_Impl&)GetAtom())._popErrorHook(Atom_Impl::L_LUA);
+			afterExec();
 			return NULL;
 		}
 

@@ -70,7 +70,9 @@ namespace OneU
 		float getHeight(){ return getImage().get()->getHeight() * getScaleY(); }
 
 		virtual void setBlendMode(video::BLENDMODE mode) = 0;
+		virtual video::BLENDMODE getBlendMode() = 0;
 		virtual void setColorBlendMode(dword mode) = 0;
+		virtual dword getColorBlendMode() = 0;
 	};
 
 	/* ----------------------------------------------------------------------------*/
