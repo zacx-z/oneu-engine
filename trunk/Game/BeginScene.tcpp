@@ -1,0 +1,16 @@
+//#include "../FrameSystem/FSBase.h"
+//#include "../FrameSystem/Joy.h"
+//#include "BeginScene.h"
+//namespace OneU
+//{
+//	BeginScene::BeginScene()
+//		: f(40,20,5),
+//		m_Title(L"Little Fighter", 0, 0, f),
+//		m_Menu1(L"Start Game", 0, 0, f),
+//		m_Sprite(L"../Author.png", Lib::PXLFMT_A8R8G8B8, 0)
+//	{
+//	}
+//	void BeginScene::Update()
+//	{
+//	}
+//}

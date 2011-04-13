@@ -1,0 +1,328 @@
+#include "SFHeader3.h"
+#include <boost\foreach.hpp>
+
+void TexRTScreenRestorer::Release()
+{
+	rt->Release();
+}
+
+void TexRTScreenRestorer::Recreate()
+{
+	rt->Create( Graphics.GetWidth(), Graphics.GetHeight(), PXLFMT_X8R8G8B8 );
+}
+
+void PSRestorer::Release()
+{
+	m_pPS->Release();
+}
+
+void PSRestorer::Recreate()
+{
+	m_pPS->CompileFile( m_pFileName, "Render" );
+}
+List< PaintUnit* >::iterator CRenderer::InsertPaintUnit( PaintUnit *p, UINT Layer )
+{
+	if( PList[Layer].empty() )
+	{
+		//第一次向层内添加东西是创建RT表面
+		//LayerRT.
+	}
+	for( List< PaintUnit* >::iterator iter = PList[Layer].begin(); iter != PList[Layer].end(); ++iter )
+	{
+		if( iter->GetZ() > p->GetZ() )
+			return PList[Layer].insert( p, iter );
+	}
+	return PList[Layer].push_back( p );
+}
+
+List< RTEffect* >::iterator CRenderer::InsertRTEffect( RTEffect *p, UINT Layer )
+{
+	for( List< RTEffect* >::iterator iter = EList[Layer].begin(); iter != EList[Layer].end(); ++iter )
+	{
+		if( iter->GetZ() > p->GetZ() )
+			return EList[Layer].insert( p, iter );
+	}
+	return EList[Layer].push_back( p );
+}
+
+void CRenderer::RenderScene()
+{
+	//准备特效
+	//目前来说Layer仅仅是Z轴的上一层而已
+	//保留
+	for( int Layer = MAX_LAYER - 1; Layer >= 0; Layer-- )
+	{
+		List< RTEffect* >::iterator i = EList[Layer].end();
+		if( i == EList[Layer].begin() )
+			continue;
+		--i;
+		for( ; i != EList[Layer].begin(); --i )
+			(*i)->PushStack();
+		(*i)->PushStack();
+	}
+
+	Graphics.ClearTarget();
+
+	SetCameraTransform();
+	{
+		Render rd;
+		//Feng::Painter painter( rd );
+		//Assigner< Feng::Painter* > temp( m_pPainter, &painter );
+		for( UINT Layer = 0; Layer < MAX_LAYER; Layer++ )
+			for( List< PaintUnit* >::iterator i = PList[Layer].begin(); i != PList[Layer].end(); ++i )
+				(*i)->Paint( rd );
+	}
+	for( UINT Layer = 0; Layer < MAX_LAYER; Layer++ )
+		for( List< RTEffect* >::iterator i = EList[Layer].begin(); i != EList[Layer].end(); ++i )
+			(*i)->DoIt();
+}
+
+void FPS::Paint( DX::Render &rd )
+{
+	static int cur = 0, lastTime = OneU::GetTime(), fps = 0;
+	cur++;
+	if( OneU::GetTime() - lastTime >= 1000 )
+	{
+		lastTime += 1000;
+		fps = cur;
+		cur = 0;
+	}
+	FontE f;
+	f.Create( 10, 10, 2 );
+	wchar_t dest[200];
+	wsprintf( dest, L"FPS:%d", fps );
+	f.DrawText( dest, &CRect_n( 0, 0, 100, 20 ), 0xffffffff );
+}
+
+
+void CMouse::Paint( DX::Render &rd )
+{
+	Feng::Painter pt( rd );
+	rot += v_rot;
+	TStage( 0 ).SetState( TStage::COLOR_OP, TStage::OP_ADD );
+	pt.Paint( Feng::SW( Feng::TexPaint( m_Tex, -32, -32 ) ) << Rotate2( rot ) <<Translate2( X, Y ) << Feng::SEnd, 0xff000000, &CRect_n( 64, 0, 128, 64 ) );
+	pt.Paint( Feng::SW( Feng::TexPaint( m_Tex, X - 32, Y - 32 ) ) << Feng::SEnd, 0xff000000, &CRect_n( 0, 0, 64, 64 ) );
+}
+
+void CSprite::Paint( Render &rd )
+{
+	if( m_pImg->m_Tex.IsCreated() && Visible )
+	{
+		Feng::Painter pt( rd );
+		TStage( 0 ).SetState( TStage::COLOR_OP, TStage::OP_ADD );
+		TStage( 0 ).SetState( TStage::COLOR_ARG1, TStage::ARG_TEXTURE );
+		TStage( 0 ).SetState( TStage::COLOR_ARG2, TStage::ARG_DIFFUSE );
+		pt.Paint( Feng::SW( Feng::TexPaint( m_pImg->m_Tex, -oX, -oY ) ) << Rotate2( Rotation ) << Translate2( X, Y ) << Feng::SEnd, Color, &SrcRect );
+	}
+}
+unsigned int CEnemyPrototype::AddImage( std::wstring &src )
+{
+	unsigned int ret = m_VI.size();
+	m_VI.push_back( ImageInfo() );
+	CImage *img = m_VI[ ret ].pImg = CImageMgr::GetInstance().GetImage( src );
+	m_VI[ ret ].SrcRect = CRect( 0, 0, img->GetWidth(), img->GetHeight() );
+	return ret;
+}
+
+CEnemy::CEnemy( const CEnemyInfo& rhs, CPlane &plane, CBulletManager &BM )
+	: CEnemyPrototype( rhs ), X( 0.0f ), Y( 0.0f ), Rotation( 0.0f ), Info( rhs ), BM( BM ), m_Plane( plane )
+{
+	PolList.resize( rhs.RcList.size() );
+	BulletFrame.resize( rhs.BulletInfo.size() );
+}
+void CEnemy::Paint( Render &rd )
+{
+	Polygon_t< VertexCt< FVF_XYZ | FVF_TEX1 > > pol;
+	for( ListType::iterator iter = m_VI.begin(); iter != m_VI.end(); ++iter )
+	{
+		float Width = iter->SrcRect.right - iter->SrcRect.left, Height = iter->SrcRect.bottom - iter->SrcRect.top;
+		float a = Width * iter->Scale / 2.0f, b = Height * iter->Scale / 2.0f;
+		pol = CRect( -a, -b, a, b );
+		pol << Rotate2( iter->Rotation ) << Translate2( iter->X, iter->Y ) << Rotate2( Rotation ) << Translate2( X, Y );
+
+		VertexUP< FVF_XYZ | FVF_TEX1 > *v = pol.GetVertexList();
+
+		v[0].Z() = v[1].Z() = v[2].Z() = v[3].Z() = 0.0f;
+
+		float _Width = iter->pImg->GetWidth(), _Height = iter->pImg->GetHeight();
+
+		v[0].SetUV< 0 >( iter->SrcRect.left / _Width, iter->SrcRect.top / _Height );
+		v[1].SetUV< 0 >( iter->SrcRect.right / _Width, iter->SrcRect.top / _Height );
+		v[2].SetUV< 0 >( iter->SrcRect.right / _Width, iter->SrcRect.bottom / _Height );
+		v[3].SetUV< 0 >( iter->SrcRect.left / _Width, iter->SrcRect.bottom / _Height );
+		TStage( 0 ).SetTexture( iter->pImg->m_Tex );
+		TStage( 0 ).SetState( TStage::COLOR_OP, TStage::OP_SELECTARG1 );
+		TStage( 0 ).SetState( TStage::COLOR_ARG1, TStage::ARG_TEXTURE );
+
+		Graphics.SetFVF( v );
+		Graphics.SetCullMode( 0 );
+
+		rd.RenderVertexUP( Render::PT_TRIANGLEFAN, v, 2 );
+	}
+}
+
+void CEnemy::Update()
+{
+	for( int i = 0; i < PolList.size(); ++i )
+	{
+		PolList[i] = Info.RcList[i];
+		PolList[i] << Rotate2( Rotation ) << Translate2( X, Y );
+	}
+	float a = ( m_Plane.X - X ), b = m_Plane.Y - Y;
+	X += a * Info.Velocity / ( sqrt( a * a + b * b ) + 1 );
+	Y += b * Info.Velocity / ( sqrt( a * a + b * b ) + 1 );
+	Rotation = atan2( b, a ) - 1.570796326795;
+	for( int i = 0; i < BulletFrame.size(); ++i )
+	{
+		BulletFrame[i]++;
+		const CBulletInfo &rInfo = Info.BulletInfo[i];
+		if( BulletFrame[i] >= rInfo.Interval )
+		{
+			CPoint2 p( rInfo.X, rInfo.Y );p << Rotate2( Rotation );
+			CBullet * pB = BM.AddBullet( rInfo, X + p.x, Y + p.y );
+			float ta = a - rInfo.X, tb = b - rInfo.Y;
+			if( rInfo.Type == CBulletInfo::AIMING )
+			{
+				pB->Rotation = atan2( tb, ta ) - 1.570796326795;
+				pB->m1 = ta / ( sqrt( ta * ta + tb * tb ) + 1 ) * rInfo.Velocity;
+				pB->m2 = tb / ( sqrt( ta * ta + tb * tb ) + 1 ) * rInfo.Velocity;
+			}
+			BulletFrame[i] = 0;
+		}
+	}
+}
+bool CEnemy::HitTest( const CPoint2 &p )
+{
+	BOOST_FOREACH( OneU::Polygon const &pol, PolList )
+	{
+		if( p ^ pol )
+			return true;
+	}
+	return false;
+}
+bool CEnemy::HitTest( const OneU::Polygon &p )
+{
+	BOOST_FOREACH( OneU::Polygon const &pol, PolList )
+	{
+		if( p ^ pol )
+			return true;
+	}
+	return false;
+}
+
+CBullet::CBullet( const CBulletInfo &Info, CBulletManager &BM, float x, float y )
+: CBulletPrototype( Info ), Info( Info ), BM( BM ), X( x ), Y( y ), Rotation( 0.0f ), Scale( 1.0f )
+{
+}
+void CBullet::Update()
+{
+	switch( Info.Type )
+	{
+	case CBulletInfo::AIMING:
+	case CBulletInfo::STRAIGHT:
+		X += m1;
+		Y += m2;
+		break;
+	}
+}
+bool CBullet::Hit( OneU::Polygon &pol )
+{
+	OneU::Polygon p = Info.HitRect;
+	float a = -( float )m_pImg->GetWidth() / 2.0f, b = -( float )m_pImg->GetHeight() / 2.0f;
+	p << Translate2( a, b ) << Scale2( Scale, Scale ) << Rotate2( Rotation ) << Translate2( X, Y );
+	return pol ^ p;
+}
+void CBulletManager::Update()
+{
+	for( std::list< CBullet >::iterator iter = BulletList.begin(); iter != BulletList.end(); )
+	{
+		iter->Update();
+		if( iter->X < -200 || iter->X > Mission_WHInfo.Width + 200 || iter->Y < -200 || iter->Y > Mission_WHInfo.Height + 200 )
+			BulletList.erase( iter++ );
+		else
+			++iter;
+	}
+	for( std::list< CBang >::iterator iter = BangList.begin(); iter != BangList.end(); )
+	{
+		iter->Frame++;
+		if( iter->Frame >= 4 )
+			BangList.erase( iter++ );
+		else
+			++iter;
+	}
+}
+void CBulletManager::Paint( DX::Render &rd )
+{
+	Polygon_t< VertexCt< FVF_XYZ | FVF_TEX1 > > pol;
+	Graphics.SetFVF( FVF_XYZ | FVF_TEX1 );
+	Graphics.SetCullMode( 0 );
+
+	TStage( 0 ).SetState( TStage::COLOR_OP, TStage::OP_SELECTARG1 );
+	TStage( 0 ).SetState( TStage::COLOR_ARG1, TStage::ARG_TEXTURE );
+	for( std::list< CBullet >::iterator iter = BulletList.begin(); iter != BulletList.end(); ++iter )
+	{
+		if( iter->m_pImg == NULL ) continue;
+		float Width = iter->m_pImg->GetWidth(), Height = iter->m_pImg->GetHeight();
+		float a = Width * iter->Scale / 2.0f, b = Height * iter->Scale / 2.0f;
+		pol = CRect( -a, -b, a, b );
+		pol << Scale2( iter->Scale, iter->Scale ) << Rotate2( iter->Rotation ) << Translate2( iter->X, iter->Y );
+
+		VertexUP< FVF_XYZ | FVF_TEX1 > *v = pol.GetVertexList();
+
+		v[0].Z() = v[1].Z() = v[2].Z() = v[3].Z() = 0.0f;
+
+		v[0].SetUV< 0 >( 0.0f, 0.0f );
+		v[1].SetUV< 0 >( 1.0f, 0.0f );
+		v[2].SetUV< 0 >( 1.0f, 1.0f );
+		v[3].SetUV< 0 >( 0.0f, 1.0f );
+
+		TStage( 0 ).SetTexture( iter->m_pImg->m_Tex );
+
+		rd.RenderVertexUP( Render::PT_TRIANGLEFAN, v, 2 );
+	}
+	for( std::list< CBang >::iterator iter = BangList.begin(); iter != BangList.end(); ++iter )
+	{
+		pol = CRect( -10, -10, 10, 10 );
+		pol << Scale2( iter->Scale, iter->Scale ) << Rotate2( iter->Rotation ) << Translate2( iter->X, iter->Y );
+
+		VertexUP< FVF_XYZ | FVF_TEX1 > *v = pol.GetVertexList();
+
+		v[0].Z() = v[1].Z() = v[2].Z() = v[3].Z() = 0.0f;
+
+		v[0].SetUV< 0 >( iter->Frame * 0.25f, 0.0f );
+		v[1].SetUV< 0 >( ( iter->Frame + 1 ) * 0.25f, 0.0f );
+		v[2].SetUV< 0 >( ( iter->Frame + 1 ) * 0.25f, 1.0f );
+		v[3].SetUV< 0 >( iter->Frame * 0.25f, 1.0f );
+
+
+		TStage( 0 ).SetTexture( iter->GetImage()->m_Tex );
+
+		rd.RenderVertexUP( Render::PT_TRIANGLEFAN, v, 2 );
+	}
+}
+
+void CBulletManager::HitPlane( CPlane &plane )
+{
+	for( std::list< CBullet >::iterator iter = BulletList.begin(); iter != BulletList.end(); )
+	{
+		if( iter->Hit( plane.GetHitPolygon() ) )
+		{
+			plane.Hp -= iter->Damage;
+			if( iter->GetBangImage() )
+			{
+				CBang a( *iter );
+				BangList.push_back( a );
+				BulletList.erase( iter++ );
+			}
+		}
+		else
+			++iter;
+	}
+}
+
+std::wstring strtowstr( const std::string &str )
+{
+	std::wstring wstr;wstr.resize( str.size() + 1 );
+	mbstowcs( const_cast< wchar_t * >( wstr.c_str() ), str.c_str(), str.size() );
+	return wstr;
+}

@@ -1,0 +1,64 @@
+#include "WindowsEnc.h"
+#include "GameLib.h"
+
+namespace OneU
+{
+	using DX::Graphics;
+	DX::Texture tex;
+	void OneUPreInitWin()
+	{
+		Onew_InitWin.iX = 0;
+		Onew_InitWin.iY = 0;
+		Onew_InitWin.iWidth = 10;
+		Onew_InitWin.iHeight = 10;
+		Onew_InitWin.bPopUp = true;
+		Onew_InitWin.pWndName = L"FullScreen Sample";
+	}
+	void OneUInit()
+	{
+		Graphics.PreInit();
+
+		DX::DisplayMode DM;
+
+		DM.Format = DX::PXLFMT_X8R8G8B8;
+		DM.Width = 800;
+		DM.Height = 600;
+		DM.RefreshRate = 60;
+
+		Graphics.InitFullScreen( &DM, GetWindow() );
+
+		CreateTextureFromFile( L"A.jpg", tex, 1, DX::PXLFMT_X8R8G8B8 );
+
+	}
+	void OneUMain()
+	{
+		Graphics.ClearTarget();
+		{
+			DX::Render rd;
+			DX::SpriteE::I.Begin();
+			DX::SpriteE::I.Draw( &tex, NULL, NULL, NULL );
+			DX::SpriteE::I.End();
+
+
+			DX::VertexUP< DX::FVF_XYZ | DX::FVF_DIFFUSE | DX::FVF_TEX1 >  v[4];
+			v[0].Diffuse() = v[1].Diffuse() = v[2].Diffuse() = v[3].Diffuse() = 0xffffffff;
+			v[0].SetPos( 0, 0, 0 );
+			v[0].SetUV< 0 >( 0.0f,0.0f );
+			v[1].SetPos( -0.5f, 0, 0 );
+			v[1].SetUV< 0 >( 0.0f, 1.0f );
+			v[2].SetPos( 0, 0.5f, 0 );
+			v[2].SetUV< 0 >( 1.0f, 1.0f );
+			v[3].SetPos( 0.5f, 0.5f, 0 );
+			v[3].SetUV< 0 >( 1.0f, 0.0f );
+
+			Graphics.SetFVF( v );
+			tex.Activate( 0 );
+			rd.RenderVertexUP( DX::Render::PT_TRIANGLEFAN, v, 2 );
+		}
+		Graphics.Present();
+	}
+	void OneUEnd()
+	{
+
+	}
+}
