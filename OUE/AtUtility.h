@@ -73,7 +73,7 @@ namespace OneU
 		}
 
 		template<class T>
-		inline T utoArg(value* v, uint i){
+		inline T utoArg(value* v, uint i){//@todo ²»ÄÜÓÃobj
 			if(i >= v->get<tuple>()->length())
 				ATOM_RAISE(L"too few arguments");
 			T ret;

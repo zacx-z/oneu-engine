@@ -8,7 +8,7 @@ Scene = {}
 frame = 0;
 
 function Scene:init()
-	self.a = Sprite(1, -100)
+	self.a = Sprite("../picture.png")
 	self.w = Waterfall();
 end
 

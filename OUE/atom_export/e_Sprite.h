@@ -39,13 +39,11 @@ namespace OneU
 				image_t a;
 				if(arg->get<tuple>()->get(0)->type() == T_STR)
 					a = GetVideo().loadImage(utoArg<String>(arg, 0).c_str());
-				else if(arg->get<tuple>()->get(0)->type() == T_OBJ)
-				{
-					obj* o = &utoArg<obj>(arg, 0);
-					value* t = ucall(o, L"_getNodePtr", NULL);
+				else {
+					obj* o = &ugetArg<obj>(arg, 0);
+					value* t = ucall(o, L"_getImagePtr", NULL);
 					a = (video::IImage*)*t->get<void*>();
 				}
-				else ATOM_RAISE(L"arguments 1 wrong");
 				_p = Sprite_create(a);
 
 				//可选参数z

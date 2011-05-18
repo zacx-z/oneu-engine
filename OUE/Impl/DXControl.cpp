@@ -29,9 +29,9 @@ THE SOFTWARE.
 namespace OneU
 {
 	void __DeviceDataHandler(dword scancode, dword status, dword, dword){
-		IEventDispatcher* pED = GetGame().getInputFocus();
+		IInputReceiver* pED = GetGame().getInputFocus();
 		if(pED){
-			pED->sendEvent(event::KEY, &event::KeyArgs((::WCHAR)scancode, (bool)(status & 0x80)));
+			pED->onKey(KeyEvent((::WCHAR)scancode, (bool)(status & 0x80)));
 		}
 	}
 	DXControl::DXControl()

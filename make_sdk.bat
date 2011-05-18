@@ -1,6 +1,6 @@
+@echo off
 echo "生成SDK文件，请确保release版已经编译。"
 pause
-@echo off
 for %%d in ("OUE", "Base") do (
 	mkdir "..\OneU SDK\include\"%%d
 	for %%f in (%%d/"*.h") do (

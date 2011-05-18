@@ -63,6 +63,7 @@ namespace OneU
 				DM.RefreshRate = 0;//use default
 				DX::Graphics.InitFullScreen(&DM, g_hWnd);
 			}
+			DX::Graphics.SetCullMode(0);
 		}
 		catch(Exception& e){
 			ONEU_RAISE(e);

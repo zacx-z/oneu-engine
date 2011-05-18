@@ -34,30 +34,15 @@ namespace OneU
 	{
 		//shell
 		class Shell//为什么INodeContainer放在第二位程序会崩溃。总之是不建议多重继承
-			: public video::INodeContainer, public IEventDispatcher
+			: public video::INodeContainer, public IInputReceiver
 		{
 			ILabel* m_pInput;
 			IShape* m_pBack;
 			String m_InputStr;
 			TextField* m_pTextField;
 			IShape* m_pTextBack;
+
 			String m_CommandOut;
-			class CharListener
-				: public IEventListener
-			{
-			public:
-				void onTrigger(pcwstr event, EventArgs* arg, IEventDispatcher* pID){
-					((Shell*)pID)->onChar(((event::CharArgs*)arg)->getCode());
-				}
-			};
-			class KeyListener
-				: public IEventListener
-			{
-			public:
-				void onTrigger(pcwstr event, EventArgs* arg, IEventDispatcher* pID){
-					//((Shell*)pID)->output(L"ok");
-				}
-			};
 			int frame;
 		public:
 			Shell(){
@@ -65,9 +50,6 @@ namespace OneU
 				m_pInput->setX(0);
 				m_pInput->setY(500);
 				m_pInput->setText(L">");
-
-				this->addEventListener(event::CHAR, ONEU_NEW(CharListener));
-				this->addEventListener(event::KEY, ONEU_NEW(KeyListener));
 
 				m_pBack = Shape_rect(800, 15);
 				m_pBack->setColor(color_t(20, 20, 50, 127));
@@ -150,7 +132,8 @@ namespace OneU
 				if(!_runCommand(str))
 					output(L"Can't find the Command.\n");
 			}
-			void onChar(wchar ch){
+			void onChar(CharEvent& event){
+				wchar ch = event.getCode();
 				switch(ch)
 				{
 				case L'\r':
@@ -185,7 +168,7 @@ namespace OneU
 			Watch* m_pWatch;
 
 			//input
-			IEventDispatcher* m_pLastED;
+			IInputReceiver* m_pLastED;
 			Shell* m_pShell;
 		public:
 			ShellController()
@@ -202,7 +185,7 @@ namespace OneU
 			}
 			~ShellController(){
 			}
-			void onTrigger(pcwstr event, EventArgs*, IEventDispatcher* source){
+			void onEvent(pcwstr event, EventArgs*, IEventDispatcher* source){
 				if(!m_pShell->visible && GetControl().keyRelease(OIK_SLASH)){
 					m_pWatch->visible = !m_pWatch->visible;
 					if(m_pWatch->visible)
