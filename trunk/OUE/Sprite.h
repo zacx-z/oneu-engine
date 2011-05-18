@@ -44,6 +44,7 @@ namespace OneU
 		: public video::INode
 	{
 	public:
+		virtual void setImage(image_t img) = 0;
 		virtual image_t getImage() = 0;
 		virtual void setX(float x) = 0;
 		virtual float getX() const = 0;

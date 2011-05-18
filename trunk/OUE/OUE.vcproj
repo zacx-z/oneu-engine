@@ -236,10 +236,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\EventDispatcher.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Game.h"
 				>
 			</File>

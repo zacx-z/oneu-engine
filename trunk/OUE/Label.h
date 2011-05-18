@@ -33,6 +33,8 @@ THE SOFTWARE.
 
 namespace OneU
 {
+	enum T_ALIGN_V{ T_TOP = 0, T_BOTTOM = 4, T_VCENTER = 8};
+	enum T_ALIGN_H{ T_LEFT = 0, T_RIGHT = 1, T_CENTER = 2 };
 	/* ----------------------------------------------------------------------------*/
 	/**
 	 * @brief ±Í«©
@@ -54,6 +56,7 @@ namespace OneU
 		virtual color_t getColor() = 0;
 		virtual void setAlpha(ubyte alpha) = 0;
 		ubyte getAlpha(){ return getColor().getAlpha(); }
+		virtual void setAlign(dword align) = 0;
 	};
 	/* ----------------------------------------------------------------------------*/
 	/**

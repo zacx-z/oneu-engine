@@ -78,3 +78,5 @@ namespace OneU
 		void setBlue(ubyte blue){ c = 0xffffff00 & c | blue; }
 	};
 }
+
+#include "Vector.h"

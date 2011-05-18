@@ -60,6 +60,8 @@ namespace OneU
 		void onActiveWindow(bool bActive);
 
 		void setWindowTitle(pcwstr title);
+		vector2i_t getWindowPos();
+		void setWindowPos(const vector2i_t& newPos);
 		float getFPS();
 		float getTimeInterval();
 

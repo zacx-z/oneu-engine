@@ -43,7 +43,7 @@ namespace OneU
 	Game_Win32::~Game_Win32(){
 		if(m_pScene != NULL){ m_pScene->destroy(); m_pScene = NULL;}
 		//GetAtom().unloadAllAtomLib();
-		Atom_destroy();
+		Atom_destroy();//@todo
 		if(m_pBroadcast != NULL) m_pBroadcast->sendEvent(event::DESTROY);
 		if(m_pControl != NULL){ m_pControl->destroy(); m_pControl = NULL;}
 		if(m_pStereo != NULL){ m_pStereo->destroy(); m_pStereo = NULL; }
@@ -62,7 +62,7 @@ namespace OneU
 		//如果想真正让系统模块销毁和建立的时候能够使用Atom库，则让Atom库先于系统模块建立。
 		//但在此处为其配置新的全局表，因为此后加入的表内符号可能涉及到系统资源，所以该全局表在系统模块销毁前销毁，并配置上旧的全局表。
 		//最后系统模块销毁后再销毁ATOM。这是添加一层的解决方案。
-		Atom_build();
+		Atom_build();//@todo
 
 		//设定好全局变量
 		g_hInstance = GetModuleHandle(NULL);
@@ -134,7 +134,7 @@ end:
 
 	void Game_Win32::onFrame(){
 		if(!m_bActive) return;
-		GetAtom().gc();
+		GetAtom().gc();//@todo
 
 		//计算FPS
 		++m_Frames;
@@ -168,6 +168,16 @@ end:
 		SetWindowTextW(g_hWnd,title);
 	}
 
+	vector2i_t Game_Win32::getWindowPos(){
+		RECT rc;
+		GetWindowRect(g_hWnd, &rc);
+		return vector2i_t(rc.left, rc.top);
+
+	}
+	void Game_Win32::setWindowPos(const vector2i_t& newPos){
+		SetWindowPos(g_hWnd, HWND_TOP, newPos.x, newPos.y, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
+	}
+
 	float Game_Win32::getFPS(){
 		return m_FPS;
 	}
@@ -176,10 +186,10 @@ end:
 	}
 
 	void Game_Win32::runShell( pcwstr command ){
-		m_pShell->runCommand(command);
+		if(m_pShell) m_pShell->runCommand(command);
 	}
 	void Game_Win32::output( pcwstr data ){
-		m_pShell->output(data);
+		if(m_pShell) m_pShell->output(data);
 	}
 
 	void Game_Win32::showInfo()
@@ -288,8 +298,8 @@ namespace OneU
 				break;
 			case WM_CHAR:
 				{
-					IEventDispatcher* pED = GetGame().getInputFocus();
-					if(pED) pED->sendEvent(event::CHAR, &event::CharArgs((::WCHAR)wParam));
+					IInputReceiver* pED = GetGame().getInputFocus();
+					if(pED) pED->onChar(CharEvent((::WCHAR)wParam));
 					break;
 				}
 			default:

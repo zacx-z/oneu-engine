@@ -43,6 +43,7 @@ namespace OneU
 			m_Mode(video::BM_NORMAL), m_CMode(video::CBM_ADD){}
 		void destroy(){ ONEU_DELETE(this);}
 
+		void setImage(image_t img){ m_Img = img; }
 		image_t getImage(){ return m_Img; }
 		void setX(float nx){ m_X = nx; m_bTransLatest = false;}
 		float getX() const { return m_X;}

@@ -44,7 +44,7 @@ namespace OneU
 	class IControl;
 	class IScene;
 	class IBroadcast;
-	class IEventDispatcher;
+	class IInputReceiver;
 
 	/* ----------------------------------------------------------------------------*/
 	/** 
@@ -75,7 +75,7 @@ namespace OneU
 		Factory<IStereo>::type m_StereoFactory;
 		Factory<IControl>::type m_ControlFactory;
 
-		IEventDispatcher* m_pInputFocus;
+		IInputReceiver* m_pInputFocus;
 	public:
 		IGame()
 			: m_pBroadcast(NULL), m_pVideo(NULL), m_pStereo(NULL), m_pControl(NULL), m_pScene(NULL),
@@ -218,6 +218,8 @@ namespace OneU
 		 */
 		/* ----------------------------------------------------------------------------*/
 		virtual void setWindowTitle(pcwstr title) = 0;
+		virtual vector2i_t getWindowPos() = 0;
+		virtual void setWindowPos(const vector2i_t& newPos) = 0;
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 获取当前FPS
@@ -244,8 +246,8 @@ namespace OneU
 		 * @return 旧的EventDispatcher。
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual IEventDispatcher* setInputFocus(IEventDispatcher* pED){
-			IEventDispatcher* ret = m_pInputFocus;
+		virtual IInputReceiver* setInputFocus(IInputReceiver* pED){
+			IInputReceiver* ret = m_pInputFocus;
 			m_pInputFocus = pED;
 			return ret;
 		}
@@ -256,7 +258,7 @@ namespace OneU
 		 * @return 被设为输入焦点的EventDispatcher，可能为NULL。
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual IEventDispatcher* getInputFocus(){ return m_pInputFocus; }
+		virtual IInputReceiver* getInputFocus(){ return m_pInputFocus; }
 
 		//tools
 		/* ----------------------------------------------------------------------------*/

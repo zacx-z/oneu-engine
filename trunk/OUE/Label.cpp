@@ -33,9 +33,10 @@ namespace OneU
 		float m_Width, m_Height, m_X, m_Y;
 		String m_Text;
 		color_t m_Color;
+		dword m_Align;
 	public:
 		Label_Impl(float Width, float Height, uint fontSize, pcwstr fontName)
-			: m_Width(Width), m_Height(Height), m_X(0.0f), m_Y(0.0f), m_Color(255, 255, 255)
+			: m_Width(Width), m_Height(Height), m_X(0.0f), m_Y(0.0f), m_Color(255, 255, 255), m_Align(0)
 		{
 			font.Create(fontSize, (uint)(fontSize * 0.4f), 1, 1, 0, fontName);
 		}
@@ -53,10 +54,19 @@ namespace OneU
 		color_t getColor(){ return m_Color; }
 		void setAlpha(ubyte alpha){ m_Color.setAlpha(alpha); }
 
+		void setAlign(dword align){
+			m_Align = align;
+		}
+
 		void paint(){
 			if(m_Text == L"") return;
 			GetVideo().setBlendMode(video::BM_NORMAL);
-			font.DrawText(m_Text.c_str(), (RECT*)&recti_t((int)m_X, (int)m_Y, (int)(m_X + m_Width), (int)(m_Y + m_Height)), m_Color);
+			dword flag = DT_EXPANDTABS;
+			if(m_Align & T_RIGHT) flag |= DT_RIGHT;
+			else if(m_Align & T_CENTER) flag |= DT_CENTER;
+			if(m_Align & T_BOTTOM) flag |= DT_BOTTOM;
+			else if(m_Align & T_VCENTER) flag |= DT_VCENTER;
+			font.DrawText(m_Text.c_str(), (RECT*)&recti_t((int)m_X, (int)m_Y, (int)(m_X + m_Width), (int)(m_Y + m_Height)), m_Color, flag);
 		}
 		void describe(String& buffer, int depth){ buffer.append(L"<label>\n"); }
 	};
