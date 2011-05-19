@@ -74,9 +74,9 @@ namespace OneU
 
 		m_DeviceSize = vector2u_t(width, height);
 
-		m_pRoot = ONEU_NEW(INodeContainer);
+		m_pRoot = ONEU_NEW INodeContainer;
 
-		m_pRoot->addChild(ONEU_NEW(_Video_ClearNode), -100);
+		m_pRoot->addChild(ONEU_NEW _Video_ClearNode, -100);
 
 		//Atom
 		GetAtom().getSystemEnv()->createSymbol(L"Direct3D9_", atom::makeValue((void*)DX::_pD3D));
@@ -144,7 +144,7 @@ namespace OneU
 		_DXImageTag** p = m_ImageTable.insert(filename);
 		if(p != NULL){//didn't find
 			*p = NULL;
-			*p = ONEU_NEW(_DXImageTag);
+			*p = new _DXImageTag;
 			_DXImageTag* pTag = *p;
 			pTag->ref = 1;
 			pTag->video = this;
@@ -168,7 +168,7 @@ namespace OneU
 	}
 
 	image_t DXVideo::loadImage(pcwstr filename){
-		DXImage* p = ONEU_NEW(DXImage(_getDXImageTag(filename)));
+		DXImage* p = ONEU_NEW DXImage(_getDXImageTag(filename));
 		return p;
 	}
 
@@ -391,7 +391,7 @@ namespace OneU
 
 	DXVideo::~DXVideo(){
 		try{
-			if(m_pRoot != NULL){ ONEU_DELETE(m_pRoot); m_pRoot = NULL; }
+			if(m_pRoot != NULL){ ONEU_DELETE m_pRoot; m_pRoot = NULL; }
 			DX::Graphics.Destroy();
 		}
 		catch(Exception& e){
@@ -402,9 +402,6 @@ namespace OneU
 		}
 	}
 
-	void DXVideo::destroy(){
-		ONEU_DELETE(this);
-	}
 
 
 	//DXImage
@@ -412,20 +409,17 @@ namespace OneU
 	DXImage::~DXImage(){
 		if(--m_pTag->ref == 0){
 			m_pTag->video->m_ImageTable.erase(m_pTag->it);
-			ONEU_DELETE(m_pTag);
+			delete m_pTag;
 		}
 	}
-	void DXImage::destroy(){
-		ONEU_DELETE(this);
-	}
-
+	
 	uint DXImage::addRef(){
 		return ++m_ref;
 	}
 	uint DXImage::release(){
 		--m_ref;
 		if(m_ref == 0){
-			this->destroy();
+			ONEU_DELETE this;
 			return 0;
 		}
 		return m_ref;

@@ -75,6 +75,6 @@ namespace OneU
 	}
 
 	ONEU_API IShape* Shape_rect(float width, float height){
-		return ONEU_NEW(Shape_Rect(width, height));
+		return ONEU_NEW Shape_Rect(width, height);
 	}
 }

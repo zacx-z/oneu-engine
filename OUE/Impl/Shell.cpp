@@ -45,7 +45,7 @@ namespace OneU
 
 		Shell* Shell_config(){
 			//Ìí¼ÓWatch
-			ShellController* p = ONEU_NEW(ShellController);
+			ShellController* p = ONEU_NEW ShellController;
 			s_pShell = p->getShell();
 			GetBroadcast().addEventListener(event::ENTER_FRAME, p);
 

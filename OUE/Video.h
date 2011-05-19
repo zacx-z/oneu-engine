@@ -183,7 +183,7 @@ namespace OneU
 				it->child = child;
 				it->z = z;
 				if(tag == NULL)it->tag = NULL;
-				else it->tag = ONEU_NEW(String(tag));
+				else it->tag = ONEU_NEW_T(String(tag));
 
 				child->m_pParent = this;
 				child->m_It = it;
@@ -211,8 +211,8 @@ namespace OneU
 			}
 			virtual ~INodeContainer(){
 				for(ListType::iterator it = m_Children.begin(); it != m_Children.end();){
-					if(it->tag != NULL) ONEU_DELETE(it->tag);
-					(it++)->child->destroy();//调用destroy时会使node detach，进而删除it所指元素。所以使用这种写法避免迭代器失效造成的问题。
+					if(it->tag != NULL) ONEU_DELETE_T(it->tag);
+					ONEU_DELETE (it++)->child;//调用destroy时会使node detach，进而删除it所指元素。所以使用这种写法避免迭代器失效造成的问题。
 				}
 			}
 		};
@@ -235,7 +235,6 @@ namespace OneU
 			IRenderScene(){}
 			friend class IVideo;
 		public:
-			void destroy(){ ONEU_DELETE(this); }
 			void describe(String& buffer, int depth){
 				buffer.append(L"<render scene>");
 				INodeContainer::describe(buffer, depth);
@@ -507,7 +506,7 @@ namespace OneU
 		 * @returns 新的渲染场景
 		 */
 		/* ----------------------------------------------------------------------------*/
-		video::IRenderScene* createRenderScene(){ return ONEU_NEW(video::IRenderScene);}
+		video::IRenderScene* createRenderScene(){ return ONEU_NEW video::IRenderScene;}
 		//@}
 		
 		//others

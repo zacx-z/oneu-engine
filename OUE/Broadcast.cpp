@@ -35,13 +35,9 @@ namespace OneU
 		//	msg_pool.append(message);msg_pool.append('\n');
 		//}
 		//pcwstr _getMessagePool(){ return msg_pool.c_str(); }
-		void destroy();
 	};
-	void Broadcast_Impl::destroy(){
-		ONEU_DELETE(this);
-	}
 
 	ONEU_API IBroadcast* BroadCast_create(){
-		return ONEU_NEW(Broadcast_Impl);
+		return ONEU_NEW Broadcast_Impl;
 	}
 }

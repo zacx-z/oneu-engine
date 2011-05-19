@@ -42,7 +42,7 @@ namespace OneU
 				m_pText = Label_create(width, height, fontsize, fontname);
 			}
 			~TextField(){
-				m_pText->destroy();
+				ONEU_DELETE m_pText;
 			}
 			void setPos(int i){
 				pos = i;
@@ -111,7 +111,7 @@ namespace OneU
 				m_pBack->setX(100);m_pBack->setY(50);
 				m_pBack->setColor(color_t(127, 127, 127, 127));
 
-				m_pText = ONEU_NEW(TextField(500, 400, 15));
+				m_pText = ONEU_NEW TextField(500, 400, 15);
 				m_pText->setX(150);m_pText->setY(80);
 				m_pText->setMaxRows(30);
 
@@ -177,7 +177,6 @@ namespace OneU
 					}
 				}
 			}
-
 		};
 	}
 }

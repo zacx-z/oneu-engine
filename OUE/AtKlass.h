@@ -191,11 +191,11 @@ namespace OneU{
 		//Ç°ÖÃÉùÃ÷
 		template<class T>
 		T* __klass_creator(value* arg){
-			return ONEU_NEW(T(arg));
+			return ONEU_NEW T(arg);
 		}
 		template<class T>
 		void __klass_destroyer(T* p){
-			ONEU_DELETE(p);
+			ONEU_DELETE p;
 		}
 
 		/* ----------------------------------------------------------------------------*/

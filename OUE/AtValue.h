@@ -181,7 +181,7 @@ namespace OneU
 				if(_type_id != type){
 					_destroy_value();
 					_type_id = type;
-					_ptr = ONEU_NEW(T(v));
+					_ptr = ONEU_NEW_T(T(v));
 				}
 				else
 					*((T*)_ptr) = v;
@@ -190,7 +190,7 @@ namespace OneU
 			void _create_value(dword type){
 				if(_type_id != type){
 					_destroy_value();
-					_ptr = ONEU_NEW(T);
+					_ptr = ONEU_NEW_T(T);
 					_type_id = type;
 				}
 			}
@@ -365,25 +365,25 @@ namespace OneU
 					ONEU_DEALLOC(_ptr);
 					break;
 				case T_STR:
-					ONEU_DELETE((String*)_ptr);
+					ONEU_DELETE_T((String*)_ptr);
 					break;
 				case T_TUPLE:
-					ONEU_DELETE((tuple*)_ptr);
+					ONEU_DELETE_T((tuple*)_ptr);
 					break;
 				case T_FUNC:
-					ONEU_DELETE((function*)_ptr);
+					ONEU_DELETE_T((function*)_ptr);
 					break;
 				case T_ENV:
-					ONEU_DELETE((env*)_ptr);
+					ONEU_DELETE_T((env*)_ptr);
 					break;
 				case T_KLS:
-					ONEU_DELETE((klass*)_ptr);
+					ONEU_DELETE_T((klass*)_ptr);
 					break;
 				case T_OBJ:
-					ONEU_DELETE((obj*)_ptr);
+					ONEU_DELETE_T((obj*)_ptr);
 					break;
 				case T_OBJFUNC:
-					ONEU_DELETE((obj_function*)_ptr);
+					ONEU_DELETE_T((obj_function*)_ptr);
 					break;
 				default:
 					ONEU_ENSURE(0);
@@ -432,7 +432,7 @@ namespace OneU
 	}
 
 	/*@cond INTERNAL*/
-	atom::value* IAtom::_make_value(){ atom::value* ret = ONEU_NEW(atom::value); unacquireValue(ret); return ret;}
+	atom::value* IAtom::_make_value(){ atom::value* ret = ONEU_NEW_T(atom::value); unacquireValue(ret); return ret;}
 	/*@endcond*/
 
 	List<atom::value*>::iterator& IAtom::__value_gcID(atom::value* v){ return v->gcID;}

@@ -55,7 +55,7 @@ namespace OneU
 	}	
 	ONEU_API void Game_destroy(){
 		if(s_pGame != NULL)
-			s_pGame->destroy();
+			ONEU_DELETE s_pGame;
 		s_pGame = NULL;
 		//销毁日志系统	其中Logger在Game_build中初始化
 		Logger_destroy();
@@ -73,20 +73,20 @@ namespace OneU
 
 	ONEU_API IGame* Game_create(){
 #ifdef _WIN32
-		return ONEU_NEW(Game_Win32);
+		return ONEU_NEW Game_Win32;
 #endif
 	}
 	ONEU_API IVideo* Video_create(){
 #ifdef __ONEU_USE_DIRECT3D
-		return ONEU_NEW(DXVideo);
+		return ONEU_NEW DXVideo;
 #endif
 	}
 	ONEU_API IStereo* Stereo_create(){
-		return ONEU_NEW(DXStereo);
+		return ONEU_NEW DXStereo;
 	}
 	ONEU_API IControl* Control_create(){
 #ifdef __ONEU_USE_DIRECTINPUT
-		return ONEU_NEW(DXControl);
+		return ONEU_NEW DXControl;
 #endif
 	}
 }

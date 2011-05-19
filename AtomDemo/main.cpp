@@ -17,10 +17,10 @@ public:
 		else if(uArgN(arg) == 4)
 			c = color_t(utoArg<int>(arg, 0), utoArg<int>(arg, 1), utoArg<int>(arg, 2), utoArg<int>(arg, 3));
 
-		v = ONEU_NEW(Waterfall(c));
+		v = ONEU_NEW Waterfall(c);
 	}
 	~e_Waterfall(){
-		v->destroy();
+		ONEU_DELETE v;
 	}
 };
 

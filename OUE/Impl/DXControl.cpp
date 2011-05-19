@@ -31,7 +31,10 @@ namespace OneU
 	void __DeviceDataHandler(dword scancode, dword status, dword, dword){
 		IInputReceiver* pED = GetGame().getInputFocus();
 		if(pED){
+#pragma warning(push)
+#pragma warning(disable :4800)
 			pED->onKey(KeyEvent((::WCHAR)scancode, (bool)(status & 0x80)));
+#pragma warning(pop)
 		}
 	}
 	DXControl::DXControl()
@@ -49,9 +52,6 @@ namespace OneU
 		m_KB.Destroy();
 		m_Mouse.Destroy();
 		DX::Input.Destroy();
-	}
-	void DXControl::destroy(){
-		ONEU_DELETE(this);
 	}
 	void DXControl::update(){
 		m_KB.Read(m_KB_StateBuf[m_curStateID]);

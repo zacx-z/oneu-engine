@@ -34,6 +34,7 @@ namespace OneU
 {
 	//Interface must derive from this class
 	class Interface
+		: public AllocatedObject
 	{
 		Interface(const Interface&);
 		Interface& operator=(const Interface&);
@@ -41,9 +42,6 @@ namespace OneU
 		virtual ~Interface(){}
 	public:
 		Interface(){}
-		//自删除函数
-		//包括删除内存和调用析构函数
-		virtual void destroy(){ ONEU_DELETE(this);}
 	};
 
 	//主要用于容器 保证被正确删除
@@ -63,7 +61,7 @@ namespace OneU
 			rhs.m_h = NULL;
 		}
 		~InterfacePtr(){
-			if(m_h != NULL)m_h->destroy();
+			if(m_h != NULL) ONEU_DELETE m_h;
 		}
 		InterfacePtr& operator=(const InterfacePtr& rhs){
 			m_h = rhs.m_h;

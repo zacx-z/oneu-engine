@@ -44,7 +44,7 @@ namespace OneU
 
 	extern "C" ONEU_BASE_API void Logger_destroy(){
 		if(_Logger_pInstance != NULL){
-			_Logger_pInstance->destroy();
+			ONEU_DELETE _Logger_pInstance;
 			_Logger_pInstance = NULL;
 		}
 	}

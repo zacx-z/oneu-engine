@@ -36,7 +36,6 @@ namespace OneU
 	public:
 		DXControl();
 		~DXControl();
-		virtual void destroy();
 
 		void update();
 		bool keyIsDown(dword scancode);

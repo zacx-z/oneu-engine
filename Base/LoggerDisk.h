@@ -52,7 +52,6 @@ namespace OneU
 		bool m_bValid;
 
 	public:
-		void destroy();
 
 		~LoggerDisk(void);
 		void flush();

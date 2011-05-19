@@ -23,12 +23,8 @@ THE SOFTWARE.
 #include "LoggerNull.h"
 namespace OneU
 {
-	void LoggerNull::destroy(){
-		ONEU_DELETE(this);
-	}
-
 	ILogger* LoggerNull::__new(){
-		return ONEU_NEW(LoggerNull());
+		return ONEU_NEW LoggerNull();
 	}
 
 	extern "C" ONEU_BASE_API ILogger* LoggerNull_Factory(){

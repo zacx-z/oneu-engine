@@ -42,7 +42,7 @@ public:
 			sp->setY(sp->getY() + x.v);
 			sp->setAlpha(sp->getAlpha() - 1);
 			if(sp->getAlpha() <= 0){
-				it->sp->destroy();
+				ONEU_DELETE it->sp;
 				spList.erase(it++);
 			}
 			else ++it;
@@ -60,6 +60,6 @@ public:
 	}
 	~Waterfall(){
 		for(List<asprite>::iterator it = spList.begin(); it != spList.end(); ++it)
-			it->sp->destroy();
+			ONEU_DELETE it->sp;
 	}
 };
