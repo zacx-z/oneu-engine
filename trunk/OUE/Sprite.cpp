@@ -41,7 +41,6 @@ namespace OneU
 			: m_Img(img), color(0, 0, 0), m_X(0.0f), m_Y(0.0f), m_Rotation(0.0f),
 			m_ScaleX(1.0f), m_ScaleY(1.0f), m_CenterX(0.0f), m_CenterY(0.0f), m_bTransLatest(false),
 			m_Mode(video::BM_NORMAL), m_CMode(video::CBM_ADD){}
-		void destroy(){ ONEU_DELETE(this);}
 
 		void setImage(image_t img){ m_Img = img; }
 		image_t getImage(){ return m_Img; }
@@ -96,6 +95,6 @@ namespace OneU
 
 	ONEU_API ISprite* Sprite_create(image_t& img)
 	{
-		return ONEU_NEW(Sprite_Impl(img));
+		return ONEU_NEW Sprite_Impl(img);
 	}
 }

@@ -29,11 +29,11 @@ namespace OneU
 	static Atom_Impl* s_pAtom = NULL;
 
 	ONEU_API void Atom_build(){
-		s_pAtom = ONEU_NEW(Atom_Impl);
+		s_pAtom = ONEU_NEW Atom_Impl;
 		s_pAtom->init();
 	}
 	ONEU_API void Atom_destroy(){
-		if(s_pAtom != NULL){ ONEU_DELETE(s_pAtom); s_pAtom = NULL; }
+		if(s_pAtom != NULL){ ONEU_DELETE s_pAtom; s_pAtom = NULL; }
 	}
 	ONEU_API IAtom& GetAtom(){ return *s_pAtom; }
 
@@ -47,11 +47,11 @@ namespace OneU
 		system_env = system_env_v->get<atom::env>();
 
 		//³õÊ¼»¯½âÊÍÆ÷
-		m_pInterpreter[L_LUA] = ONEU_NEW(atom::LuaInterpreter);
+		m_pInterpreter[L_LUA] = ONEU_NEW atom::LuaInterpreter;
 	}
 
 	Atom_Impl::~Atom_Impl(){
-		m_pInterpreter[L_LUA]->destroy();
+		ONEU_DELETE m_pInterpreter[L_LUA];
 
 		global_env_v->unacquire();
 		system_env_v->unacquire();
@@ -61,7 +61,7 @@ namespace OneU
 
 	void Atom_Impl::gc(){
 		for(gc_list_t::iterator it = gc_list.begin(); it != gc_list.end(); ++it){
-			ONEU_DELETE(*it);
+			ONEU_DELETE_T(*it);
 		}
 		gc_list.clear();
 	}
@@ -198,7 +198,7 @@ namespace OneU
 	atom::IInterpreter* Atom_Impl::createInterpreter( LANGUAGE language )
 	{
 		if(language == L_LUA){
-			return ONEU_NEW(atom::LuaInterpreter);
+			return ONEU_NEW atom::LuaInterpreter;
 		}
 		return NULL;
 	}

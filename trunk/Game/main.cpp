@@ -19,7 +19,7 @@ public:
 	}
 	~SingleScene(){
 		m_Ip->execWithScene(L"Scene:destroy()", this);
-		m_Ip->destroy();
+		ONEU_DELETE m_Ip;
 	}
 };
 
@@ -28,6 +28,6 @@ extern "C" int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, ::LP
 	IGame& game = GetGame();
 	game.init(L"OneU Engine", 800, 600, true);
 
-	game.replaceScene(ONEU_NEW(SingleScene));
+	game.replaceScene(ONEU_NEW SingleScene);
 	return game.run();
 }

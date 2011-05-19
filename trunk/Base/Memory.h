@@ -100,23 +100,23 @@ namespace OneU
 }
 
 //comment会被记录到内存块中
+inline void* operator new(size_t count, OneU::IAllocator* allocator, int/*目前用以区分AllocatedObject的new的原型 避免笔误*/, const char* filename, const int Line, const OneU::wchar* comment = NULL){
+	return allocator->alloc(count, filename, Line, comment);
+}
+//comment会被记录到内存块中
 inline void* operator new[](size_t count, OneU::IAllocator* allocator, const char* filename, const int Line, int/*防止系统选择operator new函数而不是operator new[]*/, const OneU::wchar* comment = NULL){
 	size_t* p = (size_t*)allocator->alloc(count + sizeof(size_t), filename, Line, comment);
 
 	*p = count;
 	return ++p;
 }
-//comment会被记录到内存块中
-inline void* operator new(size_t count, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment = NULL){
-	return allocator->alloc(count, filename, Line, comment);
-}
 
 //见effective c++ #52
-inline void operator delete(void* _ptr, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment){
+inline void operator delete(void* _ptr, OneU::IAllocator* allocator, int, const char* filename, const int Line, const OneU::wchar* comment){
 	allocator->dealloc(_ptr);
 }
 //见effective c++ #52
-inline void operator delete[](void* _ptr, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment){
+inline void operator delete[](void* _ptr, OneU::IAllocator* allocator, const char* filename, const int Line, int, const OneU::wchar* comment){
 	allocator->dealloc((size_t*)_ptr - 1);
 }
 
@@ -144,11 +144,24 @@ namespace OneU
 /**
  * @brief new宏
  *
- * 使用ONEU内存分配器单件创建对象。
- * 使用该宏创建的对象可以跨dll销毁。
+ * 创建AllocatedObject（包括Interface）时，使用该宏而非new可以在Debug模式下追踪其内存。
  */
 /* ----------------------------------------------------------------------------*/
-#define ONEU_NEW(v) new(&OneU::GetAllocator(), __FILE__, __LINE__) v
+//使用ONEU内存分配器单件创建对象。
+//使用该宏创建的对象可以跨dll销毁。
+#define ONEU_NEW new(&OneU::GetAllocator(), __FILE__, __LINE__)
+#define ONEU_DELETE delete
+
+
+/* ----------------------------------------------------------------------------*/
+/**
+ * @brief 类型new宏
+ *
+ * 创建原生类型，非多继承类型可用该宏。该宏使用内存分配器，保证内存分配在同一个DLL内。
+ * 使用ONEU_DELETE_T删除。
+ */
+/* ----------------------------------------------------------------------------*/
+#define ONEU_NEW_T(v) new(&OneU::GetAllocator(), int(), __FILE__, __LINE__) v
 
 /* ----------------------------------------------------------------------------*/
 /**
@@ -160,16 +173,16 @@ namespace OneU
 #define ONEU_NEW_C(v, comment) new(&OneU::GetAllocator(), __FILE__, __LINE__, c) v
 //使用ONEU内置的内存池创建数组
 //不能直接用内存池函数释放 必须调用ONEU_DELETE宏
-#define ONEU_NEW_ARRAY(v) new(&OneU::GetAllocator(), __FILE__, __LINE__, int(), NULL) v
-#define ONEU_NEW_ARRAY_C(v) new(&OneU::GetAllocator(), __FILE__, __LINE__, int(), c) v
+#define ONEU_NEW_ARRAY_T(v) new(&OneU::GetAllocator(), __FILE__, __LINE__, int(), NULL) v
+#define ONEU_NEW_ARRAY_T_C(v) new(&OneU::GetAllocator(), __FILE__, __LINE__, int(), c) v
 
 /* ----------------------------------------------------------------------------*/
 /**
  * @brief delete宏
  */
 /* ----------------------------------------------------------------------------*/
-#define ONEU_DELETE(v) _doDelete(v, &OneU::GetAllocator(), __FILE__, __LINE__)
-#define ONEU_DELETE_ARRAY(v) _doDeleteArray(v, &OneU::GetAllocator(), __FILE__, __LINE__)
+#define ONEU_DELETE_T(v) _doDelete(v, &OneU::GetAllocator(), __FILE__, __LINE__)
+#define ONEU_DELETE_ARRAY_T(v) _doDeleteArray(v, &OneU::GetAllocator(), __FILE__, __LINE__)
 
 /* ----------------------------------------------------------------------------*/
 /**
@@ -192,10 +205,37 @@ namespace OneU
 
 namespace OneU
 {
+	class AllocatedObject{
+	public:
+		void* operator new(size_t count, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment = NULL){
+			return allocator->alloc(count, filename, Line, comment);
+		}
+		void* operator new(size_t count){
+			return GetAllocator().alloc(count);
+		}
+		void operator delete(void* _ptr, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment){
+			GetAllocator().dealloc(_ptr);
+		}
+		void operator delete(void* _ptr){
+			GetAllocator().dealloc(_ptr);
+		}
+		void* operator new[](size_t count, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment = NULL){
+			return allocator->alloc(count, filename, Line, comment);
+		}
+		void* operator new[](size_t count){
+			return GetAllocator().alloc(count);
+		}
+		void operator delete[](void* _ptr){
+			GetAllocator().dealloc(_ptr);
+		}
+		void operator delete[](void* _ptr, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment){
+			GetAllocator().dealloc(_ptr);
+		}
+	};
 	/* ----------------------------------------------------------------------------*/
 	/**
 	 * @brief 自动指针
-	 * 支持ONEU_NEW创建的东西
+	 * 支持ONEU_NEW_T
 	 */
 	/* ----------------------------------------------------------------------------*/
 	template<class T>
@@ -218,7 +258,7 @@ namespace OneU
 			rhs._p = NULL;
 		}
 		~AutoPtr(){
-			if(_p != NULL) ONEU_DELETE(_p);
+			if(_p != NULL) ONEU_DELETE_T(_p);
 		}
 		T* operator->(){ return _p; }
 		T& operator*(){ return *_p; }

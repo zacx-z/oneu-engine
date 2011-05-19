@@ -145,7 +145,7 @@ namespace OneU
 				return makeValue((int)_p->getColorBlendMode());
 			}
 			~e_Sprite(){
-				_p->destroy();
+				ONEU_DELETE _p;
 			}
 		};
 		inline void export_Sprite(){

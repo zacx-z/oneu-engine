@@ -40,7 +40,7 @@ namespace OneU
 		LoggerNull(){};
 	public:
 		virtual ~LoggerNull(){}
-		void destroy();
+		
 
 		virtual void flush(){}
 		virtual void write( pcwstr lpstrLog ){}

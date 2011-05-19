@@ -49,9 +49,6 @@ namespace OneU
 		void init(pcwstr WindowName, uint width, uint height, bool bWindowed);
 		int run();
 		void quit();
-		virtual void destroy(){
-			ONEU_DELETE(this);
-		}
 
 
 		IScene* replaceScene(IScene* newscene);

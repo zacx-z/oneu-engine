@@ -59,11 +59,12 @@ namespace OneU
 		 * 任何想要导出的Atom类要派生自该类。
 		 */
 		/* ----------------------------------------------------------------------------*/
-		class exported{};
+		class exported : public AllocatedObject{};
 
 		class IInterpreter;
 	}
 	class IAtom
+		: public Interface
 	{
 	public:
 		/* ----------------------------------------------------------------------------*/

@@ -53,7 +53,7 @@ namespace OneU
 				return NULL;
 			block_info newb;
 			newb.ptr = p;
-			newb.line = 0;
+			newb.line = -1;
 			block_list.push_front(newb);
 
 			new (p) block_list_t::iterator();

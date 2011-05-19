@@ -240,10 +240,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Document\OldPage.h"
-				>
-			</File>
-			<File
 				RelativePath=".\OS.h"
 				>
 			</File>
@@ -470,6 +466,10 @@
 		</File>
 		<File
 			RelativePath=".\Interface.txt"
+			>
+		</File>
+		<File
+			RelativePath=".\Document\OldPage.h"
 			>
 		</File>
 		<File

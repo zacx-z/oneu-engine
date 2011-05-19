@@ -41,14 +41,14 @@ namespace OneU
 namespace OneU
 {
 	Game_Win32::~Game_Win32(){
-		if(m_pScene != NULL){ m_pScene->destroy(); m_pScene = NULL;}
+		if(m_pScene != NULL){ ONEU_DELETE m_pScene; m_pScene = NULL;}
 		//GetAtom().unloadAllAtomLib();
 		Atom_destroy();//@todo
 		if(m_pBroadcast != NULL) m_pBroadcast->sendEvent(event::DESTROY);
-		if(m_pControl != NULL){ m_pControl->destroy(); m_pControl = NULL;}
-		if(m_pStereo != NULL){ m_pStereo->destroy(); m_pStereo = NULL; }
-		if(m_pVideo != NULL){ m_pVideo->destroy(); m_pVideo = NULL;}
-		if(m_pBroadcast != NULL){ m_pBroadcast->destroy(); m_pBroadcast = NULL;}
+		if(m_pControl != NULL){ ONEU_DELETE m_pControl; m_pControl = NULL;}
+		if(m_pStereo != NULL){ ONEU_DELETE m_pStereo; m_pStereo = NULL; }
+		if(m_pVideo != NULL){ ONEU_DELETE m_pVideo; m_pVideo = NULL;}
+		if(m_pBroadcast != NULL){ ONEU_DELETE m_pBroadcast; m_pBroadcast = NULL;}
 	}
 	void Game_Win32::init(pcwstr WindowName, uint width, uint height, bool bWindowed){
 		//初始化随机种子

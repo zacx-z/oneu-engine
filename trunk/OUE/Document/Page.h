@@ -111,7 +111,7 @@ namespace OneU{
  *	Game_build(Game_create);
  *	IGame* game = GetGame();
  *	game->init(L"Hello World", 800, 600, true);
- *	game->replaceScene(ONEU_NEW(HelloScene));
+ *	game->replaceScene(ONEU_NEW HelloScene);
  *	return game->run();
  * }
  * @endcode
@@ -168,7 +168,7 @@ namespace OneU{
  * @endcode
  * 试试在HelloScene的构造函数里加入如下代码：
  * @code
- * getRenderScene().addChild(ONEU_NEW(BlinkSprite(GetVideo().loadImage(L"picture.png"))), 1);
+ * getRenderScene().addChild(ONEU_NEW BlinkSprite(GetVideo().loadImage(L"picture.png")), 1);
  * @endcode
  * 编译运行，picture.png显示在左上角100 * 100的矩形内。\n
  * 重写@ref video::INode::paint函数，在函数里编写渲染元素渲染时的所需的操作，当INode的成员visible为true时，该函数会在每一帧被调用。\n
@@ -232,11 +232,9 @@ namespace OneU{
  * 只有接口类和工厂函数暴露给外部程序，而新类隐藏起来。
  * 
  * @section section_principles 代码编写原则和风格
- *  - 跨dll对象及变量使用ONEU_NEW和ONEU_DELETE实现内存分配和回收（为避免麻烦，可统一使用这个）。
  *  - 命名采用Java代码风格。单词开头大写，单词之间无字符连接。成员函数第一个单词小写。
  *  - 类和结构体声明两个括号各占一行。函数声明第一个括号与函数头保持在同一行。
  *  - 工厂函数命名Klass_create。从工厂函数创建单件（或者其他）Klass_build，销毁单件Klass_destroy。
- *  - 在本版本中，禁止客户delete接口。应调用destroy，表示删除自身（其中调用析构函数）。
  *  - 名字前面有双下划线的为非常底层的符号，严禁客户调用。
  *  - 名字前有单下划线的为较底层的符号，使用起来需要谨慎但会比较高效。
  *  - 文件路径使用正斜杠。
@@ -247,6 +245,11 @@ namespace OneU{
  *  - 不使用C++异常处理——不让异常处理跨越dll。严重异常可使用ONEU_RAISE结束程序。
  *  - operator new和operator delete重载需谨慎。
  *  - 谨慎使用全局变量，原则上只有Allocator单件被创建了以后其他类的实例才能够被创建，因此不允许任意定义全局变量。
+ *  .
+ * @section section_memory 内存管理策略
+ *  - 派生自AllocatedObject的对象可以被直接管理内存（使用类属new等）。可以使用ONEU_NEW代替NEW来实现追踪内存（否则无法得知其语句的文件和行数等）。
+ *  - 原生类型可以使用ONEU_NEW_T（以及ONEU_NEW_ARRAY_T），会使用默认内存池管理内存（单继承对象实质也能使用，不过不建议，最好派生自AllocatedObject）。
+ *  - C++默认new依然有效，采用new处理原生类型或者普通对象依然是默认行为。
  *  .
  */
 

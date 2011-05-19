@@ -54,7 +54,7 @@ namespace OneU
 		video::IRenderScene* m_pRenderScene;
 	public:
 		IScene(){ m_pRenderScene = GetVideo().createRenderScene(); }
-		~IScene(){ m_pRenderScene->destroy(); }
+		~IScene(){ ONEU_DELETE m_pRenderScene; }
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief ¸üÐÂ³¡¾°

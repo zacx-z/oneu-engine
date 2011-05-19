@@ -48,7 +48,6 @@ namespace OneU
 	public:
 		DXVideo();
 		~DXVideo();
-		void destroy();
 
 		LPCTSTR getName(){ return L"OneU D3D Video 1.0"; }
 
@@ -121,7 +120,6 @@ namespace OneU
 		friend class DXVideo;
 	public:
 		~DXImage();
-		void destroy();
 
 		uint addRef();
 		uint release();

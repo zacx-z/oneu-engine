@@ -49,10 +49,6 @@ namespace OneU
 		fclose(m_pLog);
 	}
 
-	void LoggerDisk::destroy(){
-		ONEU_DELETE(this);
-	}
-
 	void LoggerDisk::write(pcwstr lpwstrMsg ){
 		//缓冲处理的写信息
 		ASSERT(this);
@@ -111,7 +107,7 @@ namespace OneU
 
 	ILogger* LoggerDisk::__new()
 	{
-		return ONEU_NEW(LoggerDisk());
+		return ONEU_NEW LoggerDisk();
 	}
 
 	extern "C" ONEU_BASE_API ILogger* LoggerDisk_Factory()

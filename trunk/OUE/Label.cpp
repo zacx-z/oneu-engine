@@ -72,7 +72,7 @@ namespace OneU
 	};
 
 	ONEU_API ILabel* Label_create( float Width, float Height, uint fontSize, pcwstr fontName /*= L"Arial"*/ ){
-		return ONEU_NEW(Label_Impl(Width, Height, fontSize, fontName));
+		return ONEU_NEW Label_Impl(Width, Height, fontSize, fontName);
 	}
 
 }

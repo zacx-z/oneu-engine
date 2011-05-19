@@ -33,8 +33,8 @@ namespace OneU
 	namespace tool
 	{
 		//shell
-		class Shell//为什么INodeContainer放在第二位程序会崩溃。总之是不建议多重继承
-			: public video::INodeContainer, public IInputReceiver
+		class Shell
+			: public IInputReceiver, public video::INodeContainer
 		{
 			ILabel* m_pInput;
 			IShape* m_pBack;
@@ -59,7 +59,7 @@ namespace OneU
 				m_pTextBack = Shape_rect(800, 450);
 				m_pTextBack->setColor(color_t(20, 20, 50, 127));
 
-				m_pTextField = ONEU_NEW(TextField(800, 450, 15, L"Terminal"));
+				m_pTextField = ONEU_NEW TextField(800, 450, 15, L"Terminal");
 				m_pTextField->setMaxRows(37);
 
 				this->addChild(m_pBack);
@@ -174,12 +174,12 @@ namespace OneU
 			ShellController()
 				: m_pWatch(NULL)
 			{
-				m_pWatch = ONEU_NEW(Watch);
+				m_pWatch = ONEU_NEW Watch;
 				GetVideo().getRoot().addChild(m_pWatch, 100);
 				m_pWatch->visible = false;
 
 				//input
-				m_pShell = ONEU_NEW(Shell);
+				m_pShell = ONEU_NEW Shell;
 				m_pShell->visible = false;
 				GetVideo().getRoot().addChild(m_pShell, 101);
 			}
