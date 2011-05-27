@@ -1,0 +1,11 @@
+空间分配器
+void * Alloc::allocate( size_t)
+void   Alloc::dealocate( void *, size_t)
+
+对象池
+void ObjectPool::Attach( T* , DeleterPointer p = 0)
+void ObjectPool::Clear()
+
+对象管理器
+void ObjectManager::Attach( int, T *, DeleterPointer p = 0 )
+void ObjectManager::Clear( int )
