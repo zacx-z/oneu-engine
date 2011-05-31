@@ -51,12 +51,12 @@ namespace OneU
 				m_pInput->setY(500);
 				m_pInput->setText(L">");
 
-				m_pBack = Shape_rect(800, 15);
+				m_pBack = Shape_rect(rect(0, 0, 800, 15));
 				m_pBack->setColor(color_t(20, 20, 50, 127));
 				m_pBack->setX(0);
 				m_pBack->setY(500);
 
-				m_pTextBack = Shape_rect(800, 450);
+				m_pTextBack = Shape_rect(rect(0, 0, 800, 450));
 				m_pTextBack->setColor(color_t(20, 20, 50, 127));
 
 				m_pTextField = ONEU_NEW TextField(800, 450, 15, L"Terminal");
@@ -122,7 +122,7 @@ namespace OneU
 
 				atom::value* arg = atom::makeTuple(arg_list.size());
 				List<String>::iterator it = arg_list.begin();
-				for(uint i = 0; i < arg_list.size(); ++i, ++it){
+				for(uint32 i = 0; i < arg_list.size(); ++i, ++it){
 					arg->get<atom::tuple>()->get(i)->eval(*it);
 				}
 				if(t)t->get<atom::function>()->call(arg);
@@ -132,7 +132,7 @@ namespace OneU
 				if(!_runCommand(str))
 					output(L"Can't find the Command.\n");
 			}
-			void onChar(CharEvent& event){
+			bool onChar(const CharEvent& event){
 				wchar ch = event.getCode();
 				switch(ch)
 				{
@@ -153,6 +153,8 @@ namespace OneU
 				}
 				m_pInput->setText((L">" + m_InputStr).c_str());
 				frame = 20;//让光标立刻显现
+
+				return true;
 			}
 
 			void clearScreen(){
@@ -166,9 +168,6 @@ namespace OneU
 			: public IEventListener
 		{
 			Watch* m_pWatch;
-
-			//input
-			IInputReceiver* m_pLastED;
 			Shell* m_pShell;
 		public:
 			ShellController()
@@ -196,12 +195,12 @@ namespace OneU
 					m_pShell->visible = true;
 					m_pShell->_refreshPos();
 
-					m_pLastED = GetGame().setInputFocus(m_pShell);
+					GetGame().pushInputFocus(m_pShell);
 
 				}
 				if(m_pShell->visible && GetControl().keyRelease(OIK_ESCAPE)){
 					m_pShell->visible = false;
-					GetGame().setInputFocus(m_pLastED);
+					GetGame().popInputFocus();
 				}
 			}
 			Shell* getShell(){ return m_pShell; }

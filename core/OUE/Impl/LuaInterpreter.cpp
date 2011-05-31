@@ -285,7 +285,7 @@ namespace OneU
 			}
 			else{
 				tuple * t= v->get<tuple>();
-				for(uint i = 0; i < t->length(); ++i){
+				for(uint32 i = 0; i < t->length(); ++i){
 					_atPushValue(L, t->get(i));
 				}
 				return t->length();

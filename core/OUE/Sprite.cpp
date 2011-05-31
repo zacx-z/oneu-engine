@@ -31,38 +31,27 @@ namespace OneU
 		image_t m_Img;
 		color_t color;
 
-		matrix m_Trans;
-		float m_X, m_Y, m_Rotation, m_ScaleX, m_ScaleY, m_CenterX, m_CenterY;
-		bool m_bTransLatest;//矩阵是否为最新 优化 避免每次都算矩阵
+		float m_CenterX, m_CenterY;
 		video::BLENDMODE m_Mode;
-		dword m_CMode;
+		uint32 m_CMode;
 	public:
 		Sprite_Impl(image_t& img)
-			: m_Img(img), color(0, 0, 0), m_X(0.0f), m_Y(0.0f), m_Rotation(0.0f),
-			m_ScaleX(1.0f), m_ScaleY(1.0f), m_CenterX(0.0f), m_CenterY(0.0f), m_bTransLatest(false),
-			m_Mode(video::BM_NORMAL), m_CMode(video::CBM_ADD){}
+			: m_Img(img), color(0, 0, 0), m_CenterX(0.0f), m_CenterY(0.0f),
+			m_Mode(video::BM_NORMAL), m_CMode(video::CBM_ADD){
+			this->create2DTransform();
+		}
 
 		void setImage(image_t img){ m_Img = img; }
 		image_t getImage(){ return m_Img; }
-		void setX(float nx){ m_X = nx; m_bTransLatest = false;}
-		float getX() const { return m_X;}
-		void setY(float ny){ m_Y = ny; m_bTransLatest = false;}
-		float getY() const { return m_Y;}
-		void setRotation(float nr){ m_Rotation = nr; m_bTransLatest = false;}
-		float getRotation() const { return m_Rotation; }
-		void setScaleX(float ns){ m_ScaleX = ns; m_bTransLatest = false;}
-		float getScaleX() const { return m_ScaleX; }
-		void setScaleY(float ns){ m_ScaleY = ns; m_bTransLatest = false;}
-		float getScaleY() const { return m_ScaleY; }
-		void setCenterX(float nx){ m_CenterX = nx; m_bTransLatest = false;}
+		void setCenterX(float nx){ m_CenterX = nx;}
 		float getCenterX() const { return m_CenterX; }
-		void setCenterY(float ny){ m_CenterY = ny; m_bTransLatest = false;}
+		void setCenterY(float ny){ m_CenterY = ny;}
 		float getCenterY() const { return m_CenterY; }
 
 		void setBlendMode(video::BLENDMODE mode){ m_Mode = mode;}
 		video::BLENDMODE getBlendMode(){ return m_Mode; }
-		void setColorBlendMode(dword mode){ m_CMode = mode; }
-		dword getColorBlendMode(){ return m_CMode; }
+		void setColorBlendMode(uint32 mode){ m_CMode = mode; }
+		uint32 getColorBlendMode(){ return m_CMode; }
 
 
 		void setColor(color_t c){ color = c; }
@@ -76,21 +65,11 @@ namespace OneU
 	void Sprite_Impl::paint(){
 		IVideo& Vi = GetVideo();
 		vector2u_t ss = Vi.getDeviceSize();
-		if(!m_bTransLatest){
-			float w = (float)m_Img.get()->getWidth(), h = (float)m_Img.get()->getHeight();
-			m_Trans = 
-				matrix().setTranslation(vector3(-m_CenterX, -m_CenterY, 0.0f))
-				* matrix().setScale(vector3(w * m_ScaleX, h * m_ScaleY, 1.0f))
-				* matrix().setRotation(vector3(0.0f, 0.0f, m_Rotation))
-				* matrix().setTranslation(vector3(m_X, m_Y, 0.0f))
-				* matrix().setScale(vector3(2.0f / ss.x, -2.0f / ss.y, 1.0f))
-				* matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f));
-			m_bTransLatest = true;
-		}
+
 		Vi.setBlendColor(m_CMode, color);
 		Vi.setBlendMode(m_Mode);
-		Vi.setTransform(m_Trans);
-		Vi.renderImage(*m_Img.get());
+		float w = m_Img.get()->getWidth(), h = m_Img.get()->getHeight();
+		Vi.renderImage(*m_Img.get(), rect(-m_CenterX * w, -m_CenterY * h, (1 - m_CenterX) * w, (1 - m_CenterY) * h));
 	}
 
 	ONEU_API ISprite* Sprite_create(image_t& img)

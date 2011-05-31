@@ -48,8 +48,8 @@ namespace OneU
 	{
 		g_pRD = NULL;
 	}
-	void DXVideo::init(uint width, uint height, bool bWindowed){
-		ASSERT(g_hWnd != NULL);
+	void DXVideo::init(uint32 width, uint32 height, bool bWindowed){
+		ONEU_ASSERT(g_hWnd != NULL);
 		m_IsWindowed = bWindowed;
 		try{
 			DX::Graphics.PreInit();
@@ -78,12 +78,16 @@ namespace OneU
 
 		m_pRoot->addChild(ONEU_NEW _Video_ClearNode, -100);
 
+		//初始化矩阵栈
+		pushMatrix(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f)));
+		m_TransformStack.push(m_MatrixStack.top());
+
 		//Atom
 		GetAtom().getSystemEnv()->createSymbol(L"Direct3D9_", atom::makeValue((void*)DX::_pD3D));
 		GetAtom().getSystemEnv()->createSymbol(L"Direct3DDevice9_", atom::makeValue((void*)DX::_pD3DDevice));
 	}
 
-	void DXVideo::switchDevice(uint width, uint height, bool bWindowed){
+	void DXVideo::switchDevice(uint32 width, uint32 height, bool bWindowed){
 		unloadD3DResource();
 		m_IsWindowed =bWindowed;
 		if(bWindowed){
@@ -106,11 +110,18 @@ namespace OneU
 		}
 		reloadD3DResource();
 		m_DeviceSize = vector2u_t(width, height);
+
+		//重置矩阵栈
+		popMatrix();
+		ONEU_ASSERT(m_MatrixStack.size() == 0);
+		pushMatrix(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f)));
+		m_TransformStack.push(m_MatrixStack.top());
 	}
 	vector2u_t DXVideo::getDeviceSize(){
 		return m_DeviceSize;
 	}
 	void DXVideo::render(){
+		ONEU_ASSERT(m_MatrixStack.size() == 1);
 		try{
 			DX::RenderManip rd;
 			g_pRD = &rd;
@@ -209,6 +220,9 @@ namespace OneU
 	}
 	//Render functions
 	void DXVideo::renderImage(video::IImage& image, const rect& dest){
+
+
+		DX::GetGraphics()->SetWorldTransform((MATRIX*)&_getTransform());
 		////因为是单Video，所以存在DXVideo必然Image是DXImage。
 		DXImage& img = ((DXImage&)image);
 		DX::TStage(0).SetTexture(img._getTag()->texture);
@@ -306,8 +320,22 @@ namespace OneU
 		}
 	}
 
-	void DXVideo::setTransform(const matrix& m){
-		DX::GetGraphics()->SetWorldTransform((MATRIX*)&m);
+	matrix& DXVideo::_getTransform(){
+		for(uint32 i = m_TransformStack.size(); i < m_MatrixStack.size(); ++i){
+			m_TransformStack.push(m_MatrixStack.at(i) * m_TransformStack.top());
+		}
+		return m_TransformStack.top();
+	}
+	void DXVideo::pushMatrix(const matrix& m){
+		m_MatrixStack.push(m);
+	}
+	void DXVideo::popMatrix(matrix* out){
+		if(out){
+			*out = m_MatrixStack.top();
+		}
+		m_MatrixStack.pop();
+		if(m_TransformStack.size() > m_MatrixStack.size())
+			m_TransformStack.pop();
 	}
 
 	void DXVideo::setBlendMode(video::BLENDMODE mode)
@@ -412,23 +440,11 @@ namespace OneU
 			delete m_pTag;
 		}
 	}
-	
-	uint DXImage::addRef(){
-		return ++m_ref;
-	}
-	uint DXImage::release(){
-		--m_ref;
-		if(m_ref == 0){
-			ONEU_DELETE this;
-			return 0;
-		}
-		return m_ref;
-	}
 
-	uint DXImage::getWidth(){
+	uint32 DXImage::getWidth(){
 		return m_pTag->info.Width;
 	}
-	uint DXImage::getHeight(){
+	uint32 DXImage::getHeight(){
 		return m_pTag->info.Height;
 	}
 }

@@ -104,17 +104,17 @@ namespace OneU
 			if(m_buf == NULL) return L"";
 			return m_buf;
 		}
-		wchar& operator[](uint index){
+		wchar& operator[](uint32 index){
 			return m_buf[index];
 		}
-		wchar operator[](uint index) const{
+		wchar operator[](uint32 index) const{
 			return m_buf[index];
 		}
-		uint getLength(){
-			return (uint)m_len;
+		uint32 getLength(){
+			return (uint32)m_len;
 		}
-		uint getSize(){ return getLength(); }
-		void cut(uint cutsize){
+		uint32 getSize(){ return getLength(); }
+		void cut(uint32 cutsize){
 			if(cutsize == 0) return;
 			if(cutsize <= m_len){
 				m_buf[m_len - cutsize] = L'\0';

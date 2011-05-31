@@ -55,7 +55,7 @@ public:
 	void paint(){
 		for(List<asprite>::iterator it = spList.begin(); it != spList.end(); ++it)
 		{
-			it->sp->paint();
+			it->sp->visit_paint();
 		}
 	}
 	~Waterfall(){

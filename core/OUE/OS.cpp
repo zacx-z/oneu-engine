@@ -26,9 +26,9 @@ namespace OneU
 {
 	namespace os
 	{
-		ONEU_API void Sleep(dword dwMilliseconds){ ::Sleep( dwMilliseconds ); }
+		ONEU_API void Sleep(uint32 dwMilliseconds){ ::Sleep( dwMilliseconds ); }
 
-		ONEU_API dword GetTime(){ return ::timeGetTime(); }
+		ONEU_API uint32 GetTime(){ return ::timeGetTime(); }
 
 		ONEU_API void GetSystemTime(SYSTEMTIME * pSystemTime){ ::GetSystemTime( (LPSYSTEMTIME)pSystemTime ); }
 

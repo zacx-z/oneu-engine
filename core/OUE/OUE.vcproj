@@ -263,6 +263,10 @@
 				RelativePath=".\Video.h"
 				>
 			</File>
+			<File
+				RelativePath=".\VideoNode.h"
+				>
+			</File>
 			<Filter
 				Name="Atom"
 				>
@@ -445,6 +449,10 @@
 			</File>
 			<File
 				RelativePath=".\Matrix.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Stack.h"
 				>
 			</File>
 			<File

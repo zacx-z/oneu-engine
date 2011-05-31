@@ -50,11 +50,11 @@ namespace OneU
 		if(m_pVideo != NULL){ ONEU_DELETE m_pVideo; m_pVideo = NULL;}
 		if(m_pBroadcast != NULL){ ONEU_DELETE m_pBroadcast; m_pBroadcast = NULL;}
 	}
-	void Game_Win32::init(pcwstr WindowName, uint width, uint height, bool bWindowed){
+	void Game_Win32::init(pcwstr WindowName, uint32 width, uint32 height, bool bWindowed){
 		//初始化随机种子
 		srand(::GetTickCount());
 		//创建广播系统
-		ASSERT(m_pBroadcast == NULL);
+		ONEU_ASSERT(m_pBroadcast == NULL);
 		if(m_pBroadcast != NULL) m_pBroadcast = m_BroadcastFactory();
 		else m_pBroadcast = BroadCast_create();
 
@@ -69,7 +69,7 @@ namespace OneU
 
 		//创建窗口
 		Window_create(WindowName, !bWindowed, 0, 0, width, height);
-		ASSERT(m_pVideo == NULL);
+		ONEU_ASSERT(m_pVideo == NULL);
 		if(m_VideoFactory != NULL) m_pVideo = m_VideoFactory();
 		else m_pVideo = Video_create();
 
@@ -79,7 +79,7 @@ namespace OneU
 		else m_pStereo = Stereo_create();
 		m_pStereo->init();
 
-		ASSERT(m_pControl == NULL);
+		ONEU_ASSERT(m_pControl == NULL);
 		if(m_ControlFactory != NULL) m_pControl = m_ControlFactory();
 		else m_pControl = Control_create();
 
@@ -139,7 +139,7 @@ end:
 		//计算FPS
 		++m_Frames;
 		if(m_lastTime != 0){
-			dword now = ::timeGetTime();
+			uint32 now = ::timeGetTime();
 			m_TimeInterval = float(now - m_lastTime);
 			if(m_TimeInterval > 1000){
 				m_lastTime = now;
@@ -224,7 +224,7 @@ namespace OneU
 	* @brief 消息处理函数
 	*/
 	/* ----------------------------------------------------------------------------*/
-	LRESULT CALLBACK WindowProcedure(HWND hWnd, uint message, WPARAM wParam, LPARAM lParam);
+	LRESULT CALLBACK WindowProcedure(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam);
 
 	/* ----------------------------------------------------------------------------*/
 	/** 
@@ -232,7 +232,7 @@ namespace OneU
 	*/
 	/* ----------------------------------------------------------------------------*/
 	HWND Window_create(pcwstr pWndName, bool bPopUp, int iX, int iY, int iWidth, int iHeight){
-		ASSERT(g_hInstance != NULL);
+		ONEU_ASSERT(g_hInstance != NULL);
 
 		WNDCLASSEX wincl;
 
@@ -255,7 +255,11 @@ namespace OneU
 			ONEU_RAISE(WinException( ::GetLastError()));
 		}
 
-		ASSERT(g_hWnd == NULL);
+		ONEU_ASSERT(g_hWnd == NULL);
+
+		RECT rc = {iX, iY, iWidth + iX, iHeight + iX};
+		::AdjustWindowRectEx(&rc, bPopUp ? WS_POPUP : WS_OVERLAPPEDWINDOW, FALSE, 0);
+
 		g_hWnd = ::CreateWindowEx(
 			0,
 			szClassName,
@@ -263,8 +267,8 @@ namespace OneU
 			bPopUp ? WS_POPUP : WS_OVERLAPPEDWINDOW,
 			iX,
 			iY,
-			iWidth,
-			iHeight,
+			rc.right - rc.left,
+			rc.bottom - rc.top,
 			HWND_DESKTOP,
 			NULL,
 			g_hInstance,
@@ -282,7 +286,7 @@ namespace OneU
 	}
 
 
-	LRESULT CALLBACK WindowProcedure (HWND hwnd, uint message, WPARAM wParam, LPARAM lParam){
+	LRESULT CALLBACK WindowProcedure (HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam){
 		switch (message){
 			case WM_DESTROY:
 				::PostQuitMessage (0);
@@ -298,8 +302,7 @@ namespace OneU
 				break;
 			case WM_CHAR:
 				{
-					IInputReceiver* pED = GetGame().getInputFocus();
-					if(pED) pED->onChar(CharEvent((::WCHAR)wParam));
+					GetGame().onChar(CharEvent((::WCHAR)wParam));
 					break;
 				}
 			default:

@@ -46,25 +46,25 @@ namespace OneU
 		class tuple
 		{
 			value** ptr;
-			uint _len;
+			uint32 _len;
 			friend class value;
-			friend value* makeTuple(uint l);
-			friend value* makeTupleWithElem(uint l, ...);
+			friend value* makeTuple(uint32 l);
+			friend value* makeTupleWithElem(uint32 l, ...);
 
 			tuple(){}
-			void init(uint l){
+			void init(uint32 l){
 				_len = l;
 				ptr = (value**)ONEU_ALLOC(l * sizeof(value*));
-				for(uint i = 0; i < _len; ++i){
+				for(uint32 i = 0; i < _len; ++i){
 					ptr[i] = makeNil();
 					ptr[i]->acquire();
 				}
 			}
-			void initWithElem(uint l, va_list marker){
+			void initWithElem(uint32 l, va_list marker){
 				_len = l;
 				ptr = (value**)ONEU_ALLOC(l * sizeof(value*));
 
-				for(uint i = 0; i < _len; ++i){
+				for(uint32 i = 0; i < _len; ++i){
 					ptr[i] = va_arg(marker, value*);
 					if(ptr[i] == NULL || !ptr[i]->acquire())
 					{
@@ -77,7 +77,7 @@ namespace OneU
 			tuple& operator=(const tuple&);
 		public:
 			~tuple(){
-				for(uint i = 0; i < _len; ++i){
+				for(uint32 i = 0; i < _len; ++i){
 					ptr[i]->unacquire();
 				}
 				ONEU_DEALLOC(ptr);
@@ -89,7 +89,7 @@ namespace OneU
 			 * @returns 长度
 			 */
 			/* ----------------------------------------------------------------------------*/
-			uint length(){ return _len;}
+			uint32 length(){ return _len;}
 			/* ----------------------------------------------------------------------------*/
 			/** 
 			 * @brief 获取第i个元素
@@ -99,8 +99,8 @@ namespace OneU
 			 * @returns 元素变量
 			 */
 			/* ----------------------------------------------------------------------------*/
-			value* get(uint i){
-				ASSERT(i < _len);
+			value* get(uint32 i){
+				ONEU_ASSERT(i < _len);
 				return ptr[i];
 			}
 		};
@@ -116,7 +116,7 @@ namespace OneU
 		 * @returns Tuple
 		 */
 		/* ----------------------------------------------------------------------------*/
-		inline value* makeTuple(uint l){
+		inline value* makeTuple(uint32 l){
 			value* ret = makeValue<tuple>();
 			ret->get<tuple>()->init(l);
 			return ret;
@@ -131,7 +131,7 @@ namespace OneU
 		 * @returns Tuple
 		 */
 		/* ----------------------------------------------------------------------------*/
-		inline value* makeTupleWithElem(uint l, ...){
+		inline value* makeTupleWithElem(uint32 l, ...){
 			va_list va_alist;
 			va_start(va_alist, l);
 

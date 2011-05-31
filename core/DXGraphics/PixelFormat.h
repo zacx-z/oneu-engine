@@ -71,11 +71,11 @@ namespace OneU
 		return BYTE(( Color & 0xff ));
 	}
 
-	inline dword SetRGB( dword Red, dword Green, dword Blue )
+	inline uint32 SetRGB( uint32 Red, uint32 Green, uint32 Blue )
 	{
 		return 0xff000000 | ( static_cast< BYTE >( Red ) << 16 ) | ( static_cast< BYTE >( Green ) << 8 ) | static_cast< BYTE > ( Blue );
 	}
-	inline dword SetARGB( dword Alpha, dword Red, dword Green, dword Blue )
+	inline uint32 SetARGB( uint32 Alpha, uint32 Red, uint32 Green, uint32 Blue )
 	{
 		return ( static_cast< BYTE >( Alpha ) << 24 ) | ( static_cast< BYTE >( Red ) << 16 ) | ( static_cast< BYTE >( Green ) << 8 ) | static_cast< BYTE > ( Blue );
 	}
@@ -116,7 +116,7 @@ namespace OneU
 		/* ----------------------------------------------------------------------------*/
 		/*@cond INTERNAL_MPL*/
 		/* ----------------------------------------------------------------------------*/
-		template < dword Format >
+		template < uint32 Format >
 		struct __PixelFormat_Traits
 		{
 		};
@@ -289,7 +289,7 @@ namespace OneU
 		/*@endcond*///INTERNAL_MPL
 		/* ----------------------------------------------------------------------------*/
 
-		template < dword Format >
+		template < uint32 Format >
 		struct PixelFormat
 		{
 			enum{

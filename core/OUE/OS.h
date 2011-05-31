@@ -56,14 +56,14 @@ namespace OneU
 		/* ----------------------------------------------------------------------------*/
 		typedef struct tagSystemTime
 		{
-			uint wYear; 
-			uint wMonth; 
-			uint wDayOfWeek; 
-			uint wDay; 
-			uint wHour; 
-			uint wMinute; 
-			uint wSecond; 
-			uint wMilliseconds; 
+			uint32 wYear; 
+			uint32 wMonth; 
+			uint32 wDayOfWeek; 
+			uint32 wDay; 
+			uint32 wHour; 
+			uint32 wMinute; 
+			uint32 wSecond; 
+			uint32 wMilliseconds; 
 		}SYSTEMTIME;
 
 
@@ -74,7 +74,7 @@ namespace OneU
 		* @param dwMilliseconds 睡眠时间，以毫秒计
 		*/
 		/* ----------------------------------------------------------------------------*/
-		ONEU_API void Sleep(dword dwMilliseconds);
+		ONEU_API void Sleep(uint32 dwMilliseconds);
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		* @brief 获取相对时间
@@ -84,7 +84,7 @@ namespace OneU
 		* @return 相对时间的值
 		*/
 		/* ----------------------------------------------------------------------------*/
-		ONEU_API dword GetTime();
+		ONEU_API uint32 GetTime();
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		* @brief 获取系统时间
@@ -133,6 +133,5 @@ namespace OneU
 
 		ONEU_API float Rand();
 		/**  @} */
-
 	}
 }

@@ -28,14 +28,11 @@ THE SOFTWARE.
 
 namespace OneU
 {
-	void __DeviceDataHandler(dword scancode, dword status, dword, dword){
-		IInputReceiver* pED = GetGame().getInputFocus();
-		if(pED){
+	void __DeviceDataHandler(uint32 scancode, uint32 status, uint32, uint32){
 #pragma warning(push)
 #pragma warning(disable :4800)
-			pED->onKey(KeyEvent((::WCHAR)scancode, (bool)(status & 0x80)));
+		GetGame().onKey(KeyEvent((::WCHAR)scancode, (bool)(status & 0x80)));
 #pragma warning(pop)
-		}
 	}
 	DXControl::DXControl()
 		: m_curStateID(0), m_pKB_State(&m_KB_StateBuf[0]), m_pKB_LastState(&m_KB_StateBuf[0]),
@@ -67,27 +64,27 @@ namespace OneU
 		m_KB.HandleData(__DeviceDataHandler);
 		m_Mouse.HandleData(__DeviceDataHandler);
 	}
-	bool DXControl::keyIsDown(dword scancode){
+	bool DXControl::keyIsDown(uint32 scancode){
 		return m_pKB_State->GetState(scancode); 
 	}
 
-	bool DXControl::keyPress(dword scancode){
+	bool DXControl::keyPress(uint32 scancode){
 		return (!m_pKB_State->GetState(scancode)) && m_pKB_LastState->GetState(scancode);
 	}
 
-	bool DXControl::keyRelease(dword scancode){
+	bool DXControl::keyRelease(uint32 scancode){
 		return m_pKB_State->GetState(scancode) && (!m_pKB_LastState->GetState(scancode));
 	}
 
-	bool DXControl::buttonIsDown(uint ButtonID){
+	bool DXControl::buttonIsDown(uint32 ButtonID){
 		return m_pMouse_State->GetState(ButtonID);
 	}
 
-	bool DXControl::buttonRelease(uint ButtonID){
+	bool DXControl::buttonRelease(uint32 ButtonID){
 		return (!m_pMouse_State->GetState(ButtonID)) && m_pMouse_LastState->GetState(ButtonID);
 	}
 
-	bool DXControl::buttonPress(uint ButtonID){
+	bool DXControl::buttonPress(uint32 ButtonID){
 		return m_pMouse_State->GetState(ButtonID) && (!m_pMouse_LastState->GetState(ButtonID));
 	}
 

@@ -54,14 +54,14 @@ namespace OneU
 
 		/////////////////////////////////
 		//该模板类检测是否含在特定mask下有标志位
-		template< dword flag_mask, dword flag >
+		template< uint32 flag_mask, uint32 flag >
 		struct __FVF_Flag_Traits
 		{
 			enum{ bHas = ( flag_mask & flag ) ? 1 : 0 };
 			typedef typename __Bool_Category< bHas >::Category Has_Category;
 		};
 
-		template< dword num_of_tex, dword flag >
+		template< uint32 num_of_tex, uint32 flag >
 		struct __FVF_Flag_Tex_Traits
 		{
 			enum{ Num = ( ( flag & D3DFVF_TEXCOUNT_MASK ) >> D3DFVF_TEXCOUNT_SHIFT ), bHas = Num >= num_of_tex };
@@ -70,7 +70,7 @@ namespace OneU
 		///////////////////////////////////
 		//计算特定mask表示的标志所表示的FVF成员的空间大小
 		//////////////////////////////////
-		template< dword flag_mask >
+		template< uint32 flag_mask >
 		struct __FVF_Mask_Traits
 		{
 			enum{ Size = 0 };
@@ -112,7 +112,7 @@ namespace OneU
 		/////////////////////////////////
 		
 		//用于递推找寻FVF成员的偏移地址的仿函数
-		template< dword flag_mask , dword flag , int pos = 0 >
+		template< uint32 flag_mask , uint32 flag , int pos = 0 >
 		class __FVF_FindValue
 		{
 		public:
@@ -139,7 +139,7 @@ namespace OneU
 		//对于纹理情况的特殊处理，偏特化版本
 		//pos为偶数指向第pos / 2 + 1个纹理的U坐标
 		//pos为奇数指向第pos / 2 + 1个纹理的V坐标
-		template< dword flag, int pos >
+		template< uint32 flag, int pos >
 		class __FVF_FindValue< FVF_TEX, flag, pos >
 		{
 		public:
@@ -164,7 +164,7 @@ namespace OneU
 		};
 
 		//对于在纹理mask后一个的mask的特殊处理
-		template< dword flag, int pos >
+		template< uint32 flag, int pos >
 		class __FVF_FindValue< __FVF_OVER_TEX, flag, pos >
 		{
 		public:
@@ -190,7 +190,7 @@ namespace OneU
 		//////////////////
 
 		//起始的找寻地址仿函数 递推终点
-		template< dword flag, int pos >
+		template< uint32 flag, int pos >
 		class __FVF_FindValue< 0, flag, pos >
 		{
 		public:
@@ -208,7 +208,7 @@ namespace OneU
 		 * @tparam flag FVF标志位
 		 */
 		/* ----------------------------------------------------------------------------*/
-		template< dword flag >
+		template< uint32 flag >
 		class VertexUP
 		{
 			

@@ -120,7 +120,7 @@ namespace OneU
 			++value_outputer_tab_depth;
 			{
 				atom::tuple* t = v->get<atom::tuple>();
-				for(uint i = 0; i < t->length(); ++i){
+				for(uint32 i = 0; i < t->length(); ++i){
 					value_outputer_add_tab(buffer);
 					getDescription(t->get(i), buffer);
 				}
@@ -150,7 +150,7 @@ namespace OneU
 			buffer.append(L"object function:\n");
 			break;
 		default:
-			ASSERT(0);
+			ONEU_ASSERT(0);
 		}
 	}
 

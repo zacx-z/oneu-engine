@@ -38,13 +38,13 @@ namespace OneU
 		~DXControl();
 
 		void update();
-		bool keyIsDown(dword scancode);
-		bool keyPress(dword scancode);
-		bool keyRelease(dword scancode);
+		bool keyIsDown(uint32 scancode);
+		bool keyPress(uint32 scancode);
+		bool keyRelease(uint32 scancode);
 
-		bool buttonIsDown(uint ButtonID);
-		bool buttonRelease(uint ButtonID);
-		bool buttonPress(uint ButtonID);
+		bool buttonIsDown(uint32 ButtonID);
+		bool buttonRelease(uint32 ButtonID);
+		bool buttonPress(uint32 ButtonID);
 
 		vector2i_t mouseOffset();
 	};

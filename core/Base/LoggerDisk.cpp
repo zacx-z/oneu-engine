@@ -37,7 +37,7 @@ namespace OneU
 {
 	LoggerDisk::LoggerDisk(void) :  m_Ptr(0), m_bValid( true ){
 		m_pLog = _wfopen(LOG_PATH , L"wt");
-		ASSERT(m_pLog);
+		ONEU_ASSERT(m_pLog);
 		if(!m_pLog)
 		{
 			m_bValid = false;
@@ -51,7 +51,7 @@ namespace OneU
 
 	void LoggerDisk::write(pcwstr lpwstrMsg ){
 		//缓冲处理的写信息
-		ASSERT(this);
+		ONEU_ASSERT(this);
 		if(!m_bValid) return;
 
 		//转化
@@ -97,7 +97,7 @@ namespace OneU
 	}
 
 	void LoggerDisk::flush(){
-		ASSERT( this );
+		ONEU_ASSERT( this );
 		if(!m_bValid) return;
 		if(m_Ptr){
 			fwrite(m_Buffer, m_Ptr , 1, m_pLog);

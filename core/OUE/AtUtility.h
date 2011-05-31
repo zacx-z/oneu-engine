@@ -58,11 +58,11 @@ namespace OneU
 					typeName(v->type()), typeName(_atom_traits<T>::type_id)).c_str());
 			return retval;
 		}
-		inline uint uArgN(value* v){
+		inline uint32 uArgN(value* v){
 			return v->get<tuple>()->length();
 		}
 		template<class T>
-		inline T& ugetArg(value* v, uint i){
+		inline T& ugetArg(value* v, uint32 i){
 			if(i >= v->get<tuple>()->length())
 				ATOM_RAISE(L"too few arguments");
 			T* ret = v->get<tuple>()->get(i)->get<T>();
@@ -73,7 +73,7 @@ namespace OneU
 		}
 
 		template<class T>
-		inline T utoArg(value* v, uint i){//@todo 不能用obj
+		inline T utoArg(value* v, uint32 i){//@todo 不能用obj
 			if(i >= v->get<tuple>()->length())
 				ATOM_RAISE(L"too few arguments");
 			T ret;

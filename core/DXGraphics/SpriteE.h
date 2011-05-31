@@ -61,14 +61,14 @@ namespace OneU
 			}
 			void Create()
 			{
-				ASSERT( m_pSprite == NULL );
+				ONEU_ASSERT( m_pSprite == NULL );
 				XV( D3DXCreateSprite( _pD3DDevice, &m_pSprite ) );
 			}
 			void Destroy()
 			{
 				SAFE_RELEASE( m_pSprite );
 			}
-			void Begin( dword Flags = D3DXSPRITE_ALPHABLEND )/*注:此函数需要调用在渲染结构体Graphics::Render?创建的子程序中 */
+			void Begin( uint32 Flags = D3DXSPRITE_ALPHABLEND )/*注:此函数需要调用在渲染结构体Graphics::Render?创建的子程序中 */
 			{
 				XV( m_pSprite -> Begin( Flags ) );
 			}

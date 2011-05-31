@@ -46,16 +46,6 @@ namespace OneU
 	public:
 		virtual void setImage(image_t img) = 0;
 		virtual image_t getImage() = 0;
-		virtual void setX(float x) = 0;
-		virtual float getX() const = 0;
-		virtual void setY(float y) = 0;
-		virtual float getY() const = 0;
-		virtual void setRotation(float z) = 0;
-		virtual float getRotation() const = 0;
-		virtual void setScaleX(float ns) = 0;
-		virtual float getScaleX() const = 0;
-		virtual void setScaleY(float ns) = 0;
-		virtual float getScaleY() const = 0;
 		//已被归一化
 		virtual void setCenterX(float nx) = 0;
 		virtual float getCenterX() const = 0;
@@ -72,8 +62,8 @@ namespace OneU
 
 		virtual void setBlendMode(video::BLENDMODE mode) = 0;
 		virtual video::BLENDMODE getBlendMode() = 0;
-		virtual void setColorBlendMode(dword mode) = 0;
-		virtual dword getColorBlendMode() = 0;
+		virtual void setColorBlendMode(uint32 mode) = 0;
+		virtual uint32 getColorBlendMode() = 0;
 	};
 
 	/* ----------------------------------------------------------------------------*/

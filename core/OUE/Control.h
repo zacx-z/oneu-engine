@@ -239,7 +239,7 @@ namespace OneU
 		 * @returns 该键是否在按下状态
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual bool keyIsDown(dword scancode) = 0;
+		virtual bool keyIsDown(uint32 scancode) = 0;
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 键盘按下
@@ -249,7 +249,7 @@ namespace OneU
 		 * @returns 该键是否在这一帧中被按下
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual bool keyPress(dword scancode) = 0;
+		virtual bool keyPress(uint32 scancode) = 0;
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 键盘释放
@@ -259,7 +259,7 @@ namespace OneU
 		 * @returns 该键是否在这一帧中被释放
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual bool keyRelease(dword scancode) = 0;
+		virtual bool keyRelease(uint32 scancode) = 0;
 
 		//mouse functions
 		/* ----------------------------------------------------------------------------*/
@@ -271,7 +271,7 @@ namespace OneU
 		 * @returns 按钮是否在按下状态
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual bool buttonIsDown(uint ButtonID) = 0;
+		virtual bool buttonIsDown(uint32 ButtonID) = 0;
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 鼠标按钮按下
@@ -281,7 +281,7 @@ namespace OneU
 		 * @returns 按钮是否在这一帧中被按下
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual bool buttonRelease(uint ButtonID) = 0;
+		virtual bool buttonRelease(uint32 ButtonID) = 0;
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 鼠标按钮释放
@@ -291,7 +291,7 @@ namespace OneU
 		 * @returns 按钮是否在这一帧中被释放
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual bool buttonPress(uint ButtonID) = 0;
+		virtual bool buttonPress(uint32 ButtonID) = 0;
 
 		/* ----------------------------------------------------------------------------*/
 		/** 

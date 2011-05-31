@@ -44,7 +44,43 @@ namespace OneU
 		Interface(){}
 	};
 
+	class InterfaceRef
+		: public Interface
+	{
+		uint32 m_ref;
+	public:
+		InterfaceRef() : m_ref(0){}
+		/* ----------------------------------------------------------------------------*/
+		/** 
+		* @brief 添加引用计数
+		* 
+		* @returns 新的引用计数
+		*/
+		/* ----------------------------------------------------------------------------*/
+		uint32 addRef(){
+			return ++m_ref;
+		}
+		/* ----------------------------------------------------------------------------*/
+		/** 
+		* @brief 释放引用计数
+		*
+		* 如果引用计数释放后为0，则销毁对象。
+		* 
+		* @returns 新的引用计数
+		*/
+		/* ----------------------------------------------------------------------------*/
+		uint32 release(){
+			--m_ref;
+			if(m_ref == 0){
+				ONEU_DELETE this;
+				return 0;
+			}
+			return m_ref;
+		}
+	};
+
 	//主要用于容器 保证被正确删除
+	//@todo 目前不支持InterfaceRef
 	template<class T>
 	class InterfacePtr
 	{

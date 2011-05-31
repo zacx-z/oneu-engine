@@ -71,7 +71,7 @@ namespace OneU
 		 * @returns 类型名称字符串，以NULL结束。
 		 */
 		/* ----------------------------------------------------------------------------*/
-		inline pcwstr typeName(dword t){
+		inline pcwstr typeName(uint32 t){
 			switch(t)
 			{
 			case T_NIL:
@@ -169,7 +169,7 @@ namespace OneU
 			//_type_id最高位为1（T_REF即为最高位为1其它均为0）且其它位存在非零值时，去掉最高位即为该变量的类型。该变量对于所指内容不管理内存。（也是一种引用形式）
 			//貌似设计得有点复杂了，第一代先这样吧。
 			//如果想去掉该功能：删除makeValueFromPtr；将T_REF值定义得正常；去掉_type_id & ~T_REF后半部分；删除evalPtr；去掉_destroy_value前面的特殊判断；然后重新编译dll。
-			dword _type_id;
+			uint32 _type_id;
 			void* _ptr;
 
 			//一下两个变量是GC相关的
@@ -177,7 +177,7 @@ namespace OneU
 			bool b_hold;
 
 			template<typename T>
-			void _set_value(const T& v, dword type){
+			void _set_value(const T& v, uint32 type){
 				if(_type_id != type){
 					_destroy_value();
 					_type_id = type;
@@ -187,7 +187,7 @@ namespace OneU
 					*((T*)_ptr) = v;
 			}
 			template<typename T>
-			void _create_value(dword type){
+			void _create_value(uint32 type){
 				if(_type_id != type){
 					_destroy_value();
 					_ptr = ONEU_NEW_T(T);
@@ -215,7 +215,7 @@ namespace OneU
 			 * @remarks 如果变量为引用则会返回其所引用的值的类型
 			 */
 			/* ----------------------------------------------------------------------------*/
-			dword type() const {
+			uint32 type() const {
 				if(_type_id == T_REF) return (*(value**)_ptr)->type();
 				else return _type_id & ~T_REF;
 			}
@@ -259,7 +259,7 @@ namespace OneU
 			/* ----------------------------------------------------------------------------*/
 			template<typename T>
 			value& evalPtr(T* v){
-				dword type = _atom_traits<T>::type_id;
+				uint32 type = _atom_traits<T>::type_id;
 				_destroy_value();
 				_type_id = type | T_REF;
 				_ptr = v;

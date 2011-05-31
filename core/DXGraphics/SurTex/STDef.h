@@ -118,7 +118,7 @@ namespace OneU
 		 * @tparam _Pool ÄÚ´æ³ØÀàĞÍ
 		 */
 		/* ----------------------------------------------------------------------------*/
-		template< uint _Usage, D3DPOOL _Pool >
+		template< uint32 _Usage, D3DPOOL _Pool >
 		struct __Texture_UgPl_Traits
 		{
 		};

@@ -69,9 +69,9 @@ namespace OneU
 
 		protected:
 			//参数
-			void _Create( uint nWidth, uint nHeight, PXLFORMAT Format, uint Level, dword Usage, D3DPOOL Pool )
+			void _Create( uint32 nWidth, uint32 nHeight, PXLFORMAT Format, uint32 Level, uint32 Usage, D3DPOOL Pool )
 			{
-				ASSERT( m_pTexture == NULL );
+				ONEU_ASSERT( m_pTexture == NULL );
 				DXCHECK_THROW(
 					_pD3DDevice->CreateTexture( nWidth, nHeight, Level, Usage, static_cast< D3DFORMAT >( Format ), Pool, &m_pTexture, NULL ),
 					L"纹理创建失败！"
@@ -94,14 +94,14 @@ namespace OneU
 			 * @param Pool 内存池
 			 */
 			/* ----------------------------------------------------------------------------*/
-			void CreateFromSurface( const Surface_Base & Surface, dword Usage, D3DPOOL Pool )
+			void CreateFromSurface( const Surface_Base & Surface, uint32 Usage, D3DPOOL Pool )
 			{
 				Surface_Base::INFO info = Surface.GetInfo();
 				_Create( Surface.GetWidth( info ), Surface.GetHeight( info ), Surface.GetFormat( info ), 1, Usage, Pool );
 				Surface_Texture_Base(_GetSurfaceLevel( 0 )).UpdateSurface( NULL, &Surface, NULL );
 			}
 
-			IDirect3DSurface9* _GetSurfaceLevel( uint Level ) const
+			IDirect3DSurface9* _GetSurfaceLevel( uint32 Level ) const
 			{
 				IDirect3DSurface9* pSurface;
 				DXCHECK_THROW(
@@ -150,7 +150,7 @@ namespace OneU
 
 			void _Create( IDirect3DTexture9 * pTexture )
 			{
-				ASSERT( m_pTexture == NULL );
+				ONEU_ASSERT( m_pTexture == NULL );
 				m_pTexture = pTexture;
 			}
 
@@ -174,30 +174,30 @@ namespace OneU
 			bool IsCreated() const { return m_pTexture != 0; }
 
 
-			D3DSURFACE_DESC & _GetDesc( uint Level ) const
+			D3DSURFACE_DESC & _GetDesc( uint32 Level ) const
 			{
 				static D3DSURFACE_DESC s_SD = {};
 				DXCHECK( m_pTexture->GetLevelDesc( Level, &s_SD ), L"获取纹理表面信息失败" );
 				return s_SD;
 			}
 
-			INFO& GetInfo( uint Level ) const
+			INFO& GetInfo( uint32 Level ) const
 			{
 				return _GetDesc( Level );
 			}
-			uint GetWidth( const INFO& Info ) const
+			uint32 GetWidth( const INFO& Info ) const
 			{
 				return Info.Width;
 			}
-			uint GetWidth( uint Level ) const
+			uint32 GetWidth( uint32 Level ) const
 			{
 				return GetWidth( GetInfo( Level ) );
 			}
-			uint GetHeight( const INFO& Info ) const
+			uint32 GetHeight( const INFO& Info ) const
 			{
 				return Info.Height;
 			}
-			uint GetHeight( uint Level ) const
+			uint32 GetHeight( uint32 Level ) const
 			{
 				return GetHeight( GetInfo( Level ) );
 			}
@@ -205,7 +205,7 @@ namespace OneU
 			{
 				return static_cast< PXLFORMAT > ( Info.Format );
 			}
-			PXLFORMAT GetFormat( uint Level ) const
+			PXLFORMAT GetFormat( uint32 Level ) const
 			{
 				return GetFormat( GetInfo( Level ) );
 			}
@@ -240,12 +240,12 @@ namespace OneU
 		 * @tparam _Pool 内存池类型
 		 */
 		/* ----------------------------------------------------------------------------*/
-		template< uint _Usage, D3DPOOL _Pool >
+		template< uint32 _Usage, D3DPOOL _Pool >
 		class Texture_t
 			: public Texture_Base
 		{
 		private:
-			template< uint Usage, D3DPOOL Pool >
+			template< uint32 Usage, D3DPOOL Pool >
 			void _UpdateTexture( Texture_t< Usage, Pool >* pSrcTexture, __True_Category )
 			{
 				Texture_Base::UpdateTexture( pSrcTexture );
@@ -253,12 +253,12 @@ namespace OneU
 		public:
 			enum { Usage = _Usage, Pool = _Pool };
 			typedef Surface_Texture< _Usage, _Pool > SurfaceType;
-			void Create( uint nWidth, uint nHeight, PXLFORMAT Format, uint Level = 1 )
+			void Create( uint32 nWidth, uint32 nHeight, PXLFORMAT Format, uint32 Level = 1 )
 			{
 				_Create( nWidth, nHeight, Format, Level, _Usage, _Pool );
 			}
 
-			template< uint Usage, D3DPOOL Pool >
+			template< uint32 Usage, D3DPOOL Pool >
 			void UpdateTexture( const Texture_t< Usage, Pool >* pSrcTexture )
 			{
 				_UpdateTexture( pSrcTexture, __Bool_Category< _Pool == D3DPOOL_DEFAULT && Pool == D3DPOOL_SYSTEMMEM >::Category );
@@ -321,7 +321,7 @@ namespace OneU
 			 * @return 纹理的第Level级表面
 			 */
 			/* ----------------------------------------------------------------------------*/
-			SurfaceType GetSurfaceLevel( uint Level )
+			SurfaceType GetSurfaceLevel( uint32 Level )
 			{
 				return Surface_Texture< _Usage, _Pool > ( _GetSurfaceLevel( Level ) );
 			}
@@ -336,7 +336,7 @@ namespace OneU
 			 * @return 纹理的第Level级表面
 			 */
 			/* ----------------------------------------------------------------------------*/
-			const SurfaceType GetSurfaceLevel( uint Level ) const
+			const SurfaceType GetSurfaceLevel( uint32 Level ) const
 			{
 				return Surface_Texture< _Usage, _Pool > (_GetSurfaceLevel( Level ));
 			}

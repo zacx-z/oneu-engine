@@ -38,8 +38,16 @@ THE SOFTWARE.
 
 namespace OneU
 {
-	typedef unsigned int uint;
-	typedef unsigned long dword;
+	typedef unsigned long long uint64;
+	typedef unsigned long uint32;
+	typedef unsigned short uint16;
+	typedef unsigned char uint8;
+
+	typedef long long int64;
+	typedef long int32;
+	typedef short int16;
+	typedef char int8;
+
 	typedef wchar_t wchar;
 	typedef wchar* pwstr;
 	typedef const wchar* pcwstr;
@@ -63,7 +71,7 @@ namespace OneU
 * @sa EF_ASSERT
 */
 /* ----------------------------------------------------------------------------*/
-#define ASSERT(exp) assert(exp)
+#define ONEU_ASSERT(exp) assert(exp)
 
 template < bool expression, class T >
 class Static_Assert
@@ -90,10 +98,10 @@ private:
 */
 /* ----------------------------------------------------------------------------*/
 #define STATIC_ASSERT( exp, str )\
-class Error_##str{};\
+clasn Error_##str{};\
 	Static_Assert< ( exp ), Error_##str > Assert##str;
 #else
-#define	ASSERT(exp) void( 0 )
+#define	ONEU_ASSERT(exp) void( 0 )
 #endif
 
 //template<class T>

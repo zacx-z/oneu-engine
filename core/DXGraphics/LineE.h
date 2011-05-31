@@ -55,7 +55,7 @@ namespace OneU
 
 			void Create()
 			{
-				ASSERT( m_pLine == NULL );
+				ONEU_ASSERT( m_pLine == NULL );
 				XV( D3DXCreateLine( _pD3DDevice, &m_pLine ) );
 			}
 			void Destroy() 
@@ -79,7 +79,7 @@ namespace OneU
 			{
 				XV_DEBUG( m_pLine->End() );
 			}
-			void Draw( const VECTOR2 *pVertex, uint Count, COLOR crColor )//»­Ïß
+			void Draw( const VECTOR2 *pVertex, uint32 Count, COLOR crColor )//»­Ïß
 			{
 				XV_DEBUG( m_pLine->Draw( reinterpret_cast< const D3DXVECTOR2* >( pVertex ), Count, crColor ) );
 			}

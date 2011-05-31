@@ -57,8 +57,5 @@ namespace OneU
 		*/
 		/* ----------------------------------------------------------------------------*/
 		const wchar* DESTROY = L"destroy";
-
-		const wchar* CHAR = L"char";
-		const wchar* KEY = L"key";
 	}
 }

@@ -7,8 +7,12 @@ class SingleScene
 	: public IScene
 {
 	atom::IInterpreter* m_Ip;
+	IShape* shape;
 public:
 	SingleScene(){
+		shape = Shape_rect(rect(-50, -50, 100, 100));
+		shape->setX(100);
+		getRenderScene()->addChild(shape);
 		m_Ip = GetAtom().createInterpreter(IAtom::L_LUA);
 		m_Ip->execFile(L"./script/lua/main.lua");
 

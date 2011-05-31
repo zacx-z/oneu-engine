@@ -40,13 +40,13 @@ namespace OneU
 {
 	static IGame* s_pGame = NULL;
 
-	ONEU_API IGame& GetGame(){ASSERT(s_pGame != NULL); return *s_pGame;}
+	ONEU_API IGame& GetGame(){ONEU_ASSERT(s_pGame != NULL); return *s_pGame;}
 
 	static TerminateHandler _last_eh = NULL;
 	static void _destroyGame();
 	ONEU_API void Game_build(Factory<IGame>::type gf)
 	{
-		ASSERT(s_pGame == NULL);
+		ONEU_ASSERT(s_pGame == NULL);
 		Allocator_build(Allocator_create);
 		Logger_build(LoggerDisk_Factory);
 		s_pGame = gf();

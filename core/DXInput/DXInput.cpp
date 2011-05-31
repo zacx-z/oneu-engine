@@ -48,9 +48,9 @@ namespace OneU
 			s_hWnd = hWnd;
 		}
 
-		void InputDevice::Create(dword BufferSize)
+		void InputDevice::Create(uint32 BufferSize)
 		{
-			ASSERT(m_pDIDevice == NULL);
+			ONEU_ASSERT(m_pDIDevice == NULL);
 
 			Init(BufferSize);
 
@@ -68,7 +68,7 @@ namespace OneU
 				DXCHECK(m_pDIDevice->SetProperty(DIPROP_BUFFERSIZE, &dp.diph), L"设置输入设备缓冲区大小失败！");
 			}
 		}
-		void InputDevice::Read( void *DataBuffer, dword BufferSize )
+		void InputDevice::Read( void *DataBuffer, uint32 BufferSize )
 		{
 			while( TRUE )
 			{
@@ -84,7 +84,7 @@ namespace OneU
 					THROW_HRESULT(hr);
 			}
 		}
-		bool InputDevice::GetData( DataType *Buffer, dword& dwElements )
+		bool InputDevice::GetData( DataType *Buffer, uint32& dwElements )
 		{
 			while( TRUE )
 			{
@@ -120,7 +120,7 @@ namespace OneU
 
 		void InputDevice::HandleData( DataHandler Fn )
 		{
-			dword dwElements = DATA_BUFFER_SIZE;
+			uint32 dwElements = DATA_BUFFER_SIZE;
 			static DataType Buffer[ DATA_BUFFER_SIZE ];
 			bool bOverFlow;
 			do
@@ -133,7 +133,7 @@ namespace OneU
 			}while( bOverFlow );
 		}
 
-		void KeyBoard::Init( dword BufferSize )
+		void KeyBoard::Init( uint32 BufferSize )
 		{
 			DXCHECK_THROW( _pDInput->CreateDevice( GUID_SysKeyboard, &m_pDIDevice, NULL ), L"创建键盘输入设备失败！" );
 
@@ -141,7 +141,7 @@ namespace OneU
 
 		}
 
-		void Mouse::Init( dword BufferSize )
+		void Mouse::Init( uint32 BufferSize )
 		{
 			DXCHECK_THROW( _pDInput->CreateDevice( GUID_SysMouse, &m_pDIDevice, NULL ), L"创建鼠标输入设备失败！" );
 
