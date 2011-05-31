@@ -151,18 +151,18 @@ namespace OneU
 
 
 	typedef rect_t<int> recti_t;
-	typedef rect_t<uint> rectu_t;
+	typedef rect_t<uint32> rectu_t;
 	typedef rect_t<float> rect;
 
 	typedef Vector2<int> vector2i_t;
-	typedef Vector2<uint> vector2u_t;
+	typedef Vector2<uint32> vector2u_t;
 	typedef Vector2<float> vector2;
 
 	typedef Vector3<int> vector3i_t;
-	typedef Vector3<uint> vector3u_t;
+	typedef Vector3<uint32> vector3u_t;
 	typedef Vector3<float> vector3;
 
 	typedef Vector4<int> vector4i_t;
-	typedef Vector4<uint> vector4u_t;
+	typedef Vector4<uint32> vector4u_t;
 	typedef Vector4<float> vector4;
 }

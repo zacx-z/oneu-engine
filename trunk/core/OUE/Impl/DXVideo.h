@@ -25,6 +25,7 @@ THE SOFTWARE.
 #include "../../DXGraphics/DXGraphics.h"
 #include "../../DXGraphics/SurTex/SurTex.h"
 #include "../Table.h"
+#include "../Stack.h"
 #include <d3dx9.h>
 
 namespace OneU
@@ -51,8 +52,8 @@ namespace OneU
 
 		LPCTSTR getName(){ return L"OneU D3D Video 1.0"; }
 
-		void init(uint width, uint height, bool bWindowed);
-		void switchDevice(uint width, uint height, bool bWindowed);
+		void init(uint32 width, uint32 height, bool bWindowed);
+		void switchDevice(uint32 width, uint32 height, bool bWindowed);
 
 		bool isWindowed(){ return m_IsWindowed;}
 		vector2u_t getDeviceSize();
@@ -65,9 +66,11 @@ namespace OneU
 
 		//Rendering functions
 	private:
+		Stack<matrix, 256> m_MatrixStack, m_TransformStack/*用于保存自底向上矩阵相乘存好的变换*/;
+
 		rect m_ImageSource;
 		color_t mix_color;
-		dword mix_mode;
+		uint32 mix_mode;
 
 		//implement
 		void _RenderImage_SetState();
@@ -76,10 +79,12 @@ namespace OneU
 	public:
 		void renderImage(video::IImage& image, const rect& dest);
 		void renderImage_d(video::IImage& image, const rect& dest);
-		void setTransform(const matrix& m);
+		void pushMatrix(const matrix& m);
+		void popMatrix(matrix* out = NULL);
+		matrix& _getTransform();
 		void selectImageSourceRect(const rect& src){ m_ImageSource = src; }
 		void setBlendMode(video::BLENDMODE mode);
-		void setBlendColor(dword mode, color_t color){ mix_mode = mode; mix_color = color; }
+		void setBlendColor(uint32 mode, color_t color){ mix_mode = mode; mix_color = color; }
 
 		//渲染树函数
 		video::IRenderScene* setRenderScene(video::IRenderScene* pRenderScene){
@@ -104,7 +109,7 @@ namespace OneU
 	{
 		DXVideo* video;
 		Table<_DXImageTag*>::iterator it;
-		uint ref;
+		uint32 ref;
 		String fileName;
 		DX::Texture texture;
 		D3DXIMAGE_INFO info;
@@ -114,18 +119,15 @@ namespace OneU
 		: public video::IImage
 	{
 		_DXImageTag* m_pTag;
-		uint m_ref;
+		uint32 m_ref;
 
 		DXImage(_DXImageTag* pTag) : m_ref(0), m_pTag(pTag){}
 		friend class DXVideo;
 	public:
 		~DXImage();
 
-		uint addRef();
-		uint release();
-
-		uint getWidth();
-		uint getHeight();
+		uint32 getWidth();
+		uint32 getHeight();
 
 		_DXImageTag* _getTag(){ return m_pTag; }
 	};

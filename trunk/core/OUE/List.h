@@ -52,7 +52,7 @@ namespace OneU
 		};
 		IAllocator& allocator;
 		node *head, *rail;
-		uint m_Size;
+		uint32 m_Size;
 	public:
 		class iterator
 		{
@@ -70,15 +70,15 @@ namespace OneU
 				return *this;
 			}
 			iterator& operator++(){
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				ptr = ptr->next;
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				return *this;
 			}
 			iterator& operator--(){
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				ptr = ptr->prev;
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				return *this;
 			}
 			iterator operator++(int){
@@ -98,36 +98,36 @@ namespace OneU
 				return ptr != other.ptr;
 			}
 			iterator next(){
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				return ptr->next;
 			}
 			const iterator next() const{
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				return ptr->next;
 			}
 			iterator prev(){
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				return ptr->prev;
 			}
 			const iterator prev() const{
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				return ptr->prev;
 			}
 
 			T* operator->(){
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				return &ptr->val;
 			}
 			const T* operator->() const{
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				return &ptr->val;
 			}
 			T& operator*(){
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				return ptr->val;
 			}
 			const T& operator*() const{
-				ASSERT(ptr);
+				ONEU_ASSERT(ptr);
 				return ptr->val;
 			}
 		};
@@ -145,6 +145,8 @@ namespace OneU
 		const iterator begin() const{ return iterator(head->next);}
 		iterator end(){ return iterator(rail);}
 		const iterator end() const{ return iterator(rail);}
+		T& front(){ return *begin();}
+		T& back(){ return *end().prev();}
 	private:
 		void _doInsert( node* new_p, iterator &it ) 
 		{
@@ -156,10 +158,10 @@ namespace OneU
 			++m_Size;
 		}
 	public:
-		uint size() const{ return m_Size; }
+		uint32 size() const{ return m_Size; }
 		//插到it前面
 		iterator insert(iterator it, const T& val){
-			ASSERT(it.ptr != NULL);
+			ONEU_ASSERT(it.ptr != NULL);
 			node* new_p = (node*)allocator.alloc(sizeof(node), __FILE__, __LINE__);
 			if(new_p == NULL){ ONEU_RAISE(L"Allocating Error!");}
 			new (&new_p->val) T(val);
@@ -169,7 +171,7 @@ namespace OneU
 			return iterator(new_p);
 		}
 		iterator insert(iterator it){
-			ASSERT(it.ptr != NULL);
+			ONEU_ASSERT(it.ptr != NULL);
 			node* new_p = (node*)allocator.alloc(sizeof(node), __FILE__, __LINE__);
 			if(new_p == NULL){ ONEU_RAISE(L"Allocating Error!");}
 			new (&new_p->val) T;
@@ -180,7 +182,7 @@ namespace OneU
 		}
 
 		void erase(iterator it){
-			ASSERT(it.ptr != NULL && it.ptr != head && it.ptr != rail);
+			ONEU_ASSERT(it.ptr != NULL && it.ptr != head && it.ptr != rail);
 			it.ptr->prev->next = it.ptr->next;
 			it.ptr->next->prev = it.ptr->prev;
 			//析构

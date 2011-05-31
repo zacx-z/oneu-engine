@@ -187,29 +187,42 @@ namespace OneU
 	public:
 		CharEvent(wchar code)
 			: charCode(code){}
-		wchar getCode(){ return charCode;}
+		wchar getCode() const{ return charCode;}
 	};
 	class KeyEvent
 	{
-		dword scancode;
+		uint32 scancode;
 		bool bRelease;//若为true是Release，否则为Press
 	public:
-		KeyEvent(dword scancode, bool bRelease)
+		KeyEvent(uint32 scancode, bool bRelease)
 			: scancode(scancode), bRelease(bRelease){}
-		dword getCode(){ return scancode;}
+		uint32 getCode(){ return scancode;}
 		bool isRelease(){ return bRelease; }
 		bool isPress(){ return !bRelease; }
 	};
 	class IInputReceiver
 		: public Interface
 	{
-		bool m_bWillPropagate;
 	public:
-		void propagate(bool bPropagate){//reserved
-			m_bWillPropagate = bPropagate;
-		};
-		bool willPropagate(){ return m_bWillPropagate; }
-		virtual void onChar(CharEvent& event){}
-		virtual void onKey(KeyEvent& event){}
+		//返回值表示是否将事件向下传递
+		virtual bool onChar(const CharEvent& event){ return false; }
+		virtual bool onKey(const KeyEvent& event){ return false; }
+	};
+	//用于责任链
+	struct __CharFunctor
+	{
+		const CharEvent& m_event;
+		__CharFunctor(const CharEvent& event) : m_event(event){}
+		bool operator()(IInputReceiver* p){
+			return p->onChar(m_event);
+		}
+	};
+	struct __KeyFunctor
+	{
+		const KeyEvent& m_event;
+		__KeyFunctor(const KeyEvent& event) : m_event(event){}
+		bool operator()(IInputReceiver* p){
+			return p->onKey(m_event);
+		}
 	};
 }

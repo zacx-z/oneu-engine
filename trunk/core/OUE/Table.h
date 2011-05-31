@@ -174,7 +174,7 @@ namespace OneU
 				return ++ret;
 			}
 
-			T& getValue(){ ASSERT(ptr != NULL); return *ptr->val;}
+			T& getValue(){ ONEU_ASSERT(ptr != NULL); return *ptr->val;}
 			const T& getValue() const{ if(ptr != NULL) return ptr->val; else return NULL;}
 			String _getKey() const{
 				String ret;

@@ -55,23 +55,23 @@ namespace OneU
 			static int GetClassNum(){ return s_Num; }
 #endif
 		protected:
-			void _Create( uint nWidth, uint nHeight, PXLFORMAT Format, D3DPOOL Pool )
+			void _Create( uint32 nWidth, uint32 nHeight, PXLFORMAT Format, D3DPOOL Pool )
 			{
-				ASSERT( m_pSurface == NULL );
+				ONEU_ASSERT( m_pSurface == NULL );
 				DXCHECK_THROW( _pD3DDevice->CreateOffscreenPlainSurface( nWidth, nHeight, static_cast< D3DFORMAT > ( Format ), Pool, &m_pSurface, NULL ),
 					L"表面创建失败！" );
 			}
-			void _CreateRenderTarget( uint nWidth, uint nHeight, PXLFORMAT Format, dword MultiSample, dword MultisampleQuality, bool Lockable )
+			void _CreateRenderTarget( uint32 nWidth, uint32 nHeight, PXLFORMAT Format, uint32 MultiSample, uint32 MultisampleQuality, bool Lockable )
 			{
-				ASSERT( m_pSurface == NULL );
+				ONEU_ASSERT( m_pSurface == NULL );
 				DXCHECK_THROW(
 					_pD3DDevice->CreateRenderTarget( nWidth, nHeight, static_cast< D3DFORMAT > ( Format ),
 					static_cast< D3DMULTISAMPLE_TYPE > ( MultiSample ), MultisampleQuality, Lockable, &m_pSurface, NULL ),
 					L"渲染目标表面创建失败！" );
 			}
-			void _CreateDepthSurface( uint nWidth, uint nHeight, PXLFORMAT Format, dword MultiSample, dword MultisampleQuality, bool Discard )
+			void _CreateDepthSurface( uint32 nWidth, uint32 nHeight, PXLFORMAT Format, uint32 MultiSample, uint32 MultisampleQuality, bool Discard )
 			{
-				ASSERT( m_pSurface == NULL );
+				ONEU_ASSERT( m_pSurface == NULL );
 				DXCHECK_THROW(
 					_pD3DDevice->CreateDepthStencilSurface( nWidth, nHeight, static_cast< D3DFORMAT > ( Format ),
 					static_cast< D3DMULTISAMPLE_TYPE > ( MultiSample ), MultisampleQuality, Discard, &m_pSurface, NULL ),
@@ -107,7 +107,7 @@ namespace OneU
 			}
 			Surface_Base & operator = ( Surface_Base & rhs )
 			{
-				ASSERT( !m_pSurface );
+				ONEU_ASSERT( !m_pSurface );
 					m_pSurface = rhs.m_pSurface;
 				rhs.m_pSurface = NULL;
 				return ( * this );
@@ -128,7 +128,7 @@ namespace OneU
 					return s_SD;
 			}
 
-			void Create( uint nWidth, uint nHeight, PXLFORMAT Format )
+			void Create( uint32 nWidth, uint32 nHeight, PXLFORMAT Format )
 			{
 				_Create( nWidth, nHeight, Format, D3DPOOL_DEFAULT );
 			}
@@ -179,7 +179,7 @@ namespace OneU
 			 */
 			/* ----------------------------------------------------------------------------*/
 			//获取表面信息
-			uint GetWidth( const INFO& Info ) const
+			uint32 GetWidth( const INFO& Info ) const
 			{
 				return Info.Width;
 			}
@@ -196,7 +196,7 @@ namespace OneU
 			 * @sa GetInfo
 			 */
 			/* ----------------------------------------------------------------------------*/
-			uint GetWidth() const
+			uint32 GetWidth() const
 			{
 				return GetWidth( GetInfo() );
 			}
@@ -215,7 +215,7 @@ namespace OneU
 			 * @sa GetInfo
 			 */
 			/* ----------------------------------------------------------------------------*/
-			uint GetHeight( const INFO& Info ) const
+			uint32 GetHeight( const INFO& Info ) const
 			{
 				return Info.Height;
 			}
@@ -232,7 +232,7 @@ namespace OneU
 			 * @sa GetInfo
 			 */
 			/* ----------------------------------------------------------------------------*/
-			uint GetHeight() const
+			uint32 GetHeight() const
 			{
 				return GetHeight( GetInfo() );
 			}
@@ -302,7 +302,7 @@ namespace OneU
 		};
 		
 		//前置声明
-		template< uint _Usage, D3DPOOL Pool >
+		template< uint32 _Usage, D3DPOOL Pool >
 		class Surface_Texture;
 		
 		//__Surface_Base的Wrapper
@@ -351,7 +351,7 @@ namespace OneU
 			 * @param Format 表面像素格式
 			 */
 			/* ----------------------------------------------------------------------------*/
-			void Create( uint nWidth, uint nHeight, PXLFORMAT Format )
+			void Create( uint32 nWidth, uint32 nHeight, PXLFORMAT Format )
 			{
 				_Create( nWidth, nHeight, Format, _Pool );
 			}
@@ -395,7 +395,7 @@ namespace OneU
 				_UpdateSurface( pDtnPoint, pSrcSurface, pSrcRect, __Surface_Pool_Traits< _Pool >::UpdateSurfaceDestination_Category );
 			}
 			//同上
-			template< uint Usage_, D3DPOOL Pool_ >
+			template< uint32 Usage_, D3DPOOL Pool_ >
 			void UpdateSurface( POINT * pDtnPoint, const Surface_Texture< Usage_, Pool_ > * pSrcSurface, RECT * pSrcRect )
 			{
 				_UpdateSurface( pDtnPoint, pSrcSurface, pSrcRect, __Texture_UgPl_Traits< Usage_, Pool_ >::UpdateSurfaceSource_Category );
@@ -449,7 +449,7 @@ namespace OneU
 			 * @sa Graphics_t::CheckDeviceMultiSampleType
 			 */
 			/* ----------------------------------------------------------------------------*/
-			void Create( uint nWidth, uint nHeight, PXLFORMAT Format, dword MultiSample, dword MultisampleQuality, bool Lockable )
+			void Create( uint32 nWidth, uint32 nHeight, PXLFORMAT Format, uint32 MultiSample, uint32 MultisampleQuality, bool Lockable )
 			{
 				_CreateRenderTarget( nWidth, nHeight, Format, MultiSample, MultisampleQuality, Lockable );
 			}
@@ -507,7 +507,7 @@ namespace OneU
 			{
 				Surface_Base::StretchRect( pDtnRect, pSrcSurface, pSrcRect );
 			}
-			template< uint _Usage, D3DPOOL _Pool >
+			template< uint32 _Usage, D3DPOOL _Pool >
 			void StretchRect( RECT * pDtnRect, const Surface_Texture< _Usage, _Pool > * pSurface, RECT * pSrcRect )
 			{
 				_StretchRect( pDtnRect, pSrcSurface, pSrcRect, __Texture_UgPl_Traits< _Usage, _Pool >::StretchRectSource );
@@ -529,7 +529,7 @@ namespace OneU
 			{
 				Surface_Base::GetData( pDestSurface );
 			}
-			template< uint Usage_ >
+			template< uint32 Usage_ >
 			void GetData( Surface_Texture< Usage_, D3DPOOL_SYSTEMMEM > * pDestSurface )
 			{
 				Surface_Base::GetData( pDestSurface );
@@ -569,7 +569,7 @@ namespace OneU
 		 * 该模板类具现化的类与__Texture具现化的类一一对应
 		 */
 		/* ----------------------------------------------------------------------------*/
-		template< uint _Usage, D3DPOOL _Pool >
+		template< uint32 _Usage, D3DPOOL _Pool >
 		class Surface_Texture
 			: public Surface_Texture_Base
 		{
@@ -632,7 +632,7 @@ namespace OneU
 			{
 				_UpdateSurface( pDtnPoint, pSrcSurface, pSrcRect, __Texture_UgPl_Traits< _Usage, _Pool >::UpdateSurfaceDestination_Category );
 			}
-			template< uint Usage_, D3DPOOL Pool_ >
+			template< uint32 Usage_, D3DPOOL Pool_ >
 			void UpdateSurface( POINT * pDtnPoint, const Surface_Texture< Usage_, Pool_ > * pSrcSurface, RECT * pSrcRect )
 			{
 				_UpdateSurface( pDtnPoint, pSrcSurface, pSrcRect,
@@ -668,7 +668,7 @@ namespace OneU
 			{
 				_StretchRect( pDtnRect, pSrcSurface, pSrcRect, __Texture_UgPl_Traits< _Usage, _Pool >::StretchRectDestination_Category() );
 			}
-			template< uint Usage_, D3DPOOL Pool_ >
+			template< uint32 Usage_, D3DPOOL Pool_ >
 			void StretchRect( RECT * pDtnRect, const Surface_Texture< Usage_, Pool_ > * pSrcSurface, RECT * pSrcRect )
 			{
 				_StretchRect( pDtnRect, pSrcSurface, pSrcRect,
@@ -692,7 +692,7 @@ namespace OneU
 			{
 				_GetData( pDestSurface, __Bool_Category< _Usage == D3DUSAGE_RENDERTARGET >::Category() );
 			}
-			template< uint Usage_ >
+			template< uint32 Usage_ >
 			void GetData( Surface_Texture< Usage_, D3DPOOL_SYSTEMMEM > * pDestSurface )
 			{
 				_GetData( pDestSurface, __Bool_Category< _Usage == D3DUSAGE_RENDERTARGET >::Category() );

@@ -30,7 +30,7 @@ namespace OneU
 	{
 		void PixelShader::CompileFile( pcwstr pSrcFile, pcstr pFuncName )
 		{
-			ASSERT( m_pShader == 0 );
+			ONEU_ASSERT( m_pShader == 0 );
 			HRESULT hr;
 			ID3DXBuffer *pError = 0;
 			if( FAILED( hr = D3DXCompileShaderFromFile( pSrcFile, NULL, NULL, pFuncName, "ps_2_0", 0, &m_pShaderBuffer, &pError, &m_pConstTable ) ) )
@@ -40,7 +40,7 @@ namespace OneU
 				THROW_HRESULT(hr);
 			}
 
-			XV_THROW( _pD3DDevice->CreatePixelShader( ( dword* )m_pShaderBuffer->GetBufferPointer(), &m_pShader ) );
+			XV_THROW( _pD3DDevice->CreatePixelShader( ( uint32* )m_pShaderBuffer->GetBufferPointer(), &m_pShader ) );
 		}
 
 		//不知丢失设备时需不需要Release
@@ -52,14 +52,14 @@ namespace OneU
 		//不知丢失设备时是否需要这种操作
 		void PixelShader::OnResetDevice()
 		{
-			ASSERT( m_pShader == 0 );
-			XV_THROW( _pD3DDevice->CreatePixelShader( ( dword* )m_pShaderBuffer->GetBufferPointer(), &m_pShader ) );
+			ONEU_ASSERT( m_pShader == 0 );
+			XV_THROW( _pD3DDevice->CreatePixelShader( ( uint32* )m_pShaderBuffer->GetBufferPointer(), &m_pShader ) );
 		}
 
 		//分割线------------------------------------------------------------------------
 		void VertexShader::CompileFile( pcwstr pSrcFile, pcstr pFuncName )
 		{
-			ASSERT( m_pShader == 0 );
+			ONEU_ASSERT( m_pShader == 0 );
 			HRESULT hr;
 			ID3DXBuffer *pError = 0;
 			if( FAILED( hr = D3DXCompileShaderFromFile( pSrcFile, NULL, NULL, pFuncName, "vs_2_0", 0, &m_pShaderBuffer, &pError, &m_pConstTable ) ) )
@@ -69,7 +69,7 @@ namespace OneU
 				THROW_HRESULT(hr);
 			}
 
-			XV_THROW( _pD3DDevice->CreateVertexShader( ( dword* )m_pShaderBuffer->GetBufferPointer(), &m_pShader ) );
+			XV_THROW( _pD3DDevice->CreateVertexShader( ( uint32* )m_pShaderBuffer->GetBufferPointer(), &m_pShader ) );
 		}
 
 		//不知丢失设备时需不需要Release
@@ -81,8 +81,8 @@ namespace OneU
 		//不知丢失设备时是否需要这种操作
 		void VertexShader::OnResetDevice()
 		{
-			ASSERT( m_pShader == 0 );
-			XV_THROW( _pD3DDevice->CreateVertexShader( ( dword* )m_pShaderBuffer->GetBufferPointer(), &m_pShader ) );
+			ONEU_ASSERT( m_pShader == 0 );
+			XV_THROW( _pD3DDevice->CreateVertexShader( ( uint32* )m_pShaderBuffer->GetBufferPointer(), &m_pShader ) );
 		}
 	}
 }

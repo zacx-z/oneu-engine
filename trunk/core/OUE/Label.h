@@ -56,7 +56,7 @@ namespace OneU
 		virtual color_t getColor() = 0;
 		virtual void setAlpha(ubyte alpha) = 0;
 		ubyte getAlpha(){ return getColor().getAlpha(); }
-		virtual void setAlign(dword align) = 0;
+		virtual void setAlign(uint32 align) = 0;
 	};
 	/* ----------------------------------------------------------------------------*/
 	/**
@@ -70,5 +70,5 @@ namespace OneU
 	 * @return ±Í«©
 	 */
 	/* ----------------------------------------------------------------------------*/
-	ONEU_API ILabel* Label_create(float Width, float Height, uint fontSize, pcwstr fontName = L"Arial");
+	ONEU_API ILabel* Label_create(float Width, float Height, uint32 fontSize, pcwstr fontName = L"Arial");
 }

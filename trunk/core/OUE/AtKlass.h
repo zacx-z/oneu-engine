@@ -167,7 +167,7 @@ namespace OneU{
 			 */
 			/* ----------------------------------------------------------------------------*/
 			value* call(obj* o, value* arg){//如果arg为NULL，接收者会得到一个空的Tuple。如果arg不为tuple接受者会得到只有一个元素的tuple。
-				ASSERT(o->getKlass() == this->getKlass());
+				ONEU_ASSERT(o->getKlass() == this->getKlass());
 				arg = _convert_to_tuple(arg);
 				exported* _obj_ = (exported*)(o->_pObj);
 				return (_obj_->*_addr)(arg);

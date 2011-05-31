@@ -39,7 +39,7 @@ namespace OneU
 
 	extern "C" ONEU_BASE_API ILogger& GetLogger()
 	{
-		ASSERT( _Logger_pInstance );return *_Logger_pInstance;
+		ONEU_ASSERT( _Logger_pInstance );return *_Logger_pInstance;
 	}
 
 	extern "C" ONEU_BASE_API void Logger_destroy(){

@@ -33,8 +33,8 @@ namespace OneU
 	namespace DX
 	{
 #ifdef __ONEU_USE_DIRECT3D
-		dword s_Filter = D3DX_FILTER_TRIANGLE | D3DX_FILTER_DITHER;
-		dword s_MipFilter = D3DX_FILTER_BOX;
+		uint32 s_Filter = D3DX_FILTER_TRIANGLE | D3DX_FILTER_DITHER;
+		uint32 s_MipFilter = D3DX_FILTER_BOX;
 
 #endif
 		ONEU_DXGRAPHICS_API SpriteE SpriteE::I;

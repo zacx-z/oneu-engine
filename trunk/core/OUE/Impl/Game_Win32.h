@@ -36,8 +36,8 @@ namespace OneU
 		bool m_bActive;
 
 		float m_FPS;
-		dword m_lastTime;//计算m_FPS用
-		dword m_Frames;//计算m_FPS用
+		uint32 m_lastTime;//计算m_FPS用
+		uint32 m_Frames;//计算m_FPS用
 
 		float m_TimeInterval;
 
@@ -46,7 +46,7 @@ namespace OneU
 	public:
 		Game_Win32() : m_bActive(true), m_FPS(0.0f), m_lastTime(0), m_Frames(0), m_TimeInterval(0.01f/*避免主逻辑不小心除零*/), m_pShell(NULL){}
 		~Game_Win32();
-		void init(pcwstr WindowName, uint width, uint height, bool bWindowed);
+		void init(pcwstr WindowName, uint32 width, uint32 height, bool bWindowed);
 		int run();
 		void quit();
 

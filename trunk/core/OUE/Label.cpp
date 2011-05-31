@@ -33,12 +33,12 @@ namespace OneU
 		float m_Width, m_Height, m_X, m_Y;
 		String m_Text;
 		color_t m_Color;
-		dword m_Align;
+		uint32 m_Align;
 	public:
-		Label_Impl(float Width, float Height, uint fontSize, pcwstr fontName)
+		Label_Impl(float Width, float Height, uint32 fontSize, pcwstr fontName)
 			: m_Width(Width), m_Height(Height), m_X(0.0f), m_Y(0.0f), m_Color(255, 255, 255), m_Align(0)
 		{
-			font.Create(fontSize, (uint)(fontSize * 0.4f), 1, 1, 0, fontName);
+			font.Create(fontSize, (uint32)(fontSize * 0.4f), 1, 1, 0, fontName);
 		}
 		void setX(float x){ m_X = x; }
 		float getX(){ return m_X; }
@@ -54,14 +54,14 @@ namespace OneU
 		color_t getColor(){ return m_Color; }
 		void setAlpha(ubyte alpha){ m_Color.setAlpha(alpha); }
 
-		void setAlign(dword align){
+		void setAlign(uint32 align){
 			m_Align = align;
 		}
 
 		void paint(){
 			if(m_Text == L"") return;
 			GetVideo().setBlendMode(video::BM_NORMAL);
-			dword flag = DT_EXPANDTABS;
+			uint32 flag = DT_EXPANDTABS;
 			if(m_Align & T_RIGHT) flag |= DT_RIGHT;
 			else if(m_Align & T_CENTER) flag |= DT_CENTER;
 			if(m_Align & T_BOTTOM) flag |= DT_BOTTOM;
@@ -71,7 +71,7 @@ namespace OneU
 		void describe(String& buffer, int depth){ buffer.append(L"<label>\n"); }
 	};
 
-	ONEU_API ILabel* Label_create( float Width, float Height, uint fontSize, pcwstr fontName /*= L"Arial"*/ ){
+	ONEU_API ILabel* Label_create( float Width, float Height, uint32 fontSize, pcwstr fontName /*= L"Arial"*/ ){
 		return ONEU_NEW Label_Impl(Width, Height, fontSize, fontName);
 	}
 

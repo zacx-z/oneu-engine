@@ -29,6 +29,8 @@ THE SOFTWARE.
  */
 #pragma once
 #include "OUEDefs.h"
+#include "Stack.h"
+#include "Event.h"
 
 namespace OneU
 {
@@ -75,19 +77,18 @@ namespace OneU
 		Factory<IStereo>::type m_StereoFactory;
 		Factory<IControl>::type m_ControlFactory;
 
-		IInputReceiver* m_pInputFocus;
+		Chain<IInputReceiver*> m_InputFocusStack;
 	public:
 		IGame()
 			: m_pBroadcast(NULL), m_pVideo(NULL), m_pStereo(NULL), m_pControl(NULL), m_pScene(NULL),
-			  m_BroadcastFactory(NULL), m_VideoFactory(NULL), m_StereoFactory(NULL), m_ControlFactory(NULL),
-			  m_pInputFocus(NULL)
+			  m_BroadcastFactory(NULL), m_VideoFactory(NULL), m_StereoFactory(NULL), m_ControlFactory(NULL)
 		{}
 		~IGame(){
-			ASSERT(m_pScene == NULL);
-			ASSERT(m_pControl == NULL);
-			ASSERT(m_pStereo == NULL);
-			ASSERT(m_pVideo == NULL);
-			ASSERT(m_pBroadcast == NULL);
+			ONEU_ASSERT(m_pScene == NULL);
+			ONEU_ASSERT(m_pControl == NULL);
+			ONEU_ASSERT(m_pStereo == NULL);
+			ONEU_ASSERT(m_pVideo == NULL);
+			ONEU_ASSERT(m_pBroadcast == NULL);
 		}
 
 		/* ----------------------------------------------------------------------------*/
@@ -176,7 +177,7 @@ namespace OneU
 		 * @retval false 初始化失败
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual void init(pcwstr WindowName, uint width, uint height, bool bWindowed) = 0;
+		virtual void init(pcwstr WindowName, uint32 width, uint32 height, bool bWindowed) = 0;
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 运行游戏
@@ -246,19 +247,28 @@ namespace OneU
 		 * @return 旧的EventDispatcher。
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual IInputReceiver* setInputFocus(IInputReceiver* pED){
-			IInputReceiver* ret = m_pInputFocus;
-			m_pInputFocus = pED;
+		virtual IInputReceiver* replaceInputFocus(IInputReceiver* pIR){
+			IInputReceiver* ret = m_InputFocusStack.pop();
+			m_InputFocusStack.push(pIR);
 			return ret;
+		}
+		virtual void pushInputFocus(IInputReceiver* pIR){
+			m_InputFocusStack.push(pIR);
+		}
+		virtual IInputReceiver* popInputFocus(){
+			return m_InputFocusStack.pop();
 		}
 		/* ----------------------------------------------------------------------------*/
 		/**
-		 * @brief 获取当前输入焦点
-		 *
-		 * @return 被设为输入焦点的EventDispatcher，可能为NULL。
+		 * @brief 传输Char事件。
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual IInputReceiver* getInputFocus(){ return m_pInputFocus; }
+		virtual void onChar(const CharEvent& event){
+			m_InputFocusStack.handle(__CharFunctor(event));
+		}
+		virtual void onKey(const KeyEvent& event){
+			m_InputFocusStack.handle(__KeyFunctor(event));
+		}
 
 		//tools
 		/* ----------------------------------------------------------------------------*/
@@ -386,4 +396,3 @@ namespace OneU
 	/* ----------------------------------------------------------------------------*/
 	inline IScene& GetScene(){ return GetGame().getScene(); }
 }
-

@@ -28,12 +28,12 @@ namespace OneU
 {
 	namespace DX
 	{
-		extern dword s_Filter;
-		extern dword s_MipFilter;
+		extern uint32 s_Filter;
+		extern uint32 s_MipFilter;
 
-		template< uint _Usage, D3DPOOL _Pool >
+		template< uint32 _Usage, D3DPOOL _Pool >
 		void CreateTextureFromFile( pcwstr pSrcFile, Texture_t< _Usage, _Pool > & txTexture,
-			uint Level, PXLFORMAT Format, COLOR crColorKey = 0 )
+			uint32 Level, PXLFORMAT Format, COLOR crColorKey = 0 )
 		{
 			IDirect3DTexture9 * pITexture = 0;
 
@@ -48,9 +48,9 @@ namespace OneU
 
 			txTexture._Create( pITexture );
 		}
-		template< uint _Usage, D3DPOOL _Pool >
-		void CreateTextureFromMemory(LPVOID pSrcData, uint SrcDataSize, Texture_t< _Usage, _Pool > & txTexture,
-			uint Level, PXLFORMAT Format, COLOR crColorKey = 0)
+		template< uint32 _Usage, D3DPOOL _Pool >
+		void CreateTextureFromMemory(LPVOID pSrcData, uint32 SrcDataSize, Texture_t< _Usage, _Pool > & txTexture,
+			uint32 Level, PXLFORMAT Format, COLOR crColorKey = 0)
 		{
 			IDirect3DTexture9 * pITexture = 0;
 
@@ -66,7 +66,7 @@ namespace OneU
 			DXCHECK_THROW( ::D3DXLoadSurfaceFromFile( Surface._Obtain(), NULL, pDestRect, pFileName, pSrcRect, s_Filter, crColorKey, NULL ),
 				L"读取文件到表面失败！");
 		}
-		template< uint _Usage, D3DPOOL _Pool >
+		template< uint32 _Usage, D3DPOOL _Pool >
 		void LoadSurfaceFromFile( pcwstr pFileName, Surface_Texture< _Usage, _Pool > &Surface, RECT *pDestRect = 0, RECT *pSrcRect = 0, COLOR crColorKey = 0 )
 		{
 			DXCHECK_THROW( ::D3DXLoadSurfaceFromFile( Surface._Obtain(), NULL, pDestRect, pFileName, pSrcRect, s_Filter, crColorKey, NULL ),

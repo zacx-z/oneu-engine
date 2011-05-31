@@ -1,6 +1,6 @@
 require "stdlib"
 
-Atom.loadLib("../release/AtomDemo.at");
+Atom.loadLib("../plugins/AtomDemo.at");
 Waterfall = Atom.G.Waterfall
 
 Scene = {}

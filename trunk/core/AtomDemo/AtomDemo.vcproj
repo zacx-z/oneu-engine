@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\$(ProjectName).at"
+				OutputFile="..\plugins\$(ProjectName).at"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -134,7 +134,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\$(ProjectName).at"
+				OutputFile="..\plugins\$(ProjectName).at"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"

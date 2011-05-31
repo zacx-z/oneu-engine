@@ -45,11 +45,6 @@ namespace OneU
 		: public video::INode
 	{
 	public:
-		virtual void setX(float x) = 0;
-		virtual float getX() = 0;
-		virtual void setY(float y) = 0;
-		virtual float getY() = 0;
-
 		virtual void setColor(color_t color) = 0;
 		virtual color_t getColor() = 0;
 
@@ -66,5 +61,5 @@ namespace OneU
 	 * @return ÐÎ×´½Ó¿Ú
 	 */
 	/* ----------------------------------------------------------------------------*/
-	ONEU_API IShape* Shape_rect(float width, float height);
+	ONEU_API IShape* Shape_rect(const rect& rc);
 }

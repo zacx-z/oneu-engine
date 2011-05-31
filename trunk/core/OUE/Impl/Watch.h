@@ -36,7 +36,7 @@ namespace OneU
 			int str_pos, pos;
 			int maxrows;
 		public:
-			TextField(float width, float height, uint fontsize, pcwstr fontname = L"Arial"){
+			TextField(float width, float height, uint32 fontsize, pcwstr fontname = L"Arial"){
 				str_pos = pos = 0;
 				maxrows = 0;
 				m_pText = Label_create(width, height, fontsize, fontname);
@@ -107,7 +107,7 @@ namespace OneU
 			int curTabIndex;
 		public:
 			Watch(){
-				m_pBack = Shape_rect(600, 500);
+				m_pBack = Shape_rect(rect(0, 0, 600, 500));
 				m_pBack->setX(100);m_pBack->setY(50);
 				m_pBack->setColor(color_t(127, 127, 127, 127));
 

@@ -88,8 +88,8 @@ namespace OneU
 		 * @return µÚindex¸öÔªËØ
 		 */
 		/* ----------------------------------------------------------------------------*/
-		T& operator[](uint index){ return M[index]; }
-		const T& operator[](uint index) const{ return M[index]; }
+		T& operator[](uint32 index){ return M[index]; }
+		const T& operator[](uint32 index) const{ return M[index]; }
 
 		T* data(){ return M; }
 		const T* data() const{ return M;}

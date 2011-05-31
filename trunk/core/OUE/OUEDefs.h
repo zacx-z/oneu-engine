@@ -59,14 +59,14 @@ namespace OneU
 	/* ----------------------------------------------------------------------------*/
 	class color_t
 	{
-		dword c;
+		uint32 c;
 	public:
 		color_t(){}
-		color_t(dword c) : c(c){}
+		color_t(uint32 c) : c(c){}
 		color_t(ubyte red, ubyte green, ubyte blue, ubyte alpha = 255)
 			: c(alpha << 24 | red << 16 | green << 8 | blue)
 		{}
-		operator dword(){ return c; }
+		operator uint32(){ return c; }
 		ubyte getAlpha(){ return (ubyte)(c >> 24 & 0xff); }
 		ubyte getRed(){ return (ubyte)(c >> 16 & 0xff); }
 		ubyte getGreen(){ return (ubyte)(c >> 8 & 0xff); }

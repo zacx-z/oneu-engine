@@ -66,7 +66,7 @@ namespace OneU
 		private:
 			D3DLOCKED_RECT m_DDLR;
 			IDirect3DSurface9 * const m_pSurface;
-			uint m_Width, m_Height;
+			uint32 m_Width, m_Height;
 		public:
 			typedef PixelFormat< Format > PxlFmt;
 			SurfaceLock( Surface_Base * pSurface, const RECT *pRect = NULL, LK_FLAG Flag = LK_DISCARD )
@@ -88,8 +88,8 @@ namespace OneU
 			}
 
 			//{从这开始与TextureLock部分相同
-			uint GetLockWidth() const { return m_Width; }
-			uint GetLockHeight() const { return m_Height; }
+			uint32 GetLockWidth() const { return m_Width; }
+			uint32 GetLockHeight() const { return m_Height; }
 
 			void * GetBuffer() const
 			{
@@ -100,14 +100,14 @@ namespace OneU
 				return m_DDLR.Pitch;
 			}
 
-			typename PxlFmt::Pixel SetPixel( uint x, uint y, COLOR crColor )
+			typename PxlFmt::Pixel SetPixel( uint32 x, uint32 y, COLOR crColor )
 			{
 				//未检查x y范围
 				return *reinterpret_cast< typename PxlFmt::Pixel * > (
 					( reinterpret_cast< char * >( GetBuffer() ) + y * GetPitch() + x * sizeof( PxlFmt::Pixel ) )
 					) = PxlFmt::GetPixel( crColor );
 			}
-			COLOR GetPixel( uint x, uint y )
+			COLOR GetPixel( uint32 x, uint32 y )
 			{
 				//未检查x y范围
 				return PxlFmt::GetColor( *reinterpret_cast< PxlFmt::Pixel * > (
@@ -140,11 +140,11 @@ namespace OneU
 		private:
 			D3DLOCKED_RECT m_DDLR;
 			IDirect3DTexture9 * const m_pTexture;
-			const uint m_Level;
-			uint m_Width, m_Height;
+			const uint32 m_Level;
+			uint32 m_Width, m_Height;
 		public:
 			typedef PixelFormat< Format > PxlFmt;
-			TextureLock( Texture_Base * pTexture, uint Level = 0, const RECT * pRect = NULL, LK_FLAG Flag = LK_DISCARD )
+			TextureLock( Texture_Base * pTexture, uint32 Level = 0, const RECT * pRect = NULL, LK_FLAG Flag = LK_DISCARD )
 				: m_pTexture( pTexture->_Obtain() ), m_Level( Level )
 			{
 				DXCHECK_THROW( m_pTexture->LockRect( Level, &m_DDLR, pRect, Flag ), L"锁定纹理失败！" );
@@ -161,8 +161,8 @@ namespace OneU
 				}
 			}
 			
-			uint GetLockWidth() const { return m_Width; }
-			uint GetLockHeight() const { return m_Height; }
+			uint32 GetLockWidth() const { return m_Width; }
+			uint32 GetLockHeight() const { return m_Height; }
 
 			void * GetBuffer() const
 			{
@@ -173,14 +173,14 @@ namespace OneU
 				return m_DDLR.Pitch;
 			}
 
-			typename PxlFmt::Pixel SetPixel( uint x, uint y, COLOR crColor )
+			typename PxlFmt::Pixel SetPixel( uint32 x, uint32 y, COLOR crColor )
 			{
 				//未检查x y范围
 				return *reinterpret_cast< typename PxlFmt::Pixel * > (
 					( reinterpret_cast< char * >( GetBuffer() ) + y * GetPitch() + x * sizeof( PxlFmt::Pixel ) )
 					) = PxlFmt::GetPixel( crColor );
 			}
-			COLOR GetPixel( uint x, uint y )
+			COLOR GetPixel( uint32 x, uint32 y )
 			{
 				//未检查x y范围
 				return PxlFmt::GetColor( *reinterpret_cast< PxlFmt::Pixel * > (

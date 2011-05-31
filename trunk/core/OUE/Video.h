@@ -60,214 +60,13 @@ namespace OneU
 
 		/* ----------------------------------------------------------------------------*/
 		/** 
-		 * @brief 渲染节点
-		 *
-		 * 封装了一个渲染操作。
-		 * 继承此类能扩充图形系统的功能。
-		 */
-		/* ----------------------------------------------------------------------------*/
-		class INode
-			: public Interface
-		{
-		private:
-			friend class INodeContainer;
-			INodeContainer* m_pParent;
-			List<_NodeTag>::iterator m_It;//被parent所持有的容器的对应自己的迭代器
-		public:
-			bool visible;//visible为false时会停止update 不显示
-			bool active;//active为false时会停止update
-			INode() : m_pParent(NULL), visible(true), active(true) {}
-			INodeContainer* getParent(){ return m_pParent; }
-			~INode(){ detach(); }
-
-			/* ----------------------------------------------------------------------------*/
-			/** 
-			 * @brief 使自身成为某个节点的儿子
-			 * 
-			 * @param parent 双亲节点
-			 * @param z 深度
-			 * @param tag 标签
-			 *
-			 * @remarks 生存期会被双亲管理
-			 */
-			/* ----------------------------------------------------------------------------*/
-			inline void attach(INodeContainer* parent, int z = 0, pcwstr tag = NULL);//跟addChild功能一样
-			/* ----------------------------------------------------------------------------*/
-			/** 
-			 * @brief 解除与双亲的关系
-			 *
-			 * @remarks 生存期不再被双亲管理
-			 */
-			/* ----------------------------------------------------------------------------*/
-			inline void detach();
-
-			/* ----------------------------------------------------------------------------*/
-			/** 
-			 * @brief 渲染函数
-			 *
-			 * 需要被重写来扩充。
-			 * visible为true时被调用。
-			 */
-			/* ----------------------------------------------------------------------------*/
-			virtual void paint() = 0;
-
-			//只有visible且active为true时才会被调用
-			virtual void update(){}
-
-			//可被重写
-			virtual void describe(String& buffer, int depth){
-				buffer.append(L"Unknown Node\n");
-			}
-			/**
-			 * 在IVideo::render函数中被调用。
-			 */
-			void visit_paint(){
-				if(visible)
-					paint();
-			}
-			void visit_update(){
-				if(visible && active)
-					update();
-			}
-			void getDescription(String& buffer, int depth = 0){
-				describe(buffer, depth);
-			}
-		};
-
-
-		struct _NodeTag
-		{
-			int z;
-			INode* child;
-			String* tag;
-		};
-
-		/* ----------------------------------------------------------------------------*/
-		/** 
-		 * @brief 渲染节点容器
-		 *
-		 * 即可以有孩子的渲染节点。
-		 */
-		/* ----------------------------------------------------------------------------*/
-		class INodeContainer
-			: public INode
-		{
-			friend void _DetachNodeFromParent(INode* node);
-		protected:
-			typedef List<_NodeTag> ListType;
-			ListType m_Children;
-			friend class INode;
-		public:
-			/* ----------------------------------------------------------------------------*/
-			/** 
-			 * @brief 添加孩子
-			 * 
-			 * @param child 孩子节点
-			 * @param z 深度
-			 * @param tag 标签
-			 * 
-			 * @returns 是否成功
-			 * @remarks 孩子的生存期被自身管理
-			 */
-			/* ----------------------------------------------------------------------------*/
-			bool addChild(INode* child, int z = 0, pcwstr tag = NULL){
-				if(child->m_pParent != NULL){
-					//GetGame().getBroadcast().message(tag == NULL ? L"Node Container fails to add Child." : String().format(L"Node Container fails to add Child, Tag:%s", tag))
-					return false;//fail to add
-				}
-				ListType::iterator iter;
-				for(iter = m_Children.begin(); iter != m_Children.end(); ++iter)
-					if(iter->z > z)
-						break;
-				ListType::iterator it = m_Children.insert(iter);
-				it->child = child;
-				it->z = z;
-				if(tag == NULL)it->tag = NULL;
-				else it->tag = ONEU_NEW_T(String(tag));
-
-				child->m_pParent = this;
-				child->m_It = it;
-				return true;
-			}
-			virtual void paint(){
-				for(ListType::iterator it = m_Children.begin(); it != m_Children.end(); ++it){
-					it->child->visit_paint();
-				}
-			}
-			virtual void update(){
-				for(ListType::iterator it = m_Children.begin(); it != m_Children.end(); ++it){
-					it->child->visit_update();
-				}
-			}
-			virtual void describe(String& buffer, int depth){
-				buffer.append(L"Node Container\n");
-				++depth;
-				for(ListType::iterator it = m_Children.begin(); it != m_Children.end(); ++it){
-					for(int i = 0; i < depth; ++i){
-						buffer.append(L"\t");
-					}
-					it->child->getDescription(buffer, depth);
-				}
-			}
-			virtual ~INodeContainer(){
-				for(ListType::iterator it = m_Children.begin(); it != m_Children.end();){
-					if(it->tag != NULL) ONEU_DELETE_T(it->tag);
-					ONEU_DELETE (it++)->child;//调用destroy时会使node detach，进而删除it所指元素。所以使用这种写法避免迭代器失效造成的问题。
-				}
-			}
-		};
-
-		inline void INode::attach(INodeContainer* parent, int z /* = 0 */, pcwstr tag /* = NULL */){
-			parent->addChild(this, z, tag);
-		}
-		inline void INode::detach(){
-			if(m_pParent != NULL){
-				m_pParent->m_Children.erase(m_It);
-				m_pParent = NULL;
-			}
-		}
-
-		//渲染场景
-		class IRenderScene
-			: public INodeContainer
-		{
-		private:
-			IRenderScene(){}
-			friend class IVideo;
-		public:
-			void describe(String& buffer, int depth){
-				buffer.append(L"<render scene>");
-				INodeContainer::describe(buffer, depth);
-			}
-		};
-		/* ----------------------------------------------------------------------------*/
-		/** 
 		 * @brief 图像（纹理）接口
 		 */
 		/* ----------------------------------------------------------------------------*/
 		class IImage
-			: public Interface
+			: public InterfaceRef
 		{
 		public:
-			/* ----------------------------------------------------------------------------*/
-			/** 
-			 * @brief 添加引用计数
-			 * 
-			 * @returns 新的引用计数
-			 */
-			/* ----------------------------------------------------------------------------*/
-			virtual uint addRef() = 0;
-			/* ----------------------------------------------------------------------------*/
-			/** 
-			 * @brief 释放引用计数
-			 *
-			 * 如果引用计数释放后为0，则销毁图形。
-			 * 
-			 * @returns 新的引用计数
-			 */
-			/* ----------------------------------------------------------------------------*/
-			virtual uint release() = 0;
-
 			/* ----------------------------------------------------------------------------*/
 			/** 
 			 * @brief 获取图形宽度
@@ -276,7 +75,7 @@ namespace OneU
 			 * @remarks 并非纹理宽度，而是源文件的宽度。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			virtual uint getWidth() = 0;
+			virtual uint32 getWidth() = 0;
 			/* ----------------------------------------------------------------------------*/
 			/** 
 			 * @brief 获取图形高度
@@ -285,7 +84,7 @@ namespace OneU
 			 * @remarks 并非纹理高度，而是源文件的高度。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			virtual uint getHeight() = 0;
+			virtual uint32 getHeight() = 0;
 		};
 	}
 
@@ -328,7 +127,7 @@ namespace OneU
 		 * @remarks 一般不需要客户调用
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual void init(uint width, uint height, bool bWindowed) = 0;
+		virtual void init(uint32 width, uint32 height, bool bWindowed) = 0;
 		//if width or height为0 则尝试使用目前的设置
 		/* ----------------------------------------------------------------------------*/
 		/** 
@@ -341,7 +140,7 @@ namespace OneU
 		 * @param bWindowed 是否窗口化
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual void switchDevice(uint width, uint height, bool bWindowed) = 0;
+		virtual void switchDevice(uint32 width, uint32 height, bool bWindowed) = 0;
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 渲染
@@ -435,7 +234,9 @@ namespace OneU
 		 * @param m 变换矩阵
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual void setTransform(const matrix& m) = 0;
+		virtual void pushMatrix(const matrix& m) = 0;
+		virtual void popMatrix(matrix* out = NULL) = 0;
+		virtual matrix& _getTransform() = 0;
 		/* ----------------------------------------------------------------------------*/
 		/**
 		 * @brief 设置图形源矩形
@@ -456,7 +257,7 @@ namespace OneU
 		 * @sa COLORBLENDMODE
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual void setBlendColor(dword mode, color_t color) = 0;
+		virtual void setBlendColor(uint32 mode, color_t color) = 0;
 		/* ----------------------------------------------------------------------------*/
 		/**
 		 * @brief 设置混合模式
@@ -506,7 +307,7 @@ namespace OneU
 		 * @returns 新的渲染场景
 		 */
 		/* ----------------------------------------------------------------------------*/
-		video::IRenderScene* createRenderScene(){ return ONEU_NEW video::IRenderScene;}
+		inline video::IRenderScene* createRenderScene();
 		//@}
 		
 		//others
@@ -582,4 +383,27 @@ namespace OneU
 		video::IImage* get(){ return m_pI; }
 	};
 
+}
+
+#include "VideoNode.h"
+
+namespace OneU
+{
+	namespace video
+	{
+		//渲染场景
+		class IRenderScene
+			: public INodeContainer
+		{
+		private:
+			IRenderScene(){}
+			friend class IVideo;
+		public:
+			void describe(String& buffer, int depth){
+				buffer.append(L"<render scene>");
+				INodeContainer::describe(buffer, depth);
+			}
+		};
+	}
+	inline video::IRenderScene* IVideo::createRenderScene(){ return ONEU_NEW video::IRenderScene;}
 }

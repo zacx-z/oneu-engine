@@ -49,23 +49,23 @@ namespace OneU
 			{
 				Destroy();
 			}
-			void Create( uint Height, uint Width, uint Weight, uint MipLevels = 1, uint Quality = 0, pcwstr pFaceName = L"Arial" )
+			void Create( uint32 Height, uint32 Width, uint32 Weight, uint32 MipLevels = 1, uint32 Quality = 0, pcwstr pFaceName = L"Arial" )
 			{
-				ASSERT( m_pFont == NULL );
+				ONEU_ASSERT( m_pFont == NULL );
 				XV( D3DXCreateFont( _pD3DDevice, Height, Width, Weight, MipLevels, FALSE, DEFAULT_CHARSET, 0, Quality, 0, pFaceName, &m_pFont ) );
 			}
 			void Destroy() 
 			{
 				SAFE_RELEASE( m_pFont );
 			}
-			int DrawText( pcwstr pString, RECT *pRect, COLOR crColor, dword Format = DT_TOP | DT_LEFT | DT_EXPANDTABS )
+			int DrawText( pcwstr pString, RECT *pRect, COLOR crColor, uint32 Format = DT_TOP | DT_LEFT | DT_EXPANDTABS )
 			{
 				int ret = m_pFont->DrawText( NULL, pString, -1,  pRect, Format, crColor );
 				if( !ret )
 					ONEU_LOG( L"»æÖÆÎÄ×ÖÊ§°Ü£¡");
 				return ret;
 			}
-			int DrawText( SpriteE* pSprite, pcwstr pString, RECT *pRect, COLOR crColor, dword Format = DT_TOP | DT_LEFT | DT_EXPANDTABS )
+			int DrawText( SpriteE* pSprite, pcwstr pString, RECT *pRect, COLOR crColor, uint32 Format = DT_TOP | DT_LEFT | DT_EXPANDTABS )
 			{
 				int ret = m_pFont->DrawText( pSprite->_Obtain(), pString, -1,  pRect, Format, crColor );
 				if( !ret )

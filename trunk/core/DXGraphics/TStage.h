@@ -40,7 +40,7 @@ namespace OneU
 			TStage( unsigned i )
 				: index( i )
 			{
-				ASSERT( _pD3DDevice != 0 );
+				ONEU_ASSERT( _pD3DDevice != 0 );
 			}
 
 			template< class T >

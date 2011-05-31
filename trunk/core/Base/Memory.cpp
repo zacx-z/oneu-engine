@@ -119,11 +119,11 @@ namespace OneU
 
 	static IAllocator* s_pAllocatorInstance = NULL;
 	extern "C" ONEU_BASE_API void Allocator_build(IAllocator* (*af)()){
-		ASSERT(s_pAllocatorInstance == NULL);
+		ONEU_ASSERT(s_pAllocatorInstance == NULL);
 		s_pAllocatorInstance = af();
 	}
 	extern "C" ONEU_BASE_API IAllocator& GetAllocator(){
-		ASSERT(s_pAllocatorInstance != NULL);
+		ONEU_ASSERT(s_pAllocatorInstance != NULL);
 		return *s_pAllocatorInstance;
 	}
 

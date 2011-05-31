@@ -47,7 +47,7 @@ namespace OneU
 	namespace DX
 	{
 		class Surface_RenderTarget;
-		template< uint, D3DPOOL > class Surface_Texture;
+		template< uint32, D3DPOOL > class Surface_Texture;
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 显示模式
@@ -55,9 +55,9 @@ namespace OneU
 		/* ----------------------------------------------------------------------------*/
 		struct DisplayMode
 		{
-			uint Width;
-			uint Height;
-			uint RefreshRate;
+			uint32 Width;
+			uint32 Height;
+			uint32 RefreshRate;
 			PXLFORMAT Format;
 		};
 
@@ -94,13 +94,13 @@ namespace OneU
 		public:
 			static Graphics_t* GetInstance();
 		private:
-			uint m_Width, m_Height;
+			uint32 m_Width, m_Height;
 			Graphics_t( const Graphics_t& );
 			Graphics_t& operator=( const Graphics_t& );
 			Graphics_t()
 				: m_Width( 0 ), m_Height( 0 )
 			{
-				ASSERT( _pD3D == NULL );
+				ONEU_ASSERT( _pD3D == NULL );
 			}
 			//一般不需要用户调用
 			//释放内部对象的显存资源，在丢失设备后或重置设备前调用。
@@ -143,7 +143,7 @@ namespace OneU
 			 * @param hWnd 窗口句柄
 			 */
 			/* ----------------------------------------------------------------------------*/
-			void InitWindowed( uint nWidth, uint nHeight, HWND hWnd );
+			void InitWindowed( uint32 nWidth, uint32 nHeight, HWND hWnd );
 			/* ----------------------------------------------------------------------------*/
 			/** 
 			 * @brief 全屏初始化
@@ -167,7 +167,7 @@ namespace OneU
 			 * @attention 参数设定的情况无法保留，调用该函数后需要重新设定。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			void ResetWindowed( uint nWidth, uint nHeight, HWND hWnd );
+			void ResetWindowed( uint32 nWidth, uint32 nHeight, HWND hWnd );
 			/* ----------------------------------------------------------------------------*/
 			/**
 			 * @brief 重置为全屏模式
@@ -185,7 +185,7 @@ namespace OneU
 			 * @return 宽度，以像素计。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			uint GetWidth() const
+			uint32 GetWidth() const
 			{
 				return m_Width;
 			}
@@ -195,7 +195,7 @@ namespace OneU
 			 * @return 高度，以像素计。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			uint GetHeight() const
+			uint32 GetHeight() const
 			{
 				return m_Height;
 			}
@@ -291,7 +291,7 @@ namespace OneU
 			 * @param FVF_Flag 顶点标志组合
 			 */
 			/* ----------------------------------------------------------------------------*/
-			void SetFVF( dword FVF_Flag )
+			void SetFVF( uint32 FVF_Flag )
 			{
 				DXCHECK_DEBUG( _pD3DDevice->SetFVF( FVF_Flag ), L"FVF设置失败！" );
 			}
@@ -338,7 +338,7 @@ namespace OneU
 			 * @sa GetAvailableDisplayMode
 			 */
 			/* ----------------------------------------------------------------------------*/
-			uint GetAvailableDisplayCount( PXLFORMAT Format ){ return _pD3D->GetAdapterModeCount( D3DADAPTER_DEFAULT, static_cast< D3DFORMAT > ( Format ) ); }
+			uint32 GetAvailableDisplayCount( PXLFORMAT Format ){ return _pD3D->GetAdapterModeCount( D3DADAPTER_DEFAULT, static_cast< D3DFORMAT > ( Format ) ); }
 			/* ----------------------------------------------------------------------------*/
 			/** 
 			 * @brief 获得显示格式
@@ -367,7 +367,7 @@ namespace OneU
 			 * @sa SetMultiSampleType
 			 */
 			/* ----------------------------------------------------------------------------*/
-			dword CheckMultiSampleType( PXLFORMAT SurfaceFormat, bool Windowed, dword MultiSampleType );
+			uint32 CheckMultiSampleType( PXLFORMAT SurfaceFormat, bool Windowed, uint32 MultiSampleType );
 
 			/* ----------------------------------------------------------------------------*/
 			/** 
@@ -379,7 +379,7 @@ namespace OneU
 			 * @sa CheckMultiSampleType
 			 */
 			/* ----------------------------------------------------------------------------*/
-			void SetMultiSample( dword Type, dword Quality );
+			void SetMultiSample( uint32 Type, uint32 Quality );
 #define __ONEU_DISPLAYMODE_CHECK //可检查显示模式
 			/* ----------------------------------------------------------------------------*/
 			/** 
@@ -430,7 +430,7 @@ namespace OneU
 			 * @internal
 			 */
 			/* ----------------------------------------------------------------------------*/
-			void Test( dword dwSeconds );
+			void Test( uint32 dwSeconds );
 		};
 
 		//渲染结构

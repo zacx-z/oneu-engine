@@ -74,7 +74,7 @@ namespace OneU
 		public:
 			Input_cls()
 			{
-				ASSERT( _pDInput == NULL );
+				ONEU_ASSERT( _pDInput == NULL );
 			}
 			~Input_cls()
 			{
@@ -112,7 +112,7 @@ namespace OneU
 			 * @param BufferSize 缓冲区大小
 			 */
 			/* ----------------------------------------------------------------------------*/
-			virtual void Init( dword BufferSize = 0 ) = 0;
+			virtual void Init( uint32 BufferSize = 0 ) = 0;
 		public:
 			/* ----------------------------------------------------------------------------*/
 			/** 
@@ -133,7 +133,7 @@ namespace OneU
 			 *
 			 */
 			/* ----------------------------------------------------------------------------*/
-			typedef void ( *DataHandler )( dword, dword, dword, dword );
+			typedef void ( *DataHandler )( uint32, uint32, uint32, uint32 );
 			static const int DATA_BUFFER_SIZE = 128;
 			InputDevice()
 				: m_pDIDevice( NULL )
@@ -157,7 +157,7 @@ namespace OneU
 			 * @remarks 如果BufferSize设定超过设备支持的大小，则会使用设备最多能支持的大小。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			void Create( dword BufferSize = 0 );
+			void Create( uint32 BufferSize = 0 );
 			/* ----------------------------------------------------------------------------*/
 			/** 
 			 * @brief 获取输入设备
@@ -193,7 +193,7 @@ namespace OneU
 			 * 一般不需要客户调用。派生类里有重载的方法。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			void Read( void *DataBuffer, dword BufferSize );
+			void Read( void *DataBuffer, uint32 BufferSize );
 			/* ----------------------------------------------------------------------------*/
 			/** 
 			 * @brief 获取缓冲模式数据
@@ -206,7 +206,7 @@ namespace OneU
 			 * @returns 缓冲区是否溢出。若缓冲区溢出，返回TRUE；否则返回FALSE。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			bool GetData( DataType *Buffer, dword& dwElements );
+			bool GetData( DataType *Buffer, uint32& dwElements );
 			/* ----------------------------------------------------------------------------*/
 			/** 
 			 * @brief 处理缓冲模式数据
@@ -240,7 +240,7 @@ namespace OneU
 			: public InputDevice
 		{
 		private:
-			void Init( dword BufferSize = 0 );
+			void Init( uint32 BufferSize = 0 );
 		public:
 			/* ----------------------------------------------------------------------------*/
 			/** 
@@ -255,7 +255,7 @@ namespace OneU
 				friend class KeyBoard;
 			public:
 				//TRUE表示按下
-				bool GetState( dword KeyCode ) const
+				bool GetState( uint32 KeyCode ) const
 				{
 #pragma warning(push)
 #pragma warning(disable : 4800)
@@ -283,7 +283,7 @@ namespace OneU
 			: public InputDevice
 		{
 		private:
-			void Init( dword BufferSize = 0 );
+			void Init( uint32 BufferSize = 0 );
 		public:
 			class State
 			{
@@ -291,7 +291,7 @@ namespace OneU
 				friend class Mouse;
 			public:
 				//TRUE表示按下
-				bool GetState( dword KeyCode ) const
+				bool GetState( uint32 KeyCode ) const
 				{
 #pragma warning(push)
 #pragma warning(disable : 4800)

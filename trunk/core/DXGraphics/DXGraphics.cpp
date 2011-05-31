@@ -68,8 +68,8 @@ namespace OneU
 		static D3DPRESENT_PARAMETERS g_D3DPP = {};
 		//注意：此时把D3DMULTISAMPLE_TYPE强制用dword表示
 		//若DXSDK变化 从dword到D3DMULTISAMPLE_TYPE的强制转换有可能导致错误
-		static dword g_MultiSampleType = 0;
-		static dword g_MultiSampleQuality = 0;
+		static uint32 g_MultiSampleType = 0;
+		static uint32 g_MultiSampleQuality = 0;
 
 #ifdef __ONEU_USE_CLASS_NUM
 		//__Surface_Base的类计数变量
@@ -81,7 +81,7 @@ namespace OneU
 		//初始化图形预处理 主要是为了检测硬件
 		void Graphics_t::PreInit()
 		{
-			ASSERT( _pD3D == 0 );
+			ONEU_ASSERT( _pD3D == 0 );
 			_pD3D = Direct3DCreate9( D3D_SDK_VERSION );
 			if( _pD3D == 0 )
 			{
@@ -89,10 +89,10 @@ namespace OneU
 				THROW_HRESULT(0);
 			}
 		}
-		void Graphics_t::InitWindowed( uint nWidth, uint nHeight, HWND hWnd )
+		void Graphics_t::InitWindowed( uint32 nWidth, uint32 nHeight, HWND hWnd )
 		{
-			ASSERT( _pD3D );
-			ASSERT( _pD3DDevice == 0 );
+			ONEU_ASSERT( _pD3D );
+			ONEU_ASSERT( _pD3DDevice == 0 );
 
 			m_Width = nWidth;m_Height = nHeight;
 
@@ -145,15 +145,15 @@ namespace OneU
 
 		void Graphics_t::InitFullScreen( const DisplayMode *pDM, HWND hWnd )
 		{
-			ASSERT( _pD3D );
-			ASSERT( _pD3DDevice == 0 );
+			ONEU_ASSERT( _pD3D );
+			ONEU_ASSERT( _pD3DDevice == 0 );
 
 			m_Width = pDM->Width;m_Height = pDM->Height;
 
 			_Windowed = false;
 
 			SetDisplayMode( pDM );
-			ASSERT( g_D3DDM.Format );
+			ONEU_ASSERT( g_D3DDM.Format );
 
 			HRESULT hr;
 
@@ -189,10 +189,10 @@ namespace OneU
 			InitParameters();
 		}
 
-		void Graphics_t::ResetWindowed( uint nWidth, uint nHeight, HWND hWnd )
+		void Graphics_t::ResetWindowed( uint32 nWidth, uint32 nHeight, HWND hWnd )
 		{
-			ASSERT( _pD3D );
-			ASSERT( _pD3DDevice );
+			ONEU_ASSERT( _pD3D );
+			ONEU_ASSERT( _pD3DDevice );
 
 			OnLostDevice();
 			
@@ -238,15 +238,15 @@ namespace OneU
 		}
 		void Graphics_t::ResetFullScreen( const DisplayMode *pDM, HWND hWnd )
 		{
-			ASSERT( _pD3D );
-			ASSERT( _pD3DDevice );
+			ONEU_ASSERT( _pD3D );
+			ONEU_ASSERT( _pD3DDevice );
 
 			OnLostDevice();
 
 			m_Width = pDM->Width;m_Height = pDM->Height;
 
 			SetDisplayMode( pDM );
-			ASSERT( g_D3DDM.Format );
+			ONEU_ASSERT( g_D3DDM.Format );
 
 			_Windowed = false;
 
@@ -303,8 +303,8 @@ namespace OneU
 		}
 		void Graphics_t::Reset()
 		{
-			ASSERT( _pD3D );
-			ASSERT( _pD3DDevice );
+			ONEU_ASSERT( _pD3D );
+			ONEU_ASSERT( _pD3DDevice );
 			OnLostDevice();
 			HRESULT hr;
 			if( FAILED( hr = _pD3DDevice->Reset( &g_D3DPP ) ) )
@@ -323,10 +323,10 @@ namespace OneU
 			return &_DM;
 		}
 
-		dword Graphics_t::CheckMultiSampleType( PXLFORMAT SurfaceFormat, bool Windowed, dword MultiSampleType )
+		uint32 Graphics_t::CheckMultiSampleType( PXLFORMAT SurfaceFormat, bool Windowed, uint32 MultiSampleType )
 		{
 			HRESULT hr;
-			dword QualityLevels;
+			uint32 QualityLevels;
 			//注意：若DXSDK变化 从dword到D3DMULTISAMPLE_TYPE的强制转换有可能导致错误
 			if( SUCCEEDED( hr = _pD3D->CheckDeviceMultiSampleType( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,
 					static_cast< D3DFORMAT >( SurfaceFormat ), Windowed, static_cast< D3DMULTISAMPLE_TYPE > ( MultiSampleType ), &QualityLevels ) ) )
@@ -338,7 +338,7 @@ namespace OneU
 			}
 		}
 
-		void Graphics_t::SetMultiSample( dword Type, dword Quality )
+		void Graphics_t::SetMultiSample( uint32 Type, uint32 Quality )
 		{
 			g_MultiSampleType = Type;
 			g_MultiSampleQuality = Quality;
@@ -391,7 +391,7 @@ namespace OneU
 			VertexStruct()
 				: z( 1.0f ){}
 		};
-		void Graphics_t::Test( dword dwSeconds )
+		void Graphics_t::Test( uint32 dwSeconds )
 		{
 			VertexUP< FVF_XYZ | FVF_DIFFUSE | FVF_TEX1 > a[3];
 			struct 

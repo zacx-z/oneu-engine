@@ -133,8 +133,8 @@ namespace OneU
 	void _doDeleteArray(T* _ptr, IAllocator* allocator, const char* filename, const int Line){
 		T* p = _ptr;
 		size_t* s = (size_t*)_ptr - 1;
-		ASSERT(*s % sizeof(T) == 0);
-		for(uint i = 0; i < *s / sizeof(T); ++i, ++p)
+		ONEU_ASSERT(*s % sizeof(T) == 0);
+		for(uint32 i = 0; i < *s / sizeof(T); ++i, ++p)
 			p->~T();
 		allocator->dealloc(s);
 	}
