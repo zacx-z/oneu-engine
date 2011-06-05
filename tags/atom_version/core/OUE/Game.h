@@ -240,11 +240,14 @@ namespace OneU
 
 		/* ----------------------------------------------------------------------------*/
 		/**
-		 * @brief 设置输入焦点
+		 * @brief 替换输入焦点
 		 *
-		 * @param pED 被设置为焦点的EventDispatcher，可为NULL。成为输入焦点的EventDispatcher可以接收到CHAR（目前只做了CHAR）、KEYDOWN等事件。
+		 * 将栈顶InputReceiver替换成给定InputReceiver。
 		 *
-		 * @return 旧的EventDispatcher。
+		 * @param pIR 被替换为焦点的InputReceiver，可为NULL。成为输入焦点的EventDispatcher可以接收到Char，Key事件。
+		 *
+		 * @return 旧的InputReceiver。
+		 * @sa pushInputFocus
 		 */
 		/* ----------------------------------------------------------------------------*/
 		virtual IInputReceiver* replaceInputFocus(IInputReceiver* pIR){
@@ -252,22 +255,50 @@ namespace OneU
 			m_InputFocusStack.push(pIR);
 			return ret;
 		}
+		/* ----------------------------------------------------------------------------*/
+		/**
+		 * @brief 输入焦点压栈
+		 *
+		 * @param pIR 被压栈的输入焦点。
+		 * @remarks 输入焦点接收数据按照责任链传递。栈顶首先接收输入事件，然后可以选择终止或向下传递。
+		 */
+		/* ----------------------------------------------------------------------------*/
 		virtual void pushInputFocus(IInputReceiver* pIR){
 			m_InputFocusStack.push(pIR);
 		}
+		/* ----------------------------------------------------------------------------*/
+		/**
+		 * @brief 输入焦点弹栈
+		 * @returns 栈顶的输入焦点
+		 * @sa pushInputFocus
+		 */
+		/* ----------------------------------------------------------------------------*/
 		virtual IInputReceiver* popInputFocus(){
 			return m_InputFocusStack.pop();
 		}
 		/* ----------------------------------------------------------------------------*/
 		/**
-		 * @brief 传输Char事件。
+		 * @brief 传输字符事件。
 		 */
 		/* ----------------------------------------------------------------------------*/
 		virtual void onChar(const CharEvent& event){
 			m_InputFocusStack.handle(__CharFunctor(event));
 		}
+		/* ----------------------------------------------------------------------------*/
+		/**
+		 * @brief 传输键盘按键事件。
+		 */
+		/* ----------------------------------------------------------------------------*/
 		virtual void onKey(const KeyEvent& event){
 			m_InputFocusStack.handle(__KeyFunctor(event));
+		}
+		/* ----------------------------------------------------------------------------*/
+		/**
+		 * @brief 传输鼠标按键事件。
+		 */
+		/* ----------------------------------------------------------------------------*/
+		virtual void onMouse(const MouseEvent& event){
+			m_InputFocusStack.handle(__MouseFunctor(event));
 		}
 
 		//tools

@@ -28,12 +28,15 @@ THE SOFTWARE.
 
 namespace OneU
 {
-	void __DeviceDataHandler(uint32 scancode, uint32 status, uint32, uint32){
 #pragma warning(push)
 #pragma warning(disable :4800)
-		GetGame().onKey(KeyEvent((::WCHAR)scancode, (bool)(status & 0x80)));
-#pragma warning(pop)
+	void __KeyDataHandler(uint32 scancode, uint32 status, uint32, uint32){
+		GetGame().onKey(KeyEvent(scancode, (bool)(status & 0x80)));
 	}
+	void __MouseDataHandler(uint32 buttoncode, uint32 status, uint32, uint32){
+		if(buttoncode != DIMOFS_X && buttoncode != DIMOFS_Y && buttoncode != DIMOFS_Z) GetGame().onMouse(MouseEvent(buttoncode, (bool)(status & 0x80)));
+	}
+#pragma warning(pop)
 	DXControl::DXControl()
 		: m_curStateID(0), m_pKB_State(&m_KB_StateBuf[0]), m_pKB_LastState(&m_KB_StateBuf[0]),
 		m_pMouse_State(&m_Mouse_StateBuf[0]), m_pMouse_LastState(&m_Mouse_StateBuf[0])
@@ -61,8 +64,8 @@ namespace OneU
 		m_pKB_LastState = &m_KB_StateBuf[m_curStateID];
 		m_pMouse_LastState = &m_Mouse_StateBuf[m_curStateID];
 
-		m_KB.HandleData(__DeviceDataHandler);
-		m_Mouse.HandleData(__DeviceDataHandler);
+		m_KB.HandleData(__KeyDataHandler);
+		m_Mouse.HandleData(__MouseDataHandler);
 	}
 	bool DXControl::keyIsDown(uint32 scancode){
 		return m_pKB_State->GetState(scancode); 
