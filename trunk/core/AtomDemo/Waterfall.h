@@ -48,7 +48,7 @@ public:
 			else ++it;
 		}
 	}
-	void describe(String& buffer, int depth){
+	void _describe(String& buffer, int depth){
 		buffer.append(L"<waterfall>\n");
 
 	}

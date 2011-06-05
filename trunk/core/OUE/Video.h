@@ -44,6 +44,7 @@ namespace OneU
 
 		class IRenderScene;
 		class IImage;
+		class IModule;
 
 		enum BLENDMODE{ BM_NORMAL = 0, BM_ADD };
 		/* ----------------------------------------------------------------------------*/
@@ -102,11 +103,23 @@ namespace OneU
 	class IVideo
 		: public Interface
 	{
+		friend class video::IModule;
+		List<video::IModule*> m_ModuleList;
 	protected:
 		video::IRenderScene* m_pRenderScene;
 		video::INodeContainer* m_pRoot;
 	public:
 		IVideo() : m_pRenderScene(NULL), m_pRoot(NULL){}
+		inline ~IVideo();
+		/* ----------------------------------------------------------------------------*/
+		/**
+		* @brief 注册模块
+		*
+		* @param module 模块地址
+		* @remarks 一般不需客户直接调用。
+		*/
+		/* ----------------------------------------------------------------------------*/
+		List<video::IModule*>::iterator __addModule(video::IModule* module);
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 获取图形系统的名称
@@ -128,7 +141,6 @@ namespace OneU
 		 */
 		/* ----------------------------------------------------------------------------*/
 		virtual void init(uint32 width, uint32 height, bool bWindowed) = 0;
-		//if width or height为0 则尝试使用目前的设置
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 切换设备
@@ -138,6 +150,7 @@ namespace OneU
 		 * @param width 新页面宽度
 		 * @param height 新页面高度
 		 * @param bWindowed 是否窗口化
+		 * @remarks 如果width或者height为0，则尝试使用目前的设置。
 		 */
 		/* ----------------------------------------------------------------------------*/
 		virtual void switchDevice(uint32 width, uint32 height, bool bWindowed) = 0;
@@ -229,13 +242,29 @@ namespace OneU
 		virtual void renderImage_d(video::IImage& image, const rect& dest) = 0;
 		/* ----------------------------------------------------------------------------*/
 		/**
-		 * @brief 设置变换矩阵
+		 * @brief 将变换矩阵压入矩阵栈
 		 *
 		 * @param m 变换矩阵
+		 * @remarks 默认矩阵栈每个矩阵都会作用到将要绘制的顶点上。
 		 */
 		/* ----------------------------------------------------------------------------*/
 		virtual void pushMatrix(const matrix& m) = 0;
+		/* ----------------------------------------------------------------------------*/
+		/**
+		 * @brief 将变换矩阵弹出矩阵栈
+		 *
+		 * @param out 矩阵指针，若非NULL则接收被弹栈的矩阵。
+		 */
+		/* ----------------------------------------------------------------------------*/
 		virtual void popMatrix(matrix* out = NULL) = 0;
+		/* ----------------------------------------------------------------------------*/
+		/**
+		 * @brief 获取矩阵栈的变换矩阵。
+		 *
+		 * 即矩阵栈所有矩阵的乘积，将要作用到顶点的变换矩阵。
+		 * @returns 变换矩阵
+		 */
+		/* ----------------------------------------------------------------------------*/
 		virtual matrix& _getTransform() = 0;
 		/* ----------------------------------------------------------------------------*/
 		/**
@@ -312,7 +341,13 @@ namespace OneU
 		
 		//others
 		//不太重要的
-		//向Shell输出该系统的信息
+		/* ----------------------------------------------------------------------------*/
+		/**
+		 * @brief 输出信息
+		 *
+		 * 向Shell输出该系统的信息
+		 */
+		/* ----------------------------------------------------------------------------*/
 		virtual void showInfo() = 0;
 	};
 
@@ -391,7 +426,14 @@ namespace OneU
 {
 	namespace video
 	{
-		//渲染场景
+
+		/* ----------------------------------------------------------------------------*/
+		/**
+		 * @brief 渲染场景
+		 *
+		 * @remarks 每一个场景对应一个渲染场景。
+		 */
+		/* ----------------------------------------------------------------------------*/
 		class IRenderScene
 			: public INodeContainer
 		{
@@ -399,11 +441,44 @@ namespace OneU
 			IRenderScene(){}
 			friend class IVideo;
 		public:
-			void describe(String& buffer, int depth){
+			void _describe(String& buffer, int depth){
 				buffer.append(L"<render scene>");
-				INodeContainer::describe(buffer, depth);
+				INodeContainer::_describe(buffer, depth);
 			}
 		};
 	}
 	inline video::IRenderScene* IVideo::createRenderScene(){ return ONEU_NEW video::IRenderScene;}
+
+	namespace video
+	{
+		/* ----------------------------------------------------------------------------*/
+		/**
+		 * @brief 图形子模块
+		 * 
+		 * 可继承来实现图形系统的子模块。
+		 * @remarks 子模块为单件，在建立后会注册到图形系统里，会在图形系统销毁前自动销毁。
+		 */
+		/* ----------------------------------------------------------------------------*/
+		class IModule
+			: public Interface
+		{
+			friend class IVideo;
+			List<IModule*>::iterator m_ID;
+		public:
+			IModule(){
+				m_ID = GetVideo().__addModule(this);
+			}
+			~IModule(){
+				GetVideo().m_ModuleList.erase(m_ID);
+			}
+		};
+	}
+	inline IVideo::~IVideo(){
+		for(List<video::IModule*>::iterator it = m_ModuleList.begin(); it != m_ModuleList.end();)//销毁所有模块
+			ONEU_DELETE *(it++);
+	}
+	inline List<video::IModule*>::iterator IVideo::__addModule(video::IModule* module){
+		m_ModuleList.pushBack(module);
+		return m_ModuleList.end().prev();
+	}
 }

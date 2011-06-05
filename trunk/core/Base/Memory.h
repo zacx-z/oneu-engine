@@ -205,6 +205,15 @@ namespace OneU
 
 namespace OneU
 {
+
+	/* ----------------------------------------------------------------------------*/
+	/**
+	 * @brief 可分配对象类
+	 *
+	 * 直接被引擎内存分配器管理的对象类。
+	 * @remarks 对其调用new、delete均会使用内存分配器管理。支持ONEU_NEW等用于调试。
+	 */
+	/* ----------------------------------------------------------------------------*/
 	class AllocatedObject{
 	public:
 		void* operator new(size_t count, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment = NULL){
@@ -236,6 +245,8 @@ namespace OneU
 	/**
 	 * @brief 自动指针
 	 * 支持ONEU_NEW_T
+	 *
+	 * @remarks reserved.可能会在未来的版本删除。
 	 */
 	/* ----------------------------------------------------------------------------*/
 	template<class T>

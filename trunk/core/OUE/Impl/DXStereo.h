@@ -40,13 +40,13 @@ namespace OneU
 		IDirectMusic* m_pDM;
 		IDirectMusicPerformance8* m_pDMPfm;
 		IDirectMusicLoader8* m_pDMLoader;
-		IDirectSoundBuffer8* m_pDSPrimary;
 	public:
 		DXStereo()
 			: m_pGraphBuilder(NULL), m_pMediaControl(NULL), m_pMediaEvent(NULL),
-			m_pDS(NULL), m_pDSPrimary(NULL), m_pDM(NULL), m_pDMPfm(NULL), m_pDMLoader(NULL){}
-		~DXStereo(){}
+			m_pDS(NULL), m_pDM(NULL), m_pDMPfm(NULL), m_pDMLoader(NULL){}
+		~DXStereo();
 		void init();
 		void playMusic(pcwstr filename);
+		void playSound(pcwstr filename);
 	};
 }
