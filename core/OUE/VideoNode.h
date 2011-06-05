@@ -37,11 +37,11 @@ namespace OneU
 	{
 		/* ----------------------------------------------------------------------------*/
 		/** 
-		* @brief 渲染节点
-		*
-		* 封装了一个渲染操作。
-		* 继承此类能扩充图形系统的功能。
-		*/
+		 * @brief 渲染节点
+		 *
+		 * 封装了一个渲染操作。
+		 * 继承此类能扩充图形系统的功能。
+		 */
 		/* ----------------------------------------------------------------------------*/
 		class INode
 			: public Interface
@@ -60,56 +60,111 @@ namespace OneU
 			};
 			union{
 				_TransformInfo2D* _2;
+				//why union? - reserved.
 			}Transform;
 
 		public:
-			bool visible;//visible为false时会停止update 不显示
-			bool active;//active为false时会停止update
+			/**
+			 * @brief 可视性
+			 *
+			 * 当它为false时会停止update，并且不显示。
+			 */
+			bool visible;
+			/* ----------------------------------------------------------------------------*/
+			/**
+			 * @brief 活动性
+			 *
+			 * 当它为false时会停止update。
+			 */
+			/* ----------------------------------------------------------------------------*/
+			bool active;
 			INode() : m_pParent(NULL), visible(true), active(true){memset(&Transform, 0, sizeof(Transform)); }
-			INodeContainer* getParent(){ return m_pParent; }
+
 			~INode(){ detach(); }
+
+
+			/* ----------------------------------------------------------------------------*/
+			/**
+			 * @brief 获取父结点
+			 *
+			 * @remarks 若没有父亲，则返回NULL。
+			 */
+			/* ----------------------------------------------------------------------------*/
+			INodeContainer* getParent(){ return m_pParent; }
 
 			/* ----------------------------------------------------------------------------*/
 			/** 
-			* @brief 使自身成为某个节点的儿子
-			* 
-			* @param parent 双亲节点
-			* @param z 深度
-			* @param tag 标签
-			*
-			* @remarks 生存期会被双亲管理
-			*/
+			 * @brief 使自身成为某个节点的儿子
+			 * 
+			 * @param parent 双亲节点
+			 * @param z 深度
+			 * @param tag 标签
+			 * 
+			 * @remarks 生存期会被双亲管理
+			 */
 			/* ----------------------------------------------------------------------------*/
 			inline void attach(INodeContainer* parent, int z = 0, pcwstr tag = NULL);//跟addChild功能一样
 			/* ----------------------------------------------------------------------------*/
 			/** 
-			* @brief 解除与双亲的关系
-			*
-			* @remarks 生存期不再被双亲管理
-			*/
+			 * @brief 解除与双亲的关系
+			 *
+			 * @remarks 生存期不再被双亲管理
+			 */
 			/* ----------------------------------------------------------------------------*/
 			inline void detach();
 
 			/* ----------------------------------------------------------------------------*/
 			/** 
-			* @brief 渲染函数
-			*
-			* 需要被重写来扩充。
-			* visible为true时被调用。
-			*/
+			 * @brief 渲染函数
+			 *
+			 * 需要被重写来扩充，填充上渲染该结点时的渲染操作。
+			 * @remarks visible为true时被调用。
+			 */
 			/* ----------------------------------------------------------------------------*/
 			virtual void paint() = 0;
 
-			//只有visible且active为true时才会被调用
+			/* ----------------------------------------------------------------------------*/
+			/**
+			 * @brief 更新函数
+			 *
+			 * 需要被重写来扩充，填充上更新结点时的操作。
+			 * @remarks 只有visible且active为true时才会被调用。
+			 */
+			/* ----------------------------------------------------------------------------*/
 			virtual void update(){}
 
-			//可被重写
-			virtual void describe(String& buffer, int depth){
-				buffer.append(L"Unknown Node\n");
-			}
+			/* ----------------------------------------------------------------------------*/
 			/**
-			* 在IVideo::render函数中被调用。
-			*/
+			 * @brief 名字函数
+			 *
+			 * 可重写来为改变该结点的名称，使其易于测试。
+			 * @returns 该节点的名字
+			 */
+			/* ----------------------------------------------------------------------------*/
+			virtual pcwstr name(){
+				return L"Unknown Node";
+			}
+
+			/* ----------------------------------------------------------------------------*/
+			/**
+			 * @brief 描述函数
+			 *
+			 * 可重写来更改对该结点描述的内容。
+			 * @remarks 默认调用name函数描述该结点，如果有子节点再将其一一描述。一般不需要客户重写。
+			 */
+			/* ----------------------------------------------------------------------------*/
+			virtual void _describe(String& buffer, int depth){
+				buffer.append(name());
+				buffer.append(L"\n");
+			}
+
+
+			/* ----------------------------------------------------------------------------*/
+			/**
+			 * @brief 渲染
+			 * @remarks 在IVideo::render函数中被调用。
+			 */
+			/* ----------------------------------------------------------------------------*/
 			void visit_paint(){
 				if(visible){
 					bool b = _beginTransform();
@@ -117,20 +172,45 @@ namespace OneU
 					if(b) GetVideo().popMatrix();
 				}
 			}
+
+			/* ----------------------------------------------------------------------------*/
+			/**
+			 * @brief 更新
+			 * @remarks 在IVideo::update函数中被调用。
+			 */
+			/* ----------------------------------------------------------------------------*/
 			void visit_update(){
 				if(visible && active)
 					update();
 			}
 			void getDescription(String& buffer, int depth = 0){
-				describe(buffer, depth);
+				_describe(buffer, depth);
 			}
 
+
+			/* ----------------------------------------------------------------------------*/
+			/**
+			 * @brief 创建2D变换
+			 *
+			 * 为节点创建2D变换。在绘制时会自动进行变换（将变换矩阵压入矩阵栈）。
+			 * @remarks 创建变换后@ref setX等函数可用。
+			 */
+			/* ----------------------------------------------------------------------------*/
 			void create2DTransform(){
 				if(Transform._2) return;
 				Transform._2 = new _TransformInfo2D;
 				memset(Transform._2, 0, sizeof(_TransformInfo2D));
 				Transform._2->scalex = Transform._2->scaley = 1.0f;
 			}
+
+			/* ----------------------------------------------------------------------------*/
+			/**
+			 * @brief 开始变换
+			 *
+			 * 如果有变换矩阵，则将矩阵压入矩阵栈。
+			 * @remarks 绘制时调用。
+			 */
+			/* ----------------------------------------------------------------------------*/
 			bool _beginTransform(){
 				if(Transform._2){
 					if(!Transform._2->mIsReady){
@@ -146,6 +226,10 @@ namespace OneU
 				return false;
 			}
 
+			/**
+			 * @name 变换属性操作函数
+			 */
+			//@{
 			void setX(float x){
 				if(Transform._2){
 					Transform._2->x = x;
@@ -206,6 +290,7 @@ namespace OneU
 				}else ONEU_ASSERT(FALSE);
 				return 0.0f;
 			}
+			//@}
 		};
 
 
@@ -218,10 +303,10 @@ namespace OneU
 
 		/* ----------------------------------------------------------------------------*/
 		/** 
-		* @brief 渲染节点容器
-		*
-		* 即可以有孩子的渲染节点。
-		*/
+		 * @brief 渲染节点容器
+		 *
+		 * 即可以有孩子的渲染节点。
+		 */
 		/* ----------------------------------------------------------------------------*/
 		class INodeContainer
 			: public INode
@@ -232,17 +317,23 @@ namespace OneU
 			ListType m_Children;
 			friend class INode;
 		public:
+			virtual ~INodeContainer(){
+				for(ListType::iterator it = m_Children.begin(); it != m_Children.end();){
+					if(it->tag != NULL) ONEU_DELETE_T(it->tag);
+					ONEU_DELETE (it++)->child;//调用destroy时会使node detach，进而删除it所指元素。所以使用这种写法避免迭代器失效造成的问题。
+				}
+			}
 			/* ----------------------------------------------------------------------------*/
 			/** 
-			* @brief 添加孩子
-			* 
-			* @param child 孩子节点
-			* @param z 深度
-			* @param tag 标签
-			* 
-			* @returns 是否成功
-			* @remarks 孩子的生存期被自身管理
-			*/
+			 * @brief 添加孩子
+			 * 
+			 * @param child 孩子节点
+			 * @param z 深度
+			 * @param tag 标签
+			 * 
+			 * @returns 是否成功
+			 * @remarks 孩子的生存期被自身管理
+			 */
 			/* ----------------------------------------------------------------------------*/
 			bool addChild(INode* child, int z = 0, pcwstr tag = NULL){
 				if(child->m_pParent != NULL){
@@ -273,20 +364,17 @@ namespace OneU
 					it->child->visit_update();
 				}
 			}
-			virtual void describe(String& buffer, int depth){
-				buffer.append(L"Node Container\n");
+			virtual pcwstr name(){
+				return L"NodeContainer";
+			}
+			virtual void _describe(String& buffer, int depth){
+				INode::_describe(buffer, depth);
 				++depth;
 				for(ListType::iterator it = m_Children.begin(); it != m_Children.end(); ++it){
 					for(int i = 0; i < depth; ++i){
 						buffer.append(L"\t");
 					}
 					it->child->getDescription(buffer, depth);
-				}
-			}
-			virtual ~INodeContainer(){
-				for(ListType::iterator it = m_Children.begin(); it != m_Children.end();){
-					if(it->tag != NULL) ONEU_DELETE_T(it->tag);
-					ONEU_DELETE (it++)->child;//调用destroy时会使node detach，进而删除it所指元素。所以使用这种写法避免迭代器失效造成的问题。
 				}
 			}
 		};

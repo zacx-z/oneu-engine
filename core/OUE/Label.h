@@ -46,10 +46,6 @@ namespace OneU
 		: public video::INode
 	{
 	public:
-		virtual void setX(float x) = 0;
-		virtual float getX() = 0;
-		virtual void setY(float y) = 0;
-		virtual float getY() = 0;
 		virtual void setText(pcwstr text) = 0;
 		virtual pcwstr getText() = 0;
 		virtual void setColor(color_t color) = 0;

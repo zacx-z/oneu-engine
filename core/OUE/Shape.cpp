@@ -45,7 +45,7 @@ namespace OneU
 		void setMode(bool bBorder){m_bBorder = bBorder; }
 
 		void paint();
-		void describe(String& buffer, int depth){ buffer.append(L"<shape rect>\n"); }
+		void _describe(String& buffer, int depth){ buffer.append(L"<shape rect>\n"); }
 	};
 
 	void Shape_Rect::paint(){

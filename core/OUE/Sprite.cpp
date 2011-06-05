@@ -59,7 +59,7 @@ namespace OneU
 		void setAlpha(ubyte alpha){ color.setAlpha(alpha); }
 
 		void paint();
-		void describe(String& buffer, int depth){ buffer.append(L"<sprite>\n"); }
+		void _describe(String& buffer, int depth){ buffer.append(L"<sprite>\n"); }
 	};
 
 	void Sprite_Impl::paint(){
@@ -68,7 +68,7 @@ namespace OneU
 
 		Vi.setBlendColor(m_CMode, color);
 		Vi.setBlendMode(m_Mode);
-		float w = m_Img.get()->getWidth(), h = m_Img.get()->getHeight();
+		float w = (float)m_Img.get()->getWidth(), h = (float)m_Img.get()->getHeight();
 		Vi.renderImage(*m_Img.get(), rect(-m_CenterX * w, -m_CenterY * h, (1 - m_CenterX) * w, (1 - m_CenterY) * h));
 	}
 

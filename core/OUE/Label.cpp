@@ -23,27 +23,38 @@ THE SOFTWARE.
 #include "Label.h"
 #include "Game.h"
 #include "../DXGraphics/FontE.h"
+#include "../DXGraphics/SpriteE.h"
 
 namespace OneU
 {
+	class Label_Module
+		: public video::IModule
+	{
+	public:
+		DX::SpriteE sprite;
+		Label_Module(){
+			sprite.Create();
+		}
+	};
+	static Label_Module* s_pModule = NULL;
 	class Label_Impl
 		: public ILabel
 	{
 		DX::FontE font;
-		float m_Width, m_Height, m_X, m_Y;
+		float m_Width, m_Height;
 		String m_Text;
 		color_t m_Color;
 		uint32 m_Align;
 	public:
 		Label_Impl(float Width, float Height, uint32 fontSize, pcwstr fontName)
-			: m_Width(Width), m_Height(Height), m_X(0.0f), m_Y(0.0f), m_Color(255, 255, 255), m_Align(0)
+			: m_Width(Width), m_Height(Height), m_Color(255, 255, 255), m_Align(0)
 		{
+			if(!s_pModule)
+				s_pModule = ONEU_NEW Label_Module;
 			font.Create(fontSize, (uint32)(fontSize * 0.4f), 1, 1, 0, fontName);
+
+			this->create2DTransform();
 		}
-		void setX(float x){ m_X = x; }
-		float getX(){ return m_X; }
-		void setY(float y){ m_Y = y; }
-		float getY(){ return m_Y; }
 		void setText(pcwstr text){
 			m_Text = text;
 		}
@@ -66,9 +77,13 @@ namespace OneU
 			else if(m_Align & T_CENTER) flag |= DT_CENTER;
 			if(m_Align & T_BOTTOM) flag |= DT_BOTTOM;
 			else if(m_Align & T_VCENTER) flag |= DT_VCENTER;
-			font.DrawText(m_Text.c_str(), (RECT*)&recti_t((int)m_X, (int)m_Y, (int)(m_X + m_Width), (int)(m_Y + m_Height)), m_Color, flag);
+
+			s_pModule->sprite.SetTransform((D3DMATRIX*)&GetVideo()._getTransform());
+			s_pModule->sprite.Begin();
+			font.DrawText(&s_pModule->sprite, m_Text.c_str(), (RECT*)&recti_t(0, 0, (int)m_Width, (int)m_Height), m_Color, flag);
+			s_pModule->sprite.End();
 		}
-		void describe(String& buffer, int depth){ buffer.append(L"<label>\n"); }
+		void _describe(String& buffer, int depth){ buffer.append(L"<label>\n"); }
 	};
 
 	ONEU_API ILabel* Label_create( float Width, float Height, uint32 fontSize, pcwstr fontName /*= L"Arial"*/ ){

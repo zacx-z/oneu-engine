@@ -40,7 +40,7 @@ namespace OneU
 		: public video::INode
 	{
 		void paint(){ DX::Graphics.ClearTarget();}
-		void describe(String& buffer, int depth){ buffer.append(L"<colorfill>\n");}
+		void _describe(String& buffer, int depth){ buffer.append(L"<colorfill>\n");}
 	};
 
 	DXVideo::DXVideo()
@@ -79,8 +79,9 @@ namespace OneU
 		m_pRoot->addChild(ONEU_NEW _Video_ClearNode, -100);
 
 		//初始化矩阵栈
-		pushMatrix(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f)));
+		pushMatrix(GetIdentityMatrix());
 		m_TransformStack.push(m_MatrixStack.top());
+		DX::GetGraphics()->SetViewTransform((D3DMATRIX*)&(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f))));
 
 		//Atom
 		GetAtom().getSystemEnv()->createSymbol(L"Direct3D9_", atom::makeValue((void*)DX::_pD3D));
@@ -114,8 +115,9 @@ namespace OneU
 		//重置矩阵栈
 		popMatrix();
 		ONEU_ASSERT(m_MatrixStack.size() == 0);
-		pushMatrix(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f)));
+		pushMatrix(GetIdentityMatrix());
 		m_TransformStack.push(m_MatrixStack.top());
+		DX::GetGraphics()->SetViewTransform((D3DMATRIX*)&(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f))));
 	}
 	vector2u_t DXVideo::getDeviceSize(){
 		return m_DeviceSize;
@@ -220,9 +222,8 @@ namespace OneU
 	}
 	//Render functions
 	void DXVideo::renderImage(video::IImage& image, const rect& dest){
+		DX::GetGraphics()->SetWorldTransform((MATRIX*)&(_getTransform()));
 
-
-		DX::GetGraphics()->SetWorldTransform((MATRIX*)&_getTransform());
 		////因为是单Video，所以存在DXVideo必然Image是DXImage。
 		DXImage& img = ((DXImage&)image);
 		DX::TStage(0).SetTexture(img._getTag()->texture);

@@ -17,8 +17,15 @@ public:
 		m_Ip->execFile(L"./script/lua/main.lua");
 
 		m_Ip->execWithScene(L"Scene:init()", this);
+
+		GetStereo().playMusic(L"06-my_chemical_romance-the_only_hope_for_me_is_you.mp3");
+		GetStereo().playSound(L"04-my_chemical_romance-sing.mp3");
 	}
 	void update(){
+		static int frame = 0;
+		++frame;
+		if(frame == 100)
+			GetStereo().playMusic(L"04-my_chemical_romance-sing.mp3");
 		m_Ip->execWithScene(L"Scene:main()", this);
 	}
 	~SingleScene(){
