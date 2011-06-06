@@ -1,4 +1,4 @@
-//单场景脚本驱动的游戏
+//碌楼鲁隆戮掳陆脜卤戮脟媒露炉碌脛脫脦脧路
 #include "../OUE/OUE.h"
 
 using namespace OneU;
@@ -7,7 +7,6 @@ class SingleScene
 	: public IScene
 {
 	atom::IInterpreter* m_Ip;
-	IShape* shape;
 public:
 	SingleScene(){
 		m_Ip = GetAtom().createInterpreter(IAtom::L_LUA);
