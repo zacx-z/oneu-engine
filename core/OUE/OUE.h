@@ -38,14 +38,11 @@ THE SOFTWARE.
 #include "Broadcast.h"
 #include "Scene.h"
 
-#include "Atom.h"
-
 #include "Sprite.h"
 #include "Label.h"
 #include "Shape.h"
 
-#include "AtomLocal.h"
-
+#include "Interpreter.h"
 
 #define olog GetLogger().stream()
 #define oout GetGame().stream()

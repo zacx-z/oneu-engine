@@ -20,34 +20,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#pragma once
-#include "../AtInterpreter.h"
-
+#include "../Interpreter.h"
 extern "C"{
-#include <lua.h>
-#include <lauxlib.h>
-#include <lualib.h>
+#include "../../_lua/lua.h"
+#include "../../_lua/lauxlib.h"
+#include "../../_lua/lualib.h"
 }
-
 namespace OneU
 {
-	namespace atom
+	class LuaInterpreter
+		: public IInterpreter
 	{
-		class LuaInterpreter
-			: public IInterpreter
-		{
-			lua_State* m_L;
-		public:
-			LuaInterpreter();
-			~LuaInterpreter();
-
-			void execFile(pcwstr filename);
-			value* exec(pcwstr code);
-			//获取当前的堆栈信息
-			void _getStackInfo(String& buffer);
-			void gc(){
-				lua_gc(m_L, LUA_GCCOLLECT, 0);
-			}
-		};
-	}
+		lua_State* L;
+	public:
+		LuaInterpreter();
+		void execFile(pcwstr filename);
+		void execCode(pcstr code);
+	};
 }

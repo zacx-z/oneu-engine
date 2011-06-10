@@ -23,7 +23,6 @@ THE SOFTWARE.
 #include "Game.h"
 #include "Video.h"
 #include "Scene.h"
-#include "Atom.h"
 
 #ifdef _WIN32
 #include "Impl/Game_Win32.h"

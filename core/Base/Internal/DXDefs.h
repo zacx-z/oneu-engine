@@ -45,10 +45,7 @@ namespace OneU
 		template < class T >
 		inline void SafeRelease( T *& ptr ){
 			if( ptr ){
-				ULONG nref = ptr->Release();
-				if( nref != 0 ){
-					GetLogger().stream(ILogger::ML_CRITICAL) << TimeInfo << "接口未能释放。\n指针：" << ptr;
-				}
+				ptr->Release();
 				ptr = NULL;
 			}
 		}

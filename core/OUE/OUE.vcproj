@@ -220,10 +220,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\AtomLocal.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Broadcast.h"
 				>
 			</File>
@@ -237,6 +233,10 @@
 			</File>
 			<File
 				RelativePath=".\Game.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Interpreter.h"
 				>
 			</File>
 			<File
@@ -267,46 +267,6 @@
 				RelativePath=".\VideoNode.h"
 				>
 			</File>
-			<Filter
-				Name="Atom"
-				>
-				<File
-					RelativePath=".\AtConvert.h"
-					>
-				</File>
-				<File
-					RelativePath=".\AtEnv.h"
-					>
-				</File>
-				<File
-					RelativePath=".\AtFunc.h"
-					>
-				</File>
-				<File
-					RelativePath=".\AtInterpreter.h"
-					>
-				</File>
-				<File
-					RelativePath=".\AtKlass.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Atom.h"
-					>
-				</File>
-				<File
-					RelativePath=".\AtTuple.h"
-					>
-				</File>
-				<File
-					RelativePath=".\AtUtility.h"
-					>
-				</File>
-				<File
-					RelativePath=".\AtValue.h"
-					>
-				</File>
-			</Filter>
 			<Filter
 				Name="Video"
 				>
@@ -360,6 +320,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Impl\LuaInterpreter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Impl\LuaInterpreter.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Impl\Win32.cpp"
 				>
 			</File>
@@ -376,62 +344,14 @@
 				>
 			</File>
 			<Filter
-				Name="Atom"
-				>
-				<File
-					RelativePath=".\Impl\Atom_impl.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Impl\Atom_impl.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Impl\LuaInterpreter.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Impl\LuaInterpreter.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Tool"
 				>
-				<File
-					RelativePath=".\Impl\Shell.cpp"
-					>
-				</File>
 				<File
 					RelativePath=".\Impl\Shell.h"
 					>
 				</File>
 				<File
 					RelativePath=".\Impl\Watch.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="atom_export"
-				>
-				<File
-					RelativePath=".\atom_export\AtomExport.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\atom_export\AtomExport.h"
-					>
-				</File>
-				<File
-					RelativePath=".\atom_export\e_Control.h"
-					>
-				</File>
-				<File
-					RelativePath=".\atom_export\e_Label.h"
-					>
-				</File>
-				<File
-					RelativePath=".\atom_export\e_Sprite.h"
 					>
 				</File>
 			</Filter>
@@ -465,6 +385,62 @@
 			</File>
 			<File
 				RelativePath=".\Vector.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="swig"
+			>
+			<File
+				RelativePath=".\swig\Broadcast.i"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\config.i"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\Control.i"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\Event.i"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\Game.i"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\OUE.i"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\oue_wrap.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\Scene.i"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\Sprite.i"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\Stereo.i"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\types.i"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\Video.i"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\VideoNode.i"
 				>
 			</File>
 		</Filter>

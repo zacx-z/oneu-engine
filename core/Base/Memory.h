@@ -256,6 +256,8 @@ namespace OneU
 		mutable T* _p;
 	public:
 		typedef T* pointer;
+		AutoPtr()
+			: _p(NULL){}
 		explicit AutoPtr(T* p)
 			: _p(p)
 		{}
@@ -267,6 +269,7 @@ namespace OneU
 		AutoPtr& operator=(const AutoPtr& rhs){
 			_p = rhs._p;
 			rhs._p = NULL;
+			return *this;
 		}
 		~AutoPtr(){
 			if(_p != NULL) ONEU_DELETE_T(_p);
