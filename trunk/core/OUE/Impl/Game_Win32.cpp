@@ -29,9 +29,7 @@ THE SOFTWARE.
 #include "../Stereo.h"
 #include "../Scene.h"
 #include "../Control.h"
-#include "../Atom.h"
-#include "Shell.h"
-#include "../atom_export/AtomExport.h"
+//#include "Shell.h"
 
 namespace OneU
 {
@@ -42,8 +40,6 @@ namespace OneU
 {
 	Game_Win32::~Game_Win32(){
 		if(m_pScene != NULL){ ONEU_DELETE m_pScene; m_pScene = NULL;}
-		//GetAtom().unloadAllAtomLib();
-		Atom_destroy();//@todo
 		if(m_pBroadcast != NULL) m_pBroadcast->sendEvent(event::DESTROY);
 		if(m_pControl != NULL){ ONEU_DELETE m_pControl; m_pControl = NULL;}
 		if(m_pStereo != NULL){ ONEU_DELETE m_pStereo; m_pStereo = NULL; }
@@ -57,12 +53,6 @@ namespace OneU
 		ONEU_ASSERT(m_pBroadcast == NULL);
 		if(m_pBroadcast != NULL) m_pBroadcast = m_BroadcastFactory();
 		else m_pBroadcast = BroadCast_create();
-
-		//ps.目前Atom是先于系统模块销毁的。逻辑上Atom只负责高层（应当后于系统模块建立），目前是为了导出系统变量方便。
-		//如果想真正让系统模块销毁和建立的时候能够使用Atom库，则让Atom库先于系统模块建立。
-		//但在此处为其配置新的全局表，因为此后加入的表内符号可能涉及到系统资源，所以该全局表在系统模块销毁前销毁，并配置上旧的全局表。
-		//最后系统模块销毁后再销毁ATOM。这是添加一层的解决方案。
-		Atom_build();//@todo
 
 		//设定好全局变量
 		g_hInstance = GetModuleHandle(NULL);
@@ -83,13 +73,10 @@ namespace OneU
 		if(m_ControlFactory != NULL) m_pControl = m_ControlFactory();
 		else m_pControl = Control_create();
 
-		//Atom库标准库
-		AtomExport();
-
 		//shell初始化
-		m_pShell = tool::Shell_config();
-		showInfo();
-		m_pVideo->showInfo();
+		//m_pShell = tool::Shell_config();
+		//showInfo();
+		//m_pVideo->showInfo();
 	}
 	int Game_Win32::run(){
 		while(true){
@@ -134,7 +121,6 @@ end:
 
 	void Game_Win32::onFrame(){
 		if(!m_bActive) return;
-		GetAtom().gc();//@todo
 
 		//计算FPS
 		++m_Frames;
@@ -186,10 +172,10 @@ end:
 	}
 
 	void Game_Win32::runShell( pcwstr command ){
-		if(m_pShell) m_pShell->runCommand(command);
+		//if(m_pShell) m_pShell->runCommand(command);
 	}
 	void Game_Win32::output( pcwstr data ){
-		if(m_pShell) m_pShell->output(data);
+		//if(m_pShell) m_pShell->output(data);
 	}
 
 	void Game_Win32::showInfo()

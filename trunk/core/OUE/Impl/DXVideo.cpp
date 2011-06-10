@@ -26,7 +26,6 @@ THE SOFTWARE.
 #include "../../DXGraphics/ImageE.h"
 #include "../../DXGraphics/VertexUP.h"
 #include "../../DXGraphics/TStage.h"
-#include "../Atom.h"
 #include "../Game.h"
 
 #ifndef _WIN32
@@ -82,10 +81,6 @@ namespace OneU
 		pushMatrix(GetIdentityMatrix());
 		m_TransformStack.push(m_MatrixStack.top());
 		DX::GetGraphics()->SetViewTransform((D3DMATRIX*)&(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f))));
-
-		//Atom
-		GetAtom().getSystemEnv()->createSymbol(L"Direct3D9_", atom::makeValue((void*)DX::_pD3D));
-		GetAtom().getSystemEnv()->createSymbol(L"Direct3DDevice9_", atom::makeValue((void*)DX::_pD3DDevice));
 	}
 
 	void DXVideo::switchDevice(uint32 width, uint32 height, bool bWindowed){

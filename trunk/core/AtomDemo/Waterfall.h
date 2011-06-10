@@ -18,9 +18,6 @@ public:
 		: c(c)
 	{
 		img = GetVideo().loadImage(L"Resource/Waterfall/unit.png");
-		IScene* s = atom::GetLocalScene();
-		if(s)
-			s->getRenderScene()->addChild(this);
 	}
 	void update(){
 		if(os::Rand() < 0.3f){

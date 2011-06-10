@@ -44,14 +44,7 @@ namespace OneU
 	template<typename T>
 	struct Vector2
 	{
-		union{
-			struct{
-				T _1, _2;
-			};
-			struct{
-				T x, y;
-			};
-		};
+		T x, y;
 		Vector2(){}
 		Vector2(T x, T y) : x(x), y(y){}
 		template<typename U>
@@ -90,14 +83,7 @@ namespace OneU
 	template<typename T>
 	struct Vector3
 	{
-		union{
-			struct{
-				T _1, _2, _3;
-			};
-			struct{
-				T x, y, z;
-			};
-		};
+		T x, y, z;
 		Vector3(){}
 		Vector3(T x, T y, T z) : x(x), y(y), z(z){}
 		template<typename U>
@@ -137,14 +123,7 @@ namespace OneU
 	template<typename T>
 	struct Vector4
 	{
-		union{
-			struct{
-				T _1, _2, _3, _4;
-			};
-			struct{
-				T x, y, z, w;
-			};
-		};
+		T x, y, z, w;
 		Vector4(){}
 		Vector4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w){}
 	};

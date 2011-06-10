@@ -1,4 +1,4 @@
-//ÂµÂ¥Â³Â¡Â¾Â°Â½Ã…Â±Â¾Ã‡Ã½Â¶Â¯ÂµÃ„Ã“ÃÃÂ·
+//µ¥³¡¾°½Å±¾Çı¶¯µÄÓÎÏ·
 #include "../OUE/OUE.h"
 
 using namespace OneU;
@@ -6,20 +6,16 @@ using namespace OneU;
 class SingleScene
 	: public IScene
 {
-	atom::IInterpreter* m_Ip;
+	IInterpreter* m_I;
 public:
 	SingleScene(){
-		m_Ip = GetAtom().createInterpreter(IAtom::L_LUA);
-		m_Ip->execFile(L"./script/lua/main.lua");
-
-		m_Ip->execWithScene(L"Scene:init()", this);
+		m_I = Interpreter_Lua();
+	}
+	void begin(){
+		m_I->execFile(L"script/main.lua");
 	}
 	void update(){
-		m_Ip->execWithScene(L"Scene:main()", this);
-	}
-	~SingleScene(){
-		m_Ip->execWithScene(L"Scene:destroy()", this);
-		ONEU_DELETE m_Ip;
+		m_I->execCode("main()");
 	}
 };
 
@@ -28,6 +24,8 @@ extern "C" int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, ::LP
 	IGame& game = GetGame();
 	game.init(L"OneU Engine", 800, 600, true);
 
-	game.replaceScene(ONEU_NEW SingleScene);
+	SingleScene* s = ONEU_NEW SingleScene;
+	game.replaceScene(s);
+	s->begin();
 	return game.run();
 }
