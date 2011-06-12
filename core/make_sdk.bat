@@ -20,7 +20,8 @@ copy "release\Base.dll" "..\OneU SDK\bin\Base.dll"
 copy "release\Game.exe" "..\OneU SDK\bin\Game.exe"
 
 rem write default main.lua
-copy "default_main.lua" "..\OneU SDK\bin\script\main.lua"
+copy "default_script\main.lua" "..\OneU SDK\bin\script\main.lua"
+copy "default_script\startup.lua" "..\OneU SDK\bin\script\startup.lua"
 
 copy "Doxygen\Document\html\OneU.chm" "..\OneU SDK\OneU.chm"
 
