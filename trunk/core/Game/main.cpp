@@ -3,26 +3,29 @@
 
 using namespace OneU;
 
+static IInterpreter* s_I = NULL;
+
 class SingleScene
 	: public IScene
 {
-	IInterpreter* m_I;
 public:
 	SingleScene(){
-		m_I = Interpreter_Lua();
 	}
 	void begin(){
-		m_I->execFile(L"script/main.lua");
+		s_I->execFile(L"script/main.lua");
 	}
 	void update(){
-		m_I->execCode("mainloop()");
+		s_I->execCode("mainloop()");
 	}
 };
 
 extern "C" int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, ::LPSTR lpCmdLine, int nShowCmd){
 	Game_build(Game_create);
+
+	s_I = Interpreter_Lua();
+	s_I->execFile(L"script/startup.lua");
+
 	IGame& game = GetGame();
-	game.init(L"OneU Engine", 800, 600, true);
 
 	SingleScene* s = ONEU_NEW SingleScene;
 	game.replaceScene(s);

@@ -337,10 +337,18 @@ namespace OneU{
 /**
  * @page page_lua 使用LUA脚本编写游戏
  * 如何使用bin/game/下的执行包来制作游戏。\n
- * 进入script/文件夹，编辑main.lua文件。引擎会在游戏启动时加载该文件。\n
- * 在文件中定义mainloop函数。每帧都会调用该函数\n
+ * 该执行包是lua的执行版。由于Swig对lua的支持不完全。因此该版本在功能上也是不完全的，该版本不支持多场景和监听器。\n
+ * 进入script/文件夹，编辑startup.lua文件。在这里配置游戏启动的内容。默认如下：
  * @code
  * require "OUE"
+ * OUE.GetGame():init("Hello world", 800, 600, true);
+ * @endcode
+ * 进入script/文件夹，编辑main.lua文件。引擎会在游戏启动后会加载该文件。\n
+ * 在文件中定义mainloop函数，每帧都会调用该函数；并在文件头包含OUE包：
+ * @code
+ * require "OUE"
+ * function mainloop()
+ * end
  * @endcode
  * 加载OUE库。
  * @section section_lua_display_image 显示图像
