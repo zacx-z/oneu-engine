@@ -20,7 +20,7 @@ namespace OneU
 	typedef char byte;
 	typedef unsigned char ubyte;
 	
-	
+#if defined(SWIGLUA)
 	%typemap(in) const wchar_t* (OneU::AutoPtr<wchar_t> temp) {
 		temp = OneU::ANSI2Wide(lua_tostring(L, $input));
 		$1 = temp;
@@ -29,6 +29,7 @@ namespace OneU
 	%typemap(out) const wchar_t* {
 		lua_pushstring(L, OneU::Wide2ANSI($1));
 	}
+#endif
 }
 
-%import "../Vector.h"
+%include "Vector.i"

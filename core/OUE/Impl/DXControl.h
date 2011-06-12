@@ -30,9 +30,11 @@ namespace OneU
 	{
 		DX::KeyBoard m_KB;
 		DX::Mouse m_Mouse;
-		DX::KeyBoard::State m_KB_StateBuf[2], *m_pKB_State, *m_pKB_LastState;
-		int m_curStateID, m_Mouse_curStateID;
-		DX::Mouse::State m_Mouse_StateBuf[2], *m_pMouse_State, *m_pMouse_LastState;
+		DX::KeyBoard::State m_KB_State;
+		DX::Mouse::State m_Mouse_State;
+
+		bool m_Button_Release[8], m_Button_Press[8];
+		bool m_KB_Release[256], m_KB_Press[256];
 	public:
 		DXControl();
 		~DXControl();
@@ -47,5 +49,18 @@ namespace OneU
 		bool buttonPress(uint32 ButtonID);
 
 		vector2i_t mouseOffset();
+
+		void _notifyButton(uint32 id, bool down){
+			if(!down)
+				m_Button_Release[id] = true;
+			else
+				m_Button_Press[id] = true;
+		}
+		void _notifyKey(uint32 code, bool down){
+			if(!down)
+				m_KB_Release[code] = true;
+			else
+				m_KB_Press[code] = true;
+		}
 	};
 }

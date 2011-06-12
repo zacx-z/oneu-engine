@@ -22,8 +22,9 @@ namespace OneU
 			%newobject detach;
 			%extend {
 			OneU::video::INode* detach(){
+				if(!self->getParent()) return NULL;
 				self->OneU::video::INode::detach();
-				return self;
+				return self;//返回带有ownership的自身（原变量不含ownership）
 			}
 			}
 
@@ -31,7 +32,6 @@ namespace OneU
 
 			void create2DTransform();
 
-			//@{
 			void setX(float x);
 			float getX() const;
 			void setY(float y);
@@ -42,7 +42,6 @@ namespace OneU
 			float getScaleX() const;
 			void setScaleY(float ns);
 			float getScaleY() const;
-			//@}
 		};
 
 		class INodeContainer
@@ -52,7 +51,7 @@ namespace OneU
 			virtual OneU::pcwstr name();
 			
 			%apply SWIGTYPE *VDISOWN {OneU::video::INode* child};
-			bool addChild(OneU::video::INode* child, int z = 0, OneU::pcwstr tag = NULL);
+			bool addChild(OneU::video::INode* child, int z = 0, OneU::pcwstr tag = NULL);//child失去ownership 条件是child必须有ownership
 			%clear OneU::video::INode* child;
 		};
 	}

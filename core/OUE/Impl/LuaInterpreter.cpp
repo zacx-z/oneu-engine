@@ -30,7 +30,11 @@ namespace OneU
 		lua_getglobal(L, "package");
 		lua_pushstring(L, ";./script/?.lua;./script/lib/?.lua");
 		lua_setfield(L, -2, "path");
-		lua_pushstring(L, ";./../release/?.dll");
+#ifdef _DEBUG
+		lua_pushstring(L, ";./?.dll;./../debug/?.dll");//for test
+#else
+		lua_pushstring(L, ";./?.dll");//for test
+#endif
 		lua_setfield(L, -2, "cpath");
 		lua_pop(L, 1);
 	}

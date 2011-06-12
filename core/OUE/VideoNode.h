@@ -80,7 +80,11 @@ namespace OneU
 			bool active;
 			INode() : m_pParent(NULL), visible(true), active(true){memset(&Transform, 0, sizeof(Transform)); }
 
-			~INode(){ detach(); }
+			~INode(){
+				detach();
+				if(Transform._2)
+					ONEU_DELETE_T(Transform._2);
+			}
 
 
 			/* ----------------------------------------------------------------------------*/
@@ -198,7 +202,7 @@ namespace OneU
 			/* ----------------------------------------------------------------------------*/
 			void create2DTransform(){
 				if(Transform._2) return;
-				Transform._2 = new _TransformInfo2D;
+				Transform._2 = ONEU_NEW_T(_TransformInfo2D);
 				memset(Transform._2, 0, sizeof(_TransformInfo2D));
 				Transform._2->scalex = Transform._2->scaley = 1.0f;
 			}

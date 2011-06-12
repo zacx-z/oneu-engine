@@ -31,5 +31,12 @@ namespace OneU
 		virtual OneU::uint32 getColorBlendMode() = 0;
 	};
 	%newobject Sprite_create;
+	%rename(SpriteFromImage) Sprite_create;
 	ISprite* Sprite_create(OneU::image_t& img);
 }
+%newobject Sprite;
+%inline %{
+static OneU::ISprite* Sprite(OneU::pcwstr file){
+	return OneU::Sprite_create(OneU::GetVideo().loadImage(file));
+}
+%}

@@ -15,6 +15,8 @@
 %include "Scene.i"
 
 %include "Sprite.i"
+%include "Shape.i"
+%include "Label.i"
 
 %include "Event.i"//reserved
 %include "Broadcast.i"//reserved

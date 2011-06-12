@@ -21,8 +21,6 @@ namespace OneU{
  *  - @subpage page_extending
  *  - 参考
  *		- @subpage page_run
- *		- @subpage page_atom_lua
- *		- @subpage page_exports
  *		.
  *  .
  * @section section_faq FAQ
@@ -71,7 +69,7 @@ namespace OneU{
  * 事件系统由事件派发器，监听器和事件（包括事件参数）组成。使用字符串来区分一类事件。事件派发器是接受事件的类，通过向事件派发器添加监听器来处理某一个事件。监听器可添加多个。\n
  * 目前的事件机制没有采用队列，是在发送消息的同时执行监听器的触发函数。\n
  * 公共事件会通过广播系统传播。广播类是事件派发器的继承类。\n
- * 键盘事件：调用@ref IGame::setInputFocus将一个事件派发器设为输入焦点，该事件派发器可以接收到键盘的输入事件。
+ * 键盘事件：调用@ref IGame::pushInputFocus将一个事件派发器设为输入焦点，该事件派发器可以接收到键盘的输入事件。
  * @subsection section_renderscene 图形系统和渲染场景
  * 万有引擎使用树来渲染。树中的每一个节点即表示一个渲染操作。渲染时会对树进行遍历。\n
  * 一个渲染场景即为一个渲染树。一般而言，一个场景对应一个渲染场景。\n
@@ -298,7 +296,7 @@ namespace OneU{
 */
 /* ----------------------------------------------------------------------------*/
 /**
- * @page page_matrix_stack 矩阵栈(add @11.5.31)
+ * @page page_matrix_stack 矩阵栈(add 11.5.31)
  * @ref IVideo 包含矩阵栈操作函数，可以将矩阵压入栈中或者弹栈，此行为应在Video的绘制期间执行，即在某个INode的paint函数里。\n
  * 调用@ref IVideo::_getTransform 可获得当前的矩阵栈中所有矩阵相乘的结果，即当前INode绘制时所做的变换。其中调用@ref IVideo::renderImage 会自动应用矩阵栈的变换。
  * 其他情况若想支持矩阵栈的变化则要调用该函数获取变换并尝试应用到自己的绘图中。\n
@@ -329,7 +327,7 @@ namespace OneU{
  * @par 框架插件
  * 为引擎提供逻辑框架的插件。在软件工程里属于设计复用。
  * 暂难以实现
- * @section section_atom_standards at扩展编写标准
+ * @section section_atom_standards at扩展编写标准 reserved
  * @par 可选导出函数：void AtomInit(pcwstr)
  * 在加载的时候被调用，传入当前Atom版本号。
  * @par 可选导出函数：void AtomDestroy()
@@ -339,135 +337,36 @@ namespace OneU{
 /**
  * @page page_lua 使用LUA脚本编写游戏
  * 如何使用bin/game/下的执行包来制作游戏。\n
- * 进入script/lua/文件夹，编辑main.lua文件。引擎会在游戏启动时加载该文件。\n
- * 在文件中定义Scene表，定义Scene:init()和Scene:main()函数。其中init函数只在初始化时调用。main函数再程序每一帧都会调用。\n
- * 一般脚本文件头都会有该句。
+ * 进入script/文件夹，编辑main.lua文件。引擎会在游戏启动时加载该文件。\n
+ * 在文件中定义mainloop函数。每帧都会调用该函数\n
  * @code
- * require "stdlib"
+ * require "OUE"
  * @endcode
- * 表示使用标准库，即使用引擎自带的符号库。符号参考参见@ref page_exports。
+ * 加载OUE库。
  * @section section_lua_display_image 显示图像
  * 拷贝picture.png图像到根目录。
- * 修改main.lua。在Scene:init()中插入如下代码
+ * 在mainloop函数前加入如下代码。
  * @code
- * self.sp = Sprite("picture.png", 0);
+ * sp = OUE.Sprite("picture.png");
+ * OUE.addToScene(sp);
  * @endcode
- * 运行程序，有没有看到picture.png显示出来了？\n
+ * 运行程序，有没有看到picture.png显示出来了？\n(addToScene(sp)等价于GetScene():getRenderScene():addChild(sp))
  * Sprite是标准库的符号，用于显示图片。
  * 这一句的含义就是建立新精灵，并将精灵对象作为场景的sp成员。
  * 建立出的精灵会显示在屏幕上。
  * @section section_lua_retrieve_control 响应控制
  * 关于响应控制有一种简单方案，就是查看输入设备的状态，并对精灵做出改变。
  * @code
- * if Control:keyIsDown(Control.OIK_RIGHT) then
- *	self.sp:setX(self.sp:getX() + 10.0f);
+ * if OUE.GetControl():keyIsDown(OUE.IControl_IK_RIGHT) then
+ *	sp:setX(self.sp:getX() + 10.0f);
  * end
  * @endcode
- * Control也是标准库的符号，用于访问控制系统。
  * 该句含义是，当发现方向键的右键被按下时，将精灵平移10像素。
+ * @remarks 具体接口参见swig/*.i文件。
  */
 /* ----------------------------------------------------------------------------*/
-/** 
-* @page page_atom_lua Atom LUA嵌入语言参考
-*
-* @section section_atom_lua Atom系统模块
-*
-* 关于atom value：一种类型，可能是function，env，klass，obj，obj_function，cpointer其中一种。\n
-* 以下出现的function，env等均表示为该类型的atom value。（atom_v表示atom value）
-*
-* @par Atom.type(atom_v)
-* 	返回atom_v的类型。
-* 	返回值：
-* 	- Atom.T_FUNC
-* 	- Atom.T_OBJ
-* 	- etc.
-* 	.
-* @par Atom.getEnv()
-* 	返回全局环境表。
-* @par Atom.G
-* 	全局环境表。（效率更高）
-* @par Atom.getSymbol(atom_v, string)
-* 	如果atom_v变量值是env类型或klass类型，则会自动去寻找其符号所对应的变量。找不到时返回nil。
-* 	如果atom_v变量值时obj，则寻找其对应klass的符号。
-* @par Atom.call
-* 	原型1：Atom.call(function, ...)\n
-* 		以...为参数，调用function。返回返回值。
-* 	原型2：Atom.call(obj_function, obj, ...)\n
-* 		以...为参数，以obj为对象调用obj_function。返回返回值
-* 	原型3：Atom.call(klass, ...)\n
-*		以...为参数，调用构造函数。返回obj。
-* @par Atom.createObj(klass, ...)
-* 	同Atom.call原型3。
-* @par Atom.traversalEnv(atom_v, function(symbol, value))
-* 	atom_v可以是env，klass，obj。
-* 	对每一个符号调用参数2的function，传入symbol和对应的atom value。
-* @par Atom.loadLib(libpath)
-* 	加载一个Atom库。
-* @par Atom.log(string)
-* 	将string输出到日志文件。
-* @par Atom.destroy(atom_v)
-*	立即销毁该变量。
-*
-* @section section_atom_value atom value
-*
-* @par []运算符，取表符号。
-* 	对于env，klass，obj为取其中的符号。\n
-* 	即metatable中的__index为Atom.getSymbol。
-* @par ()运算符，调用。
-* 	对于function，和obj_function为调用之。\n
-* 	对于klass，为创建该类的对象。\n
-* 	即matatable中的__call未Atom.call。
-*
-*/
-/* ----------------------------------------------------------------------------*/
-/**
- * @page page_exports 导出符号参考
- * @b 文档说明<br>
- * [property]表示是该类的属性，调用setXXX和getXXX函数来设置或获取该属性。<br>
- * <div style = "font-size:15px">
- * @b Sprite class<br>
- * Sprite(string path, int z) path为图像路径，z为显示深度。<br>
- * <small>
- * X[property] float X坐标<br>
- * Y[property] float Y坐标<br>
- * CenterX[property] float 中心X坐标，已归一化。<br>
- * CenterY[property] float 中心Y坐标，已归一化。<br>
- * Rotation[property] float 旋转度，以度为单位。<br>
- * ScaleX[property] float X轴缩放倍数<br>
- * ScaleY[property] float Y轴缩放倍数<br>
- * Color[property] int, int, int 分别为R, G, B值<br>
- * Alpha[property] int Alpha值<br>
- * BlendMode[property] int 混合模式 0为普通 1为相加<br>
- * ColorBlendMode[property] int 与Color属性共用，颜色混合模式。0为普通，1为相加，2为调制；16左混合，32右混合，48上混合，64下混合。分号相隔的参数可相加来指定复杂混合模式。<br>
- * </small>
- * @b Label class<br>
- * Label(float width, float height, int fontsize[, string fontname]) width, height标签区域的宽高, fontsize字体大小, fontname字体名称。<br>
- * X[property] float X坐标<br>
- * Y[property] float Y坐标<br>
- * Text[property] string 显示内容<br>
- * Color[property] int, int, int 分别为R, G, B值<br>
- * Alpha[property] int 透明度
- * @b Control object<br>
- * <small>
- * keyIsDown(int scancode):bool[o-function] 【键盘】判断该键是否在按下状态。<br>
- * keyPress(int scancode):bool[o-function] 【键盘】判断该键是否被按下。<br>
- * keyRelease(int scancode):bool[o-function] 【键盘】判断该键是否被释放<br>
- * buttonIsDown(int buttonID):bool[o-function] 【鼠标】判断该键是否在按下状态。<br>
- * buttonPress(int buttonID):bool[o-function] 【鼠标】判断该键是否被按下。<br>
- * buttonRelease(int buttonID):bool[o-function] 【鼠标】判断该键是否被释放<br>
- * 【鼠标】0表示左键，1表示右键，2表示中键。<br>
- * mouseOffset():int, int[o-function] 【鼠标】获取上一帧到该帧内鼠标移动向量。<br>
- * </small>
- * </div>
- */
-/* ----------------------------------------------------------------------------*/
-/**
- * @example HelloWorld.cpp
- * @example UseAtom.h
- * @example Waterfall_atom.cpp
- * @example SingleSceneGame.cpp
- * @example main.lua
- */
+//注：测试代码 LuaInterpreter.cpp中将cpath设定在debug文件夹下，属测试代码。而release版由于没有把cpath设在release文件夹下，直接运行其实是不能跑的。
+//注：AtomDemo工程目前处于不可用状态。
 
 //@todo 制作Timer系统 延时一定时间执行某一函数
 //@todo 更改Resource模块里的Release原型 使其返回引用数字

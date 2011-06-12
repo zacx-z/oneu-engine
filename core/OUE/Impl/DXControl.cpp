@@ -31,17 +31,20 @@ namespace OneU
 #pragma warning(push)
 #pragma warning(disable :4800)
 	void __KeyDataHandler(uint32 scancode, uint32 status, uint32, uint32){
+		((DXControl&)GetControl())._notifyKey(scancode, bool(status & 0x80));
 		GetGame().onKey(KeyEvent(scancode, (bool)(status & 0x80)));
 	}
-	void __MouseDataHandler(uint32 buttoncode, uint32 status, uint32, uint32){
-		if(buttoncode != DIMOFS_X && buttoncode != DIMOFS_Y && buttoncode != DIMOFS_Z) GetGame().onMouse(MouseEvent(buttoncode, (bool)(status & 0x80)));
+	void __MouseDataHandler(uint32 off, uint32 status, uint32, uint32){
+		if(off != DIMOFS_X && off != DIMOFS_Y && off != DIMOFS_Z){
+			uint32 buttoncode = off - DIMOFS_BUTTON0;
+			((DXControl&)GetControl())._notifyButton(buttoncode, bool(status & 0x80));
+			GetGame().onMouse(MouseEvent(buttoncode, (bool)(status & 0x80)));
+		}
 	}
 #pragma warning(pop)
 	DXControl::DXControl()
-		: m_curStateID(0), m_pKB_State(&m_KB_StateBuf[0]), m_pKB_LastState(&m_KB_StateBuf[0]),
-		m_pMouse_State(&m_Mouse_StateBuf[0]), m_pMouse_LastState(&m_Mouse_StateBuf[0])
 	{
-		memset(m_KB_StateBuf, 0, sizeof(m_KB_StateBuf));
+		memset(&m_KB_State, 0, sizeof(m_KB_State));
 		DX::Input.Init(g_hInstance, g_hWnd);
 		m_KB.Create(10);
 		m_KB.Acquire();
@@ -54,44 +57,42 @@ namespace OneU
 		DX::Input.Destroy();
 	}
 	void DXControl::update(){
-		m_KB.Read(m_KB_StateBuf[m_curStateID]);
-		m_Mouse.Read(m_Mouse_StateBuf[m_curStateID]);
+		m_KB.Read(m_KB_State);
+		m_Mouse.Read(m_Mouse_State);
 
-		m_pMouse_State = &m_Mouse_StateBuf[m_curStateID];
-		m_pKB_State = &m_KB_StateBuf[m_curStateID];
-
-		m_curStateID = (m_curStateID + 1) % 2;
-		m_pKB_LastState = &m_KB_StateBuf[m_curStateID];
-		m_pMouse_LastState = &m_Mouse_StateBuf[m_curStateID];
+		memset(&m_KB_Release, 0, sizeof(m_KB_Release));
+		memset(&m_KB_Press, 0, sizeof(m_KB_Press));
+		memset(&m_Button_Release, 0, sizeof(m_Button_Release));
+		memset(&m_Button_Press, 0, sizeof(m_Button_Press));
 
 		m_KB.HandleData(__KeyDataHandler);
 		m_Mouse.HandleData(__MouseDataHandler);
 	}
 	bool DXControl::keyIsDown(uint32 scancode){
-		return m_pKB_State->GetState(scancode); 
+		return m_KB_State.GetState(scancode); 
 	}
 
 	bool DXControl::keyPress(uint32 scancode){
-		return (!m_pKB_State->GetState(scancode)) && m_pKB_LastState->GetState(scancode);
+		return m_KB_Press[scancode];
 	}
 
 	bool DXControl::keyRelease(uint32 scancode){
-		return m_pKB_State->GetState(scancode) && (!m_pKB_LastState->GetState(scancode));
+		return m_KB_Release[scancode];
 	}
 
 	bool DXControl::buttonIsDown(uint32 ButtonID){
-		return m_pMouse_State->GetState(ButtonID);
+		return m_Mouse_State.GetState(ButtonID);
 	}
 
 	bool DXControl::buttonRelease(uint32 ButtonID){
-		return (!m_pMouse_State->GetState(ButtonID)) && m_pMouse_LastState->GetState(ButtonID);
+		return m_Button_Release[ButtonID];
 	}
 
 	bool DXControl::buttonPress(uint32 ButtonID){
-		return m_pMouse_State->GetState(ButtonID) && (!m_pMouse_LastState->GetState(ButtonID));
+		return m_Button_Press[ButtonID];
 	}
 
 	vector2i_t DXControl::mouseOffset(){
-		return vector2i_t(m_pMouse_State->GetlX(), m_pMouse_State->GetlY());
+		return vector2i_t(m_Mouse_State.GetlX(), m_Mouse_State.GetlY());
 	}
 }

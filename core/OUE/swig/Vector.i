@@ -1,34 +1,4 @@
-/*
-This source file is part of OneU Engine.
-Copyright (c) 2011 Ladace
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-*/
-/**
- * @file Vector.h
- * @brief 向量及形状
- * @author Ladace
- * @version 1.0.0.1
- * @date 2011-04-09
- */
-#pragma once
-#include "OUEDefs.h"
+%module OUE
 
 namespace OneU
 {
@@ -49,7 +19,7 @@ namespace OneU
 		Vector2(T x, T y) : x(x), y(y){}
 		template<typename U>
 		Vector2(Vector2<U>& rhs) : x((T)rhs.x), y((T)rhs.y){}
-		float length(){ return sqrt((float)x * x + y * y);}
+		T length(){ return sqrt(x * x + y * y);}
 	};
 	template<class T>
 	inline Vector2<T> operator+(const Vector2<T>& lhs, const Vector2<T>& rhs){
@@ -88,7 +58,7 @@ namespace OneU
 		Vector3(T x, T y, T z) : x(x), y(y), z(z){}
 		template<typename U>
 		Vector3(Vector3<U>& rhs) : x((T)rhs.x), y((T)rhs.y), z((T)rhs.z){}
-		float length(){ return sqrt((float)x * x + y * y); }
+		T length(){ return sqrt(x * x + y * y); }
 
 	};
 	template<class T>
@@ -129,6 +99,18 @@ namespace OneU
 	};
 
 
+	%template(recti_t) rect_t<int>;
+	%template(rect)    rect_t<float>;
+
+	%template(vector2i_t) Vector2<int>;
+	%template(vector2)    Vector2<float>;
+
+	%template(vector3i_t) Vector3<int>;
+	%template(vector3)    Vector3<float>;
+
+	%template(vector4i_t) Vector4<int>;
+	%template(vector4)    Vector4<float>;
+	
 	typedef rect_t<int> recti_t;
 	typedef rect_t<uint32> rectu_t;
 	typedef rect_t<float> rect;
