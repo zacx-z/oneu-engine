@@ -152,7 +152,7 @@ namespace OneU
 		_DXImageTag** p = m_ImageTable.insert(filename);
 		if(p != NULL){//didn't find
 			*p = NULL;
-			*p = new _DXImageTag;
+			*p = ONEU_NEW_T(_DXImageTag);
 			_DXImageTag* pTag = *p;
 			pTag->ref = 1;
 			pTag->video = this;
@@ -433,7 +433,7 @@ namespace OneU
 	DXImage::~DXImage(){
 		if(--m_pTag->ref == 0){
 			m_pTag->video->m_ImageTable.erase(m_pTag->it);
-			delete m_pTag;
+			ONEU_DELETE_T(m_pTag);
 		}
 	}
 

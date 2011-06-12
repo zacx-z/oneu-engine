@@ -40,6 +40,9 @@ namespace OneU
 			m_Mode(video::BM_NORMAL), m_CMode(video::CBM_ADD){
 			this->create2DTransform();
 		}
+		~Sprite_Impl(){
+			int haha = 0;
+		}
 
 		void setImage(image_t img){ m_Img = img; }
 		image_t getImage(){ return m_Img; }

@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 /**
- * @file IInterpreter.h
+ * @file Interpreter.h
  * @brief ½âÊÍÆ÷
  * @author Ladace
  * @version 1.0.0.1

@@ -1,12 +1,4 @@
-require "stdlib"
+require "OUE"
 
-Scene = {}
-
-function Scene:init()
-end
-
-function Scene:main()
-end
-
-function Scene:destroy()
+function mainloop()
 end

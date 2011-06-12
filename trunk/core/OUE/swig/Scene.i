@@ -15,3 +15,14 @@ namespace OneU
 		video::IRenderScene* getRenderScene();
 	};
 }
+
+%feature("director") OneU::IScene;
+
+
+%apply SWIGTYPE *VDISOWN {OneU::video::INode* child};
+%inline %{
+void addToScene(OneU::video::INode* child){
+	OneU::GetScene().getRenderScene()->addChild(child);
+}
+%}
+%clear OneU::video::INode* child;

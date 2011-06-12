@@ -15,7 +15,7 @@ public:
 		m_I->execFile(L"script/main.lua");
 	}
 	void update(){
-		m_I->execCode("main()");
+		m_I->execCode("mainloop()");
 	}
 };
 

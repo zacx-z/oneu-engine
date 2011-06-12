@@ -29,6 +29,7 @@ THE SOFTWARE.
  * @version 1.0.0.1
  * @date 2011-04-09
  */
+#pragma once
 #include "Video.h"
 
 namespace OneU

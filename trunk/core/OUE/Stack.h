@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 /**
-* @file Stasck.h
+* @file Stack.h
 * @brief ջ
 * @author Ladace
 * @version 1.0.0.1

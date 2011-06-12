@@ -18,7 +18,7 @@ namespace OneU
 		virtual OneU::IControl& getControl();
 		virtual OneU::IScene& getScene();
 		
-		virtual OneU::IScene* replaceScene(OneU::IScene* newscene) = 0;
+		//virtual OneU::IScene* replaceScene(OneU::IScene* newscene) = 0;
 
 		virtual void init(OneU::pcwstr WindowName, OneU::uint32 width, OneU::uint32 height, bool bWindowed) = 0;
 		virtual int run() = 0;
@@ -59,7 +59,7 @@ namespace OneU
 
 %inline %{
 namespace OneU{
-	void Game_build(){
+	static void Game_build(){
 		OneU::Game_build(Game_create);
 	}
 }
