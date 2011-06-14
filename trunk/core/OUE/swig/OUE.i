@@ -1,4 +1,4 @@
-%module OUE
+%module(directors = "1") OUE
 %{
 #include "../OUE.h"
 %}
@@ -18,5 +18,5 @@
 %include "Shape.i"
 %include "Label.i"
 
-%include "Event.i"//reserved
+%include "Event.i"
 %include "Broadcast.i"//reserved

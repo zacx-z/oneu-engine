@@ -41,7 +41,7 @@ THE SOFTWARE.
 #define D3D_DEBUG_INFO
 #endif
 
-#define DEPRECATED __declspec(deprecated)
+#define ONEU_DEPRECATED __declspec(deprecated)
 
 #ifdef _DEBUG
 // π”√∂œ—‘

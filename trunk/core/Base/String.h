@@ -211,16 +211,16 @@ namespace OneU
 		return String(t, rhs.c_str());
 	}
 
-	extern "C" ONEU_BASE_API wchar* _ANSI2Wide(pcstr cstr);
-	extern "C" ONEU_BASE_API char* _Wide2ANSI(pcwstr cstr);
-	inline AutoPtr<wchar> ANSI2Wide(pcstr cstr){
-		return AutoPtr<wchar>(_ANSI2Wide(cstr));
+	extern "C" ONEU_BASE_API wchar* _Char2Wide(pcstr cstr);
+	extern "C" ONEU_BASE_API char* _Wide2Char(pcwstr cstr);
+	inline AutoPtr<wchar> Char2Wide(pcstr cstr){
+		return AutoPtr<wchar>(_Char2Wide(cstr));
 	}
-	inline String ANSI2WideStr(pcstr cstr){
-		return String(_ANSI2Wide(cstr));
+	inline String Char2WideStr(pcstr cstr){
+		return String(_Char2Wide(cstr));
 	}
-	inline AutoPtr<char> Wide2ANSI(pcwstr cstr){
-		return AutoPtr<char>(_Wide2ANSI(cstr));
+	inline AutoPtr<char> Wide2Char(pcwstr cstr){
+		return AutoPtr<char>(_Wide2Char(cstr));
 	}
 //#define SPrintf String().format
 }

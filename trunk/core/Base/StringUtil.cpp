@@ -60,8 +60,9 @@ namespace OneU
 	//}
 
 	//×ª»»
-	extern "C" ONEU_BASE_API wchar* _ANSI2Wide(pcstr cstr)
+	extern "C" ONEU_BASE_API wchar* _Char2Wide(pcstr cstr)
 	{
+		if(!cstr) return NULL;
 		const size_t l = strlen(cstr);
 		wchar* str = (wchar*)ONEU_ALLOC(sizeof(wchar) * (l + 2));
 		if(!MultiByteToWideChar(CP_ACP, 0, cstr, int(l + 1), str, int(l + 2)))
@@ -70,8 +71,9 @@ namespace OneU
 		}
 		return str;
 	}
-	extern "C" ONEU_BASE_API char* _Wide2ANSI(pcwstr cstr)
+	extern "C" ONEU_BASE_API char* _Wide2Char(pcwstr cstr)
 	{
+		if(!cstr) return NULL;
 		const size_t l = wcslen(cstr);
 		char* str = (char*)ONEU_ALLOC(sizeof(char) * (l + 2));
 		if(!WideCharToMultiByte(CP_ACP, 0, cstr, int(l + 1), str, int(l + 2), NULL, NULL))

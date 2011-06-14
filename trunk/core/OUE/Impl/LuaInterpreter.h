@@ -34,6 +34,7 @@ namespace OneU
 		lua_State* L;
 	public:
 		LuaInterpreter();
+		~LuaInterpreter();
 		void execFile(pcwstr filename);
 		void execCode(pcstr code);
 	};

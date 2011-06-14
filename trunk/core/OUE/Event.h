@@ -186,7 +186,6 @@ namespace OneU
 	 */
 	/* ----------------------------------------------------------------------------*/
 	class CharEvent
-		: public EventArgs
 	{
 		wchar charCode;
 	public:

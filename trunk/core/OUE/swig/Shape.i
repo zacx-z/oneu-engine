@@ -1,4 +1,4 @@
-%module OUE
+%module(directors = "1") OUE
 %include "Video.i"
 %include "VideoNode.i"
 %{
@@ -18,6 +18,5 @@ namespace OneU
 	};
 
 	%newobject Shape_rect;
-	%rename(Rect) Shape_rect;
 	OneU::IShape* Shape_rect(const OneU::rect& rc);
 }
