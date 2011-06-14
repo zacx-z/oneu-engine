@@ -1,4 +1,4 @@
-%module OUE
+%module(directors = "1") OUE
 
 namespace OneU
 {
@@ -17,19 +17,67 @@ namespace OneU
 	typedef const wchar* pcwstr;
 	typedef char* pstr;
 	typedef const char* pcstr;
-	typedef char byte;
-	typedef unsigned char ubyte;
+	//typedef char byte;
+	//typedef unsigned char ubyte;
+}
 	
 #if defined(SWIGLUA)
+	%typemap(typecheck) const wchar_t* {
+		$1 = lua_type(L, $input) == LUA_TSTRING;
+	}
 	%typemap(in) const wchar_t* (OneU::AutoPtr<wchar_t> temp) {
-		temp = OneU::ANSI2Wide(lua_tostring(L, $input));
+		if(lua_type(L, $input) != LUA_TSTRING)
+			SWIG_fail_arg("$symname", $argnum, "$type");
+		
+		temp = OneU::Char2Wide(lua_tostring(L, $input));
 		$1 = temp;
 	}
-
 	%typemap(out) const wchar_t* {
-		lua_pushstring(L, OneU::Wide2ANSI($1));
+		lua_pushstring(L, OneU::Wide2Char($1));
+	}
+#elif defined(SWIGRUBY)
+%fragment("SWIG_From_wchar_t", "header", fragment = "SWIG_FromCharPtr")
+{	
+VALUE SWIG_From_wchar_t(wchar_t value){
+	static wchar_t s[2] = {0, 0};
+	s[0] = value;
+	return SWIG_FromCharPtr(OneU::Wide2Char(s));
+}
+}
+%fragment("SWIG_AsVal_wchar_t", "header")
+{	
+int SWIG_AsVal_wchar_t(VALUE obj, wchar_t* val){
+	if(TYPE(obj) == T_STRING){
+		*val = OneU::Char2Wide(StringValuePtr(obj))[0];
+		return SWIG_OK;
+	}
+	return SWIG_TypeError;
+}
+}
+
+	%typemap(typecheck) const wchar_t* {
+		$1 = TYPE($input) == T_STRING;
+	}
+	%typemap(in) const wchar_t* (OneU::AutoPtr<wchar_t> temp){
+		if(TYPE($input) != T_STRING)
+			SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
+			
+		temp = OneU::Char2Wide(StringValuePtr($input));
+		$1 = temp;
+	}
+	%typemap(out) const wchar_t* {
+		$result = rb_str_new2(OneU::Wide2Char($1));
+	}
+	%typemap(directorin) const wchar_t*{
+		$result = rb_str_new2(OneU::Wide2Char($1));
+	}
+	%typemap(directorout) const wchar_t* (OneU::AutoPtr<wchar_t> temp){
+		if(TYPE($input) != T_STRING)
+			SWIG_exception_fail(SWIG_ArgError(res), Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
+			
+		temp = OneU::Char2Wide(StringValuePtr($input));
+		$1 = temp;
 	}
 #endif
-}
 
 %include "Vector.i"

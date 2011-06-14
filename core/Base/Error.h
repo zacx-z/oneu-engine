@@ -88,7 +88,7 @@ namespace OneU
 	extern "C" ONEU_BASE_API void _TerminateApp(const char * FileName, const int Line, pcwstr str);
 
 	inline void _TerminateApp(const char * FileName, const int Line, pcstr str){
-		_TerminateApp(FileName, Line, ANSI2Wide(str));
+		_TerminateApp(FileName, Line, Char2Wide(str));
 	}
 
 	typedef void (*TerminateHandler)();

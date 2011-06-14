@@ -1,4 +1,4 @@
-%module OUE
+%module(directors = "1") OUE
 
 namespace OneU
 {
@@ -99,17 +99,17 @@ namespace OneU
 	};
 
 
-	%template(recti_t) rect_t<int>;
-	%template(rect)    rect_t<float>;
+	%template(Recti_t) rect_t<int>;
+	%template(Rectf_t)    rect_t<float>;
 
-	%template(vector2i_t) Vector2<int>;
-	%template(vector2)    Vector2<float>;
+	%template(Vector2i_t) Vector2<int>;
+	%template(Vector2f_t)    Vector2<float>;
 
-	%template(vector3i_t) Vector3<int>;
-	%template(vector3)    Vector3<float>;
+	%template(Vector3i_t) Vector3<int>;
+	%template(Vector3f_t)    Vector3<float>;
 
-	%template(vector4i_t) Vector4<int>;
-	%template(vector4)    Vector4<float>;
+	%template(Vector4i_t) Vector4<int>;
+	%template(Vector4f_t)    Vector4<float>;
 	
 	typedef rect_t<int> recti_t;
 	typedef rect_t<uint32> rectu_t;

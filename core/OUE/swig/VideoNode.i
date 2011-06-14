@@ -1,4 +1,4 @@
-%module OUE
+%module(directors = "1") OUE
 %include "types.i"
 
 %{

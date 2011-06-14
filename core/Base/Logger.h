@@ -81,7 +81,7 @@ namespace OneU
 			if(lvl >= ONEU_LOG_THRESHOLD)
 				write(lpstrLog);
 		}
-		void logMessage(pcstr lpstrLog, MessageLevel lvl = ML_NORMAL){logMessage(ANSI2Wide(lpstrLog), lvl);}
+		void logMessage(pcstr lpstrLog, MessageLevel lvl = ML_NORMAL){logMessage(Char2Wide(lpstrLog), lvl);}
 
 		class Stream
 			: public IOStreamMaker

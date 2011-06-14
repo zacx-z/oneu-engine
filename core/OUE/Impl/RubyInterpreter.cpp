@@ -20,40 +20,50 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include "LuaInterpreter.h"
-#include "../../Base/String.h"
+#define WIN32_LEAN_AND_MEAN
+#pragma warning(disable : 4312)
+#include "RubyInterpreter.h"
 namespace OneU
 {
-	LuaInterpreter::LuaInterpreter(){
-		L = lua_open();
-		luaL_openlibs(L);
-		luaL_dostring(L, "package.path = package.path..\";./script/?.lua;./script/lib/?.lua\"");
-	
+	ONEU_API void RubyRun(){
+		char* a[] = {"a"};
+		int n = 1;
+		char** argv = a;
+		ruby_sysinit(&n, &argv);
+		RUBY_INIT_STACK;
+		ruby_init();
+		ruby_init_loadpath();
+		ruby_script("oneu");
 #ifdef _DEBUG
-		luaL_dostring(L, "package.cpath = package.cpath..\";./?.dll;./../debug/?.dll\"");//for test
-#else
-		luaL_dostring(L, "package.cpath = package.cpath..\";./?.dll\"");//for test
+		rb_eval_string("$: << \"./../debug/\"");
 #endif
-		lua_setfield(L, -2, "cpath");
-		lua_pop(L, 1);
-	}
-	LuaInterpreter::~LuaInterpreter(){
-		lua_close(L);
-	}
-	void LuaInterpreter::execFile(pcwstr filename){
-		if(luaL_loadfile(L, Wide2Char(filename)))
-			ONEU_RAISE(Char2Wide(lua_tostring(L, -1)));
-		if(lua_pcall(L, 0, 0, 0))
-			ONEU_RAISE(Char2Wide(lua_tostring(L, -1)));
-	}
-	void LuaInterpreter::execCode(pcstr code){
-		if(luaL_loadstring(L, code))
-			ONEU_RAISE(Char2Wide(lua_tostring(L, -1)));
-		if(lua_pcall(L, 0, 0, 0))
-			ONEU_RAISE(Char2Wide(lua_tostring(L, -1)));
+		rb_require("script/main.rb");
+		ruby_finalize();
 	}
 
-	ONEU_API IInterpreter* Interpreter_Lua(){
-		return ONEU_NEW LuaInterpreter;
+	ONEU_API IInterpreter* Interpreter_Ruby(){
+		return ONEU_NEW RubyInterpreter();
+	}
+
+	RubyInterpreter::RubyInterpreter(){
+		char* a[] = {"a"};
+		int n = 1;
+		char** argv = a;
+		ruby_sysinit(&n, &argv);
+		RUBY_INIT_STACK;
+		ruby_init();
+		ruby_init_loadpath();
+		ruby_script("oneu");
+	}
+	
+	void RubyInterpreter::execFile(pcwstr filename){
+		rb_require(Wide2Char(filename));
+	}
+	void RubyInterpreter::execCode(pcstr code){
+		rb_eval_string(code);
+	}
+
+	RubyInterpreter::~RubyInterpreter(){
+		ruby_finalize();
 	}
 }

@@ -60,7 +60,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions=" /NODEFAULTLIB:libcmt.lib "
+				AdditionalOptions="/NODEFAULTLIB:libcmt.lib "
+				AdditionalDependencies="msvcrt-ruby190.lib"
+				OutputFile="$(OutDir)\$(ProjectName).so"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -136,7 +138,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="msvcrt-ruby190.lib"
+				OutputFile="$(OutDir)\$(ProjectName).so"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="lib\"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -329,6 +334,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Impl\RubyInterpreter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Impl\RubyInterpreter.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Impl\Win32.cpp"
 				>
 			</File>
@@ -422,6 +435,14 @@
 			</File>
 			<File
 				RelativePath=".\swig\oue_lua.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\oue_ruby.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\swig\oue_ruby.h"
 				>
 			</File>
 			<File

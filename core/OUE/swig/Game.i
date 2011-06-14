@@ -1,4 +1,4 @@
-%module OUE
+%module(directors = "1") OUE
 
 %include "types.i"
 %include "Video.i"
@@ -17,9 +17,7 @@ namespace OneU
 		virtual OneU::IStereo& getStereo();
 		virtual OneU::IControl& getControl();
 		virtual OneU::IScene& getScene();
-		
-		//virtual OneU::IScene* replaceScene(OneU::IScene* newscene) = 0;
-
+	
 		virtual void init(OneU::pcwstr WindowName, OneU::uint32 width, OneU::uint32 height, bool bWindowed) = 0;
 		virtual int run() = 0;
 		virtual void quit() = 0;
@@ -34,12 +32,18 @@ namespace OneU
 		virtual float getTimeInterval() = 0;
 
 		
-		//virtual OneU::IInputReceiver* replaceInputFocus(OneU::IInputReceiver* pIR);
-		//virtual void pushInputFocus(OneU::IInputReceiver* pIR);
-		//virtual OneU::IInputReceiver* popInputFocus();
-		//virtual void onChar(const CharEvent& event);
-		//virtual void onKey(const KeyEvent& event);
-		//virtual void onMouse(const MouseEvent& event);//reserved
+			
+#ifdef SUPPORT_DIRECTORS
+		%apply SWIGTYPE *VDISOWN {OneU::IScene* scene};
+		virtual OneU::IScene* replaceScene(OneU::IScene* scene) = 0;
+		%clear OneU::IScene* scene;
+		virtual OneU::IInputReceiver* replaceInputFocus(OneU::IInputReceiver* pIR);
+		virtual void pushInputFocus(OneU::IInputReceiver* pIR);
+		virtual OneU::IInputReceiver* popInputFocus();
+		virtual void onChar(const OneU::CharEvent& event);
+		virtual void onKey(const OneU::KeyEvent& event);
+		virtual void onMouse(const OneU::MouseEvent& event);	
+#endif
 		
 		virtual void runShell(OneU::pcwstr command) = 0;
 		virtual void output(OneU::pcwstr data) = 0;

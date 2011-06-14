@@ -41,4 +41,6 @@ namespace OneU
 	};
 
 	ONEU_API IInterpreter* Interpreter_Lua();
+	ONEU_API IInterpreter* Interpreter_Ruby();
+	ONEU_API void RubyRun();//快速运行
 }
