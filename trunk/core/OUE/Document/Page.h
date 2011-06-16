@@ -17,7 +17,7 @@ namespace OneU{
  *  .
  * @section section_contents 文档结构
  *  - @subpage page_cpp
- *  - @subpage page_lua
+ *  - @subpage page_script
  *  - @subpage page_extending
  *  - 参考
  *		- @subpage page_run
@@ -110,7 +110,9 @@ namespace OneU{
  *	IGame* game = GetGame();
  *	game->init(L"Hello World", 800, 600, true);
  *	game->replaceScene(ONEU_NEW HelloScene);
- *	return game->run();
+ *	int ret = game->run();
+ *  Game_destroy();
+ *  return ret;
  * }
  * @endcode
  * 编译运行后是一个空窗口。
@@ -313,63 +315,40 @@ namespace OneU{
  * @section section_extend_form_class 形式类别
  * @par 编写dll库——SDK式的扩展
  * 按照dll编写原则编写dll，发布dll和头文件，即可创建任何人可用的dll扩展。个人可以通过编译链接的方式使用该扩展。参见@ref section_interface_principles。
- * @par 编写at库——二进制动态语言符号扩展
- * 同样编写dll，按照Atom库编写标准，输出扩展名改为at即可。调用loadAtom即可加载该扩展，扩展会向Atom表中导出符号供动态语言使用。
- * 例子Waterfall_atom.cpp。
- * @par 编写脚本扩展
- * 与at库功用相同，只是扩展是使用动态语言编写的。
- * 暂未实现
- * @par 实现LUA脚本子系统
- * 实现需要读入外部数据的构件时，可以利用lua强大的灵活性，开发出次语言，用于描述数据、元数据等。
- * @section section_extend_functional_class 功能类别
- * @par 功能增强插件
- * 为引擎提供新功能（例如新的渲染特效）的插件。在软件工程里属于代码复用。
- * @par 框架插件
- * 为引擎提供逻辑框架的插件。在软件工程里属于设计复用。
- * 暂难以实现
- * @section section_atom_standards at扩展编写标准 reserved
- * @par 可选导出函数：void AtomInit(pcwstr)
- * 在加载的时候被调用，传入当前Atom版本号。
- * @par 可选导出函数：void AtomDestroy()
- * 在卸载的时候被调用。
+ * @par 为dll提供脚本支持
+ * 使用SWIG，编写.i接口文件。必要时要包含 OUE\\swig 文件夹下的接口文件。
  */
 /* ----------------------------------------------------------------------------*/
 /**
- * @page page_lua 使用LUA脚本编写游戏
- * 如何使用bin/game/下的执行包来制作游戏。\n
- * 该执行包是lua的执行版。由于Swig对lua的支持不完全。因此该版本在功能上也是不完全的，该版本不支持多场景和监听器。\n
- * 进入script/文件夹，编辑startup.lua文件。在这里配置游戏启动的内容。默认如下：
- * @code
- * require "OUE"
- * OUE.GetGame():init("Hello world", 800, 600, true);
- * @endcode
- * 进入script/文件夹，编辑main.lua文件。引擎会在游戏启动后会加载该文件。\n
- * 在文件中定义mainloop函数，每帧都会调用该函数；并在文件头包含OUE包：
- * @code
- * require "OUE"
- * function mainloop()
- * end
- * @endcode
- * 加载OUE库。
- * @section section_lua_display_image 显示图像
- * 拷贝picture.png图像到根目录。
- * 在mainloop函数前加入如下代码。
- * @code
- * sp = OUE.Sprite("picture.png");
- * OUE.addToScene(sp);
- * @endcode
- * 运行程序，有没有看到picture.png显示出来了？\n(addToScene(sp)等价于GetScene():getRenderScene():addChild(sp))
- * Sprite是标准库的符号，用于显示图片。
- * 这一句的含义就是建立新精灵，并将精灵对象作为场景的sp成员。
- * 建立出的精灵会显示在屏幕上。
- * @section section_lua_retrieve_control 响应控制
- * 关于响应控制有一种简单方案，就是查看输入设备的状态，并对精灵做出改变。
- * @code
- * if OUE.GetControl():keyIsDown(OUE.IControl_IK_RIGHT) then
- *	sp:setX(self.sp:getX() + 10.0f);
- * end
- * @endcode
- * 该句含义是，当发现方向键的右键被按下时，将精灵平移10像素。
+ * @page page_script 使用脚本编写游戏
+ * 目前脚本处于比较纠结的状态。
+ * 目前实现了Lua和Ruby的接口，由于在SWIG里Lua不支持Directors，所以功能很受限，一般只能做单场景游戏。
+ * 1.使用ruby(recommanded)
+ * 提供便利函数@ref RubyRun。直接在主函数调用即可，不需要做任何其他事。
+ * 除了Game_build, Game_destroy所有逻辑都在Ruby中编写。
+ * 2.使用Lua
+ * 需要自己编写一个场景（是唯一的场景），参考r19的Game\\main.cpp。(注：由于新版的改动，需要在run函数后调用Game_destroy）
+ * Game_build，Game.run等基本逻辑在C++里编写。
+ */
+/**
+ * @page page_problems PROBLEMS
+ * PROBLEMS:
+ * - Ruby和Lua使用方式有点迥异。参见上面。
+ * - Ruby的异常处理与C是脱节的（貌似是使用longjmp)。也就是说如果使用Director时某些函数的局部变量会被直接抛弃。一些处理也会有点失控。
+ *   对于这个问题，只要保证所有的系统资源间接被Game持有，Game_destroy确保被执行，就可以保证不出现资源泄露。
+ * - 要先销毁脚本解释器再销毁Game，因为脚本解释器里的变量可能关乎资源。
+ * - 相当多函数和类（主要是接口类，也有core中的类）都需要在有内存分配器的存在才可被使用。而Game_destroy会销毁掉内存分配器。所以在Game_build之前和Game_destroy之后都不能使用。
+ *   对于上述Ruby逻辑编写方式而言，由于开始解释的时候没有内存分配器，因此连RubyInterpreter都不能创建。所以才会出现了不使用内存分配器的RubyRun便利函数。
+ * - 关于脚本语言协作，涉及到Ownership，见SWIG。有时Script调用某函数会获取到Ownership，有时又会失去。当Ownership获取的时候一般通过返回值，而对于某些会失去Ownership时此时该变量必须有Ownership。
+ * - win32：一旦调用了PostQuitMessage，就无法显示MessageBox了。
+ * - 目前基本类型的typemap可能不够完善。
+ * - 由于该SDK并不是完全面向脚本编写的，因此导出到脚本时出现了Ownership等复杂的问题（且由于SWIG是外部Wrap的方式，不具有内建的优势，如果面向脚本编写则要抛弃SWIG或自己写SWIG扩展）。
+ *	- 每次调用Get函数或其他方法获取某个对象时，其实是新建了一个script里的Wrapper，所以一个对象可能对应许多wrapper。而最多一个有ownership，只有有ownership的对象才能销毁内容。而如果通过调用某个函数ownership被C++内核拿走，则要求传入的必须是有ownership的对象。这为脚本带来了不必要的复杂性。如果想消除这种复杂性，则要在每个导出的类里定义一个对应脚本里的VALUE，也就是侵入式编程，一要框架重新设计，二则难以使用SWIG。（SWIG是非侵入式编程）
+ *	- 如果使用SWIG的默认库的话，不满足能查看一个变量是否有ownership的要求。因此自己写了一段代码，这段代码与SWIG对应语言的具体实现强相关，如果出现大改动可能失效。所以暂时推荐swig2.0.4。
+ *  - SWIG导出返回pcwstr的director虚函数可能会有内存被提前释放的问题。（未验证）
+ *	.
+ * .
+ * @attention 重要改动，Game.run后需要调用Game.destroy
  * @remarks 具体接口参见swig/*.i文件。
  */
 /* ----------------------------------------------------------------------------*/

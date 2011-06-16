@@ -35,6 +35,7 @@ namespace OneU
 			
 #ifdef SUPPORT_DIRECTORS
 		%apply SWIGTYPE *VDISOWN {OneU::IScene* scene};
+		%newobject replaceScene;
 		virtual OneU::IScene* replaceScene(OneU::IScene* scene) = 0;
 		%clear OneU::IScene* scene;
 		virtual OneU::IInputReceiver* replaceInputFocus(OneU::IInputReceiver* pIR);
@@ -59,12 +60,3 @@ namespace OneU
 	OneU::IControl& GetControl();
 	OneU::IScene& GetScene();
 }
-
-
-%inline %{
-namespace OneU{
-	static void Game_build(){
-		OneU::Game_build(Game_create);
-	}
-}
-%}

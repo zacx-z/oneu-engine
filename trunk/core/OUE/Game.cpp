@@ -40,6 +40,7 @@ namespace OneU
 	static IGame* s_pGame = NULL;
 
 	ONEU_API IGame& GetGame(){ONEU_ASSERT(s_pGame != NULL); return *s_pGame;}
+	ONEU_API bool HasGame(){ return s_pGame != NULL; }
 
 	static TerminateHandler _last_eh = NULL;
 	static void _destroyGame();

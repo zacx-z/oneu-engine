@@ -44,6 +44,7 @@ namespace OneU
 		if(m_pControl != NULL){ ONEU_DELETE m_pControl; m_pControl = NULL;}
 		if(m_pStereo != NULL){ ONEU_DELETE m_pStereo; m_pStereo = NULL; }
 		if(m_pVideo != NULL){ ONEU_DELETE m_pVideo; m_pVideo = NULL;}
+		::DestroyWindow(g_hWnd);
 		if(m_pBroadcast != NULL){ ONEU_DELETE m_pBroadcast; m_pBroadcast = NULL;}
 	}
 	void Game_Win32::init(pcwstr WindowName, uint32 width, uint32 height, bool bWindowed){
@@ -94,13 +95,11 @@ namespace OneU
 			}
 			catch(...){
 				ONEU_LOG(L"运行时发生错误退出。");
-				Game_destroy();
 
 				return -1;
 			}
 		}
 end:
-		Game_destroy();
 		return 0;
 	}
 	void Game_Win32::quit(){
@@ -275,13 +274,13 @@ namespace OneU
 	LRESULT CALLBACK WindowProcedure (HWND hwnd, unsigned int message, WPARAM wParam, LPARAM lParam){
 		switch (message){
 			case WM_DESTROY:
-				::PostQuitMessage (0);
+				PostQuitMessage(0);//调用该函数后会无法弹出对话框
 				break;
 				//！！注意：这个消息会在DX某种配置下引起bug。如果调用DefWindowProc前台表面会被填充成白色。
 			case WM_ERASEBKGND:
 				break;
 			case WM_ACTIVATE:
-				if( LOWORD( wParam ) == WA_ACTIVE || LOWORD( wParam ) == WA_CLICKACTIVE )
+				if((LOWORD( wParam ) == WA_ACTIVE || LOWORD( wParam ) == WA_CLICKACTIVE))
 					GetGame().onActiveWindow(true);
 				else
 					GetGame().onActiveWindow(false);
