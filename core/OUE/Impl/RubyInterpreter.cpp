@@ -22,10 +22,64 @@ THE SOFTWARE.
 */
 #define WIN32_LEAN_AND_MEAN
 #pragma warning(disable : 4312)
+#pragma warning(disable : 4311)
 #include "RubyInterpreter.h"
+#include "../Game.h"
+
+#include <sstream>
 namespace OneU
 {
+	static void ThrowOnError(int error) {
+		if(error == 0)
+			return;
+
+		using std::endl;
+		std::ostringstream clog;
+
+		VALUE lasterr = rb_errinfo();//rb_gv_get("$!");//$!貌似只有在rescue里用才有效
+
+		// class
+		VALUE klass = rb_class_path(CLASS_OF(lasterr));
+		clog << "class = " << StringValuePtr(klass) << endl; 
+
+		// message
+		VALUE message = rb_obj_as_string(lasterr);
+		clog << "message = " << StringValuePtr(message) << endl;
+
+		//一下这两句功能与上面是一样的
+		//VALUE info = rb_eval_string("\"class = #{$!.class}\nmessage = #{$!}\n\"");
+		//clog << StringValuePtr(info);
+
+		// backtrace
+		VALUE errinfo = rb_errinfo();
+		if(!NIL_P(errinfo)) {
+			std::ostringstream o;
+			VALUE ary = rb_funcall(
+				errinfo, rb_intern("backtrace"), 0);
+			int c;
+			for (c=0; c<RARRAY(ary)->len; c++) {
+				o << "\tfrom " << 
+					StringValuePtr(RARRAY(ary)->ptr[c]) << 
+					"\n";
+			}
+			clog << "backtrace = " << o.str() << endl;
+		}
+
+		MessageBoxA(NULL, clog.str().c_str(), "Ruby", MB_OK | MB_ICONERROR);
+	}
+
+	static VALUE LoadWrap(VALUE arg){
+		rb_load(arg, false);
+		return Qnil;
+	}
+	static VALUE EvalStringWrap(VALUE arg){
+		rb_eval_string((const char*)arg);
+		return Qnil;
+	}
+
 	ONEU_API void RubyRun(){
+		Game_build(Game_create);
+
 		char* a[] = {"a"};
 		int n = 1;
 		char** argv = a;
@@ -37,9 +91,18 @@ namespace OneU
 #ifdef _DEBUG
 		rb_eval_string("$: << \"./../debug/\"");
 #endif
-		rb_require("script/main.rb");
+		int state;
+		rb_protect(LoadWrap, rb_str_new2("script/main.rb"), &state);
+
+		if(state)
+			ThrowOnError(state);
+
 		ruby_finalize();
+		
+		Game_destroy();
 	}
+
+
 
 	ONEU_API IInterpreter* Interpreter_Ruby(){
 		return ONEU_NEW RubyInterpreter();
@@ -57,10 +120,16 @@ namespace OneU
 	}
 	
 	void RubyInterpreter::execFile(pcwstr filename){
-		rb_require(Wide2Char(filename));
+		int state;
+		rb_protect(LoadWrap,(VALUE)(const char*)Wide2Char(filename), &state);
+		if(state)
+			ThrowOnError(state);
 	}
 	void RubyInterpreter::execCode(pcstr code){
-		rb_eval_string(code);
+		int state;
+		rb_protect(EvalStringWrap,(VALUE)code, &state);
+		if(state)
+			ThrowOnError(state);
 	}
 
 	RubyInterpreter::~RubyInterpreter(){

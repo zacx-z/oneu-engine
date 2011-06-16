@@ -40,6 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.0;..\include\ruby-1.9.0\i386-mswin32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;ONEU_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -64,6 +65,7 @@
 				AdditionalDependencies="msvcrt-ruby190.lib"
 				OutputFile="$(OutDir)\$(ProjectName).so"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\lib\"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -119,7 +121,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="../_lua;"
+				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.0;..\include\ruby-1.9.0\i386-mswin32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;ONEU_EXPORTS"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -141,7 +143,7 @@
 				AdditionalDependencies="msvcrt-ruby190.lib"
 				OutputFile="$(OutDir)\$(ProjectName).so"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="lib\"
+				AdditionalLibraryDirectories="..\lib\"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				SubSystem="2"

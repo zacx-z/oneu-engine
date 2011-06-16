@@ -1590,17 +1590,18 @@ SWIGINTERN OneU::video::INode *OneU_video_INode_detach(OneU::video::INode *self)
 				return self;//返回带有ownership的自身（原变量不含ownership）
 			}
 
+SWIGINTERN int SWIG_lua_isnilstring(lua_State *L, int idx) {
+  int ret = lua_isstring(L, idx);
+  if (!ret)
+   ret = lua_isnil(L, idx);
+  return ret;
+}
+
+
 #include "../Video.h"
 
 
 #include "../Game.h"
-
-
-namespace OneU{
-	static void Game_build(){
-		OneU::Game_build(Game_create);
-	}
-}
 
 
 #include "../Stereo.h"
@@ -1619,17 +1620,27 @@ static void addToScene(OneU::video::INode* child){
 
 #include "../Sprite.h"
 
-
-static OneU::ISprite* Sprite(OneU::pcwstr file){
-	return OneU::Sprite_create(OneU::GetVideo().loadImage(file));
-}
-
+SWIGINTERN OneU::ISprite *new_OneU_ISprite__SWIG_0(OneU::pcwstr file){
+			return OneU::Sprite_create(OneU::GetVideo().loadImage(file));
+		}
+SWIGINTERN OneU::ISprite *new_OneU_ISprite__SWIG_1(OneU::image_t &img){
+			return Sprite_create(img);
+		}
 
 #include "../Shape.h"
 
+SWIGINTERN OneU::IShape *new_OneU_IShape(OneU::rect const &rc){
+			return Shape_rect(rc);
+		}
 
 #include "../Label.h"
 
+SWIGINTERN OneU::ILabel *new_OneU_ILabel__SWIG_0(float Width,float Height,OneU::uint32 fontSize,OneU::pcwstr fontName){
+			return OneU::Label_create(Width, Height, fontSize, fontName);
+		}
+SWIGINTERN OneU::ILabel *new_OneU_ILabel__SWIG_1(float Width,float Height,OneU::uint32 fontSize){
+			return OneU::Label_create(Width, Height, fontSize, L"Arial");
+		}
 
 #include "../Event.h"
 
@@ -4362,13 +4373,13 @@ static int _wrap_INodeContainer_addChild__SWIG_0(lua_State* L) {
     SWIG_fail_ptr("INodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
   }
   
-  
-  if (SWIGEX_Lua_Ownership(L, 2) != 1)
-  SWIG_fail_arg("INodeContainer_addChild", 2, "The value must have ownership!");
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
-    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+  {
+    if (SWIGEX_Lua_Ownership(L, 2) != 1)
+    SWIG_fail_arg("INodeContainer_addChild", 2, "The value must have ownership!");
+    if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
+      SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+    }
   }
-  
   arg3 = (int)lua_tonumber(L, 3);
   {
     if(lua_type(L, 4) != LUA_TSTRING)
@@ -4405,13 +4416,13 @@ static int _wrap_INodeContainer_addChild__SWIG_1(lua_State* L) {
     SWIG_fail_ptr("INodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
   }
   
-  
-  if (SWIGEX_Lua_Ownership(L, 2) != 1)
-  SWIG_fail_arg("INodeContainer_addChild", 2, "The value must have ownership!");
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
-    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+  {
+    if (SWIGEX_Lua_Ownership(L, 2) != 1)
+    SWIG_fail_arg("INodeContainer_addChild", 2, "The value must have ownership!");
+    if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
+      SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+    }
   }
-  
   arg3 = (int)lua_tonumber(L, 3);
   result = (bool)(arg1)->addChild(arg2,arg3);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
@@ -4439,13 +4450,13 @@ static int _wrap_INodeContainer_addChild__SWIG_2(lua_State* L) {
     SWIG_fail_ptr("INodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
   }
   
-  
-  if (SWIGEX_Lua_Ownership(L, 2) != 1)
-  SWIG_fail_arg("INodeContainer_addChild", 2, "The value must have ownership!");
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
-    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+  {
+    if (SWIGEX_Lua_Ownership(L, 2) != 1)
+    SWIG_fail_arg("INodeContainer_addChild", 2, "The value must have ownership!");
+    if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
+      SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+    }
   }
-  
   result = (bool)(arg1)->addChild(arg2);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
   return SWIG_arg;
@@ -4543,7 +4554,7 @@ static int _wrap_INodeContainer_addChild(lua_State* L) {
         }
         if (_v) {
           {
-            _v = lua_type(L, argv[3]) == LUA_TSTRING;
+            _v = SWIG_lua_isnilstring(L,argv[3]);
           }
           if (_v) {
             return _wrap_INodeContainer_addChild__SWIG_0(L);
@@ -5605,22 +5616,6 @@ fail:
 }
 
 
-static int _wrap_Game_build(lua_State* L) {
-  int SWIG_arg = 0;
-  
-  SWIG_check_num_args("OneU::Game_build",0,0)
-  OneU::Game_build();
-  
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
 static int _wrap_IStereo_init(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
@@ -6010,13 +6005,13 @@ static int _wrap_addToScene(lua_State* L) {
   
   SWIG_check_num_args("addToScene",1,1)
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("addToScene",1,"OneU::video::INode *");
-  
-  if (SWIGEX_Lua_Ownership(L, 1) != 1)
-  SWIG_fail_arg("addToScene", 1, "The value must have ownership!");
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
-    SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
+  {
+    if (SWIGEX_Lua_Ownership(L, 1) != 1)
+    SWIG_fail_arg("addToScene", 1, "The value must have ownership!");
+    if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
+      SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
+    }
   }
-  
   addToScene(arg1);
   
   return SWIG_arg;
@@ -6029,7 +6024,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_setImage(lua_State* L) {
+static int _wrap_Sprite_setImage(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::image_t arg2 ;
@@ -6040,12 +6035,12 @@ static int _wrap_ISprite_setImage(lua_State* L) {
   if(!lua_isuserdata(L,2)) SWIG_fail_arg("OneU::ISprite::setImage",2,"OneU::image_t");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_setImage",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_setImage",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&argp2,SWIGTYPE_p_OneU__image_t,0))){
-    SWIG_fail_ptr("ISprite_setImage",2,SWIGTYPE_p_OneU__image_t);
+    SWIG_fail_ptr("Sprite_setImage",2,SWIGTYPE_p_OneU__image_t);
   }
   arg2 = *argp2;
   
@@ -6061,7 +6056,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_getImage(lua_State* L) {
+static int _wrap_Sprite_getImage(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::image_t result;
@@ -6070,7 +6065,7 @@ static int _wrap_ISprite_getImage(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getImage",1,"OneU::ISprite *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_getImage",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_getImage",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   result = (arg1)->getImage();
@@ -6088,7 +6083,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_setCenterX(lua_State* L) {
+static int _wrap_Sprite_setCenterX(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float arg2 ;
@@ -6098,7 +6093,7 @@ static int _wrap_ISprite_setCenterX(lua_State* L) {
   if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ISprite::setCenterX",2,"float");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_setCenterX",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_setCenterX",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   arg2 = (float)lua_tonumber(L, 2);
@@ -6114,7 +6109,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_getCenterX(lua_State* L) {
+static int _wrap_Sprite_getCenterX(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float result;
@@ -6123,7 +6118,7 @@ static int _wrap_ISprite_getCenterX(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getCenterX",1,"OneU::ISprite const *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_getCenterX",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_getCenterX",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   result = (float)((OneU::ISprite const *)arg1)->getCenterX();
@@ -6138,7 +6133,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_setCenterY(lua_State* L) {
+static int _wrap_Sprite_setCenterY(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float arg2 ;
@@ -6148,7 +6143,7 @@ static int _wrap_ISprite_setCenterY(lua_State* L) {
   if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ISprite::setCenterY",2,"float");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_setCenterY",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_setCenterY",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   arg2 = (float)lua_tonumber(L, 2);
@@ -6164,7 +6159,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_getCenterY(lua_State* L) {
+static int _wrap_Sprite_getCenterY(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float result;
@@ -6173,7 +6168,7 @@ static int _wrap_ISprite_getCenterY(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getCenterY",1,"OneU::ISprite const *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_getCenterY",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_getCenterY",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   result = (float)((OneU::ISprite const *)arg1)->getCenterY();
@@ -6188,7 +6183,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_setColor(lua_State* L) {
+static int _wrap_Sprite_setColor(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::color_t arg2 ;
@@ -6199,12 +6194,12 @@ static int _wrap_ISprite_setColor(lua_State* L) {
   if(!lua_isuserdata(L,2)) SWIG_fail_arg("OneU::ISprite::setColor",2,"OneU::color_t");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_setColor",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_setColor",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&argp2,SWIGTYPE_p_OneU__color_t,0))){
-    SWIG_fail_ptr("ISprite_setColor",2,SWIGTYPE_p_OneU__color_t);
+    SWIG_fail_ptr("Sprite_setColor",2,SWIGTYPE_p_OneU__color_t);
   }
   arg2 = *argp2;
   
@@ -6220,7 +6215,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_getColor(lua_State* L) {
+static int _wrap_Sprite_getColor(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::color_t result;
@@ -6229,7 +6224,7 @@ static int _wrap_ISprite_getColor(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getColor",1,"OneU::ISprite *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_getColor",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_getColor",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   result = (arg1)->getColor();
@@ -6247,7 +6242,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_setAlpha(lua_State* L) {
+static int _wrap_Sprite_setAlpha(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::ubyte arg2 ;
@@ -6258,12 +6253,12 @@ static int _wrap_ISprite_setAlpha(lua_State* L) {
   if(!lua_isuserdata(L,2)) SWIG_fail_arg("OneU::ISprite::setAlpha",2,"OneU::ubyte");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_setAlpha",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_setAlpha",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&argp2,SWIGTYPE_p_OneU__ubyte,0))){
-    SWIG_fail_ptr("ISprite_setAlpha",2,SWIGTYPE_p_OneU__ubyte);
+    SWIG_fail_ptr("Sprite_setAlpha",2,SWIGTYPE_p_OneU__ubyte);
   }
   arg2 = *argp2;
   
@@ -6279,7 +6274,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_getAlpha(lua_State* L) {
+static int _wrap_Sprite_getAlpha(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::ubyte result;
@@ -6288,7 +6283,7 @@ static int _wrap_ISprite_getAlpha(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getAlpha",1,"OneU::ISprite *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_getAlpha",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_getAlpha",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   result = (arg1)->getAlpha();
@@ -6306,7 +6301,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_getWidth(lua_State* L) {
+static int _wrap_Sprite_getWidth(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float result;
@@ -6315,7 +6310,7 @@ static int _wrap_ISprite_getWidth(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getWidth",1,"OneU::ISprite *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_getWidth",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_getWidth",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   result = (float)(arg1)->getWidth();
@@ -6330,7 +6325,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_getHeight(lua_State* L) {
+static int _wrap_Sprite_getHeight(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float result;
@@ -6339,7 +6334,7 @@ static int _wrap_ISprite_getHeight(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getHeight",1,"OneU::ISprite *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_getHeight",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_getHeight",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   result = (float)(arg1)->getHeight();
@@ -6354,7 +6349,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_setBlendMode(lua_State* L) {
+static int _wrap_Sprite_setBlendMode(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::video::BLENDMODE arg2 ;
@@ -6364,7 +6359,7 @@ static int _wrap_ISprite_setBlendMode(lua_State* L) {
   if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ISprite::setBlendMode",2,"OneU::video::BLENDMODE");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_setBlendMode",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_setBlendMode",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   arg2 = (OneU::video::BLENDMODE)(int)lua_tonumber(L, 2);
@@ -6380,7 +6375,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_getBlendMode(lua_State* L) {
+static int _wrap_Sprite_getBlendMode(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::video::BLENDMODE result;
@@ -6389,7 +6384,7 @@ static int _wrap_ISprite_getBlendMode(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getBlendMode",1,"OneU::ISprite *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_getBlendMode",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_getBlendMode",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   result = (OneU::video::BLENDMODE)(arg1)->getBlendMode();
@@ -6404,7 +6399,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_setColorBlendMode(lua_State* L) {
+static int _wrap_Sprite_setColorBlendMode(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::uint32 arg2 ;
@@ -6414,7 +6409,7 @@ static int _wrap_ISprite_setColorBlendMode(lua_State* L) {
   if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ISprite::setColorBlendMode",2,"OneU::uint32");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_setColorBlendMode",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_setColorBlendMode",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
@@ -6431,7 +6426,7 @@ fail:
 }
 
 
-static int _wrap_ISprite_getColorBlendMode(lua_State* L) {
+static int _wrap_Sprite_getColorBlendMode(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::uint32 result;
@@ -6440,7 +6435,7 @@ static int _wrap_ISprite_getColorBlendMode(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getColorBlendMode",1,"OneU::ISprite *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("ISprite_getColorBlendMode",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_getColorBlendMode",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   result = (OneU::uint32)(arg1)->getColorBlendMode();
@@ -6455,27 +6450,116 @@ fail:
 }
 
 
-static void swig_delete_ISprite(void *obj) {
+static int _wrap_new_Sprite__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::pcwstr arg1 = (OneU::pcwstr) 0 ;
+  OneU::AutoPtr< wchar_t > temp1 ;
+  OneU::ISprite *result = 0 ;
+  
+  SWIG_check_num_args("OneU::ISprite::ISprite",1,1)
+  {
+    if(lua_type(L, 1) != LUA_TSTRING)
+    SWIG_fail_arg("new_Sprite", 1, "OneU::pcwstr");
+    
+    temp1 = OneU::Char2Wide(lua_tostring(L, 1));
+    arg1 = temp1;
+  }
+  result = (OneU::ISprite *)new_OneU_ISprite__SWIG_0((wchar_t const *)arg1);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__ISprite,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_Sprite__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::image_t *arg1 = 0 ;
+  OneU::ISprite *result = 0 ;
+  
+  SWIG_check_num_args("OneU::ISprite::ISprite",1,1)
+  if(!lua_isuserdata(L,1)) SWIG_fail_arg("OneU::ISprite::ISprite",1,"OneU::image_t &");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__image_t,0))){
+    SWIG_fail_ptr("new_Sprite",1,SWIGTYPE_p_OneU__image_t);
+  }
+  
+  result = (OneU::ISprite *)new_OneU_ISprite__SWIG_1(*arg1);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__ISprite,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_Sprite(lua_State* L) {
+  int argc;
+  int argv[2]={
+    1,2
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (lua_isuserdata(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_OneU__image_t, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_new_Sprite__SWIG_1(L);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    {
+      _v = SWIG_lua_isnilstring(L,argv[0]);
+    }
+    if (_v) {
+      return _wrap_new_Sprite__SWIG_0(L);
+    }
+  }
+  
+  lua_pushstring(L,"Wrong arguments for overloaded function 'new_Sprite'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    OneU::ISprite::ISprite(OneU::pcwstr)\n"
+    "    OneU::ISprite::ISprite(OneU::image_t &)\n");
+  lua_error(L);return 0;
+}
+
+
+static void swig_delete_Sprite(void *obj) {
 OneU::ISprite *arg1 = (OneU::ISprite *) obj;
 delete arg1;
 }
 static swig_lua_method swig_OneU_ISprite_methods[] = {
-    {"setImage", _wrap_ISprite_setImage}, 
-    {"getImage", _wrap_ISprite_getImage}, 
-    {"setCenterX", _wrap_ISprite_setCenterX}, 
-    {"getCenterX", _wrap_ISprite_getCenterX}, 
-    {"setCenterY", _wrap_ISprite_setCenterY}, 
-    {"getCenterY", _wrap_ISprite_getCenterY}, 
-    {"setColor", _wrap_ISprite_setColor}, 
-    {"getColor", _wrap_ISprite_getColor}, 
-    {"setAlpha", _wrap_ISprite_setAlpha}, 
-    {"getAlpha", _wrap_ISprite_getAlpha}, 
-    {"getWidth", _wrap_ISprite_getWidth}, 
-    {"getHeight", _wrap_ISprite_getHeight}, 
-    {"setBlendMode", _wrap_ISprite_setBlendMode}, 
-    {"getBlendMode", _wrap_ISprite_getBlendMode}, 
-    {"setColorBlendMode", _wrap_ISprite_setColorBlendMode}, 
-    {"getColorBlendMode", _wrap_ISprite_getColorBlendMode}, 
+    {"setImage", _wrap_Sprite_setImage}, 
+    {"getImage", _wrap_Sprite_getImage}, 
+    {"setCenterX", _wrap_Sprite_setCenterX}, 
+    {"getCenterX", _wrap_Sprite_getCenterX}, 
+    {"setCenterY", _wrap_Sprite_setCenterY}, 
+    {"getCenterY", _wrap_Sprite_getCenterY}, 
+    {"setColor", _wrap_Sprite_setColor}, 
+    {"getColor", _wrap_Sprite_getColor}, 
+    {"setAlpha", _wrap_Sprite_setAlpha}, 
+    {"getAlpha", _wrap_Sprite_getAlpha}, 
+    {"getWidth", _wrap_Sprite_getWidth}, 
+    {"getHeight", _wrap_Sprite_getHeight}, 
+    {"setBlendMode", _wrap_Sprite_setBlendMode}, 
+    {"getBlendMode", _wrap_Sprite_getBlendMode}, 
+    {"setColorBlendMode", _wrap_Sprite_setColorBlendMode}, 
+    {"getColorBlendMode", _wrap_Sprite_getColorBlendMode}, 
     {0,0}
 };
 static swig_lua_attribute swig_OneU_ISprite_attributes[] = {
@@ -6483,59 +6567,9 @@ static swig_lua_attribute swig_OneU_ISprite_attributes[] = {
 };
 static swig_lua_class *swig_OneU_ISprite_bases[] = {0,0};
 static const char *swig_OneU_ISprite_base_names[] = {"OneU::video::INode *",0};
-static swig_lua_class _wrap_class_OneU_ISprite = { "ISprite", &SWIGTYPE_p_OneU__ISprite,0, swig_delete_ISprite, swig_OneU_ISprite_methods, swig_OneU_ISprite_attributes, swig_OneU_ISprite_bases, swig_OneU_ISprite_base_names };
+static swig_lua_class _wrap_class_OneU_ISprite = { "Sprite", &SWIGTYPE_p_OneU__ISprite,_wrap_new_Sprite, swig_delete_Sprite, swig_OneU_ISprite_methods, swig_OneU_ISprite_attributes, swig_OneU_ISprite_bases, swig_OneU_ISprite_base_names };
 
-static int _wrap_SpriteFromImage(lua_State* L) {
-  int SWIG_arg = 0;
-  OneU::image_t *arg1 = 0 ;
-  OneU::ISprite *result = 0 ;
-  
-  SWIG_check_num_args("OneU::Sprite_create",1,1)
-  if(!lua_isuserdata(L,1)) SWIG_fail_arg("OneU::Sprite_create",1,"OneU::image_t &");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__image_t,0))){
-    SWIG_fail_ptr("SpriteFromImage",1,SWIGTYPE_p_OneU__image_t);
-  }
-  
-  result = (OneU::ISprite *)OneU::Sprite_create(*arg1);
-  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__ISprite,1); SWIG_arg++; 
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_Sprite(lua_State* L) {
-  int SWIG_arg = 0;
-  OneU::pcwstr arg1 = (OneU::pcwstr) 0 ;
-  OneU::AutoPtr< wchar_t > temp1 ;
-  OneU::ISprite *result = 0 ;
-  
-  SWIG_check_num_args("Sprite",1,1)
-  {
-    if(lua_type(L, 1) != LUA_TSTRING)
-    SWIG_fail_arg("Sprite", 1, "OneU::pcwstr");
-    
-    temp1 = OneU::Char2Wide(lua_tostring(L, 1));
-    arg1 = temp1;
-  }
-  result = (OneU::ISprite *)Sprite((wchar_t const *)arg1);
-  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__ISprite,1); SWIG_arg++; 
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_IShape_setColor(lua_State* L) {
+static int _wrap_Shape_setColor(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IShape *arg1 = (OneU::IShape *) 0 ;
   OneU::color_t arg2 ;
@@ -6546,12 +6580,12 @@ static int _wrap_IShape_setColor(lua_State* L) {
   if(!lua_isuserdata(L,2)) SWIG_fail_arg("OneU::IShape::setColor",2,"OneU::color_t");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IShape,0))){
-    SWIG_fail_ptr("IShape_setColor",1,SWIGTYPE_p_OneU__IShape);
+    SWIG_fail_ptr("Shape_setColor",1,SWIGTYPE_p_OneU__IShape);
   }
   
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&argp2,SWIGTYPE_p_OneU__color_t,0))){
-    SWIG_fail_ptr("IShape_setColor",2,SWIGTYPE_p_OneU__color_t);
+    SWIG_fail_ptr("Shape_setColor",2,SWIGTYPE_p_OneU__color_t);
   }
   arg2 = *argp2;
   
@@ -6567,7 +6601,7 @@ fail:
 }
 
 
-static int _wrap_IShape_getColor(lua_State* L) {
+static int _wrap_Shape_getColor(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IShape *arg1 = (OneU::IShape *) 0 ;
   OneU::color_t result;
@@ -6576,7 +6610,7 @@ static int _wrap_IShape_getColor(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IShape::getColor",1,"OneU::IShape *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IShape,0))){
-    SWIG_fail_ptr("IShape_getColor",1,SWIGTYPE_p_OneU__IShape);
+    SWIG_fail_ptr("Shape_getColor",1,SWIGTYPE_p_OneU__IShape);
   }
   
   result = (arg1)->getColor();
@@ -6594,7 +6628,7 @@ fail:
 }
 
 
-static int _wrap_IShape_setMode(lua_State* L) {
+static int _wrap_Shape_setMode(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IShape *arg1 = (OneU::IShape *) 0 ;
   bool arg2 ;
@@ -6604,7 +6638,7 @@ static int _wrap_IShape_setMode(lua_State* L) {
   if(!lua_isboolean(L,2)) SWIG_fail_arg("OneU::IShape::setMode",2,"bool");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IShape,0))){
-    SWIG_fail_ptr("IShape_setMode",1,SWIGTYPE_p_OneU__IShape);
+    SWIG_fail_ptr("Shape_setMode",1,SWIGTYPE_p_OneU__IShape);
   }
   
   arg2 = (lua_toboolean(L, 2)!=0);
@@ -6620,36 +6654,19 @@ fail:
 }
 
 
-static void swig_delete_IShape(void *obj) {
-OneU::IShape *arg1 = (OneU::IShape *) obj;
-delete arg1;
-}
-static swig_lua_method swig_OneU_IShape_methods[] = {
-    {"setColor", _wrap_IShape_setColor}, 
-    {"getColor", _wrap_IShape_getColor}, 
-    {"setMode", _wrap_IShape_setMode}, 
-    {0,0}
-};
-static swig_lua_attribute swig_OneU_IShape_attributes[] = {
-    {0,0,0}
-};
-static swig_lua_class *swig_OneU_IShape_bases[] = {0,0};
-static const char *swig_OneU_IShape_base_names[] = {"OneU::video::INode *",0};
-static swig_lua_class _wrap_class_OneU_IShape = { "IShape", &SWIGTYPE_p_OneU__IShape,0, swig_delete_IShape, swig_OneU_IShape_methods, swig_OneU_IShape_attributes, swig_OneU_IShape_bases, swig_OneU_IShape_base_names };
-
-static int _wrap_Shape_rect(lua_State* L) {
+static int _wrap_new_Shape(lua_State* L) {
   int SWIG_arg = 0;
   OneU::rect *arg1 = 0 ;
   OneU::IShape *result = 0 ;
   
-  SWIG_check_num_args("OneU::Shape_rect",1,1)
-  if(!lua_isuserdata(L,1)) SWIG_fail_arg("OneU::Shape_rect",1,"OneU::rect const &");
+  SWIG_check_num_args("OneU::IShape::IShape",1,1)
+  if(!lua_isuserdata(L,1)) SWIG_fail_arg("OneU::IShape::IShape",1,"OneU::rect const &");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__rect_tT_float_t,0))){
-    SWIG_fail_ptr("Shape_rect",1,SWIGTYPE_p_OneU__rect_tT_float_t);
+    SWIG_fail_ptr("new_Shape",1,SWIGTYPE_p_OneU__rect_tT_float_t);
   }
   
-  result = (OneU::IShape *)OneU::Shape_rect((OneU::rect_t< float > const &)*arg1);
+  result = (OneU::IShape *)new_OneU_IShape((OneU::rect_t< float > const &)*arg1);
   SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__IShape,1); SWIG_arg++; 
   return SWIG_arg;
   
@@ -6661,7 +6678,24 @@ fail:
 }
 
 
-static int _wrap_ILabel_setText(lua_State* L) {
+static void swig_delete_Shape(void *obj) {
+OneU::IShape *arg1 = (OneU::IShape *) obj;
+delete arg1;
+}
+static swig_lua_method swig_OneU_IShape_methods[] = {
+    {"setColor", _wrap_Shape_setColor}, 
+    {"getColor", _wrap_Shape_getColor}, 
+    {"setMode", _wrap_Shape_setMode}, 
+    {0,0}
+};
+static swig_lua_attribute swig_OneU_IShape_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_class *swig_OneU_IShape_bases[] = {0,0};
+static const char *swig_OneU_IShape_base_names[] = {"OneU::video::INode *",0};
+static swig_lua_class _wrap_class_OneU_IShape = { "Shape", &SWIGTYPE_p_OneU__IShape,_wrap_new_Shape, swig_delete_Shape, swig_OneU_IShape_methods, swig_OneU_IShape_attributes, swig_OneU_IShape_bases, swig_OneU_IShape_base_names };
+
+static int _wrap_Label_setText(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
@@ -6671,12 +6705,12 @@ static int _wrap_ILabel_setText(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ILabel::setText",1,"OneU::ILabel *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ILabel,0))){
-    SWIG_fail_ptr("ILabel_setText",1,SWIGTYPE_p_OneU__ILabel);
+    SWIG_fail_ptr("Label_setText",1,SWIGTYPE_p_OneU__ILabel);
   }
   
   {
     if(lua_type(L, 2) != LUA_TSTRING)
-    SWIG_fail_arg("ILabel_setText", 2, "OneU::pcwstr");
+    SWIG_fail_arg("Label_setText", 2, "OneU::pcwstr");
     
     temp2 = OneU::Char2Wide(lua_tostring(L, 2));
     arg2 = temp2;
@@ -6693,7 +6727,7 @@ fail:
 }
 
 
-static int _wrap_ILabel_getText(lua_State* L) {
+static int _wrap_Label_getText(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::pcwstr result;
@@ -6702,7 +6736,7 @@ static int _wrap_ILabel_getText(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ILabel::getText",1,"OneU::ILabel *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ILabel,0))){
-    SWIG_fail_ptr("ILabel_getText",1,SWIGTYPE_p_OneU__ILabel);
+    SWIG_fail_ptr("Label_getText",1,SWIGTYPE_p_OneU__ILabel);
   }
   
   result = (OneU::pcwstr)(arg1)->getText();
@@ -6719,7 +6753,7 @@ fail:
 }
 
 
-static int _wrap_ILabel_setColor(lua_State* L) {
+static int _wrap_Label_setColor(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::color_t arg2 ;
@@ -6730,12 +6764,12 @@ static int _wrap_ILabel_setColor(lua_State* L) {
   if(!lua_isuserdata(L,2)) SWIG_fail_arg("OneU::ILabel::setColor",2,"OneU::color_t");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ILabel,0))){
-    SWIG_fail_ptr("ILabel_setColor",1,SWIGTYPE_p_OneU__ILabel);
+    SWIG_fail_ptr("Label_setColor",1,SWIGTYPE_p_OneU__ILabel);
   }
   
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&argp2,SWIGTYPE_p_OneU__color_t,0))){
-    SWIG_fail_ptr("ILabel_setColor",2,SWIGTYPE_p_OneU__color_t);
+    SWIG_fail_ptr("Label_setColor",2,SWIGTYPE_p_OneU__color_t);
   }
   arg2 = *argp2;
   
@@ -6751,7 +6785,7 @@ fail:
 }
 
 
-static int _wrap_ILabel_getColor(lua_State* L) {
+static int _wrap_Label_getColor(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::color_t result;
@@ -6760,7 +6794,7 @@ static int _wrap_ILabel_getColor(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ILabel::getColor",1,"OneU::ILabel *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ILabel,0))){
-    SWIG_fail_ptr("ILabel_getColor",1,SWIGTYPE_p_OneU__ILabel);
+    SWIG_fail_ptr("Label_getColor",1,SWIGTYPE_p_OneU__ILabel);
   }
   
   result = (arg1)->getColor();
@@ -6778,7 +6812,7 @@ fail:
 }
 
 
-static int _wrap_ILabel_setAlpha(lua_State* L) {
+static int _wrap_Label_setAlpha(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::ubyte arg2 ;
@@ -6789,12 +6823,12 @@ static int _wrap_ILabel_setAlpha(lua_State* L) {
   if(!lua_isuserdata(L,2)) SWIG_fail_arg("OneU::ILabel::setAlpha",2,"OneU::ubyte");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ILabel,0))){
-    SWIG_fail_ptr("ILabel_setAlpha",1,SWIGTYPE_p_OneU__ILabel);
+    SWIG_fail_ptr("Label_setAlpha",1,SWIGTYPE_p_OneU__ILabel);
   }
   
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&argp2,SWIGTYPE_p_OneU__ubyte,0))){
-    SWIG_fail_ptr("ILabel_setAlpha",2,SWIGTYPE_p_OneU__ubyte);
+    SWIG_fail_ptr("Label_setAlpha",2,SWIGTYPE_p_OneU__ubyte);
   }
   arg2 = *argp2;
   
@@ -6810,7 +6844,7 @@ fail:
 }
 
 
-static int _wrap_ILabel_getAlpha(lua_State* L) {
+static int _wrap_Label_getAlpha(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::ubyte result;
@@ -6819,7 +6853,7 @@ static int _wrap_ILabel_getAlpha(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ILabel::getAlpha",1,"OneU::ILabel *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ILabel,0))){
-    SWIG_fail_ptr("ILabel_getAlpha",1,SWIGTYPE_p_OneU__ILabel);
+    SWIG_fail_ptr("Label_getAlpha",1,SWIGTYPE_p_OneU__ILabel);
   }
   
   result = (arg1)->getAlpha();
@@ -6837,7 +6871,7 @@ fail:
 }
 
 
-static int _wrap_ILabel_setAlign(lua_State* L) {
+static int _wrap_Label_setAlign(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::uint32 arg2 ;
@@ -6847,7 +6881,7 @@ static int _wrap_ILabel_setAlign(lua_State* L) {
   if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ILabel::setAlign",2,"OneU::uint32");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ILabel,0))){
-    SWIG_fail_ptr("ILabel_setAlign",1,SWIGTYPE_p_OneU__ILabel);
+    SWIG_fail_ptr("Label_setAlign",1,SWIGTYPE_p_OneU__ILabel);
   }
   
   SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
@@ -6864,28 +6898,7 @@ fail:
 }
 
 
-static void swig_delete_ILabel(void *obj) {
-OneU::ILabel *arg1 = (OneU::ILabel *) obj;
-delete arg1;
-}
-static swig_lua_method swig_OneU_ILabel_methods[] = {
-    {"setText", _wrap_ILabel_setText}, 
-    {"getText", _wrap_ILabel_getText}, 
-    {"setColor", _wrap_ILabel_setColor}, 
-    {"getColor", _wrap_ILabel_getColor}, 
-    {"setAlpha", _wrap_ILabel_setAlpha}, 
-    {"getAlpha", _wrap_ILabel_getAlpha}, 
-    {"setAlign", _wrap_ILabel_setAlign}, 
-    {0,0}
-};
-static swig_lua_attribute swig_OneU_ILabel_attributes[] = {
-    {0,0,0}
-};
-static swig_lua_class *swig_OneU_ILabel_bases[] = {0,0};
-static const char *swig_OneU_ILabel_base_names[] = {"OneU::video::INode *",0};
-static swig_lua_class _wrap_class_OneU_ILabel = { "ILabel", &SWIGTYPE_p_OneU__ILabel,0, swig_delete_ILabel, swig_OneU_ILabel_methods, swig_OneU_ILabel_attributes, swig_OneU_ILabel_bases, swig_OneU_ILabel_base_names };
-
-static int _wrap_Label__SWIG_0(lua_State* L) {
+static int _wrap_new_Label__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
   float arg1 ;
   float arg2 ;
@@ -6894,22 +6907,22 @@ static int _wrap_Label__SWIG_0(lua_State* L) {
   OneU::AutoPtr< wchar_t > temp4 ;
   OneU::ILabel *result = 0 ;
   
-  SWIG_check_num_args("OneU::Label_create",4,4)
-  if(!lua_isnumber(L,1)) SWIG_fail_arg("OneU::Label_create",1,"float");
-  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::Label_create",2,"float");
-  if(!lua_isnumber(L,3)) SWIG_fail_arg("OneU::Label_create",3,"OneU::uint32");
+  SWIG_check_num_args("OneU::ILabel::ILabel",4,4)
+  if(!lua_isnumber(L,1)) SWIG_fail_arg("OneU::ILabel::ILabel",1,"float");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ILabel::ILabel",2,"float");
+  if(!lua_isnumber(L,3)) SWIG_fail_arg("OneU::ILabel::ILabel",3,"OneU::uint32");
   arg1 = (float)lua_tonumber(L, 1);
   arg2 = (float)lua_tonumber(L, 2);
   SWIG_contract_assert((lua_tonumber(L,3)>=0),"number must not be negative")
   arg3 = (OneU::uint32)lua_tonumber(L, 3);
   {
     if(lua_type(L, 4) != LUA_TSTRING)
-    SWIG_fail_arg("Label", 4, "OneU::pcwstr");
+    SWIG_fail_arg("new_Label", 4, "OneU::pcwstr");
     
     temp4 = OneU::Char2Wide(lua_tostring(L, 4));
     arg4 = temp4;
   }
-  result = (OneU::ILabel *)OneU::Label_create(arg1,arg2,arg3,(wchar_t const *)arg4);
+  result = (OneU::ILabel *)new_OneU_ILabel__SWIG_0(arg1,arg2,arg3,(wchar_t const *)arg4);
   SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__ILabel,1); SWIG_arg++; 
   return SWIG_arg;
   
@@ -6921,22 +6934,22 @@ fail:
 }
 
 
-static int _wrap_Label__SWIG_1(lua_State* L) {
+static int _wrap_new_Label__SWIG_1(lua_State* L) {
   int SWIG_arg = 0;
   float arg1 ;
   float arg2 ;
   OneU::uint32 arg3 ;
   OneU::ILabel *result = 0 ;
   
-  SWIG_check_num_args("OneU::Label_create",3,3)
-  if(!lua_isnumber(L,1)) SWIG_fail_arg("OneU::Label_create",1,"float");
-  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::Label_create",2,"float");
-  if(!lua_isnumber(L,3)) SWIG_fail_arg("OneU::Label_create",3,"OneU::uint32");
+  SWIG_check_num_args("OneU::ILabel::ILabel",3,3)
+  if(!lua_isnumber(L,1)) SWIG_fail_arg("OneU::ILabel::ILabel",1,"float");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ILabel::ILabel",2,"float");
+  if(!lua_isnumber(L,3)) SWIG_fail_arg("OneU::ILabel::ILabel",3,"OneU::uint32");
   arg1 = (float)lua_tonumber(L, 1);
   arg2 = (float)lua_tonumber(L, 2);
   SWIG_contract_assert((lua_tonumber(L,3)>=0),"number must not be negative")
   arg3 = (OneU::uint32)lua_tonumber(L, 3);
-  result = (OneU::ILabel *)OneU::Label_create(arg1,arg2,arg3);
+  result = (OneU::ILabel *)new_OneU_ILabel__SWIG_1(arg1,arg2,arg3);
   SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__ILabel,1); SWIG_arg++; 
   return SWIG_arg;
   
@@ -6948,7 +6961,7 @@ fail:
 }
 
 
-static int _wrap_Label(lua_State* L) {
+static int _wrap_new_Label(lua_State* L) {
   int argc;
   int argv[5]={
     1,2,3,4,5
@@ -6969,7 +6982,7 @@ static int _wrap_Label(lua_State* L) {
           _v = lua_isnumber(L,argv[2]);
         }
         if (_v) {
-          return _wrap_Label__SWIG_1(L);
+          return _wrap_new_Label__SWIG_1(L);
         }
       }
     }
@@ -6989,23 +7002,44 @@ static int _wrap_Label(lua_State* L) {
         }
         if (_v) {
           {
-            _v = lua_type(L, argv[3]) == LUA_TSTRING;
+            _v = SWIG_lua_isnilstring(L,argv[3]);
           }
           if (_v) {
-            return _wrap_Label__SWIG_0(L);
+            return _wrap_new_Label__SWIG_0(L);
           }
         }
       }
     }
   }
   
-  lua_pushstring(L,"Wrong arguments for overloaded function 'Label'\n"
+  lua_pushstring(L,"Wrong arguments for overloaded function 'new_Label'\n"
     "  Possible C/C++ prototypes are:\n"
-    "    OneU::Label_create(float,float,OneU::uint32,OneU::pcwstr)\n"
-    "    OneU::Label_create(float,float,OneU::uint32)\n");
+    "    OneU::ILabel::ILabel(float,float,OneU::uint32,OneU::pcwstr)\n"
+    "    OneU::ILabel::ILabel(float,float,OneU::uint32)\n");
   lua_error(L);return 0;
 }
 
+
+static void swig_delete_Label(void *obj) {
+OneU::ILabel *arg1 = (OneU::ILabel *) obj;
+delete arg1;
+}
+static swig_lua_method swig_OneU_ILabel_methods[] = {
+    {"setText", _wrap_Label_setText}, 
+    {"getText", _wrap_Label_getText}, 
+    {"setColor", _wrap_Label_setColor}, 
+    {"getColor", _wrap_Label_getColor}, 
+    {"setAlpha", _wrap_Label_setAlpha}, 
+    {"getAlpha", _wrap_Label_getAlpha}, 
+    {"setAlign", _wrap_Label_setAlign}, 
+    {0,0}
+};
+static swig_lua_attribute swig_OneU_ILabel_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_class *swig_OneU_ILabel_bases[] = {0,0};
+static const char *swig_OneU_ILabel_base_names[] = {"OneU::video::INode *",0};
+static swig_lua_class _wrap_class_OneU_ILabel = { "Label", &SWIGTYPE_p_OneU__ILabel,_wrap_new_Label, swig_delete_Label, swig_OneU_ILabel_methods, swig_OneU_ILabel_attributes, swig_OneU_ILabel_bases, swig_OneU_ILabel_base_names };
 
 #ifdef __cplusplus
 }
@@ -7017,12 +7051,7 @@ static const struct luaL_reg swig_commands[] = {
     { "GetStereo", _wrap_GetStereo},
     { "GetControl", _wrap_GetControl},
     { "GetScene", _wrap_GetScene},
-    { "Game_build", _wrap_Game_build},
     { "addToScene", _wrap_addToScene},
-    { "SpriteFromImage", _wrap_SpriteFromImage},
-    { "Sprite", _wrap_Sprite},
-    { "Shape_rect", _wrap_Shape_rect},
-    { "Label",_wrap_Label},
     {0,0}
 };
 

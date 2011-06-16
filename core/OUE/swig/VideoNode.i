@@ -14,6 +14,12 @@ namespace OneU
 		class INode
 		{
 		public:
+			PROP_RW(getX, setX, x);
+			PROP_RW(getY, setY, y);
+			PROP_RW(getRotation, setRotation, rotation);
+			PROP_RW(getScaleX, setScaleX, scaleX);
+			PROP_RW(getScaleY, setScaleY, scaleY);
+			
 			bool visible;
 			bool active;
 

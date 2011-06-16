@@ -22,9 +22,8 @@ namespace OneU
 }
 	
 #if defined(SWIGLUA)
-	%typemap(typecheck) const wchar_t* {
-		$1 = lua_type(L, $input) == LUA_TSTRING;
-	}
+namespace OneU
+{
 	%typemap(in) const wchar_t* (OneU::AutoPtr<wchar_t> temp) {
 		if(lua_type(L, $input) != LUA_TSTRING)
 			SWIG_fail_arg("$symname", $argnum, "$type");
@@ -35,6 +34,7 @@ namespace OneU
 	%typemap(out) const wchar_t* {
 		lua_pushstring(L, OneU::Wide2Char($1));
 	}
+}
 #elif defined(SWIGRUBY)
 %fragment("SWIG_From_wchar_t", "header", fragment = "SWIG_FromCharPtr")
 {	
@@ -54,10 +54,8 @@ int SWIG_AsVal_wchar_t(VALUE obj, wchar_t* val){
 	return SWIG_TypeError;
 }
 }
-
-	%typemap(typecheck) const wchar_t* {
-		$1 = TYPE($input) == T_STRING;
-	}
+namespace OneU
+{	
 	%typemap(in) const wchar_t* (OneU::AutoPtr<wchar_t> temp){
 		if(TYPE($input) != T_STRING)
 			SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
@@ -78,6 +76,13 @@ int SWIG_AsVal_wchar_t(VALUE obj, wchar_t* val){
 		temp = OneU::Char2Wide(StringValuePtr($input));
 		$1 = temp;
 	}
+}
 #endif
+
+namespace OneU
+{
+	%typemap(typecheck) const wchar_t* = char*;
+	%typemap(typecheck) pcwstr = const wchar_t*;
+}
 
 %include "Vector.i"

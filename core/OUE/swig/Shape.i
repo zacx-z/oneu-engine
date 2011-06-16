@@ -7,16 +7,23 @@
 
 namespace OneU
 {
+	%rename(Shape) IShape;
 	class IShape
 		: public OneU::video::INode
 	{
 	public:
-		virtual void setColor(OneU::color_t color) = 0;
-		virtual OneU::color_t getColor() = 0;
+		PROP_RW(getColor, setColor, color);
+		
+		virtual void setColor(OneU::color_t color);
+		virtual OneU::color_t getColor();
 
-		virtual void setMode(bool bBorder) = 0;
+		virtual void setMode(bool bBorder);
+		
 	};
 
-	%newobject Shape_rect;
-	OneU::IShape* Shape_rect(const OneU::rect& rc);
+	%extend IShape{
+		IShape(const OneU::rect& rc){
+			return Shape_rect(rc);
+		}
+	};
 }

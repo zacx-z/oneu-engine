@@ -2437,6 +2437,60 @@ SWIGINTERN OneU::video::INode *OneU_video_INode_detach(OneU::video::INode *self)
 				return self;//返回带有ownership的自身（原变量不含ownership）
 			}
 
+SWIGINTERN swig_type_info*
+SWIG_pchar_descriptor(void)
+{
+  static int init = 0;
+  static swig_type_info* info = 0;
+  if (!init) {
+    info = SWIG_TypeQuery("_p_char");
+    init = 1;
+  }
+  return info;
+}
+
+
+SWIGINTERN int
+SWIG_AsCharPtrAndSize(VALUE obj, char** cptr, size_t* psize, int *alloc)
+{
+  if (TYPE(obj) == T_STRING) {
+    #if defined(StringValuePtr)
+    char *cstr = StringValuePtr(obj); 
+    #else
+    char *cstr = STR2CSTR(obj);
+    #endif
+    size_t size = RSTRING_LEN(obj) + 1;
+    if (cptr)  {
+      if (alloc) {
+	if (*alloc == SWIG_NEWOBJ) {
+	  *cptr = reinterpret_cast< char* >(memcpy((new char[size]), cstr, sizeof(char)*(size)));
+	} else {
+	  *cptr = cstr;
+	  *alloc = SWIG_OLDOBJ;
+	}
+      }
+    }
+    if (psize) *psize = size;
+    return SWIG_OK;
+  } else {
+    swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
+    if (pchar_descriptor) {
+      void* vptr = 0;
+      if (SWIG_ConvertPtr(obj, &vptr, pchar_descriptor, 0) == SWIG_OK) {
+	if (cptr) *cptr = (char *)vptr;
+	if (psize) *psize = vptr ? (strlen((char*)vptr) + 1) : 0;
+	if (alloc) *alloc = SWIG_OLDOBJ;
+	return SWIG_OK;
+      }
+    }
+  }  
+  return SWIG_TypeError;
+}
+
+
+
+
+
 #include "../Video.h"
 
 
@@ -2472,13 +2526,6 @@ SWIG_AsVal_unsigned_SS_long (VALUE obj, unsigned long *val)
 #include "../Game.h"
 
 
-namespace OneU{
-	static void Game_build(){
-		OneU::Game_build(Game_create);
-	}
-}
-
-
 #include "../Stereo.h"
 
 
@@ -2509,32 +2556,29 @@ static void addToScene(OneU::video::INode* child){
 
 #include "../Sprite.h"
 
-
-static OneU::ISprite* Sprite(OneU::pcwstr file){
-	return OneU::Sprite_create(OneU::GetVideo().loadImage(file));
-}
-
+SWIGINTERN OneU::ISprite *new_OneU_ISprite__SWIG_0(OneU::pcwstr file){
+			return OneU::Sprite_create(OneU::GetVideo().loadImage(file));
+		}
+SWIGINTERN OneU::ISprite *new_OneU_ISprite__SWIG_1(OneU::image_t &img){
+			return Sprite_create(img);
+		}
 
 #include "../Shape.h"
 
+SWIGINTERN OneU::IShape *new_OneU_IShape(OneU::rect const &rc){
+			return Shape_rect(rc);
+		}
 
 #include "../Label.h"
 
+SWIGINTERN OneU::ILabel *new_OneU_ILabel__SWIG_0(float Width,float Height,OneU::uint32 fontSize,OneU::pcwstr fontName){
+			return OneU::Label_create(Width, Height, fontSize, fontName);
+		}
+SWIGINTERN OneU::ILabel *new_OneU_ILabel__SWIG_1(float Width,float Height,OneU::uint32 fontSize){
+			return OneU::Label_create(Width, Height, fontSize, L"Arial");
+		}
 
 #include "../Event.h"
-
-
-SWIGINTERN swig_type_info*
-SWIG_pchar_descriptor(void)
-{
-  static int init = 0;
-  static swig_type_info* info = 0;
-  if (!init) {
-    info = SWIG_TypeQuery("_p_char");
-    init = 1;
-  }
-  return info;
-}
 
 
 SWIGINTERNINLINE VALUE 
@@ -5364,7 +5408,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INode_setX(int argc, VALUE *argv, VALUE self) {
+_wrap_INode_xe___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5393,7 +5437,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INode_getX(int argc, VALUE *argv, VALUE self) {
+_wrap_INode_x(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5417,7 +5461,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INode_setY(int argc, VALUE *argv, VALUE self) {
+_wrap_INode_ye___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5446,7 +5490,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INode_getY(int argc, VALUE *argv, VALUE self) {
+_wrap_INode_y(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5470,7 +5514,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INode_setRotation(int argc, VALUE *argv, VALUE self) {
+_wrap_INode_rotatione___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5499,7 +5543,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INode_getRotation(int argc, VALUE *argv, VALUE self) {
+_wrap_INode_rotation(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5523,7 +5567,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INode_setScaleX(int argc, VALUE *argv, VALUE self) {
+_wrap_INode_scaleXe___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5552,7 +5596,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INode_getScaleX(int argc, VALUE *argv, VALUE self) {
+_wrap_INode_scaleX(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5576,7 +5620,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INode_setScaleY(int argc, VALUE *argv, VALUE self) {
+_wrap_INode_scaleYe___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5605,7 +5649,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INode_getScaleY(int argc, VALUE *argv, VALUE self) {
+_wrap_INode_scaleY(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5670,6 +5714,7 @@ _wrap_INodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = 0 ;
+  ruby_owntype own2 ;
   int val3 ;
   int ecode3 = 0 ;
   OneU::AutoPtr< wchar_t > temp4 ;
@@ -5684,9 +5729,13 @@ _wrap_INodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INodeContainer *","addChild", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::video::INodeContainer * >(argp1);
-  res2 = SWIG_ConvertPtr(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] ));
+  {
+    res2 = SWIG_ConvertPtrAndOwn(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 , &own2);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] ));
+    }
+    if (own2 == 0 || own2 == SWIG_RubyRemoveTracking)//no ownership
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "OneU::video::INode *","addChild", 2, argv[0]));
   }
   ecode3 = SWIG_AsVal_int(argv[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
@@ -5716,6 +5765,7 @@ _wrap_INodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = 0 ;
+  ruby_owntype own2 ;
   int val3 ;
   int ecode3 = 0 ;
   bool result;
@@ -5729,9 +5779,13 @@ _wrap_INodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INodeContainer *","addChild", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::video::INodeContainer * >(argp1);
-  res2 = SWIG_ConvertPtr(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] ));
+  {
+    res2 = SWIG_ConvertPtrAndOwn(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 , &own2);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] ));
+    }
+    if (own2 == 0 || own2 == SWIG_RubyRemoveTracking)//no ownership
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "OneU::video::INode *","addChild", 2, argv[0]));
   }
   ecode3 = SWIG_AsVal_int(argv[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
@@ -5753,6 +5807,7 @@ _wrap_INodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = 0 ;
+  ruby_owntype own2 ;
   bool result;
   VALUE vresult = Qnil;
   
@@ -5764,9 +5819,13 @@ _wrap_INodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INodeContainer *","addChild", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::video::INodeContainer * >(argp1);
-  res2 = SWIG_ConvertPtr(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] ));
+  {
+    res2 = SWIG_ConvertPtrAndOwn(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 , &own2);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] ));
+    }
+    if (own2 == 0 || own2 == SWIG_RubyRemoveTracking)//no ownership
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "OneU::video::INode *","addChild", 2, argv[0]));
   }
   result = (bool)(arg1)->addChild(arg2);
   vresult = SWIG_From_bool(static_cast< bool >(result));
@@ -5836,9 +5895,8 @@ SWIGINTERN VALUE _wrap_INodeContainer_addChild(int nargs, VALUE *args, VALUE sel
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          {
-            _v = TYPE(argv[3]) == T_STRING;
-          }
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
           if (_v) {
             return _wrap_INodeContainer_addChild__SWIG_0(nargs, args, self);
           }
@@ -6716,6 +6774,7 @@ _wrap_IGame_replaceScene(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = 0 ;
+  ruby_owntype own2 ;
   OneU::IScene *result = 0 ;
   VALUE vresult = Qnil;
   
@@ -6727,12 +6786,16 @@ _wrap_IGame_replaceScene(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IGame *","replaceScene", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::IGame * >(argp1);
-  res2 = SWIG_ConvertPtr(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__IScene, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IScene *","replaceScene", 2, argv[0] ));
+  {
+    res2 = SWIG_ConvertPtrAndOwn(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__IScene, SWIG_POINTER_DISOWN |  0 , &own2);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IScene *","replaceScene", 2, argv[0] ));
+    }
+    if (own2 == 0 || own2 == SWIG_RubyRemoveTracking)//no ownership
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "OneU::IScene *","replaceScene", 2, argv[0]));
   }
   result = (OneU::IScene *)(arg1)->replaceScene(arg2);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IScene, 0 |  0 );
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IScene, SWIG_POINTER_OWN |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -7081,18 +7144,6 @@ _wrap_GetScene(int argc, VALUE *argv, VALUE self) {
   result = (OneU::IScene *) &OneU::GetScene();
   vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IScene, 0 |  0 );
   return vresult;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE
-_wrap_Game_build(int argc, VALUE *argv, VALUE self) {
-  if ((argc < 0) || (argc > 0)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
-  }
-  OneU::Game_build();
-  return Qnil;
 fail:
   return Qnil;
 }
@@ -7572,13 +7623,18 @@ SWIGINTERN VALUE
 _wrap_addToScene(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   int res1 = 0 ;
+  ruby_owntype own1 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(argv[0], SWIG_as_voidptrptr(&arg1), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INode *","addToScene", 1, argv[0] ));
+  {
+    res1 = SWIG_ConvertPtrAndOwn(argv[0], SWIG_as_voidptrptr(&arg1), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 , &own1);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INode *","addToScene", 1, argv[0] ));
+    }
+    if (own1 == 0 || own1 == SWIG_RubyRemoveTracking)//no ownership
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "OneU::video::INode *","addToScene", 1, argv[0]));
   }
   addToScene(arg1);
   return Qnil;
@@ -7587,10 +7643,10 @@ fail:
 }
 
 
-swig_class SwigClassISprite;
+swig_class SwigClassSprite;
 
 SWIGINTERN VALUE
-_wrap_ISprite_setImage(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_setImage(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::image_t arg2 ;
   void *argp1 = 0 ;
@@ -7625,7 +7681,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_getImage(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_getImage(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7649,7 +7705,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_setCenterX(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_oxe___(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -7678,7 +7734,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_getCenterX(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_ox(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7702,7 +7758,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_setCenterY(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_oye___(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -7731,7 +7787,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_getCenterY(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_oy(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7755,7 +7811,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_setColor(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_colore___(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::color_t arg2 ;
   void *argp1 = 0 ;
@@ -7790,7 +7846,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_getColor(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_color(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7814,7 +7870,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_setAlpha(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_alphae___(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::ubyte arg2 ;
   void *argp1 = 0 ;
@@ -7849,7 +7905,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_getAlpha(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_alpha(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7873,7 +7929,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_getWidth(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_width(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7897,7 +7953,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_getHeight(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_height(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7921,7 +7977,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_setBlendMode(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_setBlendMode(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::video::BLENDMODE arg2 ;
   void *argp1 = 0 ;
@@ -7950,7 +8006,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_getBlendMode(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_getBlendMode(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7974,7 +8030,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_setColorBlendMode(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_setColorBlendMode(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::uint32 arg2 ;
   void *argp1 = 0 ;
@@ -8003,7 +8059,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ISprite_getColorBlendMode(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_getColorBlendMode(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -8026,67 +8082,121 @@ fail:
 }
 
 
-SWIGINTERN void
-free_OneU_ISprite(OneU::ISprite *arg1) {
-    delete arg1;
-}
-
 SWIGINTERN VALUE
-_wrap_SpriteFromImage(int argc, VALUE *argv, VALUE self) {
-  OneU::image_t *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  OneU::ISprite *result = 0 ;
-  VALUE vresult = Qnil;
-  
-  if ((argc < 1) || (argc > 1)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(argv[0], &argp1, SWIGTYPE_p_OneU__image_t,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::image_t &","OneU::Sprite_create", 1, argv[0] )); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::image_t &","OneU::Sprite_create", 1, argv[0])); 
-  }
-  arg1 = reinterpret_cast< OneU::image_t * >(argp1);
-  result = (OneU::ISprite *)OneU::Sprite_create(*arg1);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__ISprite, SWIG_POINTER_OWN |  0 );
-  return vresult;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE
-_wrap_Sprite(int argc, VALUE *argv, VALUE self) {
+_wrap_new_Sprite__SWIG_0(int argc, VALUE *argv, VALUE self) {
   OneU::pcwstr arg1 = (OneU::pcwstr) 0 ;
   OneU::AutoPtr< wchar_t > temp1 ;
+  const char *classname SWIGUNUSED = "OUE::Sprite";
   OneU::ISprite *result = 0 ;
-  VALUE vresult = Qnil;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
   }
   {
     if(TYPE(argv[0]) != T_STRING)
-    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "file", "OneU::pcwstr","Sprite", 1, argv[0] ));
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "file", "OneU::pcwstr","OneU::ISprite", 1, argv[0] ));
     
     temp1 = OneU::Char2Wide(StringValuePtr(argv[0]));
     arg1 = temp1;
   }
-  result = (OneU::ISprite *)Sprite((wchar_t const *)arg1);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__ISprite, SWIG_POINTER_OWN |  0 );
-  return vresult;
+  result = (OneU::ISprite *)new_OneU_ISprite__SWIG_0((wchar_t const *)arg1);
+  DATA_PTR(self) = result;
+  return self;
 fail:
   return Qnil;
 }
 
 
-swig_class SwigClassIShape;
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_Sprite_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_Sprite_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_OneU__ISprite);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
 
 SWIGINTERN VALUE
-_wrap_IShape_setColor(int argc, VALUE *argv, VALUE self) {
+_wrap_new_Sprite__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  OneU::image_t *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  const char *classname SWIGUNUSED = "OUE::Sprite";
+  OneU::ISprite *result = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(argv[0], &argp1, SWIGTYPE_p_OneU__image_t,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::image_t &","OneU::ISprite", 1, argv[0] )); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::image_t &","OneU::ISprite", 1, argv[0])); 
+  }
+  arg1 = reinterpret_cast< OneU::image_t * >(argp1);
+  result = (OneU::ISprite *)new_OneU_ISprite__SWIG_1(*arg1);
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_new_Sprite(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[1];
+  int ii;
+  
+  argc = nargs;
+  if (argc > 1) SWIG_fail;
+  for (ii = 0; (ii < argc); ++ii) {
+    argv[ii] = args[ii];
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__image_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_Sprite__SWIG_1(nargs, args, self);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    int res = SWIG_AsCharPtrAndSize(argv[0], 0, NULL, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_Sprite__SWIG_0(nargs, args, self);
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 1, "Sprite.new", 
+    "    Sprite.new(OneU::pcwstr file)\n"
+    "    Sprite.new(OneU::image_t &img)\n");
+  
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_OneU_ISprite(OneU::ISprite *arg1) {
+    delete arg1;
+}
+
+swig_class SwigClassShape;
+
+SWIGINTERN VALUE
+_wrap_Shape_colore___(int argc, VALUE *argv, VALUE self) {
   OneU::IShape *arg1 = (OneU::IShape *) 0 ;
   OneU::color_t arg2 ;
   void *argp1 = 0 ;
@@ -8121,7 +8231,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IShape_getColor(int argc, VALUE *argv, VALUE self) {
+_wrap_Shape_color(int argc, VALUE *argv, VALUE self) {
   OneU::IShape *arg1 = (OneU::IShape *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -8145,7 +8255,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IShape_setMode(int argc, VALUE *argv, VALUE self) {
+_wrap_Shape_setMode(int argc, VALUE *argv, VALUE self) {
   OneU::IShape *arg1 = (OneU::IShape *) 0 ;
   bool arg2 ;
   void *argp1 = 0 ;
@@ -8173,42 +8283,59 @@ fail:
 }
 
 
-SWIGINTERN void
-free_OneU_IShape(OneU::IShape *arg1) {
-    delete arg1;
-}
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_Shape_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_Shape_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_OneU__IShape);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
 
 SWIGINTERN VALUE
-_wrap_Shape_rect(int argc, VALUE *argv, VALUE self) {
+_wrap_new_Shape(int argc, VALUE *argv, VALUE self) {
   OneU::rect *arg1 = 0 ;
   void *argp1 ;
   int res1 = 0 ;
+  const char *classname SWIGUNUSED = "OUE::Shape";
   OneU::IShape *result = 0 ;
-  VALUE vresult = Qnil;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
   }
   res1 = SWIG_ConvertPtr(argv[0], &argp1, SWIGTYPE_p_OneU__rect_tT_float_t,  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::rect const &","OneU::Shape_rect", 1, argv[0] )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::rect const &","OneU::IShape", 1, argv[0] )); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::rect const &","OneU::Shape_rect", 1, argv[0])); 
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::rect const &","OneU::IShape", 1, argv[0])); 
   }
   arg1 = reinterpret_cast< OneU::rect * >(argp1);
-  result = (OneU::IShape *)OneU::Shape_rect((OneU::rect_t< float > const &)*arg1);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IShape, SWIG_POINTER_OWN |  0 );
-  return vresult;
+  result = (OneU::IShape *)new_OneU_IShape((OneU::rect_t< float > const &)*arg1);
+  DATA_PTR(self) = result;
+  return self;
 fail:
   return Qnil;
 }
 
 
-swig_class SwigClassILabel;
+SWIGINTERN void
+free_OneU_IShape(OneU::IShape *arg1) {
+    delete arg1;
+}
+
+swig_class SwigClassLabel;
 
 SWIGINTERN VALUE
-_wrap_ILabel_setText(int argc, VALUE *argv, VALUE self) {
+_wrap_Label_texte___(int argc, VALUE *argv, VALUE self) {
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
   void *argp1 = 0 ;
@@ -8238,7 +8365,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ILabel_getText(int argc, VALUE *argv, VALUE self) {
+_wrap_Label_text(int argc, VALUE *argv, VALUE self) {
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -8264,7 +8391,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ILabel_setColor(int argc, VALUE *argv, VALUE self) {
+_wrap_Label_colore___(int argc, VALUE *argv, VALUE self) {
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::color_t arg2 ;
   void *argp1 = 0 ;
@@ -8299,7 +8426,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ILabel_getColor(int argc, VALUE *argv, VALUE self) {
+_wrap_Label_color(int argc, VALUE *argv, VALUE self) {
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -8323,7 +8450,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ILabel_setAlpha(int argc, VALUE *argv, VALUE self) {
+_wrap_Label_alphae___(int argc, VALUE *argv, VALUE self) {
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::ubyte arg2 ;
   void *argp1 = 0 ;
@@ -8358,7 +8485,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ILabel_getAlpha(int argc, VALUE *argv, VALUE self) {
+_wrap_Label_alpha(int argc, VALUE *argv, VALUE self) {
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -8382,7 +8509,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_ILabel_setAlign(int argc, VALUE *argv, VALUE self) {
+_wrap_Label_setAlign(int argc, VALUE *argv, VALUE self) {
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::uint32 arg2 ;
   void *argp1 = 0 ;
@@ -8410,13 +8537,8 @@ fail:
 }
 
 
-SWIGINTERN void
-free_OneU_ILabel(OneU::ILabel *arg1) {
-    delete arg1;
-}
-
 SWIGINTERN VALUE
-_wrap_Label__SWIG_0(int argc, VALUE *argv, VALUE self) {
+_wrap_new_Label__SWIG_0(int argc, VALUE *argv, VALUE self) {
   float arg1 ;
   float arg2 ;
   OneU::uint32 arg3 ;
@@ -8428,44 +8550,61 @@ _wrap_Label__SWIG_0(int argc, VALUE *argv, VALUE self) {
   unsigned long val3 ;
   int ecode3 = 0 ;
   OneU::AutoPtr< wchar_t > temp4 ;
+  const char *classname SWIGUNUSED = "OUE::Label";
   OneU::ILabel *result = 0 ;
-  VALUE vresult = Qnil;
   
   if ((argc < 4) || (argc > 4)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 4)",argc); SWIG_fail;
   }
   ecode1 = SWIG_AsVal_float(argv[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "float","OneU::Label_create", 1, argv[0] ));
+    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "float","OneU::ILabel", 1, argv[0] ));
   } 
   arg1 = static_cast< float >(val1);
   ecode2 = SWIG_AsVal_float(argv[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","OneU::Label_create", 2, argv[1] ));
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","OneU::ILabel", 2, argv[1] ));
   } 
   arg2 = static_cast< float >(val2);
   ecode3 = SWIG_AsVal_unsigned_SS_long(argv[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "OneU::uint32","OneU::Label_create", 3, argv[2] ));
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "OneU::uint32","OneU::ILabel", 3, argv[2] ));
   } 
   arg3 = static_cast< OneU::uint32 >(val3);
   {
     if(TYPE(argv[3]) != T_STRING)
-    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "fontName", "OneU::pcwstr","OneU::Label_create", 4, argv[3] ));
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "fontName", "OneU::pcwstr","OneU::ILabel", 4, argv[3] ));
     
     temp4 = OneU::Char2Wide(StringValuePtr(argv[3]));
     arg4 = temp4;
   }
-  result = (OneU::ILabel *)OneU::Label_create(arg1,arg2,arg3,(wchar_t const *)arg4);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__ILabel, SWIG_POINTER_OWN |  0 );
-  return vresult;
+  result = (OneU::ILabel *)new_OneU_ILabel__SWIG_0(arg1,arg2,arg3,(wchar_t const *)arg4);
+  DATA_PTR(self) = result;
+  return self;
 fail:
   return Qnil;
 }
 
 
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
 SWIGINTERN VALUE
-_wrap_Label__SWIG_1(int argc, VALUE *argv, VALUE self) {
+_wrap_Label_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_Label_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_OneU__ILabel);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_Label__SWIG_1(int argc, VALUE *argv, VALUE self) {
   float arg1 ;
   float arg2 ;
   OneU::uint32 arg3 ;
@@ -8475,36 +8614,36 @@ _wrap_Label__SWIG_1(int argc, VALUE *argv, VALUE self) {
   int ecode2 = 0 ;
   unsigned long val3 ;
   int ecode3 = 0 ;
+  const char *classname SWIGUNUSED = "OUE::Label";
   OneU::ILabel *result = 0 ;
-  VALUE vresult = Qnil;
   
   if ((argc < 3) || (argc > 3)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 3)",argc); SWIG_fail;
   }
   ecode1 = SWIG_AsVal_float(argv[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "float","OneU::Label_create", 1, argv[0] ));
+    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "float","OneU::ILabel", 1, argv[0] ));
   } 
   arg1 = static_cast< float >(val1);
   ecode2 = SWIG_AsVal_float(argv[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","OneU::Label_create", 2, argv[1] ));
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","OneU::ILabel", 2, argv[1] ));
   } 
   arg2 = static_cast< float >(val2);
   ecode3 = SWIG_AsVal_unsigned_SS_long(argv[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "OneU::uint32","OneU::Label_create", 3, argv[2] ));
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "OneU::uint32","OneU::ILabel", 3, argv[2] ));
   } 
   arg3 = static_cast< OneU::uint32 >(val3);
-  result = (OneU::ILabel *)OneU::Label_create(arg1,arg2,arg3);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__ILabel, SWIG_POINTER_OWN |  0 );
-  return vresult;
+  result = (OneU::ILabel *)new_OneU_ILabel__SWIG_1(arg1,arg2,arg3);
+  DATA_PTR(self) = result;
+  return self;
 fail:
   return Qnil;
 }
 
 
-SWIGINTERN VALUE _wrap_Label(int nargs, VALUE *args, VALUE self) {
+SWIGINTERN VALUE _wrap_new_Label(int nargs, VALUE *args, VALUE self) {
   int argc;
   VALUE argv[4];
   int ii;
@@ -8531,7 +8670,7 @@ SWIGINTERN VALUE _wrap_Label(int nargs, VALUE *args, VALUE self) {
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_Label__SWIG_1(nargs, args, self);
+          return _wrap_new_Label__SWIG_1(nargs, args, self);
         }
       }
     }
@@ -8553,11 +8692,10 @@ SWIGINTERN VALUE _wrap_Label(int nargs, VALUE *args, VALUE self) {
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          {
-            _v = TYPE(argv[3]) == T_STRING;
-          }
+          int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
+          _v = SWIG_CheckState(res);
           if (_v) {
-            return _wrap_Label__SWIG_0(nargs, args, self);
+            return _wrap_new_Label__SWIG_0(nargs, args, self);
           }
         }
       }
@@ -8572,6 +8710,11 @@ fail:
   return Qnil;
 }
 
+
+SWIGINTERN void
+free_OneU_ILabel(OneU::ILabel *arg1) {
+    delete arg1;
+}
 
 swig_class SwigClassCharEvent;
 
@@ -9565,16 +9708,16 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_method(SwigClassINode.klass, "detach", VALUEFUNC(_wrap_INode_detach), -1);
   rb_define_method(SwigClassINode.klass, "name", VALUEFUNC(_wrap_INode_name), -1);
   rb_define_method(SwigClassINode.klass, "create2DTransform", VALUEFUNC(_wrap_INode_create2DTransform), -1);
-  rb_define_method(SwigClassINode.klass, "setX", VALUEFUNC(_wrap_INode_setX), -1);
-  rb_define_method(SwigClassINode.klass, "getX", VALUEFUNC(_wrap_INode_getX), -1);
-  rb_define_method(SwigClassINode.klass, "setY", VALUEFUNC(_wrap_INode_setY), -1);
-  rb_define_method(SwigClassINode.klass, "getY", VALUEFUNC(_wrap_INode_getY), -1);
-  rb_define_method(SwigClassINode.klass, "setRotation", VALUEFUNC(_wrap_INode_setRotation), -1);
-  rb_define_method(SwigClassINode.klass, "getRotation", VALUEFUNC(_wrap_INode_getRotation), -1);
-  rb_define_method(SwigClassINode.klass, "setScaleX", VALUEFUNC(_wrap_INode_setScaleX), -1);
-  rb_define_method(SwigClassINode.klass, "getScaleX", VALUEFUNC(_wrap_INode_getScaleX), -1);
-  rb_define_method(SwigClassINode.klass, "setScaleY", VALUEFUNC(_wrap_INode_setScaleY), -1);
-  rb_define_method(SwigClassINode.klass, "getScaleY", VALUEFUNC(_wrap_INode_getScaleY), -1);
+  rb_define_method(SwigClassINode.klass, "x=", VALUEFUNC(_wrap_INode_xe___), -1);
+  rb_define_method(SwigClassINode.klass, "x", VALUEFUNC(_wrap_INode_x), -1);
+  rb_define_method(SwigClassINode.klass, "y=", VALUEFUNC(_wrap_INode_ye___), -1);
+  rb_define_method(SwigClassINode.klass, "y", VALUEFUNC(_wrap_INode_y), -1);
+  rb_define_method(SwigClassINode.klass, "rotation=", VALUEFUNC(_wrap_INode_rotatione___), -1);
+  rb_define_method(SwigClassINode.klass, "rotation", VALUEFUNC(_wrap_INode_rotation), -1);
+  rb_define_method(SwigClassINode.klass, "scaleX=", VALUEFUNC(_wrap_INode_scaleXe___), -1);
+  rb_define_method(SwigClassINode.klass, "scaleX", VALUEFUNC(_wrap_INode_scaleX), -1);
+  rb_define_method(SwigClassINode.klass, "scaleY=", VALUEFUNC(_wrap_INode_scaleYe___), -1);
+  rb_define_method(SwigClassINode.klass, "scaleY", VALUEFUNC(_wrap_INode_scaleY), -1);
   SwigClassINode.mark = 0;
   SwigClassINode.destroy = (void (*)(void *)) free_OneU_video_INode;
   SwigClassINode.trackObjects = 0;
@@ -9666,7 +9809,6 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_module_function(mOUE, "GetStereo", VALUEFUNC(_wrap_GetStereo), -1);
   rb_define_module_function(mOUE, "GetControl", VALUEFUNC(_wrap_GetControl), -1);
   rb_define_module_function(mOUE, "GetScene", VALUEFUNC(_wrap_GetScene), -1);
-  rb_define_module_function(mOUE, "Game_build", VALUEFUNC(_wrap_Game_build), -1);
   
   SwigClassIStereo.klass = rb_define_class_under(mOUE, "IStereo", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__IStereo, (void *) &SwigClassIStereo);
@@ -9872,41 +10014,40 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassScene.trackObjects = 0;
   rb_define_module_function(mOUE, "addToScene", VALUEFUNC(_wrap_addToScene), -1);
   
-  SwigClassISprite.klass = rb_define_class_under(mOUE, "ISprite", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__ISprite, (void *) &SwigClassISprite);
-  rb_undef_alloc_func(SwigClassISprite.klass);
-  rb_define_method(SwigClassISprite.klass, "setImage", VALUEFUNC(_wrap_ISprite_setImage), -1);
-  rb_define_method(SwigClassISprite.klass, "getImage", VALUEFUNC(_wrap_ISprite_getImage), -1);
-  rb_define_method(SwigClassISprite.klass, "setCenterX", VALUEFUNC(_wrap_ISprite_setCenterX), -1);
-  rb_define_method(SwigClassISprite.klass, "getCenterX", VALUEFUNC(_wrap_ISprite_getCenterX), -1);
-  rb_define_method(SwigClassISprite.klass, "setCenterY", VALUEFUNC(_wrap_ISprite_setCenterY), -1);
-  rb_define_method(SwigClassISprite.klass, "getCenterY", VALUEFUNC(_wrap_ISprite_getCenterY), -1);
-  rb_define_method(SwigClassISprite.klass, "setColor", VALUEFUNC(_wrap_ISprite_setColor), -1);
-  rb_define_method(SwigClassISprite.klass, "getColor", VALUEFUNC(_wrap_ISprite_getColor), -1);
-  rb_define_method(SwigClassISprite.klass, "setAlpha", VALUEFUNC(_wrap_ISprite_setAlpha), -1);
-  rb_define_method(SwigClassISprite.klass, "getAlpha", VALUEFUNC(_wrap_ISprite_getAlpha), -1);
-  rb_define_method(SwigClassISprite.klass, "getWidth", VALUEFUNC(_wrap_ISprite_getWidth), -1);
-  rb_define_method(SwigClassISprite.klass, "getHeight", VALUEFUNC(_wrap_ISprite_getHeight), -1);
-  rb_define_method(SwigClassISprite.klass, "setBlendMode", VALUEFUNC(_wrap_ISprite_setBlendMode), -1);
-  rb_define_method(SwigClassISprite.klass, "getBlendMode", VALUEFUNC(_wrap_ISprite_getBlendMode), -1);
-  rb_define_method(SwigClassISprite.klass, "setColorBlendMode", VALUEFUNC(_wrap_ISprite_setColorBlendMode), -1);
-  rb_define_method(SwigClassISprite.klass, "getColorBlendMode", VALUEFUNC(_wrap_ISprite_getColorBlendMode), -1);
-  SwigClassISprite.mark = 0;
-  SwigClassISprite.destroy = (void (*)(void *)) free_OneU_ISprite;
-  SwigClassISprite.trackObjects = 0;
-  rb_define_module_function(mOUE, "SpriteFromImage", VALUEFUNC(_wrap_SpriteFromImage), -1);
-  rb_define_module_function(mOUE, "Sprite", VALUEFUNC(_wrap_Sprite), -1);
+  SwigClassSprite.klass = rb_define_class_under(mOUE, "Sprite", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__ISprite, (void *) &SwigClassSprite);
+  rb_define_alloc_func(SwigClassSprite.klass, _wrap_Sprite_allocate);
+  rb_define_method(SwigClassSprite.klass, "initialize", VALUEFUNC(_wrap_new_Sprite), -1);
+  rb_define_method(SwigClassSprite.klass, "setImage", VALUEFUNC(_wrap_Sprite_setImage), -1);
+  rb_define_method(SwigClassSprite.klass, "getImage", VALUEFUNC(_wrap_Sprite_getImage), -1);
+  rb_define_method(SwigClassSprite.klass, "ox=", VALUEFUNC(_wrap_Sprite_oxe___), -1);
+  rb_define_method(SwigClassSprite.klass, "ox", VALUEFUNC(_wrap_Sprite_ox), -1);
+  rb_define_method(SwigClassSprite.klass, "oy=", VALUEFUNC(_wrap_Sprite_oye___), -1);
+  rb_define_method(SwigClassSprite.klass, "oy", VALUEFUNC(_wrap_Sprite_oy), -1);
+  rb_define_method(SwigClassSprite.klass, "color=", VALUEFUNC(_wrap_Sprite_colore___), -1);
+  rb_define_method(SwigClassSprite.klass, "color", VALUEFUNC(_wrap_Sprite_color), -1);
+  rb_define_method(SwigClassSprite.klass, "alpha=", VALUEFUNC(_wrap_Sprite_alphae___), -1);
+  rb_define_method(SwigClassSprite.klass, "alpha", VALUEFUNC(_wrap_Sprite_alpha), -1);
+  rb_define_method(SwigClassSprite.klass, "width", VALUEFUNC(_wrap_Sprite_width), -1);
+  rb_define_method(SwigClassSprite.klass, "height", VALUEFUNC(_wrap_Sprite_height), -1);
+  rb_define_method(SwigClassSprite.klass, "setBlendMode", VALUEFUNC(_wrap_Sprite_setBlendMode), -1);
+  rb_define_method(SwigClassSprite.klass, "getBlendMode", VALUEFUNC(_wrap_Sprite_getBlendMode), -1);
+  rb_define_method(SwigClassSprite.klass, "setColorBlendMode", VALUEFUNC(_wrap_Sprite_setColorBlendMode), -1);
+  rb_define_method(SwigClassSprite.klass, "getColorBlendMode", VALUEFUNC(_wrap_Sprite_getColorBlendMode), -1);
+  SwigClassSprite.mark = 0;
+  SwigClassSprite.destroy = (void (*)(void *)) free_OneU_ISprite;
+  SwigClassSprite.trackObjects = 0;
   
-  SwigClassIShape.klass = rb_define_class_under(mOUE, "IShape", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__IShape, (void *) &SwigClassIShape);
-  rb_undef_alloc_func(SwigClassIShape.klass);
-  rb_define_method(SwigClassIShape.klass, "setColor", VALUEFUNC(_wrap_IShape_setColor), -1);
-  rb_define_method(SwigClassIShape.klass, "getColor", VALUEFUNC(_wrap_IShape_getColor), -1);
-  rb_define_method(SwigClassIShape.klass, "setMode", VALUEFUNC(_wrap_IShape_setMode), -1);
-  SwigClassIShape.mark = 0;
-  SwigClassIShape.destroy = (void (*)(void *)) free_OneU_IShape;
-  SwigClassIShape.trackObjects = 0;
-  rb_define_module_function(mOUE, "Shape_rect", VALUEFUNC(_wrap_Shape_rect), -1);
+  SwigClassShape.klass = rb_define_class_under(mOUE, "Shape", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__IShape, (void *) &SwigClassShape);
+  rb_define_alloc_func(SwigClassShape.klass, _wrap_Shape_allocate);
+  rb_define_method(SwigClassShape.klass, "initialize", VALUEFUNC(_wrap_new_Shape), -1);
+  rb_define_method(SwigClassShape.klass, "color=", VALUEFUNC(_wrap_Shape_colore___), -1);
+  rb_define_method(SwigClassShape.klass, "color", VALUEFUNC(_wrap_Shape_color), -1);
+  rb_define_method(SwigClassShape.klass, "setMode", VALUEFUNC(_wrap_Shape_setMode), -1);
+  SwigClassShape.mark = 0;
+  SwigClassShape.destroy = (void (*)(void *)) free_OneU_IShape;
+  SwigClassShape.trackObjects = 0;
   rb_define_const(mOUE, "T_TOP", SWIG_From_int(static_cast< int >(OneU::T_TOP)));
   rb_define_const(mOUE, "T_BOTTOM", SWIG_From_int(static_cast< int >(OneU::T_BOTTOM)));
   rb_define_const(mOUE, "T_VCENTER", SWIG_From_int(static_cast< int >(OneU::T_VCENTER)));
@@ -9914,20 +10055,20 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_const(mOUE, "T_RIGHT", SWIG_From_int(static_cast< int >(OneU::T_RIGHT)));
   rb_define_const(mOUE, "T_CENTER", SWIG_From_int(static_cast< int >(OneU::T_CENTER)));
   
-  SwigClassILabel.klass = rb_define_class_under(mOUE, "ILabel", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__ILabel, (void *) &SwigClassILabel);
-  rb_undef_alloc_func(SwigClassILabel.klass);
-  rb_define_method(SwigClassILabel.klass, "setText", VALUEFUNC(_wrap_ILabel_setText), -1);
-  rb_define_method(SwigClassILabel.klass, "getText", VALUEFUNC(_wrap_ILabel_getText), -1);
-  rb_define_method(SwigClassILabel.klass, "setColor", VALUEFUNC(_wrap_ILabel_setColor), -1);
-  rb_define_method(SwigClassILabel.klass, "getColor", VALUEFUNC(_wrap_ILabel_getColor), -1);
-  rb_define_method(SwigClassILabel.klass, "setAlpha", VALUEFUNC(_wrap_ILabel_setAlpha), -1);
-  rb_define_method(SwigClassILabel.klass, "getAlpha", VALUEFUNC(_wrap_ILabel_getAlpha), -1);
-  rb_define_method(SwigClassILabel.klass, "setAlign", VALUEFUNC(_wrap_ILabel_setAlign), -1);
-  SwigClassILabel.mark = 0;
-  SwigClassILabel.destroy = (void (*)(void *)) free_OneU_ILabel;
-  SwigClassILabel.trackObjects = 0;
-  rb_define_module_function(mOUE, "Label", VALUEFUNC(_wrap_Label), -1);
+  SwigClassLabel.klass = rb_define_class_under(mOUE, "Label", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__ILabel, (void *) &SwigClassLabel);
+  rb_define_alloc_func(SwigClassLabel.klass, _wrap_Label_allocate);
+  rb_define_method(SwigClassLabel.klass, "initialize", VALUEFUNC(_wrap_new_Label), -1);
+  rb_define_method(SwigClassLabel.klass, "text=", VALUEFUNC(_wrap_Label_texte___), -1);
+  rb_define_method(SwigClassLabel.klass, "text", VALUEFUNC(_wrap_Label_text), -1);
+  rb_define_method(SwigClassLabel.klass, "color=", VALUEFUNC(_wrap_Label_colore___), -1);
+  rb_define_method(SwigClassLabel.klass, "color", VALUEFUNC(_wrap_Label_color), -1);
+  rb_define_method(SwigClassLabel.klass, "alpha=", VALUEFUNC(_wrap_Label_alphae___), -1);
+  rb_define_method(SwigClassLabel.klass, "alpha", VALUEFUNC(_wrap_Label_alpha), -1);
+  rb_define_method(SwigClassLabel.klass, "setAlign", VALUEFUNC(_wrap_Label_setAlign), -1);
+  SwigClassLabel.mark = 0;
+  SwigClassLabel.destroy = (void (*)(void *)) free_OneU_ILabel;
+  SwigClassLabel.trackObjects = 0;
   
   SwigClassCharEvent.klass = rb_define_class_under(mOUE, "CharEvent", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__CharEvent, (void *) &SwigClassCharEvent);
