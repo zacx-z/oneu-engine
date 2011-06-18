@@ -37,9 +37,13 @@ class MainScene < OUE::Scene
 			@list << sp;
 		end
 	end
+	def a
+	end
 end
 srand
 $Game = OUE.GetGame()
 $Game.init("This is a game", 800, 600, true)
 $Game.replaceScene(MainScene.new)
+a = $Game.replaceScene(MainScene.new)
+$Game.replaceScene(a)
 $Game.run()

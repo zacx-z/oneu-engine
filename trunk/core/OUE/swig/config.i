@@ -24,9 +24,9 @@ int SWIGEX_Lua_Ownership(lua_State* L, int index){
 }
 %}
 %typemap(in,checkfn="SWIG_isptrtype") SWIGTYPE* VDISOWN{  
-	if (SWIGEX_Lua_Ownership(L, $input) != 1)
-		SWIG_fail_arg("$symname", $argnum, "The value must have ownership!");
-	if (!SWIG_IsOK(SWIG_ConvertPtr(L,$input,(void**)&$1,$descriptor,SWIG_POINTER_DISOWN))){
+        if (SWIGEX_Lua_Ownership(L, $input) != 1)
+                SWIG_fail_arg("$symname", $argnum, "The value must have ownership!");
+        if (!SWIG_IsOK(SWIG_ConvertPtr(L,$input,(void**)&$1,$descriptor,SWIG_POINTER_DISOWN))){
     SWIG_fail_ptr("$symname",$argnum,$descriptor);
     }
 }
@@ -37,15 +37,14 @@ int SWIGEX_Lua_Ownership(lua_State* L, int index){
 %enddef
 #elif defined(SWIGRUBY)
 //find in typemaps\swigtype.swg
-%typemap(in) SWIGTYPE* VDISOWN (int res = 0, ruby_owntype own){
+%typemap(in) SWIGTYPE* VDISOWN (int res = 0, swig_owntype own){
   res = SWIG_ConvertPtrAndOwn($input, %as_voidptrptr(&$1), $descriptor, SWIG_POINTER_DISOWN | %convertptr_flags, &own);
   if (!SWIG_IsOK(res)) {
     %argument_fail(res,"$type", $symname, $argnum);
   }
   if (own == 0 || own == SWIG_RubyRemoveTracking)//no ownership
-	SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "$type","$symname", $argnum, $input));
+        SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "$type","$symname", $argnum, $input));
 }
-
 %define PROP_R(getter, prop)
 %rename(#prop) getter;
 %enddef
