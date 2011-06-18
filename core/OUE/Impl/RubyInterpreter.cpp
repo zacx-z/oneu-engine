@@ -121,7 +121,7 @@ namespace OneU
 	
 	void RubyInterpreter::execFile(pcwstr filename){
 		int state;
-		rb_protect(LoadWrap,(VALUE)(const char*)Wide2Char(filename), &state);
+		rb_protect(LoadWrap,rb_str_new2((const char*)Wide2Char(filename)), &state);
 		if(state)
 			ThrowOnError(state);
 	}

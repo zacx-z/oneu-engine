@@ -5714,7 +5714,7 @@ _wrap_INodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = 0 ;
-  ruby_owntype own2 ;
+  swig_owntype own2 ;
   int val3 ;
   int ecode3 = 0 ;
   OneU::AutoPtr< wchar_t > temp4 ;
@@ -5765,7 +5765,7 @@ _wrap_INodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = 0 ;
-  ruby_owntype own2 ;
+  swig_owntype own2 ;
   int val3 ;
   int ecode3 = 0 ;
   bool result;
@@ -5807,7 +5807,7 @@ _wrap_INodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = 0 ;
-  ruby_owntype own2 ;
+  swig_owntype own2 ;
   bool result;
   VALUE vresult = Qnil;
   
@@ -6774,7 +6774,7 @@ _wrap_IGame_replaceScene(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res2 = 0 ;
-  ruby_owntype own2 ;
+  swig_owntype own2 ;
   OneU::IScene *result = 0 ;
   VALUE vresult = Qnil;
   
@@ -7623,7 +7623,7 @@ SWIGINTERN VALUE
 _wrap_addToScene(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   int res1 = 0 ;
-  ruby_owntype own1 ;
+  swig_owntype own1 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
