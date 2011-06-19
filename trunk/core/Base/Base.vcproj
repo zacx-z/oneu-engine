@@ -280,22 +280,6 @@
 					RelativePath=".\Internal\Exception.h"
 					>
 				</File>
-				<Filter
-					Name="DX"
-					>
-					<File
-						RelativePath=".\Internal\DXDefs.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Internal\DXException.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Internal\DXException.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
