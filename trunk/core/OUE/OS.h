@@ -30,7 +30,7 @@ THE SOFTWARE.
 #pragma once
 
 #include "OUEDefs.h"
-#include "../Base/Interface.h"
+#include "Interface.h"
 #include <windows.h>
 
 #ifndef _WIN32

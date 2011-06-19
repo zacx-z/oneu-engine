@@ -29,38 +29,8 @@ THE SOFTWARE.
 
 namespace OneU
 {
-	//class String_Imp
-	//	: public IString
-	//{
-	//	std::wstring m_str;
-	//public:
-	//	String_Imp(pcwstr str) : m_str(str){}
-	//	String_Imp(){}
-	//	virtual void destroy(){ONEU_DELETE(this); }
-	//	virtual void append(const IString& others){m_str.append(others.c_str());}
-	//	virtual void eval(const pcwstr str){m_str = str;}
-	//	virtual pcwstr c_str() const { return m_str.c_str();}
-	//	virtual pwstr getBuffer(){ return &m_str[0];}
-	//	virtual uint getLength() const{ return (uint)m_str.length();}
-	//	virtual void vformat(pcwstr Format, va_list marker)
-	//	{
-	//		m_str.resize(_vsnwprintf(NULL, 0, Format, marker) + 1);
-	//		vswprintf_s(&m_str[0], m_str.size() + 1, Format, marker);
-	//		m_str.resize(m_str.size() - 1);
-	//	}
-	//};
-
-	//extern "C" ONEU_BASE_API IString* String_make(pcwstr str)
-	//{
-	//	return ONEU_NEW(String_Imp(str));
-	//}
-	//extern "C" ONEU_BASE_API IString* String_create()
-	//{
-	//	return ONEU_NEW(String_Imp());
-	//}
-
 	//×ª»»
-	extern "C" ONEU_BASE_API wchar* _Char2Wide(pcstr cstr)
+	extern "C" ONEU_API wchar* _Char2Wide(pcstr cstr)
 	{
 		if(!cstr) return NULL;
 		const size_t l = strlen(cstr);
@@ -71,7 +41,7 @@ namespace OneU
 		}
 		return str;
 	}
-	extern "C" ONEU_BASE_API char* _Wide2Char(pcwstr cstr)
+	extern "C" ONEU_API char* _Wide2Char(pcwstr cstr)
 	{
 		if(!cstr) return NULL;
 		const size_t l = wcslen(cstr);

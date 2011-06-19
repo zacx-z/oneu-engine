@@ -232,7 +232,7 @@ namespace OneU
 			{
 				HRESULT hr;
 				if( FAILED( hr = _pD3DDevice->Present( NULL, NULL, NULL, NULL ) ) )
-					THROW_HRESULT(hr);
+					RAISE_HRESULT(hr);
 			}
 			/* ----------------------------------------------------------------------------*/
 			/** 
@@ -463,7 +463,7 @@ namespace OneU
 				if( FAILED( hr = _pD3DDevice->BeginScene() ) )
 				{
 					ONEU_LOG( L"‰÷»æ≥ı ºªØ ß∞‹£°" );
-					THROW_HRESULT(hr);
+					RAISE_HRESULT(hr);
 				}
 			}
 			~RenderManip()

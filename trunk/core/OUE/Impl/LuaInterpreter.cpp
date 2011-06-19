@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 #include "LuaInterpreter.h"
-#include "../../Base/String.h"
+#include "../String.h"
 namespace OneU
 {
 	LuaInterpreter::LuaInterpreter(){

@@ -105,7 +105,7 @@ namespace OneU
 	* 根据该函数实现的不同可以生成不同派生类的实例
 	*/
 	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_BASE_API void Logger_build(Factory<ILogger>::type lf);
+	extern "C" ONEU_API void Logger_build(Factory<ILogger>::type lf);
 	/* ----------------------------------------------------------------------------*/
 	/** 
 	* @brief 获得实例指针
@@ -113,16 +113,16 @@ namespace OneU
 	* @return 指向实例的指针
 	*/
 	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_BASE_API ILogger& GetLogger();
+	extern "C" ONEU_API ILogger& GetLogger();
 	/* ----------------------------------------------------------------------------*/
 	/** 
 	* @brief 删除实例
 	*/
 	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_BASE_API void Logger_destroy();
+	extern "C" ONEU_API void Logger_destroy();
 
 
 	//提供两个实现
-	extern "C" ONEU_BASE_API ILogger* LoggerDisk_Factory();
-	extern "C" ONEU_BASE_API ILogger* LoggerNull_Factory();
+	extern "C" ONEU_API ILogger* LoggerDisk_Factory();
+	extern "C" ONEU_API ILogger* LoggerNull_Factory();
 }

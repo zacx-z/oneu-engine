@@ -74,7 +74,7 @@ namespace OneU
 	 * @return 内存分配器接口
 	 */
 	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_BASE_API IAllocator* Allocator_create();
+	extern "C" ONEU_API IAllocator* Allocator_create();
 	/* ----------------------------------------------------------------------------*/
 	/**
 	 * @brief 创建内存分配器单件
@@ -82,7 +82,7 @@ namespace OneU
 	 * @param af 内存分配器工厂
 	 */
 	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_BASE_API void Allocator_build(IAllocator* (*af)());
+	extern "C" ONEU_API void Allocator_build(IAllocator* (*af)());
 	/* ----------------------------------------------------------------------------*/
 	/**
 	 * @brief 获取内存分配器单件
@@ -90,13 +90,13 @@ namespace OneU
 	 * @return 单件
 	 */
 	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_BASE_API IAllocator& GetAllocator();
+	extern "C" ONEU_API IAllocator& GetAllocator();
 	/* ----------------------------------------------------------------------------*/
 	/**
 	 * @brief 销毁内存分配器单件
 	 */
 	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_BASE_API void Allocator_destroy();
+	extern "C" ONEU_API void Allocator_destroy();
 }
 
 //comment会被记录到内存块中

@@ -56,9 +56,9 @@ namespace OneU
 	 * @param str 字符串指针
 	 */
 	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_BASE_API void DumpString(pcwstr str);
+	extern "C" ONEU_API void DumpString(pcwstr str);
 
-	extern "C" ONEU_BASE_API pcwstr GetErrnoString( errno_t Errno );
+	extern "C" ONEU_API pcwstr GetErrnoString( errno_t Errno );
 }
 
 #else
@@ -85,7 +85,7 @@ namespace OneU
 
 namespace OneU
 {
-	extern "C" ONEU_BASE_API void _TerminateApp(const char * FileName, const int Line, pcwstr str);
+	extern "C" ONEU_API void _TerminateApp(const char * FileName, const int Line, pcwstr str);
 
 	inline void _TerminateApp(const char * FileName, const int Line, pcstr str){
 		_TerminateApp(FileName, Line, Char2Wide(str));
@@ -94,7 +94,7 @@ namespace OneU
 	typedef void (*TerminateHandler)();
 
 	//只有调用ONEU_EXIT(_ExitApp)才会调用Handler
-	extern "C" ONEU_BASE_API TerminateHandler SetTerminateHandler(TerminateHandler eh);
+	extern "C" ONEU_API TerminateHandler SetTerminateHandler(TerminateHandler eh);
 
 	//如果为false结束进程
 	inline void _Ensure(const char* FileName, const int Line, const char* expression, bool exp){

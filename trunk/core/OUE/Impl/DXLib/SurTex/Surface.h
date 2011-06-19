@@ -58,13 +58,13 @@ namespace OneU
 			void _Create( uint32 nWidth, uint32 nHeight, PXLFORMAT Format, D3DPOOL Pool )
 			{
 				ONEU_ASSERT( m_pSurface == NULL );
-				DXCHECK_THROW( _pD3DDevice->CreateOffscreenPlainSurface( nWidth, nHeight, static_cast< D3DFORMAT > ( Format ), Pool, &m_pSurface, NULL ),
+				DXCHECK_RAISE( _pD3DDevice->CreateOffscreenPlainSurface( nWidth, nHeight, static_cast< D3DFORMAT > ( Format ), Pool, &m_pSurface, NULL ),
 					L"表面创建失败！" );
 			}
 			void _CreateRenderTarget( uint32 nWidth, uint32 nHeight, PXLFORMAT Format, uint32 MultiSample, uint32 MultisampleQuality, bool Lockable )
 			{
 				ONEU_ASSERT( m_pSurface == NULL );
-				DXCHECK_THROW(
+				DXCHECK_RAISE(
 					_pD3DDevice->CreateRenderTarget( nWidth, nHeight, static_cast< D3DFORMAT > ( Format ),
 					static_cast< D3DMULTISAMPLE_TYPE > ( MultiSample ), MultisampleQuality, Lockable, &m_pSurface, NULL ),
 					L"渲染目标表面创建失败！" );
@@ -72,7 +72,7 @@ namespace OneU
 			void _CreateDepthSurface( uint32 nWidth, uint32 nHeight, PXLFORMAT Format, uint32 MultiSample, uint32 MultisampleQuality, bool Discard )
 			{
 				ONEU_ASSERT( m_pSurface == NULL );
-				DXCHECK_THROW(
+				DXCHECK_RAISE(
 					_pD3DDevice->CreateDepthStencilSurface( nWidth, nHeight, static_cast< D3DFORMAT > ( Format ),
 					static_cast< D3DMULTISAMPLE_TYPE > ( MultiSample ), MultisampleQuality, Discard, &m_pSurface, NULL ),
 					L"深度表面创建失败！" );

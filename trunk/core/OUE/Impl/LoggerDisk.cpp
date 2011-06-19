@@ -21,15 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "Error.h"
-#include "Logger.h"
 #include "LoggerDisk.h"
-#include <winnls.h>
 
 #pragma warning(disable : 4996)
-//此类内不可抛出Exception样错误
+//此类内不可Raise错误
 
 #include <cstdlib>//未必一定要包含此头文件 保留
+#include <io.h>
+
 
 #define LOG_PATH    L"Log.LOG"
 
@@ -46,7 +45,9 @@ namespace OneU
 
 	LoggerDisk::~LoggerDisk(void){
 		flush();
-		fclose(m_pLog);
+		if(m_pLog) {
+			_close(_fileno(m_pLog));//ruby库会导出fclose符号 致使fclose不能用 WTF!
+		}
 	}
 
 	void LoggerDisk::write(pcwstr lpwstrMsg ){
@@ -110,7 +111,7 @@ namespace OneU
 		return ONEU_NEW LoggerDisk();
 	}
 
-	extern "C" ONEU_BASE_API ILogger* LoggerDisk_Factory()
+	extern "C" ONEU_API ILogger* LoggerDisk_Factory()
 	{
 		return LoggerDisk::__new();
 	}

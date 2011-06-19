@@ -27,4 +27,17 @@ namespace OneU
 {
 	extern HWND g_hWnd;
 	extern HINSTANCE g_hInstance;
+
+	class WinErrorString
+	{
+		pcwstr m_pMsgBuf;
+		HRESULT m_hRes;
+		WinErrorString(const WinErrorString&);
+		WinErrorString& operator=(const WinErrorString&);
+	public:
+		WinErrorString(HRESULT hRes)
+			: m_hRes(hRes), m_pMsgBuf(NULL){}
+		~WinErrorString();
+		pcwstr c_str() const;
+	};
 }

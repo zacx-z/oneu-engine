@@ -28,7 +28,7 @@ THE SOFTWARE.
 * @date 2011-05-28
 */
 #pragma once
-#include "../Base/Base.h"
+#include "Base.h"
 #include "List.h"
 
 namespace OneU

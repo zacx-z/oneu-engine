@@ -21,53 +21,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 /**
- * @file Exception.h
- * @brief 异常
+ * @file LoggerNull.h
+ * @brief 空日志实现
  *
- * 已废弃。
+ * 使用该实现不记录日志。
  * @author Ladace
  * @version 1.0.0.1
  * @date 2011-04-09
  */
-
 #pragma once
-
-#include "../OneUPreDef.h"
-#include "../Error.h"
-#include "../String.h"
+#include "../Logger.h"
 
 namespace OneU
 {
-	class ONEU_BASE_API Exception  //一般错误
+	class LoggerNull
+		: public ILogger
 	{
+		LoggerNull(){};
 	public:
-		Exception(wchar_t * name = L"Error", bool MakeDump=true);
-		virtual ~Exception(){}
+		virtual ~LoggerNull(){}
+		
 
-		virtual pcwstr GetType() const;
-		virtual pcwstr GetString() const;
+		virtual void flush(){}
+		virtual void write( pcwstr lpstrLog ){}
+		//禁止客户调用
+		static ILogger* __new();
 	};
-
-	extern "C" ONEU_BASE_API int PreThrow(const char * FileName, const int Line, Exception&);
-	template<class ExpType>
-	void _ThrowExp(const char * FileName, const int Line, ExpType& Exp){
-		if(!PreThrow(FileName, Line, Exp)){
-#ifdef _MSC_VER
-			__asm{ int 3 }
-#elif defined(__GNUC__)
-			__asm("int 3");
-#endif
-		}
-	}
-
-	//Exp 异常对象
-	//因为涉及到dll 不能正常使用
-#define ONEU_THROW(Exp) OneU::_ThrowExp(__FILE__, __LINE__, Exp)
-
-	//deprecated
-	//输入曾使用抛出异常来处理的遗留问题
-	inline void _TerminateApp(const char * FileName, const int Line, Exception& Exp){
-		_TerminateApp(FileName, Line, String().format(L"%s:%s", Exp.GetType(), Exp.GetString()).c_str());
-	}
-
 }

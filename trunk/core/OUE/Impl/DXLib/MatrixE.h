@@ -22,7 +22,7 @@ THE SOFTWARE.
 */
 #pragma once
 //差Projection的一部分没有收录进来
-#include "../Base/Base.h"
+#include "../../Base.h"
 #include "D3DDefs.h"
 #ifdef __ONEU_USE_GE
 #include <d3dx9.h>

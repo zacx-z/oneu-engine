@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 #include "OneUPreDef.h"
-#include "LoggerDisk.h"
+#include "Impl/LoggerDisk.h"
 
 #include "String.h"
 #include <cstdlib>
@@ -31,18 +31,18 @@ namespace OneU
 {
 	//ILoggerµ•Ã¨÷∏’Î
 	static ILogger * _Logger_pInstance = NULL;
-	extern "C" ONEU_BASE_API void Logger_build(Factory<ILogger>::type lf){
+	extern "C" ONEU_API void Logger_build(Factory<ILogger>::type lf){
 		if(!_Logger_pInstance){
 			_Logger_pInstance = lf();
 		}
 	}
 
-	extern "C" ONEU_BASE_API ILogger& GetLogger()
+	extern "C" ONEU_API ILogger& GetLogger()
 	{
 		ONEU_ASSERT( _Logger_pInstance );return *_Logger_pInstance;
 	}
 
-	extern "C" ONEU_BASE_API void Logger_destroy(){
+	extern "C" ONEU_API void Logger_destroy(){
 		if(_Logger_pInstance != NULL){
 			ONEU_DELETE _Logger_pInstance;
 			_Logger_pInstance = NULL;

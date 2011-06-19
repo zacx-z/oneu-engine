@@ -20,25 +20,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include "Stream.h"
-
-#include <windows.h>
-
+#include "LoggerNull.h"
 namespace OneU
 {
-	extern "C" ONEU_BASE_API IOStream& TimeInfo(IOStream& target){
-		SYSTEMTIME sTime;
-		::GetSystemTime( &sTime );
-		String s;
-		s.format( L"%u.%u.%u   %u:%u:%u:%u\n", 
-			sTime.wYear, sTime.wMonth, sTime.wDay, 
-			sTime.wHour, sTime.wMinute, sTime.wSecond, sTime.wMilliseconds );
-		target << s.c_str();
-		return target;
+	ILogger* LoggerNull::__new(){
+		return ONEU_NEW LoggerNull();
 	}
 
-	extern "C" ONEU_BASE_API IOStream& endl(IOStream& target){
-		target << L"\n";
-		return target;
+	extern "C" ONEU_API ILogger* LoggerNull_Factory(){
+		return LoggerNull::__new();
 	}
 }

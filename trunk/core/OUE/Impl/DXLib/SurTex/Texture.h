@@ -72,7 +72,7 @@ namespace OneU
 			void _Create( uint32 nWidth, uint32 nHeight, PXLFORMAT Format, uint32 Level, uint32 Usage, D3DPOOL Pool )
 			{
 				ONEU_ASSERT( m_pTexture == NULL );
-				DXCHECK_THROW(
+				DXCHECK_RAISE(
 					_pD3DDevice->CreateTexture( nWidth, nHeight, Level, Usage, static_cast< D3DFORMAT >( Format ), Pool, &m_pTexture, NULL ),
 					L"纹理创建失败！"
 					);
@@ -104,7 +104,7 @@ namespace OneU
 			IDirect3DSurface9* _GetSurfaceLevel( uint32 Level ) const
 			{
 				IDirect3DSurface9* pSurface;
-				DXCHECK_THROW(
+				DXCHECK_RAISE(
 					m_pTexture->GetSurfaceLevel( Level, &pSurface ),
 					L"获取纹理表面失败！"
 					);

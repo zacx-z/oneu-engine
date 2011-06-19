@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 #pragma once
-#include "../Base/Base.h"
+#include "../../Base.h"
 #include "DXDefs.h"
 
 //#ifdef ONEU_DLL

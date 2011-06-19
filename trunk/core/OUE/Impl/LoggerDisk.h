@@ -20,51 +20,41 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+/**
+ * @file LoggerDisk.h
+ * @brief 磁盘日志
+ *
+ * 将日志记录到磁盘的日志实现。
+ * @author Ladace
+ * @version 1.0.0.1
+ * @date 2011-04-09
+ */
+#pragma once
+
 #include <windows.h>
-#include "../Error.h"
-#include "Exception.h"
 #include "../Logger.h"
 
+#define LOGGER_BUFFER_SIZE 1024
 
 namespace OneU
 {
-	Exception::Exception( wchar_t * name, bool MakeDump )
-	{}
-
-	pcwstr Exception::GetType() const
+	class LoggerDisk
+		: public ILogger
 	{
-		return L"错误";
-	}
-	pcwstr Exception::GetString() const
-	{
-		return L"程序发生了一个未知错误";
-	}
+	private:
+		LoggerDisk(void);
 
+		FILE * m_pLog;
+		char m_Buffer[ LOGGER_BUFFER_SIZE ];
+		size_t m_Ptr;
+		bool m_bValid;
 
-	extern "C" ONEU_BASE_API int PreThrow(const char * FileName, const int Line, Exception& Exp)
-	{
-#ifdef _DEBUG
-		wchar WFileName[ MAX_PATH ];
-		MultiByteToWideChar( CP_ACP, 0, FileName, -1, WFileName, MAX_PATH );
+	public:
 
-		String str;
-
-		str.format(L"错误：%s\n源代码：%s(%d)\n\n按“终止”结束程序，“重试”调试程序，“忽略”抛出错误。",
-			Exp.GetString(), WFileName, Line);
-
-		int result = MessageBox( NULL, str.c_str(), Exp.GetType(), MB_ABORTRETRYIGNORE | MB_ICONSTOP );
-		switch( result )
-		{
-		case IDABORT:
-			ONEU_RAISE(Exp);
-		case IDRETRY:
-			return 0;
-		case IDIGNORE:
-			return 1;
-		}
-#else
-		_TerminateApp(FileName, Line, Exp);
-#endif
-		return 1;
-	}
+		~LoggerDisk(void);
+		void flush();
+		void write( pcwstr lpstrLog );
+		//禁止客户调用
+		static ILogger* __new();
+	};
 }

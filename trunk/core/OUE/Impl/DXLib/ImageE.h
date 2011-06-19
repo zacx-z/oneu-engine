@@ -54,7 +54,7 @@ namespace OneU
 		{
 			IDirect3DTexture9 * pITexture = 0;
 
-			DXCHECK_THROW( ::D3DXCreateTextureFromFileInMemoryEx( _pD3DDevice, pSrcData, SrcDataSize, 0, 0, Level, _Usage, static_cast< D3DFORMAT > ( Format ), _Pool,
+			DXCHECK_RAISE( ::D3DXCreateTextureFromFileInMemoryEx( _pD3DDevice, pSrcData, SrcDataSize, 0, 0, Level, _Usage, static_cast< D3DFORMAT > ( Format ), _Pool,
 				s_Filter, s_MipFilter, crColorKey, NULL, NULL, & pITexture ),
 				L"从内存创建纹理失败！" );
 
@@ -63,13 +63,13 @@ namespace OneU
 		template< D3DPOOL _Pool >
 		void LoadSurfaceFromFile( pcwstr pFileName, Surface_t< _Pool > &Surface, RECT *pDestRect = 0, RECT *pSrcRect = 0, COLOR crColorKey = 0 )
 		{
-			DXCHECK_THROW( ::D3DXLoadSurfaceFromFile( Surface._Obtain(), NULL, pDestRect, pFileName, pSrcRect, s_Filter, crColorKey, NULL ),
+			DXCHECK_RAISE( ::D3DXLoadSurfaceFromFile( Surface._Obtain(), NULL, pDestRect, pFileName, pSrcRect, s_Filter, crColorKey, NULL ),
 				L"读取文件到表面失败！");
 		}
 		template< uint32 _Usage, D3DPOOL _Pool >
 		void LoadSurfaceFromFile( pcwstr pFileName, Surface_Texture< _Usage, _Pool > &Surface, RECT *pDestRect = 0, RECT *pSrcRect = 0, COLOR crColorKey = 0 )
 		{
-			DXCHECK_THROW( ::D3DXLoadSurfaceFromFile( Surface._Obtain(), NULL, pDestRect, pFileName, pSrcRect, s_Filter, crColorKey, NULL ),
+			DXCHECK_RAISE( ::D3DXLoadSurfaceFromFile( Surface._Obtain(), NULL, pDestRect, pFileName, pSrcRect, s_Filter, crColorKey, NULL ),
 				L"读取文件到表面失败！");
 		}
 	}

@@ -228,11 +228,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\Base.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Broadcast.h"
 				>
 			</File>
 			<File
 				RelativePath=".\Control.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Error.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Error.h"
 				>
 			</File>
 			<File
@@ -244,7 +256,35 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Interface.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Interpreter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Logger.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Logger.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Memory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Memory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\OneUConfig.h"
+				>
+			</File>
+			<File
+				RelativePath=".\OneUPreDef.h"
 				>
 			</File>
 			<File
@@ -265,6 +305,18 @@
 			</File>
 			<File
 				RelativePath=".\Stereo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Stream.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Stream.h"
+				>
+			</File>
+			<File
+				RelativePath=".\StringUtil.cpp"
 				>
 			</File>
 			<File
@@ -328,6 +380,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Impl\LoggerDisk.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Impl\LoggerDisk.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Impl\LoggerNull.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Impl\LoggerNull.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Impl\LuaInterpreter.cpp"
 				>
 			</File>
@@ -349,14 +417,6 @@
 			</File>
 			<File
 				RelativePath=".\Impl\Win32.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Impl\WinException.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Impl\WinException.h"
 				>
 			</File>
 			<Filter

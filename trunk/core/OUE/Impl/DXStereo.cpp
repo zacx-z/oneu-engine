@@ -11,21 +11,21 @@ namespace OneU
 
 		//DirectMusic
 		try{
-			XV_THROW(CoCreateInstance(CLSID_DirectMusicPerformance, NULL,
+			XV_RAISE(CoCreateInstance(CLSID_DirectMusicPerformance, NULL,
 				CLSCTX_INPROC, IID_IDirectMusicPerformance8, (void**)&m_pDMPfm));
-			XV_THROW(CoCreateInstance(CLSID_DirectMusicLoader, NULL,
+			XV_RAISE(CoCreateInstance(CLSID_DirectMusicLoader, NULL,
 				CLSCTX_INPROC, IID_IDirectMusicLoader8, (void**)&m_pDMLoader));
-			XV_THROW(m_pDMPfm->InitAudio(&m_pDM, &m_pDS, g_hWnd,
+			XV_RAISE(m_pDMPfm->InitAudio(&m_pDM, &m_pDS, g_hWnd,
 				DMUS_APATH_SHARED_STEREOPLUSREVERB, 128,
 				DMUS_AUDIOF_ALL, NULL));
 
 			wchar str[MAX_PATH];
 			GetCurrentDirectory(MAX_PATH, str);
-			XV_THROW(m_pDMLoader->SetSearchDirectory(GUID_DirectMusicAllTypes, str, FALSE));
+			XV_RAISE(m_pDMLoader->SetSearchDirectory(GUID_DirectMusicAllTypes, str, FALSE));
 			//DirectShow
-			XV_THROW(CoCreateInstance(CLSID_FilterGraph, NULL, CLSCTX_INPROC_SERVER, IID_IGraphBuilder, (void**)&m_pGraphBuilder));
-			XV_THROW(m_pGraphBuilder->QueryInterface(IID_IMediaControl, (void**)&m_pMediaControl));
-			XV_THROW(m_pGraphBuilder->QueryInterface(IID_IMediaEvent, (void**)&m_pMediaEvent));
+			XV_RAISE(CoCreateInstance(CLSID_FilterGraph, NULL, CLSCTX_INPROC_SERVER, IID_IGraphBuilder, (void**)&m_pGraphBuilder));
+			XV_RAISE(m_pGraphBuilder->QueryInterface(IID_IMediaControl, (void**)&m_pMediaControl));
+			XV_RAISE(m_pGraphBuilder->QueryInterface(IID_IMediaEvent, (void**)&m_pMediaEvent));
 		}
 		catch(...){
 			ONEU_RAISE(L"Init DX Audio Error!");
@@ -43,10 +43,10 @@ namespace OneU
 		IEnumPins* ep = NULL;IPin* pin = NULL;
 		
 		try{
-			XV_THROW(m_pGraphBuilder->AddSourceFilter(filename, L"BGM", &newfilter));
-			XV_THROW(newfilter->EnumPins(&ep));
-			XV_THROW(ep->Next(1, &pin, NULL));
-			XV_THROW(m_pGraphBuilder->Render(pin));
+			XV_RAISE(m_pGraphBuilder->AddSourceFilter(filename, L"BGM", &newfilter));
+			XV_RAISE(newfilter->EnumPins(&ep));
+			XV_RAISE(ep->Next(1, &pin, NULL));
+			XV_RAISE(m_pGraphBuilder->Render(pin));
 		}
 		catch(...){
 			SAFE_RELEASE(newfilter);

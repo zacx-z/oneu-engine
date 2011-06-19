@@ -44,8 +44,6 @@ THE SOFTWARE.
 
 namespace OneU
 {
-	//实现在DXException.cpp里
-	ONEU_BASE_API void _ThrowHResult(HRESULT hr, const char * FileName, const int Line);
 	namespace DX
 	{
 		template < class T >
@@ -57,8 +55,7 @@ namespace OneU
 		}
 	}
 }
-//根据HRESULT的值智能选择异常抛出
-#define THROW_HRESULT(hr) OneU::_ThrowHResult( hr, __FILE__, __LINE__)
+#define RAISE_HRESULT(hr) ONEU_RAISE(::DXGetErrorDescription(hr))
 //检查DX的HRESULT返回值 若有错误会记录到日志 程序继续运行
 #define DXCHECK( fn, str ) {\
 	HRESULT hr;\
@@ -68,15 +65,15 @@ namespace OneU
 }void( 0 )/*@记录格式不好看 待重构*/
 
 //检查DX的HRESULT返回值 若有错误会记录到日志 程序抛出错误
-#define DXCHECK_THROW( fn, str ) {\
+#define DXCHECK_RAISE( fn, str ) {\
 	HRESULT hr;\
 	if( FAILED( hr = fn ) ){\
 		ONEU_LOG( str );\
-		THROW_HRESULT(hr);\
+		RAISE_HRESULT(hr);\
 }\
 }void( 0 )
 #define XV( fn ) DXCHECK( fn, #fn )
-#define XV_THROW( fn ) DXCHECK_THROW( fn, #fn );
+#define XV_RAISE( fn ) DXCHECK_RAISE( fn, #fn );
 #ifdef _DEBUG
 //仅在调试版本检查返回值 发布版本不会检查
 #define DXCHECK_DEBUG( fn, str ) DXCHECK( fn, str )
