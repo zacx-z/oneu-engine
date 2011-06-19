@@ -147,7 +147,7 @@ namespace OneU
 			TextureLock( Texture_Base * pTexture, uint32 Level = 0, const RECT * pRect = NULL, LK_FLAG Flag = LK_DISCARD )
 				: m_pTexture( pTexture->_Obtain() ), m_Level( Level )
 			{
-				DXCHECK_THROW( m_pTexture->LockRect( Level, &m_DDLR, pRect, Flag ), L"Ëø¶¨ÎÆÀíÊ§°Ü£¡" );
+				DXCHECK_RAISE( m_pTexture->LockRect( Level, &m_DDLR, pRect, Flag ), L"Ëø¶¨ÎÆÀíÊ§°Ü£¡" );
 				if( pRect )
 				{
 					m_Width = pRect->right - pRect->left;

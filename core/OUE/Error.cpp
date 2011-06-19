@@ -48,7 +48,7 @@ namespace OneU
 namespace OneU
 {
 
-	extern "C" ONEU_BASE_API pcwstr GetErrnoString( errno_t Errno )
+	extern "C" ONEU_API pcwstr GetErrnoString( errno_t Errno )
 	{
 		switch( Errno )
 		{

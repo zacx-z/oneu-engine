@@ -119,12 +119,12 @@ namespace OneU
 	 * @brief 时间信息
 	 */
 	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_BASE_API IOStream& TimeInfo(IOStream& target);
+	extern "C" ONEU_API IOStream& TimeInfo(IOStream& target);
 	/* ----------------------------------------------------------------------------*/
 	/**
 	 * @brief 换行符
 	 */
 	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_BASE_API IOStream& endl(IOStream& target);
+	extern "C" ONEU_API IOStream& endl(IOStream& target);
 	//@}
 }

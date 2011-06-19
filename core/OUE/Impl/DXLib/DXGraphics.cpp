@@ -86,7 +86,7 @@ namespace OneU
 			if( _pD3D == 0 )
 			{
 				ONEU_LOG( L"创建Direct3D对象失败！" );
-				THROW_HRESULT(0);
+				RAISE_HRESULT(0);
 			}
 		}
 		void Graphics_t::InitWindowed( uint32 nWidth, uint32 nHeight, HWND hWnd )
@@ -106,7 +106,7 @@ namespace OneU
 			if( FAILED( hr ) )
 			{
 				ONEU_LOG( L"获取显示模式失败" );
-				THROW_HRESULT(hr);
+				RAISE_HRESULT(hr);
 			}
 
 			//
@@ -133,7 +133,7 @@ namespace OneU
 			if( FAILED( hr ) )
 			{
 				ONEU_LOG( "创建Direct3D设备失败" );
-				THROW_HRESULT(hr);
+				RAISE_HRESULT(hr);
 			}
 
 #ifdef __ONEU_USE_GE
@@ -181,7 +181,7 @@ namespace OneU
 			if( FAILED( hr ) )
 			{
 				ONEU_LOG( L"创建Direct3D设备失败" );
-				THROW_HRESULT(hr);
+				RAISE_HRESULT(hr);
 			}
 #ifdef __ONEU_USE_GE
 			InitializeOneUE();
@@ -208,7 +208,7 @@ namespace OneU
 			if( FAILED( hr ) )
 			{
 				ONEU_LOG( L"获取显示模式失败" );
-				THROW_HRESULT(hr);
+				RAISE_HRESULT(hr);
 			}
 
 			//
@@ -229,7 +229,7 @@ namespace OneU
 			if( FAILED( hr ) )
 			{
 				ONEU_LOG( "重置Direct3D设备失败" );
-				THROW_HRESULT(hr);
+				RAISE_HRESULT(hr);
 			}
 
 			OnResetDevice();
@@ -271,7 +271,7 @@ namespace OneU
 			if( FAILED( hr ) )
 			{
 				ONEU_LOG( "重置Direct3D设备失败" );
-				THROW_HRESULT(hr);
+				RAISE_HRESULT(hr);
 			}
 
 			OnResetDevice();
@@ -308,7 +308,7 @@ namespace OneU
 			OnLostDevice();
 			HRESULT hr;
 			if( FAILED( hr = _pD3DDevice->Reset( &g_D3DPP ) ) )
-				THROW_HRESULT(hr);
+				RAISE_HRESULT(hr);
 			OnResetDevice();
 			InitParameters();
 		}
@@ -318,7 +318,7 @@ namespace OneU
 			static DisplayMode _DM;
 			HRESULT hr;
 			if( FAILED( hr = _pD3D->EnumAdapterModes( D3DADAPTER_DEFAULT, static_cast< D3DFORMAT > ( Format ), index, reinterpret_cast< D3DDISPLAYMODE* > ( &_DM ) ) ) )
-				THROW_HRESULT(hr);
+				RAISE_HRESULT(hr);
 
 			return &_DM;
 		}
@@ -352,17 +352,17 @@ namespace OneU
 		Surface_RenderTarget Graphics_t::GetRenderTarget() const
 		{
 			IDirect3DSurface9 * pRenderTarget;
-			DXCHECK_THROW( _pD3DDevice->GetRenderTarget( 0, &pRenderTarget ), L"获取后备渲染目标失败！" );
+			DXCHECK_RAISE( _pD3DDevice->GetRenderTarget( 0, &pRenderTarget ), L"获取后备渲染目标失败！" );
 			return Surface_RenderTarget( pRenderTarget );
 		}
 
 		void Graphics_t::SetRenderTarget( Surface_RenderTarget &RenderTarget )
 		{
-			DXCHECK_THROW( _pD3DDevice->SetRenderTarget( 0, RenderTarget._Obtain() ), L"设置后备渲染目标失败！" );
+			DXCHECK_RAISE( _pD3DDevice->SetRenderTarget( 0, RenderTarget._Obtain() ), L"设置后备渲染目标失败！" );
 		}
 		void Graphics_t::SetRenderTarget( Surface_Texture< D3DUSAGE_RENDERTARGET, D3DPOOL_DEFAULT > &RenderTarget )
 		{
-			DXCHECK_THROW( _pD3DDevice->SetRenderTarget( 0, RenderTarget._Obtain() ), L"设置后备渲染目标失败！" );
+			DXCHECK_RAISE( _pD3DDevice->SetRenderTarget( 0, RenderTarget._Obtain() ), L"设置后备渲染目标失败！" );
 		}
 
 		void Graphics_t::Destroy()
@@ -372,12 +372,12 @@ namespace OneU
 #endif
 			if( _pD3DDevice )
 			{
-				DXCHECK_THROW( _pD3DDevice->Release(), L"图形设备释放失败！" );
+				DXCHECK_RAISE( _pD3DDevice->Release(), L"图形设备释放失败！" );
 				_pD3DDevice = 0;
 			}
 			if( _pD3D )
 			{
-				DXCHECK_THROW( _pD3D->Release(), L"图形组件释放失败！" );
+				DXCHECK_RAISE( _pD3D->Release(), L"图形组件释放失败！" );
 				_pD3D = 0;
 			}
 		}

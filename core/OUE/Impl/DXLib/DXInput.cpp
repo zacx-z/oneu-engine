@@ -42,7 +42,7 @@ namespace OneU
 
 		void Input_cls::Init(HINSTANCE hInstance, HWND hWnd)
 		{
-			DXCHECK_THROW( DirectInput8Create( hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast< void ** >( &_pDInput ), NULL ), L"初始化输入失败！" );
+			DXCHECK_RAISE( DirectInput8Create( hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast< void ** >( &_pDInput ), NULL ), L"初始化输入失败！" );
 			s_hWnd = hWnd;
 		}
 
@@ -52,7 +52,7 @@ namespace OneU
 
 			Init(BufferSize);
 
-			DXCHECK_THROW(m_pDIDevice->SetCooperativeLevel( s_hWnd, DISCL_BACKGROUND|DISCL_NONEXCLUSIVE ), L"设置输入设备协作级别失败！");
+			DXCHECK_RAISE(m_pDIDevice->SetCooperativeLevel( s_hWnd, DISCL_BACKGROUND|DISCL_NONEXCLUSIVE ), L"设置输入设备协作级别失败！");
 				
 			if(BufferSize)
 			{
@@ -76,10 +76,10 @@ namespace OneU
 					break;
 
 				if( hr != DIERR_INPUTLOST && hr != DIERR_NOTACQUIRED )
-					THROW_HRESULT(hr);
+					RAISE_HRESULT(hr);
 
 				if( FAILED( m_pDIDevice->Acquire() ) )
-					THROW_HRESULT(hr);
+					RAISE_HRESULT(hr);
 			}
 		}
 		bool InputDevice::GetData( DataType *Buffer, uint32& dwElements )
@@ -108,10 +108,10 @@ namespace OneU
 				// 比较，从而修正可能发生的错误
 
 				if( hr != DIERR_INPUTLOST && hr != DIERR_NOTACQUIRED )
-					THROW_HRESULT(hr);
+					RAISE_HRESULT(hr);
 
 				if( FAILED( m_pDIDevice->Acquire() ) )
-					THROW_HRESULT(hr);
+					RAISE_HRESULT(hr);
 
 			}
 		}
@@ -133,17 +133,17 @@ namespace OneU
 
 		void KeyBoard::Init( uint32 BufferSize )
 		{
-			DXCHECK_THROW( _pDInput->CreateDevice( GUID_SysKeyboard, &m_pDIDevice, NULL ), L"创建键盘输入设备失败！" );
+			DXCHECK_RAISE( _pDInput->CreateDevice( GUID_SysKeyboard, &m_pDIDevice, NULL ), L"创建键盘输入设备失败！" );
 
-			DXCHECK_THROW( m_pDIDevice->SetDataFormat( &c_dfDIKeyboard ), L"设置键盘输入设备数据格式失败！" );
+			DXCHECK_RAISE( m_pDIDevice->SetDataFormat( &c_dfDIKeyboard ), L"设置键盘输入设备数据格式失败！" );
 
 		}
 
 		void Mouse::Init( uint32 BufferSize )
 		{
-			DXCHECK_THROW( _pDInput->CreateDevice( GUID_SysMouse, &m_pDIDevice, NULL ), L"创建鼠标输入设备失败！" );
+			DXCHECK_RAISE( _pDInput->CreateDevice( GUID_SysMouse, &m_pDIDevice, NULL ), L"创建鼠标输入设备失败！" );
 
-			DXCHECK_THROW( m_pDIDevice->SetDataFormat( &c_dfDIMouse ), L"设置鼠标输入设备数据格式失败！" );
+			DXCHECK_RAISE( m_pDIDevice->SetDataFormat( &c_dfDIMouse ), L"设置鼠标输入设备数据格式失败！" );
 		}
 	}
 }

@@ -184,8 +184,6 @@ end:
 
 }
 
-#include "WinException.h"
-
 #pragma comment( lib, "winmm.lib" )
 namespace OneU
 {
@@ -237,7 +235,7 @@ namespace OneU
 
 		if (!::RegisterClassEx(&wincl)){
 			ONEU_LOG( L"注册窗口类失败" );
-			ONEU_RAISE(WinException( ::GetLastError()));
+			ONEU_RAISE(WinErrorString(::GetLastError()).c_str());
 		}
 
 		ONEU_ASSERT(g_hWnd == NULL);
@@ -262,7 +260,7 @@ namespace OneU
 
 		if(!g_hWnd){
 			ONEU_LOG(L"创建窗口失败");
-			ONEU_RAISE(WinException(::GetLastError()));
+			ONEU_RAISE(WinErrorString(::GetLastError()).c_str());
 		}
 
 		::ShowWindow (g_hWnd, SW_SHOW);

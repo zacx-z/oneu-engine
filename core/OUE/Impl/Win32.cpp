@@ -29,68 +29,25 @@ THE SOFTWARE.
  */
 #include "Win32.h"
 #include <windows.h>
-#include "WinException.h"
 #include "../Game.h"
 
 
 namespace OneU
 {
-	
+	WinErrorString::~WinErrorString(){
+		if( m_pMsgBuf )
+		{
+			::LocalFree((void*)m_pMsgBuf );
+			m_pMsgBuf = 0;
+		}
+	}
 
-	//nothing now
-	//all go to game_win32.cpp
-	/* ----------------------------------------------------------------------------*/
-	/** 
-	* @brief 标准Main函数
-	* 
-	* @param hInstance 程序句柄
-	* @param hPrevInstance 前一个程序句柄
-	* @param lpCmdLine 控制台命令
-	* @param nCmdShow 显示参数
-	* 
-	* @return 退出代码
-	*/
-	/* ----------------------------------------------------------------------------*/
-	//	extern "C" int ONEU_API Windows_Main(IGame* (*gamefactory)(),HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
-	//		OneU::g_hInstance = hInstance;
-	//		OneU::g_hPrevInstance = hPrevInstance;
-	//
-	//		//初始化日志系统
-	//
-	//		Game_build(gamefactory);
-	//		IGame* game = &GetGame();
-	//		try{
-	//			game->init();
-	//		}
-	//		catch( ... ){
-	//			ONEU_LOG( L"初始化错误退出" );
-	//			Game_destroy();
-	//			return -1;
-	//		}
-	//
-	//		while ( TRUE ){
-	//			MSG msg;
-	//
-	//			while(::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE )){
-	//				if(msg.message == WM_QUIT) goto end;
-	//				::TranslateMessage(&msg);
-	//				::DispatchMessage(&msg);
-	//			}
-	//
-	//			try{
-	//				OneU::Sleep(1);
-	//				game->onFrame();
-	//			}
-	//			catch(...){
-	//				ONEU_LOG(L"运行时发生错误退出。");
-	//				Game_destroy();
-	//
-	//				return -1;
-	//			}
-	//		}
-	//end:
-	//		Game_destroy();
-	//
-	//		return 0;
-	//	}
+	pcwstr WinErrorString::c_str() const{
+		if( !m_pMsgBuf )
+			::FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM, NULL, 
+			m_hRes, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (pwstr) &m_pMsgBuf, 0, NULL );
+
+
+		return m_pMsgBuf;
+	}
 }

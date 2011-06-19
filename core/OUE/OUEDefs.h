@@ -28,18 +28,8 @@ THE SOFTWARE.
  * @date 2011-04-09
  */
 #pragma once
-#include "../Base/Base.h"
+#include "Base.h"
 #include <windows.h>
-
-#ifdef _MSC_VER
-#ifdef ONEU_EXPORTS
-#define ONEU_API extern "C" __declspec(dllexport)
-#else
-#define ONEU_API extern "C" __declspec(dllimport)
-#endif
-#elif defined __GNUC__
-#define ONEU_API extern "C"
-#endif
 
 //Ç°ÖÃÉùÃ÷
 namespace OneU

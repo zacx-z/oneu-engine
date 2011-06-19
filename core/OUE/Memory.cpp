@@ -111,23 +111,23 @@ namespace OneU
 		}
 	};
 
-	extern "C" ONEU_BASE_API IAllocator* Allocator_create()
+	extern "C" ONEU_API IAllocator* Allocator_create()
 	{
 		//只有这个不能使用ONEU_NEW
 		return new Allocator;
 	}
 
 	static IAllocator* s_pAllocatorInstance = NULL;
-	extern "C" ONEU_BASE_API void Allocator_build(IAllocator* (*af)()){
+	extern "C" ONEU_API void Allocator_build(IAllocator* (*af)()){
 		ONEU_ASSERT(s_pAllocatorInstance == NULL);
 		s_pAllocatorInstance = af();
 	}
-	extern "C" ONEU_BASE_API IAllocator& GetAllocator(){
+	extern "C" ONEU_API IAllocator& GetAllocator(){
 		ONEU_ASSERT(s_pAllocatorInstance != NULL);
 		return *s_pAllocatorInstance;
 	}
 
-	extern "C" ONEU_BASE_API void Allocator_destroy(){
+	extern "C" ONEU_API void Allocator_destroy(){
 		if(s_pAllocatorInstance != NULL){
 			s_pAllocatorInstance->destroy();
 			s_pAllocatorInstance = NULL;

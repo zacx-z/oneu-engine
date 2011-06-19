@@ -26,7 +26,7 @@ THE SOFTWARE.
 //可与FontE的DrawText合作
 //可使用SpriteE::I来使用现有对象
 #pragma once
-#include "../Base/Base.h"
+#include "../../Base.h"
 #ifdef __ONEU_USE_GE
 #include "DXGraphics.h"
 #include "SurTex\SurTex.h"

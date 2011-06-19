@@ -28,7 +28,7 @@ THE SOFTWARE.
  * @date 2011-04-09
  */
 #pragma once
-#include "../Base/Error.h"
+#include "Error.h"
 #include <new>
 namespace OneU
 {

@@ -132,12 +132,12 @@ clasn Error_##str{};\
 //不能在模板函数（或模板类的函数）中有静态的变量或模板类含有静态成员。
 #ifdef _MSC_VER
 #ifdef ONEU_EXPORTS
-#define ONEU_BASE_API __declspec(dllexport)
+#define ONEU_API __declspec(dllexport)
 #else
-#define ONEU_BASE_API __declspec(dllimport)
+#define ONEU_API __declspec(dllimport)
 #endif
 #elif defined __GNUC__
-#define ONEU_BASE_API
+#define ONEU_API
 #endif
 
 #include "Memory.h"

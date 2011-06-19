@@ -28,7 +28,7 @@ THE SOFTWARE.
  * @date 2010-02-10
  */
 #pragma once
-#include "../../Base/Base.h"
+#include "../../Base.h"
 
 //在定义了Base.h之后该头文件才会包含进来
 #ifdef __ONEU_USE_DIRECTINPUT
@@ -168,7 +168,7 @@ namespace OneU
 			/* ----------------------------------------------------------------------------*/
 			void Acquire()
 			{
-				DXCHECK_THROW( m_pDIDevice->Acquire(), L"获取输入设备失败！" );
+				DXCHECK_RAISE( m_pDIDevice->Acquire(), L"获取输入设备失败！" );
 			}
 			/* ----------------------------------------------------------------------------*/
 			/** 
