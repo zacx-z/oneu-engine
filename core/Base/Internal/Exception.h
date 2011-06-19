@@ -58,7 +58,6 @@ namespace OneU
 			__asm("int 3");
 #endif
 		}
-		else throw Exp;
 	}
 
 	//Exp “Ï≥£∂‘œÛ
