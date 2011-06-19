@@ -23,8 +23,8 @@ THE SOFTWARE.
 #include "Shape.h"
 #include "Impl/DXVideo.h"
 #include "Game.h"
-#include "../DXGraphics/VertexUP.h"
-#include "../DXGraphics/TStage.h"
+#include "Impl/DXLib/VertexUP.h"
+#include "Impl/DXLib/TStage.h"
 
 namespace OneU
 {

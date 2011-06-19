@@ -1,6 +1,6 @@
 #include "DXStereo.h"
 #include "Win32.h"
-#include "../../Base/Internal/DXDefs.h"
+#include "DXLib/DXDefs.h"
 
 #pragma comment(lib, "strmiids.lib")
 
