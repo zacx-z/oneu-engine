@@ -20,47 +20,30 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include "../Control.h"
-#include "DXLib/DXInput.h"
+#pragma once
+#include "D3DDefs.h"
+
+#ifdef __ONEU_USE_GE
+
+#ifdef __ONEU_USE_GE
+#include <d3dx9.h>
+
+#include "ImageE.h"
+#include "MatrixE.h"
+#include "SpriteE.h"
+#include "FontE.h"
+#include "LineE.h"
+#endif
 
 namespace OneU
 {
-	class DXControl
-		: public IControl
+	namespace DX
 	{
-		DX::KeyBoard m_KB;
-		DX::Mouse m_Mouse;
-		DX::KeyBoard::State m_KB_State;
-		DX::Mouse::State m_Mouse_State;
-
-		bool m_Button_Release[8], m_Button_Press[8];
-		bool m_KB_Release[256], m_KB_Press[256];
-	public:
-		DXControl();
-		~DXControl();
-
-		void update();
-		bool keyIsDown(uint32 scancode);
-		bool keyPress(uint32 scancode);
-		bool keyRelease(uint32 scancode);
-
-		bool buttonIsDown(uint32 ButtonID);
-		bool buttonRelease(uint32 ButtonID);
-		bool buttonPress(uint32 ButtonID);
-
-		vector2i_t mouseOffset();
-
-		void _notifyButton(uint32 id, bool down){
-			if(!down)
-				m_Button_Release[id] = true;
-			else
-				m_Button_Press[id] = true;
-		}
-		void _notifyKey(uint32 code, bool down){
-			if(!down)
-				m_KB_Release[code] = true;
-			else
-				m_KB_Press[code] = true;
-		}
-	};
+		void InitializeOneUE();
+		void DestroyOneUE();
+		void OnLostDeviceOneUE();
+		void OnResetDeviceOneUE();
+	}
 }
+
+#endif

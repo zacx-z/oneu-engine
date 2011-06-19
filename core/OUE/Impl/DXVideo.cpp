@@ -22,10 +22,10 @@ THE SOFTWARE.
 */
 #include "DXVideo.h"
 #include "Win32.h"
-#include "../../DXGraphics/DXGraphics.h"
-#include "../../DXGraphics/ImageE.h"
-#include "../../DXGraphics/VertexUP.h"
-#include "../../DXGraphics/TStage.h"
+#include "DXLib/DXGraphics.h"
+#include "DXLib/ImageE.h"
+#include "DXLib/VertexUP.h"
+#include "DXLib/TStage.h"
 #include "../Game.h"
 
 #ifndef _WIN32
@@ -50,7 +50,7 @@ namespace OneU
 	void DXVideo::init(uint32 width, uint32 height, bool bWindowed){
 		ONEU_ASSERT(g_hWnd != NULL);
 		m_IsWindowed = bWindowed;
-		try{
+		/*try*/{
 			DX::Graphics.PreInit();
 			if(bWindowed)
 				DX::Graphics.InitWindowed(width, height, g_hWnd);
@@ -64,12 +64,12 @@ namespace OneU
 			}
 			DX::Graphics.SetCullMode(0);
 		}
-		catch(Exception& e){
-			ONEU_RAISE(e);
-		}
-		catch(...){
-			ONEU_RAISE(L"Î´Öª´íÎó");
-		}
+		//catch(Exception& e){
+		//	ONEU_RAISE(e);
+		//}
+		//catch(...){
+		//	ONEU_RAISE(L"Î´Öª´íÎó");
+		//}
 
 		m_DeviceSize = vector2u_t(width, height);
 
@@ -119,33 +119,33 @@ namespace OneU
 	}
 	void DXVideo::render(){
 		ONEU_ASSERT(m_MatrixStack.size() == 1);
-		try{
+		/*try*/{
 			DX::RenderManip rd;
 			g_pRD = &rd;
 			m_pRoot->visit_paint();
 			g_pRD = NULL;
 		}
-		catch(Exception& e){
-			ONEU_RAISE(e);
-		}
-		catch(...){
-			ONEU_RAISE(L"Î´Öª´íÎó");
-		}
+		//catch(Exception& e){
+		//	ONEU_RAISE(e);
+		//}
+		//catch(...){
+		//	ONEU_RAISE(L"Î´Öª´íÎó");
+		//}
 	}
 	void DXVideo::update(){
 		m_pRoot->visit_update();
 	}
 
 	void DXVideo::flip(){
-		try{
+		/*try*/{
 			DX::Graphics.Present();
 		}
-		catch(Exception& e){
-			ONEU_RAISE(e);
-		}
-		catch(...){
-			ONEU_RAISE(L"Î´Öª´íÎó");
-		}
+		//catch(Exception& e){
+		//	ONEU_RAISE(e);
+		//}
+		//catch(...){
+		//	ONEU_RAISE(L"Î´Öª´íÎó");
+		//}
 	}
 
 	_DXImageTag* DXVideo::_getDXImageTag(pcwstr filename){
@@ -158,13 +158,13 @@ namespace OneU
 			pTag->video = this;
 			pTag->it = m_ImageTable.getLastItem();
 			pTag->fileName = filename;
-			try{
+			/*try*/{
 				DX::CreateTextureFromFile(filename, pTag->texture, 1, DX::PXLFMT_A8R8G8B8);
 				D3DXGetImageInfoFromFile(filename, &pTag->info);
 			}
-			catch(Exception& e){
-				ONEU_RAISE(e);
-			}
+			//catch(Exception& e){
+			//	ONEU_RAISE(e);
+			//}
 
 			return pTag;
 		}
@@ -414,16 +414,16 @@ namespace OneU
 	}
 
 	DXVideo::~DXVideo(){
-		try{
+		/*try*/{
 			if(m_pRoot != NULL){ ONEU_DELETE m_pRoot; m_pRoot = NULL; }
 			DX::Graphics.Destroy();
 		}
-		catch(Exception& e){
-			ONEU_RAISE(e);
-		}
-		catch(...){
-			ONEU_RAISE(L"Î´Öª´íÎó");
-		}
+		//catch(Exception& e){
+		//	ONEU_RAISE(e);
+		//}
+		//catch(...){
+		//	ONEU_RAISE(L"Î´Öª´íÎó");
+		//}
 	}
 
 

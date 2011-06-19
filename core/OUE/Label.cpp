@@ -22,8 +22,8 @@ THE SOFTWARE.
 */
 #include "Label.h"
 #include "Game.h"
-#include "../DXGraphics/FontE.h"
-#include "../DXGraphics/SpriteE.h"
+#include "Impl/DXLib/FontE.h"
+#include "Impl/DXLib/SpriteE.h"
 
 namespace OneU
 {
