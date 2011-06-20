@@ -22,8 +22,7 @@ THE SOFTWARE.
 */
 #include "Label.h"
 #include "Game.h"
-#include "Impl/DXLib/FontE.h"
-#include "Impl/DXLib/SpriteE.h"
+#include "Impl/DXLib/DXAUX.h"
 
 namespace OneU
 {
@@ -31,16 +30,19 @@ namespace OneU
 		: public video::IModule
 	{
 	public:
-		DX::SpriteE sprite;
+		ID3DXSprite* sprite;
 		Label_Module(){
-			sprite.Create();
+			sprite = DX::CreateXSprite();
+		}
+		~Label_Module(){
+			SAFE_RELEASE(sprite);
 		}
 	};
 	static Label_Module* s_pModule = NULL;
 	class Label_Impl
 		: public ILabel
 	{
-		DX::FontE font;
+		ID3DXFont* font;
 		float m_Width, m_Height;
 		String m_Text;
 		color_t m_Color;
@@ -51,9 +53,12 @@ namespace OneU
 		{
 			if(!s_pModule)
 				s_pModule = ONEU_NEW Label_Module;
-			font.Create(fontSize, (uint32)(fontSize * 0.4f), 1, 1, 0, fontName);
+			font = DX::CreateXFont(fontSize, (uint32)(fontSize * 0.4f), 1, 1, 0, fontName);
 
 			this->create2DTransform();
+		}
+		~Label_Impl(){
+			SAFE_RELEASE(font);
 		}
 		void setText(pcwstr text){
 			m_Text = text;
@@ -78,10 +83,10 @@ namespace OneU
 			if(m_Align & T_BOTTOM) flag |= DT_BOTTOM;
 			else if(m_Align & T_VCENTER) flag |= DT_VCENTER;
 
-			s_pModule->sprite.SetTransform((D3DMATRIX*)&GetVideo()._getTransform());
-			s_pModule->sprite.Begin();
-			font.DrawText(&s_pModule->sprite, m_Text.c_str(), (RECT*)&recti_t(0, 0, (int)m_Width, (int)m_Height), m_Color, flag);
-			s_pModule->sprite.End();
+			DX::XSpriteSetTransform(s_pModule->sprite, (D3DMATRIX*)&GetVideo()._getTransform());
+			DX::XSpriteBegin(s_pModule->sprite);
+			DX::XDrawText(font, s_pModule->sprite, m_Text.c_str(), (RECT*)&recti_t(0, 0, (int)m_Width, (int)m_Height), m_Color, flag);
+			DX::XSpriteEnd(s_pModule->sprite);
 		}
 		void _describe(String& buffer, int depth){ buffer.append(L"<label>\n"); }
 	};

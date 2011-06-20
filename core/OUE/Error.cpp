@@ -25,15 +25,19 @@ THE SOFTWARE.
 #include "Error.h"
 #include <windows.h>
 #include <cstdlib>
+#include <errno.h>
 #include "String.h"
 #include "Logger.h"
 
+#ifdef __GNUC__
+typedef int errno_t;
+#endif
 #pragma warning( disable : 4311 )
 
 namespace OneU
 {
 
-#ifdef __ONEU_USE_ASSERT
+#ifdef ONEU_USE_ASSERT
 
 	void DumpString( pcwstr str )
 	{
@@ -128,8 +132,10 @@ namespace OneU
 			return L"Directory not empty";
 		case EILSEQ:
 			return L"Illegal byte sequence";
+#ifdef _MSC_VER_
 		case STRUNCATE:
 			return L"A string copy or concatenation resulted in a truncated string";
+#endif
 		default:
 			return L"An unknown error occurs";
 		}//switch

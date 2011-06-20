@@ -27,11 +27,11 @@ THE SOFTWARE.
 #ifdef _WIN32
 #include "Impl/Game_Win32.h"
 #endif
-#ifdef __ONEU_USE_DIRECT3D
+#ifdef ONEU_USE_DIRECT3D
 #include "Impl/DXVideo.h"
 #endif
 #include "Impl/DXStereo.h"
-#ifdef __ONEU_USE_DIRECTINPUT
+#ifdef ONEU_USE_DIRECTINPUT
 #include "Impl/DXControl.h"
 #endif
 
@@ -48,7 +48,7 @@ namespace OneU
 	{
 		ONEU_ASSERT(s_pGame == NULL);
 		Allocator_build(Allocator_create);
-		Logger_build(LoggerDisk_Factory);
+		Logger_build(LoggerNull_Factory);//FIXME: 见LoggerDisk.cpp ruby的fclose符号如何消除？
 		s_pGame = gf();
 
 		_last_eh = SetTerminateHandler(_destroyGame);
@@ -77,7 +77,7 @@ namespace OneU
 #endif
 	}
 	ONEU_API IVideo* Video_create(){
-#ifdef __ONEU_USE_DIRECT3D
+#ifdef ONEU_USE_DIRECT3D
 		return ONEU_NEW DXVideo;
 #endif
 	}
@@ -85,7 +85,7 @@ namespace OneU
 		return ONEU_NEW DXStereo;
 	}
 	ONEU_API IControl* Control_create(){
-#ifdef __ONEU_USE_DIRECTINPUT
+#ifdef ONEU_USE_DIRECTINPUT
 		return ONEU_NEW DXControl;
 #endif
 	}

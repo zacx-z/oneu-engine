@@ -59,7 +59,7 @@ namespace OneU
 
 
 //assert作为调试手段 在正式程序用错误处理
-#ifdef __ONEU_USE_ASSERT
+#ifdef ONEU_USE_ASSERT
 #include <cassert>
 /* ----------------------------------------------------------------------------*/
 /** 

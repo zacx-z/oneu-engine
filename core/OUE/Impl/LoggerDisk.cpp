@@ -46,7 +46,7 @@ namespace OneU
 	LoggerDisk::~LoggerDisk(void){
 		flush();
 		if(m_pLog) {
-			_close(_fileno(m_pLog));//ruby库会导出fclose符号 致使fclose不能用 WTF!
+			fclose(m_pLog);//BUGS:ruby库会导出fclose符号，该句会崩溃。WTF!
 		}
 	}
 
@@ -106,13 +106,9 @@ namespace OneU
 		}
 	}
 
-	ILogger* LoggerDisk::__new()
-	{
-		return ONEU_NEW LoggerDisk();
-	}
 
 	extern "C" ONEU_API ILogger* LoggerDisk_Factory()
 	{
-		return LoggerDisk::__new();
+		return ONEU_NEW LoggerDisk;
 	}
 }

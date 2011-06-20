@@ -431,15 +431,11 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Impl\DXLib\DXAUX.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Impl\DXLib\DXDefs.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Impl\DXLib\DXGE.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Impl\DXLib\DXGE.h"
 					>
 				</File>
 				<File
@@ -459,19 +455,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Impl\DXLib\FontE.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Impl\DXLib\LineE.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Impl\DXLib\MatrixE.h"
-					>
-				</File>
-				<File
 					RelativePath=".\Impl\DXLib\PixelFormat.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Impl\DXLib\Texture.h"
 					>
 				</File>
 				<File
@@ -482,38 +470,6 @@
 					RelativePath=".\Impl\DXLib\VertexUP.h"
 					>
 				</File>
-				<Filter
-					Name="SurTex"
-					>
-					<File
-						RelativePath=".\Impl\DXLib\ImageE.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Impl\DXLib\SpriteE.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Impl\DXLib\SurTex\STDef.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Impl\DXLib\SurTex\STLock.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Impl\DXLib\SurTex\Surface.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Impl\DXLib\SurTex\SurTex.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Impl\DXLib\SurTex\Texture.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

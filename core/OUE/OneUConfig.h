@@ -45,33 +45,21 @@ THE SOFTWARE.
 
 #ifdef _DEBUG
 //使用断言
-#define __ONEU_USE_ASSERT
+#define ONEU_USE_ASSERT
 //使用边界检查
-#define __ONEU_USE_BOUND_CHECK
-//使用类计数
-#define __ONEU_USE_CLASS_NUM
+#define ONEU_USE_BOUND_CHECK
 #endif
 
 
 //使用Dump文件
-#define __ONEU_USE_DUMPFILE
-
-//使用辅助库
-#define __ONEU_USE_GE
+#define ONEU_USE_DUMPFILE
 
 //使用3D图形处理
-#define __ONEU_USE_GRAPHICS_3D
+#define ONEU_USE_GRAPHICS_3D
 //使用Direct3D
-#define __ONEU_USE_DIRECT3D
-#ifdef __ONEU_USE_DIRECT3D
-namespace OneU
-{
-	namespace DX{}
-	namespace Lib = DX;
-}
-#endif
+#define ONEU_USE_DIRECT3D
 //使用DirectInput
-#define __ONEU_USE_DIRECTINPUT
+#define ONEU_USE_DIRECTINPUT
 
 
 //

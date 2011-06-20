@@ -23,7 +23,7 @@ THE SOFTWARE.
 #include "DXVideo.h"
 #include "Win32.h"
 #include "DXLib/DXGraphics.h"
-#include "DXLib/ImageE.h"
+#include "DXLib/DXAUX.h"
 #include "DXLib/VertexUP.h"
 #include "DXLib/TStage.h"
 #include "../Game.h"
@@ -158,13 +158,11 @@ namespace OneU
 			pTag->video = this;
 			pTag->it = m_ImageTable.getLastItem();
 			pTag->fileName = filename;
-			/*try*/{
-				DX::CreateTextureFromFile(filename, pTag->texture, 1, DX::PXLFMT_A8R8G8B8);
+
+			{
+				DX::CreateTextureFromFile(filename, pTag->texture, 1, DX::PXLFMT_A8R8G8B8, 0, D3DPOOL_DEFAULT);
 				D3DXGetImageInfoFromFile(filename, &pTag->info);
 			}
-			//catch(Exception& e){
-			//	ONEU_RAISE(e);
-			//}
 
 			return pTag;
 		}
@@ -363,7 +361,7 @@ namespace OneU
 	void DXVideo::reloadD3DResource(){
 		for(ImageTable_t::iterator it = m_ImageTable.begin(); it != m_ImageTable.end(); ++it){
 			_DXImageTag* p = it.getValue();
-			DX::CreateTextureFromFile(p->fileName.c_str(), p->texture, 1, DX::PXLFMT_A8R8G8B8);
+			DX::CreateTextureFromFile(p->fileName.c_str(), p->texture, 1, DX::PXLFMT_A8R8G8B8, 0, D3DPOOL_DEFAULT);
 		}
 	}
 

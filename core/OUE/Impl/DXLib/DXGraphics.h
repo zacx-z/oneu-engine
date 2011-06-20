@@ -46,8 +46,7 @@ namespace OneU
 {
 	namespace DX
 	{
-		class Surface_RenderTarget;
-		template< uint32, D3DPOOL > class Surface_Texture;
+		class Surface;
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 显示模式
@@ -89,7 +88,7 @@ namespace OneU
 		 * @brief 图形对象
 		 */
 		/* ----------------------------------------------------------------------------*/
-		class ONEU_DXGRAPHICS_API Graphics_t
+		class  Graphics_t
 		{
 		public:
 			static Graphics_t* GetInstance();
@@ -245,7 +244,7 @@ namespace OneU
 			/* ----------------------------------------------------------------------------*/
 			void Reset();
 
-#ifdef __ONEU_USE_GRAPHICS_3D
+#ifdef ONEU_USE_GRAPHICS_3D
 			/* ----------------------------------------------------------------------------*/
 			/** 
 			 * @brief 设置世界变换矩阵
@@ -416,9 +415,8 @@ namespace OneU
 			 * @returns 渲染对象页面对象
 			 */
 			/* ----------------------------------------------------------------------------*/
-			Surface_RenderTarget GetRenderTarget() const;
-			void SetRenderTarget( Surface_RenderTarget &RenderTarget );
-			void SetRenderTarget( Surface_Texture< D3DUSAGE_RENDERTARGET, D3DPOOL_DEFAULT > &RenderTarget );
+			Surface GetRenderTarget() const;
+			void SetRenderTarget( Surface &RenderTarget );
 
 			//测试
 			/* ----------------------------------------------------------------------------*/
@@ -441,7 +439,7 @@ namespace OneU
 		 * 在需要渲染的时候实例化，并对后备缓冲操作。实例析构时自动结束渲染。
 		 */
 		/* ----------------------------------------------------------------------------*/
-		class ONEU_DXGRAPHICS_API RenderManip
+		class  RenderManip
 		{
 		public:
 			/* ----------------------------------------------------------------------------*/
