@@ -20,4 +20,4 @@
 = 参考 =
 以下参考可能带来一些启发。
   * SWIG创建语言扩展。
-  * Game Maker扩展编写。
+  * GameMakerExtension。
