@@ -589,10 +589,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\Document\OldPage.h"
-			>
-		</File>
-		<File
 			RelativePath=".\Document\Page.h"
 			>
 		</File>
