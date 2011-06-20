@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.0;..\include\ruby-1.9.0\i386-mswin32"
+				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.0;..\include\ruby-1.9.0\i386-mswin32;$(DXSDK_DIR)Include\"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;ONEU_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -65,7 +65,7 @@
 				AdditionalDependencies="msvcrt-ruby190.lib"
 				OutputFile="$(OutDir)\$(ProjectName).so"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\lib\"
+				AdditionalLibraryDirectories="..\lib\;$(DXSDK_DIR)Lib\x86"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -121,7 +121,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.0;..\include\ruby-1.9.0\i386-mswin32"
+				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.0;..\include\ruby-1.9.0\i386-mswin32;$(DXSDK_DIR)Include\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;ONEU_EXPORTS"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -143,7 +143,7 @@
 				AdditionalDependencies="msvcrt-ruby190.lib"
 				OutputFile="$(OutDir)\$(ProjectName).so"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\lib\"
+				AdditionalLibraryDirectories="..\lib\;$(DXSDK_DIR)Lib\x86"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -422,14 +422,6 @@
 			<Filter
 				Name="Tool"
 				>
-				<File
-					RelativePath=".\Impl\Shell.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Impl\Watch.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="DXLib"
