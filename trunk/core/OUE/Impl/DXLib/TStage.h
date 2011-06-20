@@ -33,7 +33,7 @@ namespace OneU
 	namespace DX
 	{
 		extern IDirect3DDevice9 *_pD3DDevice;
-		class ONEU_DXGRAPHICS_API TStage
+		class  TStage
 		{
 			unsigned int index;
 		public:

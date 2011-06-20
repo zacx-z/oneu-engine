@@ -24,16 +24,6 @@ THE SOFTWARE.
 #include "../../Base.h"
 #include "DXDefs.h"
 
-//#ifdef ONEU_DLL
-#ifdef ONEU_EXPORTS
-#define ONEU_DXGRAPHICS_API __declspec(dllexport)
-#else
-#define ONEU_DXGRAPHICS_API __declspec(dllimport)
-#endif
-//#else
-//#define ONEU_DXGRAPHICS_API
-//#endif
-
 #include <d3d9types.h>
 namespace OneU
 {
@@ -132,13 +122,6 @@ namespace OneU
 			: _1( a ), _2( b ), _3( c ), _4( d ){}
 		VECTOR4(){}
 	}PLANE;
-
-	/* ----------------------------------------------------------------------------*/
-	/** 
-	 * @brief 单位矩阵
-	 */
-	/* ----------------------------------------------------------------------------*/
-	ONEU_DXGRAPHICS_API extern const MATRIX matIMatrix;//单位矩阵
 
 	namespace DX
 	{

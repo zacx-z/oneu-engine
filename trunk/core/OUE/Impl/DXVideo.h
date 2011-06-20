@@ -23,7 +23,7 @@ THE SOFTWARE.
 #pragma once
 #include "../Video.h"
 #include "DXLib/DXGraphics.h"
-#include "DXLib/SurTex/SurTex.h"
+#include "DXLib/Texture.h"
 #include "../Table.h"
 #include "../Stack.h"
 #include <d3dx9.h>

@@ -27,29 +27,22 @@ THE SOFTWARE.
 
 #include "DXGraphics.h"
 #include <d3dx9.h>
-#include "DXGE.h"
 #include "VertexUP.h"
 
-#include "SurTex\SurTex.h"
-#include "ImageE.h"
-#include "SpriteE.h"
-#include "MatrixE.h"
-#include "SurTex\STDef.h"
+#include "Texture.h"
 
 #pragma init_seg(lib)
 
 namespace OneU
 {
-	//单位矩阵
-	ONEU_DXGRAPHICS_API const MATRIX matIMatrix = {
-		1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f
-	};
 	//图形模块对象
 	namespace DX
 	{
+#ifdef ONEU_USE_DIRECT3D
+		uint32 s_Filter = D3DX_FILTER_TRIANGLE | D3DX_FILTER_DITHER;
+		uint32 s_MipFilter = D3DX_FILTER_BOX;
+#endif
+
 		Graphics_t &Graphics = *GetGraphics();
 		Graphics_t* Graphics_t::GetInstance()
 		{
@@ -70,13 +63,6 @@ namespace OneU
 		//若DXSDK变化 从dword到D3DMULTISAMPLE_TYPE的强制转换有可能导致错误
 		static uint32 g_MultiSampleType = 0;
 		static uint32 g_MultiSampleQuality = 0;
-
-#ifdef __ONEU_USE_CLASS_NUM
-		//__Surface_Base的类计数变量
-		int Surface_Base::s_Num = 0;
-		//__Texture_Base的类计数变量
-		int Texture_Base::s_Num = 0;
-#endif
 
 		//初始化图形预处理 主要是为了检测硬件
 		void Graphics_t::PreInit()
@@ -136,9 +122,6 @@ namespace OneU
 				RAISE_HRESULT(hr);
 			}
 
-#ifdef __ONEU_USE_GE
-			InitializeOneUE();
-#endif
 			InitParameters();
 
 		}
@@ -183,7 +166,7 @@ namespace OneU
 				ONEU_LOG( L"创建Direct3D设备失败" );
 				RAISE_HRESULT(hr);
 			}
-#ifdef __ONEU_USE_GE
+#ifdef ONEU_USE_GE
 			InitializeOneUE();
 #endif
 			InitParameters();
@@ -291,15 +274,9 @@ namespace OneU
 
 		void Graphics_t::OnLostDevice()
 		{
-#ifdef __ONEU_USE_GE
-			OnLostDeviceOneUE();
-#endif
 		}
 		void Graphics_t::OnResetDevice()
 		{
-#ifdef __ONEU_USE_GE
-			OnResetDeviceOneUE();
-#endif
 		}
 		void Graphics_t::Reset()
 		{
@@ -349,27 +326,20 @@ namespace OneU
 			g_D3DDM = *reinterpret_cast< const D3DDISPLAYMODE* >( pDM );
 		}
 
-		Surface_RenderTarget Graphics_t::GetRenderTarget() const
+		Surface Graphics_t::GetRenderTarget() const
 		{
 			IDirect3DSurface9 * pRenderTarget;
 			DXCHECK_RAISE( _pD3DDevice->GetRenderTarget( 0, &pRenderTarget ), L"获取后备渲染目标失败！" );
-			return Surface_RenderTarget( pRenderTarget );
+			return Surface( pRenderTarget );
 		}
 
-		void Graphics_t::SetRenderTarget( Surface_RenderTarget &RenderTarget )
-		{
-			DXCHECK_RAISE( _pD3DDevice->SetRenderTarget( 0, RenderTarget._Obtain() ), L"设置后备渲染目标失败！" );
-		}
-		void Graphics_t::SetRenderTarget( Surface_Texture< D3DUSAGE_RENDERTARGET, D3DPOOL_DEFAULT > &RenderTarget )
+		void Graphics_t::SetRenderTarget( Surface &RenderTarget )
 		{
 			DXCHECK_RAISE( _pD3DDevice->SetRenderTarget( 0, RenderTarget._Obtain() ), L"设置后备渲染目标失败！" );
 		}
 
 		void Graphics_t::Destroy()
 		{
-#ifdef __ONEU_USE_GE
-			DestroyOneUE();
-#endif
 			if( _pD3DDevice )
 			{
 				DXCHECK_RAISE( _pD3DDevice->Release(), L"图形设备释放失败！" );
@@ -391,121 +361,121 @@ namespace OneU
 			VertexStruct()
 				: z( 1.0f ){}
 		};
-		void Graphics_t::Test( uint32 dwSeconds )
-		{
-			VertexUP< FVF_XYZ | FVF_DIFFUSE | FVF_TEX1 > a[3];
-			struct 
-			{
-				enum {Flag = FVF_XYZ| FVF_DIFFUSE |FVF_TEX1 };
-				float x,y,z;
-				D3DCOLOR Diff;
-				float u,v;
-				void SetPos( float ax, float ay, float az )
-				{
-					x = ax; y = ay; z = az;
-				}
-				void SetUV( float au, float av )
-				{
-					u = au; v = av;
-				}
-				D3DCOLOR & Diffuse()
-				{
-					return Diff;
-				}
-			} b[ 3 ];
-			/*a[0].diffuse = D3DCOLOR_XRGB( 0xff, 0, 0 );
-			a[1].diffuse = D3DCOLOR_XRGB( 0, 0xff, 0 );
-			a[2].diffuse = D3DCOLOR_XRGB( 0, 0, 0xff );
+		//void Graphics_t::Test( uint32 dwSeconds )
+		//{
+		//	VertexUP< FVF_XYZ | FVF_DIFFUSE | FVF_TEX1 > a[3];
+		//	struct 
+		//	{
+		//		enum {Flag = FVF_XYZ| FVF_DIFFUSE |FVF_TEX1 };
+		//		float x,y,z;
+		//		D3DCOLOR Diff;
+		//		float u,v;
+		//		void SetPos( float ax, float ay, float az )
+		//		{
+		//			x = ax; y = ay; z = az;
+		//		}
+		//		void SetUV( float au, float av )
+		//		{
+		//			u = au; v = av;
+		//		}
+		//		D3DCOLOR & Diffuse()
+		//		{
+		//			return Diff;
+		//		}
+		//	} b[ 3 ];
+		//	/*a[0].diffuse = D3DCOLOR_XRGB( 0xff, 0, 0 );
+		//	a[1].diffuse = D3DCOLOR_XRGB( 0, 0xff, 0 );
+		//	a[2].diffuse = D3DCOLOR_XRGB( 0, 0, 0xff );
 
-			//测试
-			a[0].x = -0.732f; a[0].y = 0.5f;
-			a[1].x = 0.732f; a[1].y = 0.5f;
-			//a[2].x = 0.0f;
-			//a[2].y = -1.0f;
-			p->X() = 0.0f;
-			p->Y() = -1.0f;
-			p->Diffuse() = 0;*/
-			a[0].SetUV< 0 >( 0, 0 );
-			a[1].SetUV< 0 >( 3, 0 );
-			a[2].SetUV< 0 >( 0, 3 );
-			float p = a[2].U< 0 >();
-			a[0].Diffuse() = D3DCOLOR_XRGB( 0xff, 0, 0 );
-			a[1].Diffuse() = D3DCOLOR_XRGB( 0, 0xff, 0 );
-			a[2].Diffuse() = D3DCOLOR_XRGB( 0, 0, 0xff );
+		//	//测试
+		//	a[0].x = -0.732f; a[0].y = 0.5f;
+		//	a[1].x = 0.732f; a[1].y = 0.5f;
+		//	//a[2].x = 0.0f;
+		//	//a[2].y = -1.0f;
+		//	p->X() = 0.0f;
+		//	p->Y() = -1.0f;
+		//	p->Diffuse() = 0;*/
+		//	a[0].SetUV< 0 >( 0, 0 );
+		//	a[1].SetUV< 0 >( 3, 0 );
+		//	a[2].SetUV< 0 >( 0, 3 );
+		//	float p = a[2].U< 0 >();
+		//	a[0].Diffuse() = D3DCOLOR_XRGB( 0xff, 0, 0 );
+		//	a[1].Diffuse() = D3DCOLOR_XRGB( 0, 0xff, 0 );
+		//	a[2].Diffuse() = D3DCOLOR_XRGB( 0, 0, 0xff );
 
-			a[0].SetPos( -0.732f, 0.5f, 1.0f );
-			a[1].SetPos( 0.732f, 0.5f, 1.0f );
-			a[2].SetPos( 0.0f, -1.0f, 1.0f );
-
-
-			::memcpy( b, a, sizeof( a ) );
+		//	a[0].SetPos( -0.732f, 0.5f, 1.0f );
+		//	a[1].SetPos( 0.732f, 0.5f, 1.0f );
+		//	a[2].SetPos( 0.0f, -1.0f, 1.0f );
 
 
-			SetFVF( a );
-			
-			_pD3DDevice->SetRenderState(D3DRS_LIGHTING,FALSE);
-			//_pD3DDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);
-
-			D3DXMATRIX mat;
-
-			D3DXMatrixIdentity( &mat );
-
-			//_pD3DDevice->SetTransform( D3DTS_WORLD, &mat );
-			//_pD3DDevice->SetTransform( D3DTS_VIEW, &mat );
-
-			D3DXMATRIX matProj;
-			D3DXMatrixPerspectiveFovLH(&matProj,D3DX_PI / 4, 1.0f, 0.1f, 1000.0f);
-
-			/*D3DLOCKED_RECT DDLR;
-			__Surface< D3DPOOL_SYSTEMMEM > sf;
-			sf.Create( 128, 128, PXLFMT_X8R8G8B8 );
-			sf._ObtainSurface()->LockRect( &DDLR, NULL, D3DLOCK_DISCARD );
-			for( int i = 0; i < 128 ; i++ )
-				for( int j = 0; j < 128 * 4; j ++ )
-				{
-					unsigned char * a = reinterpret_cast< unsigned char * > ( DDLR.pBits );
-					*( a + i * DDLR.Pitch + j ) = i + j;;
-				}
-			sf._ObtainSurface()->UnlockRect();
-			Texture2D t;
-			t.CreateFromSurface( sf );*/
-			Texture_t< 0, D3DPOOL_SYSTEMMEM > t2;
-			Texture_t< D3DUSAGE_RENDERTARGET, D3DPOOL_DEFAULT > t3,t;
-			t3.Create( 200, 200, PXLFMT_X8R8G8B8, 3 );
-			CreateTextureFromFile( L"A.jpg", t2, 2, PXLFMT_X8R8G8B8 );
-			RECT rc = { 0, 0, 200, 200 };
-			t3.GetSurfaceLevel( 0 ).UpdateSurface( NULL, &( t2.GetSurfaceLevel( 1 ) ), &rc );
-			t.Create( 200, 200, PXLFMT_X8R8G8B8, 1 );
-			t.GetSurfaceLevel( 0 ).StretchRect( NULL, &(t3.GetSurfaceLevel( 0 ) ), NULL );
+		//	::memcpy( b, a, sizeof( a ) );
 
 
-			_pD3DDevice->SetTexture( 0, t._Obtain() );
+		//	SetFVF( a );
+		//	
+		//	_pD3DDevice->SetRenderState(D3DRS_LIGHTING,FALSE);
+		//	//_pD3DDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);
 
-			ID3DXSprite * pSp = 0;
-			D3DXCreateSprite( _pD3DDevice, &pSp );
+		//	D3DXMATRIX mat;
 
-			//_pD3DDevice->SetTransform( D3DTS_PROJECTION, &mat );
+		//	D3DXMatrixIdentity( &mat );
 
-			int cur_time = 0;
-			while( ++cur_time < dwSeconds * 1000 )
-			{
-				static float angle = 0.0f;
-				angle += 0.01f;
-				_pD3DDevice->GetTransform( D3DTS_WORLD, &mat );
-				D3DXMatrixRotationZ( &mat , angle );
-				_pD3DDevice->SetTransform( D3DTS_WORLD, &mat );
+		//	//_pD3DDevice->SetTransform( D3DTS_WORLD, &mat );
+		//	//_pD3DDevice->SetTransform( D3DTS_VIEW, &mat );
 
-				_pD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET, 0, 0.0f, 0 );
-				_pD3DDevice->BeginScene();
-				pSp->Begin( 0 );
-				pSp->Draw( t._Obtain(), 0, 0, 0, 0xffffffff );
-				pSp->End();
-				_pD3DDevice->DrawPrimitiveUP( D3DPT_TRIANGLEFAN, 1, &a, sizeof( a[0] ) );
-				_pD3DDevice->EndScene();
+		//	D3DXMATRIX matProj;
+		//	D3DXMatrixPerspectiveFovLH(&matProj,D3DX_PI / 4, 1.0f, 0.1f, 1000.0f);
+
+		//	/*D3DLOCKED_RECT DDLR;
+		//	__Surface< D3DPOOL_SYSTEMMEM > sf;
+		//	sf.Create( 128, 128, PXLFMT_X8R8G8B8 );
+		//	sf._ObtainSurface()->LockRect( &DDLR, NULL, D3DLOCK_DISCARD );
+		//	for( int i = 0; i < 128 ; i++ )
+		//		for( int j = 0; j < 128 * 4; j ++ )
+		//		{
+		//			unsigned char * a = reinterpret_cast< unsigned char * > ( DDLR.pBits );
+		//			*( a + i * DDLR.Pitch + j ) = i + j;;
+		//		}
+		//	sf._ObtainSurface()->UnlockRect();
+		//	Texture2D t;
+		//	t.CreateFromSurface( sf );*/
+		//	Texture_t< 0, D3DPOOL_SYSTEMMEM > t2;
+		//	Texture_t< D3DUSAGE_RENDERTARGET, D3DPOOL_DEFAULT > t3,t;
+		//	t3.Create( 200, 200, PXLFMT_X8R8G8B8, 3 );
+		//	CreateTextureFromFile( L"A.jpg", t2, 2, PXLFMT_X8R8G8B8 );
+		//	RECT rc = { 0, 0, 200, 200 };
+		//	t3.GetSurfaceLevel( 0 ).UpdateSurface( NULL, &( t2.GetSurfaceLevel( 1 ) ), &rc );
+		//	t.Create( 200, 200, PXLFMT_X8R8G8B8, 1 );
+		//	t.GetSurfaceLevel( 0 ).StretchRect( NULL, &(t3.GetSurfaceLevel( 0 ) ), NULL );
 
 
-				Present();
-			}
-		}
+		//	_pD3DDevice->SetTexture( 0, t._Obtain() );
+
+		//	ID3DXSprite * pSp = 0;
+		//	D3DXCreateSprite( _pD3DDevice, &pSp );
+
+		//	//_pD3DDevice->SetTransform( D3DTS_PROJECTION, &mat );
+
+		//	int cur_time = 0;
+		//	while( ++cur_time < dwSeconds * 1000 )
+		//	{
+		//		static float angle = 0.0f;
+		//		angle += 0.01f;
+		//		_pD3DDevice->GetTransform( D3DTS_WORLD, &mat );
+		//		D3DXMatrixRotationZ( &mat , angle );
+		//		_pD3DDevice->SetTransform( D3DTS_WORLD, &mat );
+
+		//		_pD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET, 0, 0.0f, 0 );
+		//		_pD3DDevice->BeginScene();
+		//		pSp->Begin( 0 );
+		//		pSp->Draw( t._Obtain(), 0, 0, 0, 0xffffffff );
+		//		pSp->End();
+		//		_pD3DDevice->DrawPrimitiveUP( D3DPT_TRIANGLEFAN, 1, &a, sizeof( a[0] ) );
+		//		_pD3DDevice->EndScene();
+
+
+		//		Present();
+		//	}
+		//}
 	}
 }

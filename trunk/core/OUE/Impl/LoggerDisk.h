@@ -42,7 +42,6 @@ namespace OneU
 		: public ILogger
 	{
 	private:
-		LoggerDisk(void);
 
 		FILE * m_pLog;
 		char m_Buffer[ LOGGER_BUFFER_SIZE ];
@@ -50,11 +49,9 @@ namespace OneU
 		bool m_bValid;
 
 	public:
-
+		LoggerDisk(void);
 		~LoggerDisk(void);
 		void flush();
 		void write( pcwstr lpstrLog );
-		//禁止客户调用
-		static ILogger* __new();
 	};
 }

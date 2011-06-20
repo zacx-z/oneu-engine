@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include "../../Base.h"
 
 //在定义了Base.h之后该头文件才会包含进来
-#ifdef __ONEU_USE_DIRECTINPUT
+#ifdef ONEU_USE_DIRECTINPUT
 
 #include "DXDefs.h"
 #define DIRECTINPUT_VERSION 0x0800

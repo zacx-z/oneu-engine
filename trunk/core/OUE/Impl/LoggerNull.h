@@ -37,8 +37,8 @@ namespace OneU
 	class LoggerNull
 		: public ILogger
 	{
-		LoggerNull(){};
 	public:
+		LoggerNull(){};
 		virtual ~LoggerNull(){}
 		
 
