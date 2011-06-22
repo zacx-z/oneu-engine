@@ -23,7 +23,7 @@ something.addListener(new Listener);
 this->addChild(new Sprite("picture.png"));
 }}}
 
-所谓*Ownership*便是指负责销毁对象的代码上下文。一般来说为创建对象的一方，但也有转交Ownership的情况，例如上面的addListener。
+所谓Ownership便是指负责销毁对象的代码上下文。一般来说为创建对象的一方，但也有转交Ownership的情况，例如上面的addListener。
 
 
 = 脚本难题 =
