@@ -2,8 +2,7 @@
 
   defines.h -
 
-  $Author: nobu $
-  $Date: 2007-12-22 15:14:50 +0900 (Sat, 22 Dec 2007) $
+  $Author: naruse $
   created at: Wed May 18 00:21:44 JST 1994
 
 ************************************************/
@@ -100,14 +99,35 @@ void xfree(void*);
 # define BDIGIT_DBL_SIGNED long
 #endif
 
+#ifdef INFINITY
+# define HAVE_INFINITY
+#else
+/** @internal */
+extern const unsigned char rb_infinity[];
+# define INFINITY (*(float *)rb_infinity)
+#endif
+
+#ifdef NAN
+# define HAVE_NAN
+#else
+/** @internal */
+extern const unsigned char rb_nan[];
+# define NAN (*(float *)rb_nan)
+#endif
+
 #ifdef __CYGWIN__
 #undef _WIN32
 #endif
 
-#if defined(MSDOS) || defined(_WIN32) || defined(__human68k__) || defined(__EMX__)
+#if defined(_WIN32) || defined(__EMX__)
 #define DOSISH 1
-#ifndef _WIN32_WCE
 # define DOSISH_DRIVE_LETTER
+#endif
+
+#ifdef AC_APPLE_UNIVERSAL_BUILD
+#undef WORDS_BIGENDIAN
+#ifdef __BIG_ENDIAN__
+#define WORDS_BIGENDIAN
 #endif
 #endif
 
@@ -164,13 +184,6 @@ void xfree(void*);
 #ifndef S_ISREG
 #define S_ISREG(mode)  (((mode) & (0170000)) == (0100000))
 #endif
-/* Do not trust WORDS_BIGENDIAN from configure since -arch compiler flag may
-   result in a different endian.  Instead trust __BIG_ENDIAN__ and
-   __LITTLE_ENDIAN__ which are set correctly by -arch. */
-#undef WORDS_BIGENDIAN
-#ifdef __BIG_ENDIAN__
-#define WORDS_BIGENDIAN
-#endif
 #ifndef __APPLE__
 /* NextStep, OpenStep (but not Rhapsody) */
 #ifndef GETPGRP_VOID
@@ -192,16 +205,31 @@ void xfree(void*);
 #include "ruby/win32.h"
 #endif
 
-#if defined(__VMS)
-#include "vms/vms.h"
+#if defined(__BEOS__) && !defined(__HAIKU__) && !defined(BONE)
+#include <net/socket.h> /* intern.h needs fd_set definition */
+#elif defined (__SYMBIAN32__) && defined (HAVE_SYS_SELECT_H)
+# include <sys/select.h>
 #endif
 
-#if defined(__BEOS__)
-#include <net/socket.h> /* intern.h needs fd_set definition */
+#ifdef __SYMBIAN32__
+# define FALSE 0
+# define TRUE 1
 #endif
 
 #ifdef RUBY_EXPORT
 #undef RUBY_EXTERN
+
+#ifndef FALSE
+# define FALSE 0
+#elif FALSE
+# error FALSE must be false
+#endif
+#ifndef TRUE
+# define TRUE 1
+#elif !TRUE
+# error TRUE must be true
+#endif
+
 #endif
 
 #ifndef RUBY_EXTERN
@@ -243,21 +271,23 @@ void rb_ia64_flushrs(void);
 
 #if defined(DOSISH)
 #define PATH_SEP ";"
-#elif defined(riscos)
-#define PATH_SEP ","
 #else
 #define PATH_SEP ":"
 #endif
 #define PATH_SEP_CHAR PATH_SEP[0]
 
-#if defined(__human68k__)
-#define PATH_ENV "path"
-#else
 #define PATH_ENV "PATH"
+
+#if defined(DOSISH) && !defined(__EMX__)
+#define ENV_IGNORECASE
 #endif
 
-#if defined(DOSISH) && !defined(__human68k__) && !defined(__EMX__)
-#define ENV_IGNORECASE
+#ifndef CASEFOLD_FILESYSTEM
+# if defined DOSISH
+#   define CASEFOLD_FILESYSTEM 1
+# else
+#   define CASEFOLD_FILESYSTEM 0
+# endif
 #endif
 
 #ifndef DLEXT_MAXLEN
@@ -266,6 +296,19 @@ void rb_ia64_flushrs(void);
 
 #ifndef RUBY_PLATFORM
 #define RUBY_PLATFORM "unknown-unknown"
+#endif
+
+#ifndef RUBY_ALIAS_FUNCTION_TYPE
+#define RUBY_ALIAS_FUNCTION_TYPE(type, prot, name, args) \
+    type prot {return name args;}
+#endif
+#ifndef RUBY_ALIAS_FUNCTION_VOID
+#define RUBY_ALIAS_FUNCTION_VOID(prot, name, args) \
+    void prot {name args;}
+#endif
+#ifndef RUBY_ALIAS_FUNCTION
+#define RUBY_ALIAS_FUNCTION(prot, name, args) \
+    RUBY_ALIAS_FUNCTION_TYPE(VALUE, prot, name, args)
 #endif
 
 #if defined(__cplusplus)

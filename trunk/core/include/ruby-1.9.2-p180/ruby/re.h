@@ -2,8 +2,7 @@
 
   re.h -
 
-  $Author: matz $
-  $Date: 2007-11-23 11:10:44 +0900 (Fri, 23 Nov 2007) $
+  $Author: akr $
   created at: Thu Sep 30 14:18:32 JST 1993
 
   Copyright (C) 1993-2007 Yukihiro Matsumoto
@@ -27,19 +26,33 @@ extern "C" {
 
 typedef struct re_pattern_buffer Regexp;
 
+struct rmatch_offset {
+    long beg;
+    long end;
+};
+
+struct rmatch {
+    struct re_registers regs;
+
+    int char_offset_updated;
+    int char_offset_num_allocated;
+    struct rmatch_offset *char_offset;
+};
+
 struct RMatch {
     struct RBasic basic;
     VALUE str;
-    struct re_registers *regs;
+    struct rmatch *rmatch;
     VALUE regexp;  /* RRegexp */
 };
 
 #define RMATCH(obj)  (R_CAST(RMatch)(obj))
+#define RMATCH_REGS(obj)  (&(R_CAST(RMatch)(obj))->rmatch->regs)
 
 VALUE rb_reg_regcomp(VALUE);
-int rb_reg_search(VALUE, VALUE, int, int);
+long rb_reg_search(VALUE, VALUE, long, int);
 VALUE rb_reg_regsub(VALUE, VALUE, struct re_registers *, VALUE);
-int rb_reg_adjust_startpos(VALUE, VALUE, int, int);
+long rb_reg_adjust_startpos(VALUE, VALUE, long, int);
 void rb_match_busy(VALUE);
 VALUE rb_reg_quote(VALUE);
 

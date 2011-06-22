@@ -9,11 +9,14 @@ MESSAGE(STATUS "DXSDK Directory:"$ENV{DXSDK_DIR})
 MESSAGE(STATUS "Source Directory:"${CMAKE_SOURCE_DIR})
 #initialize directories and variables
 LINK_DIRECTORIES($ENV{DXSDK_DIR}lib/x86/ ${CMAKE_SOURCE_DIR}/lib)
-INCLUDE_DIRECTORIES($ENV{DXSDK_DIR}include/ ../_lua/ include/ruby-1.9.0 include/ruby-1.9.0/i386-mswin32)
+INCLUDE_DIRECTORIES($ENV{DXSDK_DIR}include/ ../_lua/ include/ruby-1.9.1-p180 include/ruby-1.9.1-p180/i386-mswin32)
 
 SET(BIN_DIR ${CMAKE_BINARY_DIR})
 SET(OUE_LIB OUE)
 SET(LUA_LIB _lua)
+
+#dependencies
+SET(RUBY_LIB msvcr80-ruby191)
 
 #macro definitions
 MACRO(AUX_HEADER_DIRECTORY DIR VAR)

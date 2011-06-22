@@ -48,7 +48,7 @@ namespace OneU
 
 		//一下这两句功能与上面是一样的
 		//VALUE info = rb_eval_string("\"class = #{$!.class}\nmessage = #{$!}\n\"");
-		//clog << StringValuePtr(info);
+		//clog << StringValuePtr(info) << endl;
 
 		// backtrace
 		VALUE errinfo = rb_errinfo();
@@ -57,9 +57,9 @@ namespace OneU
 			VALUE ary = rb_funcall(
 				errinfo, rb_intern("backtrace"), 0);
 			int c;
-			for (c=0; c<RARRAY(ary)->len; c++) {
+			for (c=0; c<RARRAY(ary)->as.heap.len; c++) {
 				o << "\tfrom " << 
-					StringValuePtr(RARRAY(ary)->ptr[c]) << 
+					StringValuePtr(RARRAY(ary)->as.heap.ptr[c]) << 
 					"\n";
 			}
 			clog << "backtrace = " << o.str() << endl;
@@ -88,6 +88,7 @@ namespace OneU
 		ruby_init();
 		ruby_init_loadpath();
 		ruby_script("oneu");
+		rb_eval_string("$: << \".\"");
 #ifdef _DEBUG
 		rb_eval_string("$: << \"./../debug/\"");
 #endif
