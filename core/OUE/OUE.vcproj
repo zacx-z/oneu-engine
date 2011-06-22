@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.0;..\include\ruby-1.9.0\i386-mswin32;$(DXSDK_DIR)Include\"
+				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.2-p180;..\include\ruby-1.9.2-p180\i386-mswin32_80;$(DXSDK_DIR)Include\"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;ONEU_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/NODEFAULTLIB:libcmt.lib "
-				AdditionalDependencies="msvcrt-ruby190.lib"
+				AdditionalDependencies="msvcr80-ruby191.lib"
 				OutputFile="$(OutDir)\$(ProjectName).so"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\lib\;$(DXSDK_DIR)Lib\x86"
@@ -121,7 +121,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.0;..\include\ruby-1.9.0\i386-mswin32;$(DXSDK_DIR)Include\"
+				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.2-p180;..\include\ruby-1.9.2-p180\i386-mswin32_80;$(DXSDK_DIR)Include\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;ONEU_EXPORTS"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -140,7 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="msvcrt-ruby190.lib"
+				AdditionalDependencies="msvcr80-ruby191.lib"
 				OutputFile="$(OutDir)\$(ProjectName).so"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\lib\;$(DXSDK_DIR)Lib\x86"

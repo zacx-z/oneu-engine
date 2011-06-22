@@ -12,16 +12,13 @@ copy "release\OUE.so" "..\OneU SDK\lib\x86\OUE.so"
 copy "release\OUE.lib" "..\OneU SDK\lib\x86\OUE.lib"
 copy "release\_lua.dll" "..\OneU SDK\lib\x86\_lua.dll"
 copy "release\_lua.lib" "..\OneU SDK\lib\x86\_lua.lib"
-copy "release\Base.dll" "..\OneU SDK\lib\x86\Base.dll"
-copy "release\Base.lib" "..\OneU SDK\lib\x86\Base.lib"
-copy "lib\msvcrt-ruby190.dll" "..\OneU SDK\lib\x86\msvcrt-ruby190.dll"
-copy "lib\msvcrt-ruby190.lib" "..\OneU SDK\lib\x86\msvcrt-ruby190.lib"
+copy "lib\msvcr80-ruby191.dll" "..\OneU SDK\lib\x86\msvcr80-ruby191.dll"
+copy "lib\msvcr80-ruby191.lib" "..\OneU SDK\lib\x86\msvcr80-ruby191.lib"
 
 mkdir "..\OneU SDK\bin\script"
 copy "release\OUE.so"  "..\OneU SDK\bin\OUE.so"
 copy "release\_lua.dll" "..\OneU SDK\bin\_lua.dll"
-copy "release\Base.dll" "..\OneU SDK\bin\Base.dll"
-copy "lib\msvcrt-ruby190.dll" "..\OneU SDK\bin\msvcrt-ruby190.dll"
+copy "lib\msvcr80-ruby191.dll" "..\OneU SDK\bin\msvcr80-ruby191.dll"
 
 copy "release\Game.exe" "..\OneU SDK\bin\Game.exe"
 
@@ -29,8 +26,5 @@ rem write default main.lua
 copy "default_script\main.rb" "..\OneU SDK\bin\script\main.rb"
 
 copy "Doxygen\Document\html\OneU.chm" "..\OneU SDK\OneU.chm"
-
-rem copy atoms
-mkdir "..\OneU SDK\bin\atom"
 
 pause

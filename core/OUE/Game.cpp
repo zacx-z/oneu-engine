@@ -48,7 +48,7 @@ namespace OneU
 	{
 		ONEU_ASSERT(s_pGame == NULL);
 		Allocator_build(Allocator_create);
-		Logger_build(LoggerNull_Factory);//FIXME: 见LoggerDisk.cpp ruby的fclose符号如何消除？
+		Logger_build(LoggerDisk_Factory);//FIXME: 见LoggerDisk.cpp ruby的fclose符号如何消除？
 		s_pGame = gf();
 
 		_last_eh = SetTerminateHandler(_destroyGame);

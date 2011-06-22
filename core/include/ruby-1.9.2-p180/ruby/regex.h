@@ -3,7 +3,6 @@
   regex.h -
 
   $Author: akr $
-  $Date: 2007-12-08 11:50:43 +0900 (Sat, 08 Dec 2007) $
 
   Copyright (C) 1993-2007 Yukihiro Matsumoto
 

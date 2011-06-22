@@ -3,3 +3,10 @@
 涉及到链接库路径问题，Lua和Ruby工程Release版不可直接执行（需要将OUE.so，Base.dll及程序拷贝到工程所在目录才能执行），只有Debug版可以直接执行。
 运行时请将msvcrt-ruby190.dll拷贝到Release或Debug文件夹下。并配置好相关文件的路径。(可能有图片，script等)
 目录里带有VC2005工程文件，也可用cmake重新构建工程。
+
+----------------------------------------------------------
+Ruby的编译：win32下会导出fclose等与C运行库重复的符号，致使程序不能正常工作。方法是注释掉win32下mkexports.rb 44行处的循环（该循环是找寻头文件的宏定义并将其加入到dll导出符号中）。然后make msvcr80-ruby191.dll。
+VC编译方法。
+vcvars32
+($srcdir)\win32\configure
+nmake msvcr80-ruby191.dll
