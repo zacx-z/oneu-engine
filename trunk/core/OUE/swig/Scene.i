@@ -15,6 +15,10 @@ namespace OneU
 		virtual void update() = 0;
 		video::IRenderScene* getRenderScene();
 		virtual ~IScene();
+		
+		OneU::IInputReceiver* replaceInputFocus(OneU::IInputReceiver* pIR);
+		void pushInputFocus(OneU::IInputReceiver* pIR);
+		OneU::IInputReceiver* popInputFocus();
 	};
 }
 
@@ -29,6 +33,7 @@ public:
 %}
 #endif
 
+#ifdef SWIGLUA
 %apply SWIGTYPE *VDISOWN {OneU::video::INode* child};
 %inline %{
 static void addToScene(OneU::video::INode* child){
@@ -36,3 +41,4 @@ static void addToScene(OneU::video::INode* child){
 }
 %}
 %clear OneU::video::INode* child;
+#endif

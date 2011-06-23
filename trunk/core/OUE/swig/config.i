@@ -30,6 +30,12 @@ int SWIGEX_Lua_Ownership(lua_State* L, int index){
     SWIG_fail_ptr("$symname",$argnum,$descriptor);
     }
 }
+
+%typemap(check) SWIGTYPE* NONNULL{
+	if($1 == NULL)
+		SWIG_fail_ptr("$symname",$argnum,$descriptor);
+}
+
 //unsupported
 %define PROP_R(getter, prop)
 %enddef
@@ -45,6 +51,11 @@ int SWIGEX_Lua_Ownership(lua_State* L, int index){
   if (own == 0 || own == SWIG_RubyRemoveTracking)//no ownership
         SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "$type","$symname", $argnum, $input));
 }
+%typemap(check) SWIGTYPE* NONNULL{
+	if($1 == NULL)
+		SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #$argnum in $symname");
+}
+
 %define PROP_R(getter, prop)
 %rename(#prop) getter;
 %enddef

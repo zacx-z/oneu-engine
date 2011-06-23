@@ -19,6 +19,8 @@ namespace OneU
 	typedef const char* pcstr;
 	//typedef char byte;
 	//typedef unsigned char ubyte;
+	
+	class color_t;
 }
 	
 #if defined(SWIGLUA)
@@ -71,10 +73,26 @@ namespace OneU
 	}
 	%typemap(directorout) const wchar_t* (OneU::AutoPtr<wchar_t> temp){
 		if(TYPE($input) != T_STRING)
-			SWIG_exception_fail(SWIG_ArgError(res), Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
+			SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
 			
 		temp = OneU::Char2Wide(StringValuePtr($input));
 		$1 = temp;
+	}
+	
+	%typemap(in) color_t (VALUE c1, VALUE c2, VALUE c3, VALUE c4){
+		if(TYPE($input) != T_ARRAY)
+			SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
+		c1 = rb_ary_entry($input, 0); c2 = rb_ary_entry($input, 1); c3 = rb_ary_entry($input, 2);
+		if(TYPE(c1) != T_FIXNUM || TYPE(c2) != T_FIXNUM || TYPE(c3) != T_FIXNUM)
+			SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
+		c4 = rb_ary_entry($input, 3);
+		if(TYPE(c4) != T_FIXNUM)
+			$1 = OneU::color_t(NUM2INT(c1), NUM2INT(c2), NUM2INT(c3));
+		else
+			$1 = OneU::color_t(NUM2INT(c1), NUM2INT(c2), NUM2INT(c3), NUM2INT(c4));
+	}
+	%typemap(out) color_t {
+		$result = rb_ary_new3(4, INT2NUM($1.getRed()), INT2NUM($1.getGreen()), INT2NUM($1.getBlue()), INT2NUM($1.getAlpha()));
 	}
 }
 #endif

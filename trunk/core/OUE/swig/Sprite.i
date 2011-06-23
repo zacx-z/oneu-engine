@@ -15,6 +15,7 @@ namespace OneU
 		PROP_RW(getCenterY, setCenterY, oy);
 		PROP_RW(getColor, setColor, color);
 		PROP_RW(getAlpha, setAlpha, alpha);
+		PROP_RW(getSrcRect, setSrcRect, srcRect);
 		PROP_R(getWidth, width);
 		PROP_R(getHeight, height);
 		
@@ -29,6 +30,9 @@ namespace OneU
 		virtual OneU::color_t getColor();
 		virtual void setAlpha(OneU::ubyte alpha);
 		OneU::ubyte getAlpha();
+		
+		virtual void setSrcRect(rect rc);
+		virtual rect getSrcRect();
 
 		float getWidth();
 		float getHeight();

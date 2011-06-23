@@ -18,10 +18,10 @@ class MainScene < OUE::Scene
 	def initialize
 		super
 		@sp = MySprite.new("../picture.png")
-		self.getRenderScene().addChild(@sp)
+		self.RS.addChild(@sp)
 
 		@label = OUE::Label.new(200, 600, 20);
-		self.getRenderScene().addChild(@label, 10);
+		self.RS.addChild(@label, 10);
 
 		@list = [@sp]
 	end
@@ -32,7 +32,7 @@ class MainScene < OUE::Scene
 
 		if $Game.getFPS() > 30 then
 			sp = MySprite.new("../picture.png")
-			self.getRenderScene().addChild(sp, 0)
+			self.RS.addChild(sp, 0)
 
 			@list << sp;
 		end

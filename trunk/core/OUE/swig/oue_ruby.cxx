@@ -2549,11 +2549,6 @@ public:
 };
 
 
-static void addToScene(OneU::video::INode* child){
-	OneU::GetScene().getRenderScene()->addChild(child);
-}
-
-
 #include "../Sprite.h"
 
 SWIGINTERN OneU::ISprite *new_OneU_ISprite__SWIG_0(OneU::pcwstr file){
@@ -5749,6 +5744,10 @@ _wrap_INodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
     temp4 = OneU::Char2Wide(StringValuePtr(argv[2]));
     arg4 = temp4;
   }
+  {
+    if(arg2 == NULL)
+    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in INodeContainer_addChild");
+  }
   result = (bool)(arg1)->addChild(arg2,arg3,arg4);
   vresult = SWIG_From_bool(static_cast< bool >(result));
   return vresult;
@@ -5792,6 +5791,10 @@ _wrap_INodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "int","addChild", 3, argv[1] ));
   } 
   arg3 = static_cast< int >(val3);
+  {
+    if(arg2 == NULL)
+    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in INodeContainer_addChild");
+  }
   result = (bool)(arg1)->addChild(arg2,arg3);
   vresult = SWIG_From_bool(static_cast< bool >(result));
   return vresult;
@@ -5826,6 +5829,10 @@ _wrap_INodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
     }
     if (own2 == 0 || own2 == SWIG_RubyRemoveTracking)//no ownership
     SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "OneU::video::INode *","addChild", 2, argv[0]));
+  }
+  {
+    if(arg2 == NULL)
+    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in INodeContainer_addChild");
   }
   result = (bool)(arg1)->addChild(arg2);
   vresult = SWIG_From_bool(static_cast< bool >(result));
@@ -6803,91 +6810,6 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_replaceInputFocus(int argc, VALUE *argv, VALUE self) {
-  OneU::IGame *arg1 = (OneU::IGame *) 0 ;
-  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  OneU::IInputReceiver *result = 0 ;
-  VALUE vresult = Qnil;
-  
-  if ((argc < 1) || (argc > 1)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IGame, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IGame *","replaceInputFocus", 1, self )); 
-  }
-  arg1 = reinterpret_cast< OneU::IGame * >(argp1);
-  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IInputReceiver *","replaceInputFocus", 2, argv[0] )); 
-  }
-  arg2 = reinterpret_cast< OneU::IInputReceiver * >(argp2);
-  result = (OneU::IInputReceiver *)(arg1)->replaceInputFocus(arg2);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
-  return vresult;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE
-_wrap_IGame_pushInputFocus(int argc, VALUE *argv, VALUE self) {
-  OneU::IGame *arg1 = (OneU::IGame *) 0 ;
-  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  if ((argc < 1) || (argc > 1)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IGame, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IGame *","pushInputFocus", 1, self )); 
-  }
-  arg1 = reinterpret_cast< OneU::IGame * >(argp1);
-  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IInputReceiver *","pushInputFocus", 2, argv[0] )); 
-  }
-  arg2 = reinterpret_cast< OneU::IInputReceiver * >(argp2);
-  (arg1)->pushInputFocus(arg2);
-  return Qnil;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE
-_wrap_IGame_popInputFocus(int argc, VALUE *argv, VALUE self) {
-  OneU::IGame *arg1 = (OneU::IGame *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  OneU::IInputReceiver *result = 0 ;
-  VALUE vresult = Qnil;
-  
-  if ((argc < 0) || (argc > 0)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IGame, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IGame *","popInputFocus", 1, self )); 
-  }
-  arg1 = reinterpret_cast< OneU::IGame * >(argp1);
-  result = (OneU::IInputReceiver *)(arg1)->popInputFocus();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
-  return vresult;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE
 _wrap_IGame_onChar(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::CharEvent *arg2 = 0 ;
@@ -7512,6 +7434,91 @@ free_OneU_IScene(OneU::IScene *arg1) {
     delete arg1;
 }
 
+SWIGINTERN VALUE
+_wrap_IScene_replaceInputFocus(int argc, VALUE *argv, VALUE self) {
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  OneU::IInputReceiver *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","replaceInputFocus", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IInputReceiver *","replaceInputFocus", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< OneU::IInputReceiver * >(argp2);
+  result = (OneU::IInputReceiver *)(arg1)->replaceInputFocus(arg2);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_IScene_pushInputFocus(int argc, VALUE *argv, VALUE self) {
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","pushInputFocus", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IInputReceiver *","pushInputFocus", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< OneU::IInputReceiver * >(argp2);
+  (arg1)->pushInputFocus(arg2);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_IScene_popInputFocus(int argc, VALUE *argv, VALUE self) {
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  OneU::IInputReceiver *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","popInputFocus", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
+  result = (OneU::IInputReceiver *)(arg1)->popInputFocus();
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
 swig_class SwigClassScene;
 
 SWIGINTERN VALUE
@@ -7613,30 +7620,6 @@ _wrap_disown_Scene(int argc, VALUE *argv, VALUE self) {
     if (director) director->swig_disown();
   }
   
-  return Qnil;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE
-_wrap_addToScene(int argc, VALUE *argv, VALUE self) {
-  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
-  int res1 = 0 ;
-  swig_owntype own1 ;
-  
-  if ((argc < 1) || (argc > 1)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
-  }
-  {
-    res1 = SWIG_ConvertPtrAndOwn(argv[0], SWIG_as_voidptrptr(&arg1), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 , &own1);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INode *","addToScene", 1, argv[0] ));
-    }
-    if (own1 == 0 || own1 == SWIG_RubyRemoveTracking)//no ownership
-    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "OneU::video::INode *","addToScene", 1, argv[0]));
-  }
-  addToScene(arg1);
   return Qnil;
 fail:
   return Qnil;
@@ -7816,8 +7799,10 @@ _wrap_Sprite_colore___(int argc, VALUE *argv, VALUE self) {
   OneU::color_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  VALUE c12 ;
+  VALUE c22 ;
+  VALUE c32 ;
+  VALUE c42 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
@@ -7828,15 +7813,16 @@ _wrap_Sprite_colore___(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::ISprite * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__color_t,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::color_t","setColor", 2, argv[0] )); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::color_t","setColor", 2, argv[0]));
-    } else {
-      arg2 = *(reinterpret_cast< OneU::color_t * >(argp2));
-    }
+    if(TYPE(argv[0]) != T_ARRAY)
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "color", "OneU::color_t","setColor", 2, argv[0] ));
+    c12 = rb_ary_entry(argv[0], 0); c22 = rb_ary_entry(argv[0], 1); c32 = rb_ary_entry(argv[0], 2);
+    if(TYPE(c12) != T_FIXNUM || TYPE(c22) != T_FIXNUM || TYPE(c32) != T_FIXNUM)
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "color", "OneU::color_t","setColor", 2, argv[0] ));
+    c42 = rb_ary_entry(argv[0], 3);
+    if(TYPE(c42) != T_FIXNUM)
+    arg2 = OneU::color_t(NUM2INT(c12), NUM2INT(c22), NUM2INT(c32));
+    else
+    arg2 = OneU::color_t(NUM2INT(c12), NUM2INT(c22), NUM2INT(c32), NUM2INT(c42));
   }
   (arg1)->setColor(arg2);
   return Qnil;
@@ -7862,7 +7848,9 @@ _wrap_Sprite_color(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::ISprite * >(argp1);
   result = (arg1)->getColor();
-  vresult = SWIG_NewPointerObj((new OneU::color_t(static_cast< const OneU::color_t& >(result))), SWIGTYPE_p_OneU__color_t, SWIG_POINTER_OWN |  0 );
+  {
+    vresult = rb_ary_new3(4, INT2NUM((&result)->getRed()), INT2NUM((&result)->getGreen()), INT2NUM((&result)->getBlue()), INT2NUM((&result)->getAlpha()));
+  }
   return vresult;
 fail:
   return Qnil;
@@ -7922,6 +7910,65 @@ _wrap_Sprite_alpha(int argc, VALUE *argv, VALUE self) {
   arg1 = reinterpret_cast< OneU::ISprite * >(argp1);
   result = (arg1)->getAlpha();
   vresult = SWIG_NewPointerObj((new OneU::ubyte(static_cast< const OneU::ubyte& >(result))), SWIGTYPE_p_OneU__ubyte, SWIG_POINTER_OWN |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Sprite_srcRecte___(int argc, VALUE *argv, VALUE self) {
+  OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
+  OneU::rect arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__ISprite, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite *","setSrcRect", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::ISprite * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__rect_tT_float_t,  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::rect","setSrcRect", 2, argv[0] )); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::rect","setSrcRect", 2, argv[0]));
+    } else {
+      arg2 = *(reinterpret_cast< OneU::rect * >(argp2));
+    }
+  }
+  (arg1)->setSrcRect(arg2);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Sprite_srcRect(int argc, VALUE *argv, VALUE self) {
+  OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  OneU::rect result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__ISprite, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite *","getSrcRect", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::ISprite * >(argp1);
+  result = (arg1)->getSrcRect();
+  vresult = SWIG_NewPointerObj((new OneU::rect(static_cast< const OneU::rect& >(result))), SWIGTYPE_p_OneU__rect_tT_float_t, SWIG_POINTER_OWN |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -8201,8 +8248,10 @@ _wrap_Shape_colore___(int argc, VALUE *argv, VALUE self) {
   OneU::color_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  VALUE c12 ;
+  VALUE c22 ;
+  VALUE c32 ;
+  VALUE c42 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
@@ -8213,15 +8262,16 @@ _wrap_Shape_colore___(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::IShape * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__color_t,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::color_t","setColor", 2, argv[0] )); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::color_t","setColor", 2, argv[0]));
-    } else {
-      arg2 = *(reinterpret_cast< OneU::color_t * >(argp2));
-    }
+    if(TYPE(argv[0]) != T_ARRAY)
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "color", "OneU::color_t","setColor", 2, argv[0] ));
+    c12 = rb_ary_entry(argv[0], 0); c22 = rb_ary_entry(argv[0], 1); c32 = rb_ary_entry(argv[0], 2);
+    if(TYPE(c12) != T_FIXNUM || TYPE(c22) != T_FIXNUM || TYPE(c32) != T_FIXNUM)
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "color", "OneU::color_t","setColor", 2, argv[0] ));
+    c42 = rb_ary_entry(argv[0], 3);
+    if(TYPE(c42) != T_FIXNUM)
+    arg2 = OneU::color_t(NUM2INT(c12), NUM2INT(c22), NUM2INT(c32));
+    else
+    arg2 = OneU::color_t(NUM2INT(c12), NUM2INT(c22), NUM2INT(c32), NUM2INT(c42));
   }
   (arg1)->setColor(arg2);
   return Qnil;
@@ -8247,7 +8297,9 @@ _wrap_Shape_color(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::IShape * >(argp1);
   result = (arg1)->getColor();
-  vresult = SWIG_NewPointerObj((new OneU::color_t(static_cast< const OneU::color_t& >(result))), SWIGTYPE_p_OneU__color_t, SWIG_POINTER_OWN |  0 );
+  {
+    vresult = rb_ary_new3(4, INT2NUM((&result)->getRed()), INT2NUM((&result)->getGreen()), INT2NUM((&result)->getBlue()), INT2NUM((&result)->getAlpha()));
+  }
   return vresult;
 fail:
   return Qnil;
@@ -8396,8 +8448,10 @@ _wrap_Label_colore___(int argc, VALUE *argv, VALUE self) {
   OneU::color_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  VALUE c12 ;
+  VALUE c22 ;
+  VALUE c32 ;
+  VALUE c42 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
@@ -8408,15 +8462,16 @@ _wrap_Label_colore___(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::ILabel * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__color_t,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::color_t","setColor", 2, argv[0] )); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::color_t","setColor", 2, argv[0]));
-    } else {
-      arg2 = *(reinterpret_cast< OneU::color_t * >(argp2));
-    }
+    if(TYPE(argv[0]) != T_ARRAY)
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "color", "OneU::color_t","setColor", 2, argv[0] ));
+    c12 = rb_ary_entry(argv[0], 0); c22 = rb_ary_entry(argv[0], 1); c32 = rb_ary_entry(argv[0], 2);
+    if(TYPE(c12) != T_FIXNUM || TYPE(c22) != T_FIXNUM || TYPE(c32) != T_FIXNUM)
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "color", "OneU::color_t","setColor", 2, argv[0] ));
+    c42 = rb_ary_entry(argv[0], 3);
+    if(TYPE(c42) != T_FIXNUM)
+    arg2 = OneU::color_t(NUM2INT(c12), NUM2INT(c22), NUM2INT(c32));
+    else
+    arg2 = OneU::color_t(NUM2INT(c12), NUM2INT(c22), NUM2INT(c32), NUM2INT(c42));
   }
   (arg1)->setColor(arg2);
   return Qnil;
@@ -8442,7 +8497,9 @@ _wrap_Label_color(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::ILabel * >(argp1);
   result = (arg1)->getColor();
-  vresult = SWIG_NewPointerObj((new OneU::color_t(static_cast< const OneU::color_t& >(result))), SWIGTYPE_p_OneU__color_t, SWIG_POINTER_OWN |  0 );
+  {
+    vresult = rb_ary_new3(4, INT2NUM((&result)->getRed()), INT2NUM((&result)->getGreen()), INT2NUM((&result)->getBlue()), INT2NUM((&result)->getAlpha()));
+  }
   return vresult;
 fail:
   return Qnil;
@@ -9792,9 +9849,6 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_method(SwigClassIGame.klass, "getFPS", VALUEFUNC(_wrap_IGame_getFPS), -1);
   rb_define_method(SwigClassIGame.klass, "getTimeInterval", VALUEFUNC(_wrap_IGame_getTimeInterval), -1);
   rb_define_method(SwigClassIGame.klass, "replaceScene", VALUEFUNC(_wrap_IGame_replaceScene), -1);
-  rb_define_method(SwigClassIGame.klass, "replaceInputFocus", VALUEFUNC(_wrap_IGame_replaceInputFocus), -1);
-  rb_define_method(SwigClassIGame.klass, "pushInputFocus", VALUEFUNC(_wrap_IGame_pushInputFocus), -1);
-  rb_define_method(SwigClassIGame.klass, "popInputFocus", VALUEFUNC(_wrap_IGame_popInputFocus), -1);
   rb_define_method(SwigClassIGame.klass, "onChar", VALUEFUNC(_wrap_IGame_onChar), -1);
   rb_define_method(SwigClassIGame.klass, "onKey", VALUEFUNC(_wrap_IGame_onKey), -1);
   rb_define_method(SwigClassIGame.klass, "onMouse", VALUEFUNC(_wrap_IGame_onMouse), -1);
@@ -9999,6 +10053,9 @@ SWIGEXPORT void Init_OUE(void) {
   rb_undef_alloc_func(SwigClassIScene.klass);
   rb_define_method(SwigClassIScene.klass, "update", VALUEFUNC(_wrap_IScene_update), -1);
   rb_define_method(SwigClassIScene.klass, "RS", VALUEFUNC(_wrap_IScene_RS), -1);
+  rb_define_method(SwigClassIScene.klass, "replaceInputFocus", VALUEFUNC(_wrap_IScene_replaceInputFocus), -1);
+  rb_define_method(SwigClassIScene.klass, "pushInputFocus", VALUEFUNC(_wrap_IScene_pushInputFocus), -1);
+  rb_define_method(SwigClassIScene.klass, "popInputFocus", VALUEFUNC(_wrap_IScene_popInputFocus), -1);
   SwigClassIScene.mark = 0;
   SwigClassIScene.destroy = (void (*)(void *)) free_OneU_IScene;
   SwigClassIScene.trackObjects = 0;
@@ -10012,7 +10069,6 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassScene.mark = 0;
   SwigClassScene.destroy = (void (*)(void *)) free_Scene;
   SwigClassScene.trackObjects = 0;
-  rb_define_module_function(mOUE, "addToScene", VALUEFUNC(_wrap_addToScene), -1);
   
   SwigClassSprite.klass = rb_define_class_under(mOUE, "Sprite", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__ISprite, (void *) &SwigClassSprite);
@@ -10028,6 +10084,8 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_method(SwigClassSprite.klass, "color", VALUEFUNC(_wrap_Sprite_color), -1);
   rb_define_method(SwigClassSprite.klass, "alpha=", VALUEFUNC(_wrap_Sprite_alphae___), -1);
   rb_define_method(SwigClassSprite.klass, "alpha", VALUEFUNC(_wrap_Sprite_alpha), -1);
+  rb_define_method(SwigClassSprite.klass, "srcRect=", VALUEFUNC(_wrap_Sprite_srcRecte___), -1);
+  rb_define_method(SwigClassSprite.klass, "srcRect", VALUEFUNC(_wrap_Sprite_srcRect), -1);
   rb_define_method(SwigClassSprite.klass, "width", VALUEFUNC(_wrap_Sprite_width), -1);
   rb_define_method(SwigClassSprite.klass, "height", VALUEFUNC(_wrap_Sprite_height), -1);
   rb_define_method(SwigClassSprite.klass, "setBlendMode", VALUEFUNC(_wrap_Sprite_setBlendMode), -1);

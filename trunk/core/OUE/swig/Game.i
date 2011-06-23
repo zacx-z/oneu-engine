@@ -30,17 +30,12 @@ namespace OneU
 		virtual void setWindowPos(const OneU::vector2i_t& newPos) = 0;
 		virtual float getFPS() = 0;
 		virtual float getTimeInterval() = 0;
-
-		
 			
 #ifdef SUPPORT_DIRECTORS
 		%apply SWIGTYPE *VDISOWN {OneU::IScene* scene};
 		%newobject replaceScene;
 		virtual OneU::IScene* replaceScene(OneU::IScene* scene) = 0;
 		%clear OneU::IScene* scene;
-		virtual OneU::IInputReceiver* replaceInputFocus(OneU::IInputReceiver* pIR);
-		virtual void pushInputFocus(OneU::IInputReceiver* pIR);
-		virtual OneU::IInputReceiver* popInputFocus();
 		virtual void onChar(const OneU::CharEvent& event);
 		virtual void onKey(const OneU::KeyEvent& event);
 		virtual void onMouse(const OneU::MouseEvent& event);	
