@@ -10,6 +10,7 @@ namespace OneU
 	class IScene
 	{
 	public:
+		PROP_R(getRenderScene, RS);
 		IScene();
 		virtual void update() = 0;
 		video::IRenderScene* getRenderScene();

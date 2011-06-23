@@ -43,10 +43,25 @@ namespace OneU
 	{
 		Interface(const Interface&);
 		Interface& operator=(const Interface&);
+
+		template<class T>
+		friend class Handle;
+		struct _HandleInfo
+		{
+			int ref;
+			bool isvalid;
+			Interface* pI;
+		} *_hinfo;
 	public:
-		virtual ~Interface(){}
+		virtual ~Interface(){
+			if(_hinfo){
+				_hinfo->isvalid = false;
+				if(_hinfo->ref == 0)
+					ONEU_DELETE_T(_hinfo);
+			}
+		}
 	public:
-		Interface(){}
+		Interface() : _hinfo(NULL){}
 	};
 
 	/* ----------------------------------------------------------------------------*/
@@ -64,22 +79,22 @@ namespace OneU
 		InterfaceRef() : m_ref(0){}
 		/* ----------------------------------------------------------------------------*/
 		/** 
-		* @brief 添加引用计数
-		* 
-		* @returns 新的引用计数
-		*/
+		 * @brief 添加引用计数
+		 * 
+		 * @returns 新的引用计数
+		 */
 		/* ----------------------------------------------------------------------------*/
 		uint32 addRef(){
 			return ++m_ref;
 		}
 		/* ----------------------------------------------------------------------------*/
 		/** 
-		* @brief 释放引用计数
-		*
-		* 如果引用计数释放后为0，则销毁对象。
-		* 
-		* @returns 新的引用计数
-		*/
+		 * @brief 释放引用计数
+		 *
+		 * 如果引用计数释放后为0，则销毁对象。
+		 * 
+		 * @returns 新的引用计数
+		 */
 		/* ----------------------------------------------------------------------------*/
 		uint32 release(){
 			--m_ref;
@@ -91,6 +106,95 @@ namespace OneU
 		}
 	};
 
+	/* ----------------------------------------------------------------------------*/
+	/**
+	 * @brief 句柄
+	 *
+	 * @remarks该句柄类是用于解决外部引用安全性的问题的。
+	 * 针对于Hold-a一个引用，并不会管理对象生存期，不会尝试销毁对象。仅能用于Interface。
+	 */
+	/* ----------------------------------------------------------------------------*/
+	template<class T>
+	class Handle
+	{
+		Interface::_HandleInfo* m_hInfo;
+
+		static Interface::_HandleInfo* _getInfo(T* v){
+			if(!v->_hinfo){
+				v->_hinfo = ONEU_NEW_T(Interface::_HandleInfo);
+				v->_hinfo->ref = 0;
+				v->_hinfo->isvalid = true;
+				v->_hinfo->pI = v;
+			}
+			return v->_hinfo;
+
+		}
+		void _releaseInfo(){
+			if(!m_hInfo) return;
+			if(--m_hInfo->ref == 0 && !m_hInfo->isvalid)//此时接口对象已删除
+				ONEU_DELETE_T(m_hInfo);
+		}
+
+	public:
+		Handle(T* v){
+			if(!v) m_hInfo = NULL;
+
+			m_hInfo = _getInfo(v);
+			++m_hInfo->ref;
+		}
+		Handle(const Handle& rhs) : m_hInfo(rhs.m_hInfo){
+			if(m_hInfo) ++m_hInfo->ref;
+		}
+		Handle& operator=(const Handle<T>& rhs){
+			if(m_hInfo == rhs.m_hInfo) return;
+			_releaseInfo();
+
+			m_hInfo = rhs.m_hInfo;
+			if(m_hInfo) ++m_hInfo->ref;
+
+			return *this;
+		}
+		Handle& operator=(T* v){
+			_releaseInfo();
+			if(!v) m_hInfo = NULL;
+			m_hInfo = _getInfo(v);
+			++m_hInfo->ref;
+
+			return *this;
+		}
+		~Handle(){
+			_releaseInfo();
+		}
+
+		bool isValid(){
+			return m_hInfo && m_hInfo->isvalid;
+		}
+
+		T* get(){
+			if(!isValid()) ONEU_RAISE(L"句柄已失效！");
+			return (T*)m_hInfo->pI;
+		}
+		const T* get() const{
+			if(!isValid()) ONEU_RAISE(L"句柄已失效！");
+			return (const T*)m_hInfo->pI;
+		}
+
+		T* operator->(){ return this->get(); }
+		const T* operator->() const{ return this->get;}
+		T& operator*(){ return *this->get(); }
+		const T& operator*() const{ return *this->get(); }
+
+		T* get(const char* srcname, int line, const char* function){
+			if(!isValid()) ONEU_RAISE(String().format(L"句柄已失效！\n%s(%d)\nFunction:%s", srcname, line, function).c_str());
+			return (T*)m_hInfo->pI;
+		}
+		const T* get(const char* srcname, int line, const char* function) const{
+			if(!isValid()) ONEU_RAISE(String().format(L"句柄已失效！\n%s(%d)\nFunction:%s", srcname, line, function).c_str());
+			return (const T*)m_hInfo->pI;
+		}
+	};
+#define SAFE_H(handle) (handle.get(__FILE__, __LINE__, __FUNCTION__))
+
 	//主要用于容器 保证被正确删除
 	//@todo 目前不支持InterfaceRef
 	template<class T>
@@ -98,7 +202,7 @@ namespace OneU
 	{
 		//这里使用Interface而不是T主要是保证T是Interface的派生类
 	private:
-		mutable Interface* m_h;
+		mutable Handle<Interface> m_h;
 	public:
 		InterfacePtr(T* h)
 			: m_h(h)
@@ -109,14 +213,14 @@ namespace OneU
 			rhs.m_h = NULL;
 		}
 		~InterfacePtr(){
-			if(m_h != NULL) ONEU_DELETE m_h;
+			if(m_h.isValid()) ONEU_DELETE m_h.get();
 		}
 		InterfacePtr& operator=(const InterfacePtr& rhs){
 			m_h = rhs.m_h;
 			rhs.m_h = NULL;
 		}
-		T* operator->(){return (T*)m_h; }
-		T& operator*(){return *(T*)m_h;}
+		T* operator->(){return (T*)SAFE_H(m_h); }
+		T& operator*(){return *(T*)SAFE_H(m_h);}
 	};
 
 	//Factory

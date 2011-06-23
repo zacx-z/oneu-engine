@@ -7484,7 +7484,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IScene_getRenderScene(int argc, VALUE *argv, VALUE self) {
+_wrap_IScene_RS(int argc, VALUE *argv, VALUE self) {
   OneU::IScene *arg1 = (OneU::IScene *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -9998,7 +9998,7 @@ SWIGEXPORT void Init_OUE(void) {
   SWIG_TypeClientData(SWIGTYPE_p_OneU__IScene, (void *) &SwigClassIScene);
   rb_undef_alloc_func(SwigClassIScene.klass);
   rb_define_method(SwigClassIScene.klass, "update", VALUEFUNC(_wrap_IScene_update), -1);
-  rb_define_method(SwigClassIScene.klass, "getRenderScene", VALUEFUNC(_wrap_IScene_getRenderScene), -1);
+  rb_define_method(SwigClassIScene.klass, "RS", VALUEFUNC(_wrap_IScene_RS), -1);
   SwigClassIScene.mark = 0;
   SwigClassIScene.destroy = (void (*)(void *)) free_OneU_IScene;
   SwigClassIScene.trackObjects = 0;

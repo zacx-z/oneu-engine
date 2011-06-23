@@ -85,10 +85,10 @@ namespace OneU
 
 namespace OneU
 {
-	extern "C" ONEU_API void _TerminateApp(const char * FileName, const int Line, pcwstr str);
+	extern "C" ONEU_API void _TerminateApp(const char * FileName, const int Line, const char* Function, pcwstr str);
 
-	inline void _TerminateApp(const char * FileName, const int Line, pcstr str){
-		_TerminateApp(FileName, Line, Char2Wide(str));
+	inline void _TerminateApp(const char * FileName, const int Line, const char* Function, pcstr str){
+		_TerminateApp(FileName, Line, Function, Char2Wide(str));
 	}
 
 	typedef void (*TerminateHandler)();
@@ -97,14 +97,14 @@ namespace OneU
 	extern "C" ONEU_API TerminateHandler SetTerminateHandler(TerminateHandler eh);
 
 	//如果为false结束进程
-	inline void _Ensure(const char* FileName, const int Line, const char* expression, bool exp){
+	inline void _Ensure(const char* FileName, const int Line, const char* Function, const char* expression, bool exp){
 		if(!exp)
-			_TerminateApp(FileName, Line, String().format(L"The ensured expression '%S' equal to false!", expression).c_str());
+			_TerminateApp(FileName, Line, Function, String().format(L"The ensured expression '%S' equal to false!", expression).c_str());
 	}
 }
 
 //先执行TernimateHandler
 //再析构全局对象
-#define ONEU_RAISE(description) OneU::_TerminateApp(__FILE__, __LINE__, description)
+#define ONEU_RAISE(description) OneU::_TerminateApp(__FILE__, __LINE__, __FUNCTION__, description)
 
-#define ONEU_ENSURE(exp) OneU::_Ensure(__FILE__, __LINE__, #exp, exp)//与ASSERT不同 在发布版本也会执行的代码 如果为false结束进程
+#define ONEU_ENSURE(exp) OneU::_Ensure(__FILE__, __LINE__, __FUNCTION__, #exp, exp)//与ASSERT不同 在发布版本也会执行的代码 如果为false结束进程

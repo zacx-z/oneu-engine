@@ -56,12 +56,11 @@ namespace OneU
 			std::ostringstream o;
 			VALUE ary = rb_funcall(
 				errinfo, rb_intern("backtrace"), 0);
-			int c;
-			for (c=0; c<RARRAY(ary)->as.heap.len; c++) {
-				o << "\tfrom " << 
-					StringValuePtr(RARRAY(ary)->as.heap.ptr[c]) << 
-					"\n";
-			}
+
+			VALUE btstr = rb_funcall(ary, rb_intern("to_s"), 0);
+			o << "\tfrom " << 
+				StringValuePtr(btstr) << 
+				"\n";
 			clog << "backtrace = " << o.str() << endl;
 		}
 
