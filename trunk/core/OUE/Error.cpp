@@ -143,8 +143,8 @@ namespace OneU
 
 	static TerminateHandler s_eh = NULL;
 
-	void _TerminateApp(const char * FileName, const int Line, pcwstr str ){
-		GetLogger().stream(ILogger::ML_CRITICAL) << FileName << L':' << Line << L'\n' << L"发生异常，程序终止执行。\n异常信息：" << str;
+	void _TerminateApp(const char * FileName, const int Line, const char* Function, pcwstr str ){
+		GetLogger().stream(ILogger::ML_CRITICAL) << FileName << L':' << Line << L"\nFunction:" << Function << L"\n发生异常，程序终止执行。\n异常信息：" << str;
 		::MessageBoxW(NULL, str, L"错误", MB_OK | MB_ICONERROR);
 
 		//调用ExitHandler
