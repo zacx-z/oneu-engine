@@ -57,6 +57,7 @@ namespace OneU
 			virtual OneU::pcwstr name();
 			
 			%apply SWIGTYPE *VDISOWN {OneU::video::INode* child};
+			%apply SWIGTYPE *NONNULL {OneU::video::INode* child};
 			bool addChild(OneU::video::INode* child, int z = 0, OneU::pcwstr tag = NULL);//child失去ownership 条件是child必须有ownership
 			%clear OneU::video::INode* child;
 		};

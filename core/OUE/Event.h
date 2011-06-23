@@ -207,10 +207,10 @@ namespace OneU
 	class KeyEvent
 	{
 		uint32 scancode;
-		bool bRelease;//若为true是Release，否则为Press
+		bool bPress;//若为true是Press，否则为Release
 	public:
-		KeyEvent(uint32 scancode, bool bRelease)
-			: scancode(scancode), bRelease(bRelease){}
+		KeyEvent(uint32 scancode, bool bPress)
+			: scancode(scancode), bPress(bPress){}
 		/* ----------------------------------------------------------------------------*/
 		/**
 		 * @brief 获取按键扫描码
@@ -223,13 +223,13 @@ namespace OneU
 		 * @brief 判断是否是释放按键事件 
 		 */
 		/* ----------------------------------------------------------------------------*/
-		bool isRelease(){ return bRelease; }
+		bool isRelease(){ return !bPress; }
 		/* ----------------------------------------------------------------------------*/
 		/**
 		 * @brief 判断是否是按下按键事件
 		 */
 		/* ----------------------------------------------------------------------------*/
-		bool isPress(){ return !bRelease; }
+		bool isPress(){ return bPress; }
 	};
 
 	/* ----------------------------------------------------------------------------*/
@@ -240,10 +240,10 @@ namespace OneU
 	class MouseEvent
 	{
 		uint32 buttonID;
-		bool bRelease;//若为true是Release，否则为Press
+		bool bPress;//若为true是Release，否则为Press
 	public:
-		MouseEvent(uint32 buttonID, bool bRelease)
-			: buttonID(buttonID), bRelease(bRelease){}
+		MouseEvent(uint32 buttonID, bool bPress)
+			: buttonID(buttonID), bPress(bPress){}
 		/* ----------------------------------------------------------------------------*/
 		/**
 		 * @brief 获取鼠标按键ID
@@ -256,13 +256,13 @@ namespace OneU
 		 * @brief 判断是否是释放按键事件 
 		 */
 		/* ----------------------------------------------------------------------------*/
-		bool isRelease(){ return bRelease; }
+		bool isRelease(){ return !bPress; }
 		/* ----------------------------------------------------------------------------*/
 		/**
 		 * @brief 判断是否是按下按键事件
 		 */
 		/* ----------------------------------------------------------------------------*/
-		bool isPress(){ return !bRelease; }
+		bool isPress(){ return !bPress; }
 	};
 
 	/* ----------------------------------------------------------------------------*/
@@ -312,24 +312,24 @@ namespace OneU
 	{
 		const CharEvent& m_event;
 		__CharFunctor(const CharEvent& event) : m_event(event){}
-		bool operator()(IInputReceiver* p){
-			return p->onChar(m_event);
+		bool operator()(Handle<IInputReceiver> p){
+			return SAFE_H(p)->onChar(m_event);
 		}
 	};
 	struct __KeyFunctor
 	{
 		const KeyEvent& m_event;
 		__KeyFunctor(const KeyEvent& event) : m_event(event){}
-		bool operator()(IInputReceiver* p){
-			return p->onKey(m_event);
+		bool operator()(Handle<IInputReceiver> p){
+			return SAFE_H(p)->onKey(m_event);
 		}
 	};
 	struct __MouseFunctor
 	{
 		const MouseEvent& m_event;
 		__MouseFunctor(const MouseEvent& event) : m_event(event){}
-		bool operator()(IInputReceiver* p){
-			return p->onMouse(m_event);
+		bool operator()(Handle<IInputReceiver> p){
+			return SAFE_H(p)->onMouse(m_event);
 		}
 	};
 	/*@endcond*///INTERNAL_MPL

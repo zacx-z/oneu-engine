@@ -87,7 +87,7 @@ namespace OneU
 		ruby_init();
 		ruby_init_loadpath();
 		ruby_script("oneu");
-		rb_eval_string("$: << \".\"");
+		rb_eval_string("$: << \"./\"");
 #ifdef _DEBUG
 		rb_eval_string("$: << \"./../debug/\"");
 #endif

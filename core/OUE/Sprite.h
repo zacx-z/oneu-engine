@@ -57,6 +57,9 @@ namespace OneU
 		virtual void setAlpha(ubyte alpha) = 0;
 		ubyte getAlpha(){ return getColor().getAlpha(); }
 
+		virtual void setSrcRect(rect rc) = 0;
+		virtual rect getSrcRect() = 0;
+
 		float getWidth(){ return getImage().get()->getWidth() * getScaleX(); }
 		float getHeight(){ return getImage().get()->getHeight() * getScaleY(); }
 

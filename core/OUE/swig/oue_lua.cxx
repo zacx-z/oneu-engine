@@ -1527,41 +1527,42 @@ int SWIGEX_Lua_Ownership(lua_State* L, int index){
 #define SWIGTYPE_p_LPCTSTR swig_types[0]
 #define SWIGTYPE_p_OneU__IControl swig_types[1]
 #define SWIGTYPE_p_OneU__IGame swig_types[2]
-#define SWIGTYPE_p_OneU__ILabel swig_types[3]
-#define SWIGTYPE_p_OneU__IScene swig_types[4]
-#define SWIGTYPE_p_OneU__IShape swig_types[5]
-#define SWIGTYPE_p_OneU__ISprite swig_types[6]
-#define SWIGTYPE_p_OneU__IStereo swig_types[7]
-#define SWIGTYPE_p_OneU__IVideo swig_types[8]
-#define SWIGTYPE_p_OneU__Vector2T_float_t swig_types[9]
-#define SWIGTYPE_p_OneU__Vector2T_int_t swig_types[10]
-#define SWIGTYPE_p_OneU__Vector2T_unsigned_long_t swig_types[11]
-#define SWIGTYPE_p_OneU__Vector3T_float_t swig_types[12]
-#define SWIGTYPE_p_OneU__Vector3T_int_t swig_types[13]
-#define SWIGTYPE_p_OneU__Vector3T_unsigned_long_t swig_types[14]
-#define SWIGTYPE_p_OneU__Vector4T_float_t swig_types[15]
-#define SWIGTYPE_p_OneU__Vector4T_int_t swig_types[16]
-#define SWIGTYPE_p_OneU__Vector4T_unsigned_long_t swig_types[17]
-#define SWIGTYPE_p_OneU__color_t swig_types[18]
-#define SWIGTYPE_p_OneU__image_t swig_types[19]
-#define SWIGTYPE_p_OneU__rect_tT_float_t swig_types[20]
-#define SWIGTYPE_p_OneU__rect_tT_int_t swig_types[21]
-#define SWIGTYPE_p_OneU__rect_tT_unsigned_long_t swig_types[22]
-#define SWIGTYPE_p_OneU__ubyte swig_types[23]
-#define SWIGTYPE_p_OneU__video__INode swig_types[24]
-#define SWIGTYPE_p_OneU__video__INodeContainer swig_types[25]
-#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[26]
-#define SWIGTYPE_p_char swig_types[27]
-#define SWIGTYPE_p_long swig_types[28]
-#define SWIGTYPE_p_long_long swig_types[29]
-#define SWIGTYPE_p_short swig_types[30]
-#define SWIGTYPE_p_unsigned_char swig_types[31]
-#define SWIGTYPE_p_unsigned_long swig_types[32]
-#define SWIGTYPE_p_unsigned_long_long swig_types[33]
-#define SWIGTYPE_p_unsigned_short swig_types[34]
-#define SWIGTYPE_p_wchar_t swig_types[35]
-static swig_type_info *swig_types[37];
-static swig_module_info swig_module = {swig_types, 36, 0, 0, 0, 0};
+#define SWIGTYPE_p_OneU__IInputReceiver swig_types[3]
+#define SWIGTYPE_p_OneU__ILabel swig_types[4]
+#define SWIGTYPE_p_OneU__IScene swig_types[5]
+#define SWIGTYPE_p_OneU__IShape swig_types[6]
+#define SWIGTYPE_p_OneU__ISprite swig_types[7]
+#define SWIGTYPE_p_OneU__IStereo swig_types[8]
+#define SWIGTYPE_p_OneU__IVideo swig_types[9]
+#define SWIGTYPE_p_OneU__Vector2T_float_t swig_types[10]
+#define SWIGTYPE_p_OneU__Vector2T_int_t swig_types[11]
+#define SWIGTYPE_p_OneU__Vector2T_unsigned_long_t swig_types[12]
+#define SWIGTYPE_p_OneU__Vector3T_float_t swig_types[13]
+#define SWIGTYPE_p_OneU__Vector3T_int_t swig_types[14]
+#define SWIGTYPE_p_OneU__Vector3T_unsigned_long_t swig_types[15]
+#define SWIGTYPE_p_OneU__Vector4T_float_t swig_types[16]
+#define SWIGTYPE_p_OneU__Vector4T_int_t swig_types[17]
+#define SWIGTYPE_p_OneU__Vector4T_unsigned_long_t swig_types[18]
+#define SWIGTYPE_p_OneU__color_t swig_types[19]
+#define SWIGTYPE_p_OneU__image_t swig_types[20]
+#define SWIGTYPE_p_OneU__rect_tT_float_t swig_types[21]
+#define SWIGTYPE_p_OneU__rect_tT_int_t swig_types[22]
+#define SWIGTYPE_p_OneU__rect_tT_unsigned_long_t swig_types[23]
+#define SWIGTYPE_p_OneU__ubyte swig_types[24]
+#define SWIGTYPE_p_OneU__video__INode swig_types[25]
+#define SWIGTYPE_p_OneU__video__INodeContainer swig_types[26]
+#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[27]
+#define SWIGTYPE_p_char swig_types[28]
+#define SWIGTYPE_p_long swig_types[29]
+#define SWIGTYPE_p_long_long swig_types[30]
+#define SWIGTYPE_p_short swig_types[31]
+#define SWIGTYPE_p_unsigned_char swig_types[32]
+#define SWIGTYPE_p_unsigned_long swig_types[33]
+#define SWIGTYPE_p_unsigned_long_long swig_types[34]
+#define SWIGTYPE_p_unsigned_short swig_types[35]
+#define SWIGTYPE_p_wchar_t swig_types[36]
+static swig_type_info *swig_types[38];
+static swig_module_info swig_module = {swig_types, 37, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4388,6 +4389,10 @@ static int _wrap_INodeContainer_addChild__SWIG_0(lua_State* L) {
     temp4 = OneU::Char2Wide(lua_tostring(L, 4));
     arg4 = temp4;
   }
+  {
+    if(arg2 == NULL)
+    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+  }
   result = (bool)(arg1)->addChild(arg2,arg3,arg4);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
   return SWIG_arg;
@@ -4424,6 +4429,10 @@ static int _wrap_INodeContainer_addChild__SWIG_1(lua_State* L) {
     }
   }
   arg3 = (int)lua_tonumber(L, 3);
+  {
+    if(arg2 == NULL)
+    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+  }
   result = (bool)(arg1)->addChild(arg2,arg3);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
   return SWIG_arg;
@@ -4456,6 +4465,10 @@ static int _wrap_INodeContainer_addChild__SWIG_2(lua_State* L) {
     if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
       SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
     }
+  }
+  {
+    if(arg2 == NULL)
+    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
   result = (bool)(arg1)->addChild(arg2);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
@@ -5983,6 +5996,91 @@ fail:
 }
 
 
+static int _wrap_IScene_replaceInputFocus(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
+  OneU::IInputReceiver *result = 0 ;
+  
+  SWIG_check_num_args("OneU::IScene::replaceInputFocus",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::replaceInputFocus",1,"OneU::IScene *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("OneU::IScene::replaceInputFocus",2,"OneU::IInputReceiver *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
+    SWIG_fail_ptr("IScene_replaceInputFocus",1,SWIGTYPE_p_OneU__IScene);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__IInputReceiver,0))){
+    SWIG_fail_ptr("IScene_replaceInputFocus",2,SWIGTYPE_p_OneU__IInputReceiver);
+  }
+  
+  result = (OneU::IInputReceiver *)(arg1)->replaceInputFocus(arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__IInputReceiver,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_IScene_pushInputFocus(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
+  
+  SWIG_check_num_args("OneU::IScene::pushInputFocus",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::pushInputFocus",1,"OneU::IScene *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("OneU::IScene::pushInputFocus",2,"OneU::IInputReceiver *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
+    SWIG_fail_ptr("IScene_pushInputFocus",1,SWIGTYPE_p_OneU__IScene);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__IInputReceiver,0))){
+    SWIG_fail_ptr("IScene_pushInputFocus",2,SWIGTYPE_p_OneU__IInputReceiver);
+  }
+  
+  (arg1)->pushInputFocus(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_IScene_popInputFocus(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  OneU::IInputReceiver *result = 0 ;
+  
+  SWIG_check_num_args("OneU::IScene::popInputFocus",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::popInputFocus",1,"OneU::IScene *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
+    SWIG_fail_ptr("IScene_popInputFocus",1,SWIGTYPE_p_OneU__IScene);
+  }
+  
+  result = (OneU::IInputReceiver *)(arg1)->popInputFocus();
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__IInputReceiver,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static void swig_delete_IScene(void *obj) {
 OneU::IScene *arg1 = (OneU::IScene *) obj;
 delete arg1;
@@ -5990,6 +6088,9 @@ delete arg1;
 static swig_lua_method swig_OneU_IScene_methods[] = {
     {"update", _wrap_IScene_update}, 
     {"getRenderScene", _wrap_IScene_getRenderScene}, 
+    {"replaceInputFocus", _wrap_IScene_replaceInputFocus}, 
+    {"pushInputFocus", _wrap_IScene_pushInputFocus}, 
+    {"popInputFocus", _wrap_IScene_popInputFocus}, 
     {0,0}
 };
 static swig_lua_attribute swig_OneU_IScene_attributes[] = {
@@ -6301,6 +6402,65 @@ fail:
 }
 
 
+static int _wrap_Sprite_setSrcRect(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
+  OneU::rect arg2 ;
+  OneU::rect *argp2 ;
+  
+  SWIG_check_num_args("OneU::ISprite::setSrcRect",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::setSrcRect",1,"OneU::ISprite *");
+  if(!lua_isuserdata(L,2)) SWIG_fail_arg("OneU::ISprite::setSrcRect",2,"OneU::rect");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
+    SWIG_fail_ptr("Sprite_setSrcRect",1,SWIGTYPE_p_OneU__ISprite);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&argp2,SWIGTYPE_p_OneU__rect_tT_float_t,0))){
+    SWIG_fail_ptr("Sprite_setSrcRect",2,SWIGTYPE_p_OneU__rect_tT_float_t);
+  }
+  arg2 = *argp2;
+  
+  (arg1)->setSrcRect(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Sprite_getSrcRect(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
+  OneU::rect result;
+  
+  SWIG_check_num_args("OneU::ISprite::getSrcRect",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getSrcRect",1,"OneU::ISprite *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
+    SWIG_fail_ptr("Sprite_getSrcRect",1,SWIGTYPE_p_OneU__ISprite);
+  }
+  
+  result = (arg1)->getSrcRect();
+  {
+    OneU::rect * resultptr = new OneU::rect((const OneU::rect &) result);
+    SWIG_NewPointerObj(L,(void *) resultptr,SWIGTYPE_p_OneU__rect_tT_float_t,1); SWIG_arg++;
+  }
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_Sprite_getWidth(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
@@ -6554,6 +6714,8 @@ static swig_lua_method swig_OneU_ISprite_methods[] = {
     {"getColor", _wrap_Sprite_getColor}, 
     {"setAlpha", _wrap_Sprite_setAlpha}, 
     {"getAlpha", _wrap_Sprite_getAlpha}, 
+    {"setSrcRect", _wrap_Sprite_setSrcRect}, 
+    {"getSrcRect", _wrap_Sprite_getSrcRect}, 
     {"getWidth", _wrap_Sprite_getWidth}, 
     {"getHeight", _wrap_Sprite_getHeight}, 
     {"setBlendMode", _wrap_Sprite_setBlendMode}, 
@@ -7261,6 +7423,7 @@ static void *_p_OneU__video__IRenderSceneTo_p_OneU__video__INodeContainer(void *
 static swig_type_info _swigt__p_LPCTSTR = {"_p_LPCTSTR", "LPCTSTR *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__IControl = {"_p_OneU__IControl", "OneU::IControl *", 0, 0, (void*)&_wrap_class_OneU_IControl, 0};
 static swig_type_info _swigt__p_OneU__IGame = {"_p_OneU__IGame", "OneU::IGame *", 0, 0, (void*)&_wrap_class_OneU_IGame, 0};
+static swig_type_info _swigt__p_OneU__IInputReceiver = {"_p_OneU__IInputReceiver", "OneU::IInputReceiver *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__ILabel = {"_p_OneU__ILabel", "OneU::ILabel *", 0, 0, (void*)&_wrap_class_OneU_ILabel, 0};
 static swig_type_info _swigt__p_OneU__IScene = {"_p_OneU__IScene", "OneU::IScene *", 0, 0, (void*)&_wrap_class_OneU_IScene, 0};
 static swig_type_info _swigt__p_OneU__IShape = {"_p_OneU__IShape", "OneU::IShape *", 0, 0, (void*)&_wrap_class_OneU_IShape, 0};
@@ -7299,6 +7462,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_LPCTSTR,
   &_swigt__p_OneU__IControl,
   &_swigt__p_OneU__IGame,
+  &_swigt__p_OneU__IInputReceiver,
   &_swigt__p_OneU__ILabel,
   &_swigt__p_OneU__IScene,
   &_swigt__p_OneU__IShape,
@@ -7337,6 +7501,7 @@ static swig_type_info *swig_type_initial[] = {
 static swig_cast_info _swigc__p_LPCTSTR[] = {  {&_swigt__p_LPCTSTR, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IControl[] = {  {&_swigt__p_OneU__IControl, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IGame[] = {  {&_swigt__p_OneU__IGame, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_OneU__IInputReceiver[] = {  {&_swigt__p_OneU__IInputReceiver, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__ILabel[] = {  {&_swigt__p_OneU__ILabel, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IScene[] = {  {&_swigt__p_OneU__IScene, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IShape[] = {  {&_swigt__p_OneU__IShape, 0, 0, 0},{0, 0, 0, 0}};
@@ -7375,6 +7540,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_LPCTSTR,
   _swigc__p_OneU__IControl,
   _swigc__p_OneU__IGame,
+  _swigc__p_OneU__IInputReceiver,
   _swigc__p_OneU__ILabel,
   _swigc__p_OneU__IScene,
   _swigc__p_OneU__IShape,

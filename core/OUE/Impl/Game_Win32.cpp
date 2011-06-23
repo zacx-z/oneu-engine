@@ -94,6 +94,8 @@ namespace OneU
 				this->onFrame();
 			}
 			catch(...){
+
+				::MessageBoxW(NULL, L"运行时发生错误退出。", L"错误", MB_OK | MB_ICONERROR);
 				ONEU_LOG(L"运行时发生错误退出。");
 
 				return -1;
