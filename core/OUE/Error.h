@@ -96,6 +96,8 @@ namespace OneU
 	//只有调用ONEU_EXIT(_ExitApp)才会调用Handler
 	extern "C" ONEU_API TerminateHandler SetTerminateHandler(TerminateHandler eh);
 
+	void Prompt(pcwstr message);
+
 	//如果为false结束进程
 	inline void _Ensure(const char* FileName, const int Line, const char* Function, const char* expression, bool exp){
 		if(!exp)
@@ -106,5 +108,6 @@ namespace OneU
 //先执行TernimateHandler
 //再析构全局对象
 #define ONEU_RAISE(description) OneU::_TerminateApp(__FILE__, __LINE__, __FUNCTION__, description)
+#define ONEU_PROMPT(message) OneU::Prompt(message)
 
 #define ONEU_ENSURE(exp) OneU::_Ensure(__FILE__, __LINE__, __FUNCTION__, #exp, exp)//与ASSERT不同 在发布版本也会执行的代码 如果为false结束进程

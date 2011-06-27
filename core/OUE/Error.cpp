@@ -162,4 +162,9 @@ namespace OneU
 		s_eh = eh;
 		return ret;
 	}
+
+	void Prompt( pcwstr message )
+	{
+		::MessageBoxW(NULL, message, L"Message", MB_OK);
+	}
 }

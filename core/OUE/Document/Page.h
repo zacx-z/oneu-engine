@@ -348,6 +348,11 @@ namespace OneU{
  *  - SWIG导出返回pcwstr的director虚函数可能会有内存被提前释放的问题。（未验证）
  *	.
  * .
+ * 脚本与C++边缘（容易出莫名其妙错误的地方，需要特别注意）：
+ * - @ref IGame::pushInputReceiver，如果不在脚本中保持该变量，则会引起空引用错误，且该错误出现的时机是随机的。
+ * - @ref IGame::replaceScene同上，如果不保持返回的变量，会自动销毁原来的场景。
+ * - @ref INode::addChild会将ownership转移给父节点，脚本可不保持该变量。INode::detach返回带有ownership的自身（尽管指向同样的C++对象，但与调用的变量是不一样的变量），需要保持，否则会使之自行销毁（也可用该法来删除INode）。
+ * .
  * @attention 重要改动，Game.run后需要调用Game.destroy
  * @remarks 具体接口参见swig/*.i文件。
  */

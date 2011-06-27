@@ -10,7 +10,7 @@ namespace OneU
 	typedef long long int64;
 	typedef long int32;
 	typedef short int16;
-	typedef char int8;
+	//typedef char int8;
 
 	typedef wchar_t wchar;
 	typedef wchar* pwstr;
@@ -18,10 +18,16 @@ namespace OneU
 	typedef char* pstr;
 	typedef const char* pcstr;
 	//typedef char byte;
-	//typedef unsigned char ubyte;
+	typedef unsigned char ubyte;
 	
 	class color_t;
+	
+	%typemap(in) uint8 = unsigned int;//没有溢出检查 暂时先这样
+	%typemap(out) uint8 = unsigned int;
+	%typemap(in) ubyte = unsigned int;
+	%typemap(out) ubyte = unsigned int;
 }
+
 	
 #if defined(SWIGLUA)
 namespace OneU

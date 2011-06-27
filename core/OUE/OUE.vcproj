@@ -194,6 +194,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Error.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Event.cpp"
 				>
 			</File>
@@ -203,6 +207,14 @@
 			</File>
 			<File
 				RelativePath=".\Label.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Logger.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Memory.cpp"
 				>
 			</File>
 			<File
@@ -221,6 +233,14 @@
 				RelativePath=".\Sprite.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\Stream.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\StringUtil.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="include"
@@ -237,10 +257,6 @@
 			</File>
 			<File
 				RelativePath=".\Control.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Error.cpp"
 				>
 			</File>
 			<File
@@ -264,15 +280,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Logger.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Logger.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Memory.cpp"
 				>
 			</File>
 			<File
@@ -308,15 +316,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Stream.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Stream.h"
-				>
-			</File>
-			<File
-				RelativePath=".\StringUtil.cpp"
 				>
 			</File>
 			<File
