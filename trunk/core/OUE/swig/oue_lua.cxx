@@ -1548,21 +1548,19 @@ int SWIGEX_Lua_Ownership(lua_State* L, int index){
 #define SWIGTYPE_p_OneU__rect_tT_float_t swig_types[21]
 #define SWIGTYPE_p_OneU__rect_tT_int_t swig_types[22]
 #define SWIGTYPE_p_OneU__rect_tT_unsigned_long_t swig_types[23]
-#define SWIGTYPE_p_OneU__ubyte swig_types[24]
-#define SWIGTYPE_p_OneU__video__INode swig_types[25]
-#define SWIGTYPE_p_OneU__video__INodeContainer swig_types[26]
-#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[27]
-#define SWIGTYPE_p_char swig_types[28]
-#define SWIGTYPE_p_long swig_types[29]
-#define SWIGTYPE_p_long_long swig_types[30]
-#define SWIGTYPE_p_short swig_types[31]
-#define SWIGTYPE_p_unsigned_char swig_types[32]
-#define SWIGTYPE_p_unsigned_long swig_types[33]
-#define SWIGTYPE_p_unsigned_long_long swig_types[34]
-#define SWIGTYPE_p_unsigned_short swig_types[35]
-#define SWIGTYPE_p_wchar_t swig_types[36]
-static swig_type_info *swig_types[38];
-static swig_module_info swig_module = {swig_types, 37, 0, 0, 0, 0};
+#define SWIGTYPE_p_OneU__video__INode swig_types[24]
+#define SWIGTYPE_p_OneU__video__INodeContainer swig_types[25]
+#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[26]
+#define SWIGTYPE_p_long swig_types[27]
+#define SWIGTYPE_p_long_long swig_types[28]
+#define SWIGTYPE_p_short swig_types[29]
+#define SWIGTYPE_p_unsigned_char swig_types[30]
+#define SWIGTYPE_p_unsigned_long swig_types[31]
+#define SWIGTYPE_p_unsigned_long_long swig_types[32]
+#define SWIGTYPE_p_unsigned_short swig_types[33]
+#define SWIGTYPE_p_wchar_t swig_types[34]
+static swig_type_info *swig_types[36];
+static swig_module_info swig_module = {swig_types, 35, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6347,22 +6345,17 @@ static int _wrap_Sprite_setAlpha(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   OneU::ubyte arg2 ;
-  OneU::ubyte *argp2 ;
   
   SWIG_check_num_args("OneU::ISprite::setAlpha",2,2)
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::setAlpha",1,"OneU::ISprite *");
-  if(!lua_isuserdata(L,2)) SWIG_fail_arg("OneU::ISprite::setAlpha",2,"OneU::ubyte");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ISprite::setAlpha",2,"OneU::ubyte");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
     SWIG_fail_ptr("Sprite_setAlpha",1,SWIGTYPE_p_OneU__ISprite);
   }
   
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&argp2,SWIGTYPE_p_OneU__ubyte,0))){
-    SWIG_fail_ptr("Sprite_setAlpha",2,SWIGTYPE_p_OneU__ubyte);
-  }
-  arg2 = *argp2;
-  
+  SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
+  arg2 = (OneU::ubyte)lua_tonumber(L, 2);
   (arg1)->setAlpha(arg2);
   
   return SWIG_arg;
@@ -6387,11 +6380,8 @@ static int _wrap_Sprite_getAlpha(lua_State* L) {
     SWIG_fail_ptr("Sprite_getAlpha",1,SWIGTYPE_p_OneU__ISprite);
   }
   
-  result = (arg1)->getAlpha();
-  {
-    OneU::ubyte * resultptr = new OneU::ubyte((const OneU::ubyte &) result);
-    SWIG_NewPointerObj(L,(void *) resultptr,SWIGTYPE_p_OneU__ubyte,1); SWIG_arg++;
-  }
+  result = (OneU::ubyte)(arg1)->getAlpha();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
   return SWIG_arg;
   
   if(0) SWIG_fail;
@@ -6978,22 +6968,17 @@ static int _wrap_Label_setAlpha(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ILabel *arg1 = (OneU::ILabel *) 0 ;
   OneU::ubyte arg2 ;
-  OneU::ubyte *argp2 ;
   
   SWIG_check_num_args("OneU::ILabel::setAlpha",2,2)
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ILabel::setAlpha",1,"OneU::ILabel *");
-  if(!lua_isuserdata(L,2)) SWIG_fail_arg("OneU::ILabel::setAlpha",2,"OneU::ubyte");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ILabel::setAlpha",2,"OneU::ubyte");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ILabel,0))){
     SWIG_fail_ptr("Label_setAlpha",1,SWIGTYPE_p_OneU__ILabel);
   }
   
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&argp2,SWIGTYPE_p_OneU__ubyte,0))){
-    SWIG_fail_ptr("Label_setAlpha",2,SWIGTYPE_p_OneU__ubyte);
-  }
-  arg2 = *argp2;
-  
+  SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
+  arg2 = (OneU::ubyte)lua_tonumber(L, 2);
   (arg1)->setAlpha(arg2);
   
   return SWIG_arg;
@@ -7018,11 +7003,8 @@ static int _wrap_Label_getAlpha(lua_State* L) {
     SWIG_fail_ptr("Label_getAlpha",1,SWIGTYPE_p_OneU__ILabel);
   }
   
-  result = (arg1)->getAlpha();
-  {
-    OneU::ubyte * resultptr = new OneU::ubyte((const OneU::ubyte &) result);
-    SWIG_NewPointerObj(L,(void *) resultptr,SWIGTYPE_p_OneU__ubyte,1); SWIG_arg++;
-  }
+  result = (OneU::ubyte)(arg1)->getAlpha();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
   return SWIG_arg;
   
   if(0) SWIG_fail;
@@ -7444,15 +7426,13 @@ static swig_type_info _swigt__p_OneU__image_t = {"_p_OneU__image_t", "OneU::imag
 static swig_type_info _swigt__p_OneU__rect_tT_float_t = {"_p_OneU__rect_tT_float_t", "OneU::rect_t< float > *|OneU::rect *", 0, 0, (void*)&_wrap_class_OneU_rect_t_Sl_float_Sg_, 0};
 static swig_type_info _swigt__p_OneU__rect_tT_int_t = {"_p_OneU__rect_tT_int_t", "OneU::recti_t *|OneU::rect_t< int > *", 0, 0, (void*)&_wrap_class_OneU_rect_t_Sl_int_Sg_, 0};
 static swig_type_info _swigt__p_OneU__rect_tT_unsigned_long_t = {"_p_OneU__rect_tT_unsigned_long_t", "OneU::rect_t< unsigned long > *|OneU::rectu_t *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_OneU__ubyte = {"_p_OneU__ubyte", "OneU::ubyte *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__INode = {"_p_OneU__video__INode", "OneU::video::INode *", 0, 0, (void*)&_wrap_class_OneU_video_INode, 0};
 static swig_type_info _swigt__p_OneU__video__INodeContainer = {"_p_OneU__video__INodeContainer", "OneU::video::INodeContainer *", 0, 0, (void*)&_wrap_class_OneU_video_INodeContainer, 0};
 static swig_type_info _swigt__p_OneU__video__IRenderScene = {"_p_OneU__video__IRenderScene", "OneU::video::IRenderScene *", 0, 0, (void*)&_wrap_class_OneU_video_IRenderScene, 0};
-static swig_type_info _swigt__p_char = {"_p_char", "char *|OneU::int8 *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_long = {"_p_long", "OneU::int32 *|long *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_long_long = {"_p_long_long", "OneU::int64 *|long long *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_short = {"_p_short", "OneU::int16 *|short *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "unsigned char *|OneU::uint8 *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "unsigned char *|OneU::uint8 *|OneU::ubyte *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_long = {"_p_unsigned_long", "OneU::uint32 *|unsigned long *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_long_long = {"_p_unsigned_long_long", "OneU::uint64 *|unsigned long long *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "OneU::uint16 *|unsigned short *", 0, 0, (void*)0, 0};
@@ -7483,11 +7463,9 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_OneU__rect_tT_float_t,
   &_swigt__p_OneU__rect_tT_int_t,
   &_swigt__p_OneU__rect_tT_unsigned_long_t,
-  &_swigt__p_OneU__ubyte,
   &_swigt__p_OneU__video__INode,
   &_swigt__p_OneU__video__INodeContainer,
   &_swigt__p_OneU__video__IRenderScene,
-  &_swigt__p_char,
   &_swigt__p_long,
   &_swigt__p_long_long,
   &_swigt__p_short,
@@ -7522,11 +7500,9 @@ static swig_cast_info _swigc__p_OneU__image_t[] = {  {&_swigt__p_OneU__image_t, 
 static swig_cast_info _swigc__p_OneU__rect_tT_float_t[] = {  {&_swigt__p_OneU__rect_tT_float_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__rect_tT_int_t[] = {  {&_swigt__p_OneU__rect_tT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__rect_tT_unsigned_long_t[] = {  {&_swigt__p_OneU__rect_tT_unsigned_long_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_OneU__ubyte[] = {  {&_swigt__p_OneU__ubyte, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__INode[] = {  {&_swigt__p_OneU__IShape, _p_OneU__IShapeTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ILabel, _p_OneU__ILabelTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ISprite, _p_OneU__ISpriteTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__INodeContainer, _p_OneU__video__INodeContainerTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__INode, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__INodeContainer[] = {  {&_swigt__p_OneU__video__INodeContainer, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__INodeContainer, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__IRenderScene[] = {  {&_swigt__p_OneU__video__IRenderScene, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_long[] = {  {&_swigt__p_long, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_long_long[] = {  {&_swigt__p_long_long, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 0, 0}};
@@ -7561,11 +7537,9 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_OneU__rect_tT_float_t,
   _swigc__p_OneU__rect_tT_int_t,
   _swigc__p_OneU__rect_tT_unsigned_long_t,
-  _swigc__p_OneU__ubyte,
   _swigc__p_OneU__video__INode,
   _swigc__p_OneU__video__INodeContainer,
   _swigc__p_OneU__video__IRenderScene,
-  _swigc__p_char,
   _swigc__p_long,
   _swigc__p_long_long,
   _swigc__p_short,

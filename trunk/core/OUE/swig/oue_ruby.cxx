@@ -2228,22 +2228,21 @@ namespace Swig {
 #define SWIGTYPE_p_OneU__rect_tT_float_t swig_types[24]
 #define SWIGTYPE_p_OneU__rect_tT_int_t swig_types[25]
 #define SWIGTYPE_p_OneU__rect_tT_unsigned_long_t swig_types[26]
-#define SWIGTYPE_p_OneU__ubyte swig_types[27]
-#define SWIGTYPE_p_OneU__video__INode swig_types[28]
-#define SWIGTYPE_p_OneU__video__INodeContainer swig_types[29]
-#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[30]
-#define SWIGTYPE_p_Scene swig_types[31]
-#define SWIGTYPE_p_char swig_types[32]
-#define SWIGTYPE_p_long swig_types[33]
-#define SWIGTYPE_p_long_long swig_types[34]
-#define SWIGTYPE_p_short swig_types[35]
-#define SWIGTYPE_p_unsigned_char swig_types[36]
-#define SWIGTYPE_p_unsigned_long swig_types[37]
-#define SWIGTYPE_p_unsigned_long_long swig_types[38]
-#define SWIGTYPE_p_unsigned_short swig_types[39]
-#define SWIGTYPE_p_wchar_t swig_types[40]
-static swig_type_info *swig_types[42];
-static swig_module_info swig_module = {swig_types, 41, 0, 0, 0, 0};
+#define SWIGTYPE_p_OneU__video__INode swig_types[27]
+#define SWIGTYPE_p_OneU__video__INodeContainer swig_types[28]
+#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[29]
+#define SWIGTYPE_p_Scene swig_types[30]
+#define SWIGTYPE_p_char swig_types[31]
+#define SWIGTYPE_p_long swig_types[32]
+#define SWIGTYPE_p_long_long swig_types[33]
+#define SWIGTYPE_p_short swig_types[34]
+#define SWIGTYPE_p_unsigned_char swig_types[35]
+#define SWIGTYPE_p_unsigned_long swig_types[36]
+#define SWIGTYPE_p_unsigned_long_long swig_types[37]
+#define SWIGTYPE_p_unsigned_short swig_types[38]
+#define SWIGTYPE_p_wchar_t swig_types[39]
+static swig_type_info *swig_types[41];
+static swig_module_info swig_module = {swig_types, 40, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2550,6 +2549,45 @@ public:
 
 
 #include "../Sprite.h"
+
+
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_int (VALUE obj, unsigned int *val)
+{
+  unsigned long v;
+  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v > UINT_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< unsigned int >(v);
+    }
+  }  
+  return res;
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_char (VALUE obj, unsigned char *val)
+{
+  unsigned long v;
+  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v > UCHAR_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< unsigned char >(v);
+    }
+  }  
+  return res;
+}
+
+
+SWIGINTERNINLINE VALUE
+SWIG_From_unsigned_SS_int  (unsigned int value)
+{    
+  return SWIG_From_unsigned_SS_long  (value);
+}
 
 SWIGINTERN OneU::ISprite *new_OneU_ISprite__SWIG_0(OneU::pcwstr file){
 			return OneU::Sprite_create(OneU::GetVideo().loadImage(file));
@@ -7863,8 +7901,8 @@ _wrap_Sprite_alphae___(int argc, VALUE *argv, VALUE self) {
   OneU::ubyte arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
@@ -7874,17 +7912,11 @@ _wrap_Sprite_alphae___(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite *","setAlpha", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::ISprite * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__ubyte,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::ubyte","setAlpha", 2, argv[0] )); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::ubyte","setAlpha", 2, argv[0]));
-    } else {
-      arg2 = *(reinterpret_cast< OneU::ubyte * >(argp2));
-    }
-  }
+  ecode2 = SWIG_AsVal_unsigned_SS_int(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "OneU::ubyte","setAlpha", 2, argv[0] ));
+  } 
+  arg2 = static_cast< OneU::ubyte >(val2);
   (arg1)->setAlpha(arg2);
   return Qnil;
 fail:
@@ -7908,8 +7940,8 @@ _wrap_Sprite_alpha(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite *","getAlpha", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::ISprite * >(argp1);
-  result = (arg1)->getAlpha();
-  vresult = SWIG_NewPointerObj((new OneU::ubyte(static_cast< const OneU::ubyte& >(result))), SWIGTYPE_p_OneU__ubyte, SWIG_POINTER_OWN |  0 );
+  result = (OneU::ubyte)(arg1)->getAlpha();
+  vresult = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
   return vresult;
 fail:
   return Qnil;
@@ -8512,8 +8544,8 @@ _wrap_Label_alphae___(int argc, VALUE *argv, VALUE self) {
   OneU::ubyte arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
@@ -8523,17 +8555,11 @@ _wrap_Label_alphae___(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ILabel *","setAlpha", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::ILabel * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__ubyte,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::ubyte","setAlpha", 2, argv[0] )); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::ubyte","setAlpha", 2, argv[0]));
-    } else {
-      arg2 = *(reinterpret_cast< OneU::ubyte * >(argp2));
-    }
-  }
+  ecode2 = SWIG_AsVal_unsigned_SS_int(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "OneU::ubyte","setAlpha", 2, argv[0] ));
+  } 
+  arg2 = static_cast< OneU::ubyte >(val2);
   (arg1)->setAlpha(arg2);
   return Qnil;
 fail:
@@ -8557,8 +8583,8 @@ _wrap_Label_alpha(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ILabel *","getAlpha", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::ILabel * >(argp1);
-  result = (arg1)->getAlpha();
-  vresult = SWIG_NewPointerObj((new OneU::ubyte(static_cast< const OneU::ubyte& >(result))), SWIGTYPE_p_OneU__ubyte, SWIG_POINTER_OWN |  0 );
+  result = (OneU::ubyte)(arg1)->getAlpha();
+  vresult = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
   return vresult;
 fail:
   return Qnil;
@@ -9230,16 +9256,15 @@ static swig_type_info _swigt__p_OneU__image_t = {"_p_OneU__image_t", "OneU::imag
 static swig_type_info _swigt__p_OneU__rect_tT_float_t = {"_p_OneU__rect_tT_float_t", "OneU::rect_t< float > *|OneU::rect *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__rect_tT_int_t = {"_p_OneU__rect_tT_int_t", "OneU::recti_t *|OneU::rect_t< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__rect_tT_unsigned_long_t = {"_p_OneU__rect_tT_unsigned_long_t", "OneU::rect_t< unsigned long > *|OneU::rectu_t *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_OneU__ubyte = {"_p_OneU__ubyte", "OneU::ubyte *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__INode = {"_p_OneU__video__INode", "OneU::video::INode *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__INodeContainer = {"_p_OneU__video__INodeContainer", "OneU::video::INodeContainer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__IRenderScene = {"_p_OneU__video__IRenderScene", "OneU::video::IRenderScene *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Scene = {"_p_Scene", "Scene *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_char = {"_p_char", "char *|OneU::int8 *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_long = {"_p_long", "OneU::int32 *|long *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_long_long = {"_p_long_long", "OneU::int64 *|long long *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_short = {"_p_short", "OneU::int16 *|short *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "unsigned char *|OneU::uint8 *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "unsigned char *|OneU::uint8 *|OneU::ubyte *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_long = {"_p_unsigned_long", "OneU::uint32 *|unsigned long *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_long_long = {"_p_unsigned_long_long", "OneU::uint64 *|unsigned long long *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "OneU::uint16 *|unsigned short *", 0, 0, (void*)0, 0};
@@ -9273,7 +9298,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_OneU__rect_tT_float_t,
   &_swigt__p_OneU__rect_tT_int_t,
   &_swigt__p_OneU__rect_tT_unsigned_long_t,
-  &_swigt__p_OneU__ubyte,
   &_swigt__p_OneU__video__INode,
   &_swigt__p_OneU__video__INodeContainer,
   &_swigt__p_OneU__video__IRenderScene,
@@ -9316,7 +9340,6 @@ static swig_cast_info _swigc__p_OneU__image_t[] = {  {&_swigt__p_OneU__image_t, 
 static swig_cast_info _swigc__p_OneU__rect_tT_float_t[] = {  {&_swigt__p_OneU__rect_tT_float_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__rect_tT_int_t[] = {  {&_swigt__p_OneU__rect_tT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__rect_tT_unsigned_long_t[] = {  {&_swigt__p_OneU__rect_tT_unsigned_long_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_OneU__ubyte[] = {  {&_swigt__p_OneU__ubyte, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__INode[] = {  {&_swigt__p_OneU__IShape, _p_OneU__IShapeTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ILabel, _p_OneU__ILabelTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ISprite, _p_OneU__ISpriteTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__INodeContainer, _p_OneU__video__INodeContainerTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__INode, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__INodeContainer[] = {  {&_swigt__p_OneU__video__INodeContainer, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__INodeContainer, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__IRenderScene[] = {  {&_swigt__p_OneU__video__IRenderScene, 0, 0, 0},{0, 0, 0, 0}};
@@ -9359,7 +9382,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_OneU__rect_tT_float_t,
   _swigc__p_OneU__rect_tT_int_t,
   _swigc__p_OneU__rect_tT_unsigned_long_t,
-  _swigc__p_OneU__ubyte,
   _swigc__p_OneU__video__INode,
   _swigc__p_OneU__video__INodeContainer,
   _swigc__p_OneU__video__IRenderScene,

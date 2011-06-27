@@ -40,11 +40,11 @@ namespace OneU
 
 		// class
 		VALUE klass = rb_class_path(CLASS_OF(lasterr));
-		clog << "class = " << StringValuePtr(klass) << endl; 
+		clog << StringValuePtr(klass) << endl; 
 
 		// message
 		VALUE message = rb_obj_as_string(lasterr);
-		clog << "message = " << StringValuePtr(message) << endl;
+		clog << StringValuePtr(message) << endl;
 
 		//一下这两句功能与上面是一样的
 		//VALUE info = rb_eval_string("\"class = #{$!.class}\nmessage = #{$!}\n\"");
@@ -53,18 +53,30 @@ namespace OneU
 		// backtrace
 		VALUE errinfo = rb_errinfo();
 		if(!NIL_P(errinfo)) {
-			std::ostringstream o;
 			VALUE ary = rb_funcall(
 				errinfo, rb_intern("backtrace"), 0);
 
 			VALUE btstr = rb_funcall(ary, rb_intern("to_s"), 0);
-			o << "\tfrom " << 
-				StringValuePtr(btstr) << 
-				"\n";
-			clog << "backtrace = " << o.str() << endl;
+			clog << "backtrace : " << StringValuePtr(btstr) << endl;
 		}
 
 		MessageBoxA(NULL, clog.str().c_str(), "Ruby", MB_OK | MB_ICONERROR);
+	}
+
+	static VALUE _rb_prompt(int argc, VALUE* argv, VALUE self);
+	static void _init_rb_lib(){
+		rb_define_global_function("prompt", (VALUE (*)(ANYARGS))_rb_prompt, -1);
+	}
+	static VALUE _rb_prompt(int argc, VALUE* argv, VALUE self){
+		std::ostringstream o;
+		for(int i = 0; i < argc; ++i){
+			if(rb_type(argv[i]) != T_STRING)
+				rb_raise(rb_eArgError, "String expected, but got %s.", rb_obj_classname(argv[i]));
+			else
+				o << StringValuePtr(argv[i]) << std::endl;
+		}
+		ONEU_PROMPT(Char2Wide(o.str().c_str()));
+		return Qnil;
 	}
 
 	static VALUE LoadWrap(VALUE arg){
@@ -91,6 +103,9 @@ namespace OneU
 #ifdef _DEBUG
 		rb_eval_string("$: << \"./../debug/\"");
 #endif
+
+		_init_rb_lib();
+
 		int state;
 		rb_protect(LoadWrap, rb_str_new2("script/main.rb"), &state);
 
