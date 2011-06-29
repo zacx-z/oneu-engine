@@ -25,14 +25,7 @@ namespace OneU
 
 			OneU::video::INodeContainer* getParent();
 
-			%newobject detach;
-			%extend {
-			OneU::video::INode* detach(){
-				if(!self->getParent()) return NULL;
-				self->OneU::video::INode::detach();
-				return self;//返回带有ownership的自身（原变量不含ownership）
-			}
-			}
+			void detach();
 
 			virtual OneU::pcwstr name();
 
@@ -56,9 +49,12 @@ namespace OneU
 		public:
 			virtual OneU::pcwstr name();
 			
-			%apply SWIGTYPE *VDISOWN {OneU::video::INode* child};
 			%apply SWIGTYPE *NONNULL {OneU::video::INode* child};
-			bool addChild(OneU::video::INode* child, int z = 0, OneU::pcwstr tag = NULL);//child失去ownership 条件是child必须有ownership
+			%extend{
+				bool addChild(OneU::video::INode* child, int z = 0, OneU::pcwstr tag = NULL){
+					return self->addChild(child, z, tag, false);//不转移ownership
+				}
+			}
 			%clear OneU::video::INode* child;
 		};
 	}

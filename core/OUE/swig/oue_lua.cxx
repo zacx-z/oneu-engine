@@ -1583,11 +1583,6 @@ typedef struct{} LANGUAGE_OBJ;
 
 #include "../VideoNode.h"
 
-SWIGINTERN OneU::video::INode *OneU_video_INode_detach(OneU::video::INode *self){
-				if(!self->getParent()) return NULL;
-				self->OneU::video::INode::detach();
-				return self;//返回带有ownership的自身（原变量不含ownership）
-			}
 
 SWIGINTERN int SWIG_lua_isnilstring(lua_State *L, int idx) {
   int ret = lua_isstring(L, idx);
@@ -1596,6 +1591,9 @@ SWIGINTERN int SWIG_lua_isnilstring(lua_State *L, int idx) {
   return ret;
 }
 
+SWIGINTERN bool OneU_video_INodeContainer_addChild__SWIG_0(OneU::video::INodeContainer *self,OneU::video::INode *child,int z=0,OneU::pcwstr tag=NULL){
+					return self->addChild(child, z, tag, false);//不转移ownership
+				}
 
 #include "../Video.h"
 
@@ -1612,8 +1610,8 @@ SWIGINTERN int SWIG_lua_isnilstring(lua_State *L, int idx) {
 #include "../Scene.h"
 
 
-static void addToScene(OneU::video::INode* child){
-	OneU::GetScene().getRenderScene()->addChild(child);
+static void addToScene(OneU::video::INode* child, int z = 0, OneU::pcwstr tag = NULL){
+	OneU::GetScene().getRenderScene()->addChild(child, z, tag, false);
 }
 
 
@@ -3978,7 +3976,6 @@ fail:
 static int _wrap_INode_detach(lua_State* L) {
   int SWIG_arg = 0;
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
-  OneU::video::INode *result = 0 ;
   
   SWIG_check_num_args("OneU::video::INode::detach",1,1)
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::video::INode::detach",1,"OneU::video::INode *");
@@ -3987,8 +3984,8 @@ static int _wrap_INode_detach(lua_State* L) {
     SWIG_fail_ptr("INode_detach",1,SWIGTYPE_p_OneU__video__INode);
   }
   
-  result = (OneU::video::INode *)OneU_video_INode_detach(arg1);
-  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__video__INode,1); SWIG_arg++; 
+  (arg1)->detach();
+  
   return SWIG_arg;
   
   if(0) SWIG_fail;
@@ -4372,13 +4369,11 @@ static int _wrap_INodeContainer_addChild__SWIG_0(lua_State* L) {
     SWIG_fail_ptr("INodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
   }
   
-  {
-    if (SWIGEX_Lua_Ownership(L, 2) != 1)
-    SWIG_fail_arg("INodeContainer_addChild", 2, "The value must have ownership!");
-    if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
-      SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
-    }
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
+  
   arg3 = (int)lua_tonumber(L, 3);
   {
     if(lua_type(L, 4) != LUA_TSTRING)
@@ -4391,7 +4386,7 @@ static int _wrap_INodeContainer_addChild__SWIG_0(lua_State* L) {
     if(arg2 == NULL)
     SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
-  result = (bool)(arg1)->addChild(arg2,arg3,arg4);
+  result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2,arg3,(wchar_t const *)arg4);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
   return SWIG_arg;
   
@@ -4419,19 +4414,17 @@ static int _wrap_INodeContainer_addChild__SWIG_1(lua_State* L) {
     SWIG_fail_ptr("INodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
   }
   
-  {
-    if (SWIGEX_Lua_Ownership(L, 2) != 1)
-    SWIG_fail_arg("INodeContainer_addChild", 2, "The value must have ownership!");
-    if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
-      SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
-    }
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
+  
   arg3 = (int)lua_tonumber(L, 3);
   {
     if(arg2 == NULL)
     SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
-  result = (bool)(arg1)->addChild(arg2,arg3);
+  result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2,arg3);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
   return SWIG_arg;
   
@@ -4457,18 +4450,16 @@ static int _wrap_INodeContainer_addChild__SWIG_2(lua_State* L) {
     SWIG_fail_ptr("INodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
   }
   
-  {
-    if (SWIGEX_Lua_Ownership(L, 2) != 1)
-    SWIG_fail_arg("INodeContainer_addChild", 2, "The value must have ownership!");
-    if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
-      SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
-    }
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
+  
   {
     if(arg2 == NULL)
     SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
-  result = (bool)(arg1)->addChild(arg2);
+  result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
   return SWIG_arg;
   
@@ -6098,19 +6089,78 @@ static swig_lua_class *swig_OneU_IScene_bases[] = {0};
 static const char *swig_OneU_IScene_base_names[] = {0};
 static swig_lua_class _wrap_class_OneU_IScene = { "IScene", &SWIGTYPE_p_OneU__IScene,0, swig_delete_IScene, swig_OneU_IScene_methods, swig_OneU_IScene_attributes, swig_OneU_IScene_bases, swig_OneU_IScene_base_names };
 
-static int _wrap_addToScene(lua_State* L) {
+static int _wrap_addToScene__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  int arg2 ;
+  OneU::pcwstr arg3 = (OneU::pcwstr) 0 ;
+  OneU::AutoPtr< wchar_t > temp3 ;
+  
+  SWIG_check_num_args("addToScene",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("addToScene",1,"OneU::video::INode *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("addToScene",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  {
+    if(lua_type(L, 3) != LUA_TSTRING)
+    SWIG_fail_arg("addToScene", 3, "OneU::pcwstr");
+    
+    temp3 = OneU::Char2Wide(lua_tostring(L, 3));
+    arg3 = temp3;
+  }
+  addToScene(arg1,arg2,(wchar_t const *)arg3);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_addToScene__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  int arg2 ;
+  
+  SWIG_check_num_args("addToScene",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("addToScene",1,"OneU::video::INode *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("addToScene",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  addToScene(arg1,arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_addToScene__SWIG_2(lua_State* L) {
   int SWIG_arg = 0;
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   
   SWIG_check_num_args("addToScene",1,1)
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("addToScene",1,"OneU::video::INode *");
-  {
-    if (SWIGEX_Lua_Ownership(L, 1) != 1)
-    SWIG_fail_arg("addToScene", 1, "The value must have ownership!");
-    if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,SWIG_POINTER_DISOWN))){
-      SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
-    }
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
   }
+  
   addToScene(arg1);
   
   return SWIG_arg;
@@ -6120,6 +6170,80 @@ static int _wrap_addToScene(lua_State* L) {
 fail:
   lua_error(L);
   return SWIG_arg;
+}
+
+
+static int _wrap_addToScene(lua_State* L) {
+  int argc;
+  int argv[4]={
+    1,2,3,4
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_OneU__video__INode, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_addToScene__SWIG_2(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_OneU__video__INode, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isnumber(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_addToScene__SWIG_1(L);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_OneU__video__INode, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isnumber(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = SWIG_lua_isnilstring(L,argv[2]);
+        }
+        if (_v) {
+          return _wrap_addToScene__SWIG_0(L);
+        }
+      }
+    }
+  }
+  
+  lua_pushstring(L,"Wrong arguments for overloaded function 'addToScene'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    addToScene(OneU::video::INode *,int,OneU::pcwstr)\n"
+    "    addToScene(OneU::video::INode *,int)\n"
+    "    addToScene(OneU::video::INode *)\n");
+  lua_error(L);return 0;
 }
 
 
@@ -7195,7 +7319,7 @@ static const struct luaL_reg swig_commands[] = {
     { "GetStereo", _wrap_GetStereo},
     { "GetControl", _wrap_GetControl},
     { "GetScene", _wrap_GetScene},
-    { "addToScene", _wrap_addToScene},
+    { "addToScene",_wrap_addToScene},
     {0,0}
 };
 
