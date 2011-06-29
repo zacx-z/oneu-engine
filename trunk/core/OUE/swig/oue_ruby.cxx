@@ -2639,7 +2639,7 @@ SWIG_FromCharPtr(const char *cptr)
 VALUE SWIG_From_wchar_t(wchar_t value){
 	static wchar_t s[2] = {0, 0};
 	s[0] = value;
-	return SWIG_FromCharPtr(OneU::Wide2Char(s));
+	return SWIG_FromCharPtr(OneU::Wide2Char(s, 65001));
 }
 
 
@@ -5406,7 +5406,7 @@ _wrap_INode_name(int argc, VALUE *argv, VALUE self) {
   arg1 = reinterpret_cast< OneU::video::INode * >(argp1);
   result = (OneU::pcwstr)(arg1)->name();
   {
-    vresult = rb_str_new2(OneU::Wide2Char(result));
+    vresult = rb_str_new2(OneU::Wide2Char(result, 65001));
   }
   return vresult;
 fail:
@@ -5725,7 +5725,7 @@ _wrap_INodeContainer_name(int argc, VALUE *argv, VALUE self) {
   arg1 = reinterpret_cast< OneU::video::INodeContainer * >(argp1);
   result = (OneU::pcwstr)(arg1)->name();
   {
-    vresult = rb_str_new2(OneU::Wide2Char(result));
+    vresult = rb_str_new2(OneU::Wide2Char(result, 65001));
   }
   return vresult;
 fail:
@@ -5771,7 +5771,7 @@ _wrap_INodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
     if(TYPE(argv[2]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "tag", "OneU::pcwstr","addChild", 4, argv[2] ));
     
-    temp4 = OneU::Char2Wide(StringValuePtr(argv[2]));
+    temp4 = OneU::Char2Wide(StringValuePtr(argv[2]), 65001);
     arg4 = temp4;
   }
   {
@@ -6276,7 +6276,7 @@ _wrap_IVideo_loadImage(int argc, VALUE *argv, VALUE self) {
     if(TYPE(argv[0]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "filename", "OneU::pcwstr","loadImage", 2, argv[0] ));
     
-    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]));
+    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
     arg2 = temp2;
   }
   result = (arg1)->loadImage(arg2);
@@ -6544,7 +6544,7 @@ _wrap_IGame_init(int argc, VALUE *argv, VALUE self) {
     if(TYPE(argv[0]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "WindowName", "OneU::pcwstr","init", 2, argv[0] ));
     
-    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]));
+    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
     arg2 = temp2;
   }
   ecode3 = SWIG_AsVal_unsigned_SS_long(argv[1], &val3);
@@ -6684,7 +6684,7 @@ _wrap_IGame_setWindowTitle(int argc, VALUE *argv, VALUE self) {
     if(TYPE(argv[0]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "title", "OneU::pcwstr","setWindowTitle", 2, argv[0] ));
     
-    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]));
+    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
     arg2 = temp2;
   }
   (arg1)->setWindowTitle(arg2);
@@ -6949,7 +6949,7 @@ _wrap_IGame_runShell(int argc, VALUE *argv, VALUE self) {
     if(TYPE(argv[0]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "command", "OneU::pcwstr","runShell", 2, argv[0] ));
     
-    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]));
+    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
     arg2 = temp2;
   }
   (arg1)->runShell(arg2);
@@ -6979,7 +6979,7 @@ _wrap_IGame_output(int argc, VALUE *argv, VALUE self) {
     if(TYPE(argv[0]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "data", "OneU::pcwstr","output", 2, argv[0] ));
     
-    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]));
+    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
     arg2 = temp2;
   }
   (arg1)->output(arg2);
@@ -7138,7 +7138,7 @@ _wrap_IStereo_playMusic(int argc, VALUE *argv, VALUE self) {
     if(TYPE(argv[0]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "filename", "OneU::pcwstr","playMusic", 2, argv[0] ));
     
-    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]));
+    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
     arg2 = temp2;
   }
   (arg1)->playMusic(arg2);
@@ -7168,7 +7168,7 @@ _wrap_IStereo_playSound(int argc, VALUE *argv, VALUE self) {
     if(TYPE(argv[0]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "filename", "OneU::pcwstr","playSound", 2, argv[0] ));
     
-    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]));
+    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
     arg2 = temp2;
   }
   (arg1)->playSound(arg2);
@@ -8161,7 +8161,7 @@ _wrap_new_Sprite__SWIG_0(int argc, VALUE *argv, VALUE self) {
     if(TYPE(argv[0]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "file", "OneU::pcwstr","OneU::ISprite", 1, argv[0] ));
     
-    temp1 = OneU::Char2Wide(StringValuePtr(argv[0]));
+    temp1 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
     arg1 = temp1;
   }
   result = (OneU::ISprite *)new_OneU_ISprite__SWIG_0((wchar_t const *)arg1);
@@ -8424,7 +8424,7 @@ _wrap_Label_texte___(int argc, VALUE *argv, VALUE self) {
     if(TYPE(argv[0]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "text", "OneU::pcwstr","setText", 2, argv[0] ));
     
-    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]));
+    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
     arg2 = temp2;
   }
   (arg1)->setText(arg2);
@@ -8452,7 +8452,7 @@ _wrap_Label_text(int argc, VALUE *argv, VALUE self) {
   arg1 = reinterpret_cast< OneU::ILabel * >(argp1);
   result = (OneU::pcwstr)(arg1)->getText();
   {
-    vresult = rb_str_new2(OneU::Wide2Char(result));
+    vresult = rb_str_new2(OneU::Wide2Char(result, 65001));
   }
   return vresult;
 fail:
@@ -8644,7 +8644,7 @@ _wrap_new_Label__SWIG_0(int argc, VALUE *argv, VALUE self) {
     if(TYPE(argv[3]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "fontName", "OneU::pcwstr","OneU::ILabel", 4, argv[3] ));
     
-    temp4 = OneU::Char2Wide(StringValuePtr(argv[3]));
+    temp4 = OneU::Char2Wide(StringValuePtr(argv[3]), 65001);
     arg4 = temp4;
   }
   result = (OneU::ILabel *)new_OneU_ILabel__SWIG_0(arg1,arg2,arg3,(wchar_t const *)arg4);

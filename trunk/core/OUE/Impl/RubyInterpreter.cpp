@@ -20,6 +20,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+
+#pragma comment(lib, "msvcr80-ruby191.lib")
+
 #define WIN32_LEAN_AND_MEAN
 #pragma warning(disable : 4312)
 #pragma warning(disable : 4311)
@@ -65,10 +68,7 @@ namespace OneU
 	}
 
 	static VALUE _rb_prompt(int argc, VALUE* argv, VALUE self);
-	extern "C" void Init_single_byte();//从Ruby源代码中找来的：enc/single_byte.trans生成的.c
 	static void _init_rb_lib(){
-		Init_single_byte();
-		rb_enc_set_default_external(rb_enc_from_encoding(rb_enc_find("UTF-8")));
 		rb_define_global_function("prompt", (VALUE (*)(ANYARGS))_rb_prompt, -1);
 	}
 	static VALUE _rb_prompt(int argc, VALUE* argv, VALUE self){
@@ -84,15 +84,6 @@ namespace OneU
 	}
 
 	static VALUE LoadWrap(VALUE arg){
-		//wchar buf[MAX_PATH];
-		//::GetCurrentDirectory(MAX_PATH, buf);
-		//wcscat(buf, L"/script/main.rb");
-		//char mbsbuf[MAX_PATH * 2];
-		//::WideCharToMultiByte(CP_UTF8, 0, L"script/啊.rb", -1, mbsbuf, MAX_PATH * 2, NULL, NULL);
-		//没调试出来，另外用这种方法还是没有办法解决require OUE.so路径出现中文的问题
-		//
-		//rb_load(rb_enc_str_new(mbsbuf, strlen(mbsbuf), rb_enc_find("utf-8")), false);
-
 		rb_load(rb_str_new2("script/main.rb"), false);
 		return Qnil;
 	}

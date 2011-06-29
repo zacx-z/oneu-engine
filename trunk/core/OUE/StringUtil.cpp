@@ -30,23 +30,23 @@ THE SOFTWARE.
 namespace OneU
 {
 	//×ª»»
-	extern "C" ONEU_API wchar* _Char2Wide(pcstr cstr)
+	extern "C" ONEU_API wchar* _Char2Wide(pcstr cstr, uint32 codepage)
 	{
 		if(!cstr) return NULL;
 		const size_t l = strlen(cstr);
 		wchar* str = (wchar*)ONEU_ALLOC(sizeof(wchar) * (l + 2));
-		if(!MultiByteToWideChar(CP_ACP, 0, cstr, int(l + 1), str, int(l + 2)))
+		if(!MultiByteToWideChar(codepage, 0, cstr, int(l + 1), str, int(l + 2)))
 		{
 			//throw Exception(L"can't translate char to unicode");
 		}
 		return str;
 	}
-	extern "C" ONEU_API char* _Wide2Char(pcwstr cstr)
+	extern "C" ONEU_API char* _Wide2Char(pcwstr cstr, uint32 codepage)
 	{
 		if(!cstr) return NULL;
 		const size_t l = wcslen(cstr);
 		char* str = (char*)ONEU_ALLOC(sizeof(char) * (l + 2));
-		if(!WideCharToMultiByte(CP_ACP, 0, cstr, int(l + 1), str, int(l + 2), NULL, NULL))
+		if(!WideCharToMultiByte(codepage, 0, cstr, int(l + 1), str, int(l + 2), NULL, NULL))
 		{
 			//throw Exception(L"can't translate char to ansi");
 		}
