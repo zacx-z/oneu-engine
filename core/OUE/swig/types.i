@@ -36,11 +36,11 @@ namespace OneU
 		if(lua_type(L, $input) != LUA_TSTRING)
 			SWIG_fail_arg("$symname", $argnum, "$type");
 		
-		temp = OneU::Char2Wide(lua_tostring(L, $input));
+		temp = OneU::Char2Wide(lua_tostring(L, $input), 65001);
 		$1 = temp;
 	}
 	%typemap(out) const wchar_t* {
-		lua_pushstring(L, OneU::Wide2Char($1));
+		lua_pushstring(L, OneU::Wide2Char($1, 65001));
 	}
 }
 #elif defined(SWIGRUBY)
@@ -49,14 +49,14 @@ namespace OneU
 VALUE SWIG_From_wchar_t(wchar_t value){
 	static wchar_t s[2] = {0, 0};
 	s[0] = value;
-	return SWIG_FromCharPtr(OneU::Wide2Char(s));
+	return SWIG_FromCharPtr(OneU::Wide2Char(s, 65001));
 }
 }
 %fragment("SWIG_AsVal_wchar_t", "header")
 {	
 int SWIG_AsVal_wchar_t(VALUE obj, wchar_t* val){
 	if(TYPE(obj) == T_STRING){
-		*val = OneU::Char2Wide(StringValuePtr(obj))[0];
+		*val = OneU::Char2Wide(StringValuePtr(obj), 65001)[0];
 		return SWIG_OK;
 	}
 	return SWIG_TypeError;
@@ -68,20 +68,20 @@ namespace OneU
 		if(TYPE($input) != T_STRING)
 			SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
 			
-		temp = OneU::Char2Wide(StringValuePtr($input));
+		temp = OneU::Char2Wide(StringValuePtr($input), 65001);
 		$1 = temp;
 	}
 	%typemap(out) const wchar_t* {
-		$result = rb_str_new2(OneU::Wide2Char($1));
+		$result = rb_str_new2(OneU::Wide2Char($1, 65001));
 	}
 	%typemap(directorin) const wchar_t*{
-		$result = rb_str_new2(OneU::Wide2Char($1));
+		$result = rb_str_new2(OneU::Wide2Char($1, 65001));
 	}
 	%typemap(directorout) const wchar_t* (OneU::AutoPtr<wchar_t> temp){
 		if(TYPE($input) != T_STRING)
 			SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
 			
-		temp = OneU::Char2Wide(StringValuePtr($input));
+		temp = OneU::Char2Wide(StringValuePtr($input), 65001);
 		$1 = temp;
 	}
 	

@@ -211,15 +211,18 @@ namespace OneU
 		return String(t, rhs.c_str());
 	}
 
-	extern "C" ONEU_API wchar* _Char2Wide(pcstr cstr);
-	extern "C" ONEU_API char* _Wide2Char(pcwstr cstr);
-	inline AutoPtr<wchar> Char2Wide(pcstr cstr){
-		return AutoPtr<wchar>(_Char2Wide(cstr));
+	extern "C" ONEU_API wchar* _Char2Wide(pcstr cstr, uint32 codepage = 0);
+	extern "C" ONEU_API char* _Wide2Char(pcwstr cstr, uint32 codepage = 0);
+	//codepage表示使用何种代码页作为编码方式
+	//0代表使用本地代码页
+	//(UTF8 65001 UTF7 65000)
+	inline AutoPtr<wchar> Char2Wide(pcstr cstr, uint32 codepage = 0){
+		return AutoPtr<wchar>(_Char2Wide(cstr, codepage));
 	}
-	inline String Char2WideStr(pcstr cstr){
-		return String(_Char2Wide(cstr));
+	inline String Char2WideStr(pcstr cstr, uint32 codepage = 0){
+		return String(_Char2Wide(cstr, codepage));
 	}
-	inline AutoPtr<char> Wide2Char(pcwstr cstr){
+	inline AutoPtr<char> Wide2Char(pcwstr cstr, uint32 codepage = 0){
 		return AutoPtr<char>(_Wide2Char(cstr));
 	}
 //#define SPrintf String().format

@@ -4010,7 +4010,7 @@ static int _wrap_INode_name(lua_State* L) {
   
   result = (OneU::pcwstr)(arg1)->name();
   {
-    lua_pushstring(L, OneU::Wide2Char(result));
+    lua_pushstring(L, OneU::Wide2Char(result, 65001));
   }
   return SWIG_arg;
   
@@ -4339,7 +4339,7 @@ static int _wrap_INodeContainer_name(lua_State* L) {
   
   result = (OneU::pcwstr)(arg1)->name();
   {
-    lua_pushstring(L, OneU::Wide2Char(result));
+    lua_pushstring(L, OneU::Wide2Char(result, 65001));
   }
   return SWIG_arg;
   
@@ -4379,7 +4379,7 @@ static int _wrap_INodeContainer_addChild__SWIG_0(lua_State* L) {
     if(lua_type(L, 4) != LUA_TSTRING)
     SWIG_fail_arg("INodeContainer_addChild", 4, "OneU::pcwstr");
     
-    temp4 = OneU::Char2Wide(lua_tostring(L, 4));
+    temp4 = OneU::Char2Wide(lua_tostring(L, 4), 65001);
     arg4 = temp4;
   }
   {
@@ -4874,7 +4874,7 @@ static int _wrap_IVideo_loadImage(lua_State* L) {
     if(lua_type(L, 2) != LUA_TSTRING)
     SWIG_fail_arg("IVideo_loadImage", 2, "OneU::pcwstr");
     
-    temp2 = OneU::Char2Wide(lua_tostring(L, 2));
+    temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
   }
   result = (arg1)->loadImage(arg2);
@@ -5162,7 +5162,7 @@ static int _wrap_IGame_init(lua_State* L) {
     if(lua_type(L, 2) != LUA_TSTRING)
     SWIG_fail_arg("IGame_init", 2, "OneU::pcwstr");
     
-    temp2 = OneU::Char2Wide(lua_tostring(L, 2));
+    temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
   }
   SWIG_contract_assert((lua_tonumber(L,3)>=0),"number must not be negative")
@@ -5295,7 +5295,7 @@ static int _wrap_IGame_setWindowTitle(lua_State* L) {
     if(lua_type(L, 2) != LUA_TSTRING)
     SWIG_fail_arg("IGame_setWindowTitle", 2, "OneU::pcwstr");
     
-    temp2 = OneU::Char2Wide(lua_tostring(L, 2));
+    temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
   }
   (arg1)->setWindowTitle(arg2);
@@ -5432,7 +5432,7 @@ static int _wrap_IGame_runShell(lua_State* L) {
     if(lua_type(L, 2) != LUA_TSTRING)
     SWIG_fail_arg("IGame_runShell", 2, "OneU::pcwstr");
     
-    temp2 = OneU::Char2Wide(lua_tostring(L, 2));
+    temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
   }
   (arg1)->runShell(arg2);
@@ -5464,7 +5464,7 @@ static int _wrap_IGame_output(lua_State* L) {
     if(lua_type(L, 2) != LUA_TSTRING)
     SWIG_fail_arg("IGame_output", 2, "OneU::pcwstr");
     
-    temp2 = OneU::Char2Wide(lua_tostring(L, 2));
+    temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
   }
   (arg1)->output(arg2);
@@ -5658,7 +5658,7 @@ static int _wrap_IStereo_playMusic(lua_State* L) {
     if(lua_type(L, 2) != LUA_TSTRING)
     SWIG_fail_arg("IStereo_playMusic", 2, "OneU::pcwstr");
     
-    temp2 = OneU::Char2Wide(lua_tostring(L, 2));
+    temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
   }
   (arg1)->playMusic(arg2);
@@ -5690,7 +5690,7 @@ static int _wrap_IStereo_playSound(lua_State* L) {
     if(lua_type(L, 2) != LUA_TSTRING)
     SWIG_fail_arg("IStereo_playSound", 2, "OneU::pcwstr");
     
-    temp2 = OneU::Char2Wide(lua_tostring(L, 2));
+    temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
   }
   (arg1)->playSound(arg2);
@@ -6109,7 +6109,7 @@ static int _wrap_addToScene__SWIG_0(lua_State* L) {
     if(lua_type(L, 3) != LUA_TSTRING)
     SWIG_fail_arg("addToScene", 3, "OneU::pcwstr");
     
-    temp3 = OneU::Char2Wide(lua_tostring(L, 3));
+    temp3 = OneU::Char2Wide(lua_tostring(L, 3), 65001);
     arg3 = temp3;
   }
   addToScene(arg1,arg2,(wchar_t const *)arg3);
@@ -6735,7 +6735,7 @@ static int _wrap_new_Sprite__SWIG_0(lua_State* L) {
     if(lua_type(L, 1) != LUA_TSTRING)
     SWIG_fail_arg("new_Sprite", 1, "OneU::pcwstr");
     
-    temp1 = OneU::Char2Wide(lua_tostring(L, 1));
+    temp1 = OneU::Char2Wide(lua_tostring(L, 1), 65001);
     arg1 = temp1;
   }
   result = (OneU::ISprite *)new_OneU_ISprite__SWIG_0((wchar_t const *)arg1);
@@ -6988,7 +6988,7 @@ static int _wrap_Label_setText(lua_State* L) {
     if(lua_type(L, 2) != LUA_TSTRING)
     SWIG_fail_arg("Label_setText", 2, "OneU::pcwstr");
     
-    temp2 = OneU::Char2Wide(lua_tostring(L, 2));
+    temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
   }
   (arg1)->setText(arg2);
@@ -7017,7 +7017,7 @@ static int _wrap_Label_getText(lua_State* L) {
   
   result = (OneU::pcwstr)(arg1)->getText();
   {
-    lua_pushstring(L, OneU::Wide2Char(result));
+    lua_pushstring(L, OneU::Wide2Char(result, 65001));
   }
   return SWIG_arg;
   
@@ -7187,7 +7187,7 @@ static int _wrap_new_Label__SWIG_0(lua_State* L) {
     if(lua_type(L, 4) != LUA_TSTRING)
     SWIG_fail_arg("new_Label", 4, "OneU::pcwstr");
     
-    temp4 = OneU::Char2Wide(lua_tostring(L, 4));
+    temp4 = OneU::Char2Wide(lua_tostring(L, 4), 65001);
     arg4 = temp4;
   }
   result = (OneU::ILabel *)new_OneU_ILabel__SWIG_0(arg1,arg2,arg3,(wchar_t const *)arg4);
