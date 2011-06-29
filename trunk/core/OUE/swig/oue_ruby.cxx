@@ -2430,11 +2430,6 @@ SWIG_From_bool  (bool value)
   return value ? Qtrue : Qfalse;
 }
 
-SWIGINTERN OneU::video::INode *OneU_video_INode_detach(OneU::video::INode *self){
-				if(!self->getParent()) return NULL;
-				self->OneU::video::INode::detach();
-				return self;//返回带有ownership的自身（原变量不含ownership）
-			}
 
 SWIGINTERN swig_type_info*
 SWIG_pchar_descriptor(void)
@@ -2489,6 +2484,9 @@ SWIG_AsCharPtrAndSize(VALUE obj, char** cptr, size_t* psize, int *alloc)
 
 
 
+SWIGINTERN bool OneU_video_INodeContainer_addChild__SWIG_0(OneU::video::INodeContainer *self,OneU::video::INode *child,int z=0,OneU::pcwstr tag=NULL){
+					return self->addChild(child, z, tag, false);//不转移ownership
+				}
 
 #include "../Video.h"
 
@@ -5374,8 +5372,6 @@ _wrap_INode_detach(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  OneU::video::INode *result = 0 ;
-  VALUE vresult = Qnil;
   
   if ((argc < 0) || (argc > 0)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
@@ -5385,9 +5381,8 @@ _wrap_INode_detach(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INode *","detach", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::video::INode * >(argp1);
-  result = (OneU::video::INode *)OneU_video_INode_detach(arg1);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_OWN |  0 );
-  return vresult;
+  (arg1)->detach();
+  return Qnil;
 fail:
   return Qnil;
 }
@@ -5746,8 +5741,8 @@ _wrap_INodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
   OneU::pcwstr arg4 = (OneU::pcwstr) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  void *argp2 = 0 ;
   int res2 = 0 ;
-  swig_owntype own2 ;
   int val3 ;
   int ecode3 = 0 ;
   OneU::AutoPtr< wchar_t > temp4 ;
@@ -5762,14 +5757,11 @@ _wrap_INodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INodeContainer *","addChild", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::video::INodeContainer * >(argp1);
-  {
-    res2 = SWIG_ConvertPtrAndOwn(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 , &own2);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] ));
-    }
-    if (own2 == 0 || own2 == SWIG_RubyRemoveTracking)//no ownership
-    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "OneU::video::INode *","addChild", 2, argv[0]));
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__video__INode, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] )); 
   }
+  arg2 = reinterpret_cast< OneU::video::INode * >(argp2);
   ecode3 = SWIG_AsVal_int(argv[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "int","addChild", 3, argv[1] ));
@@ -5786,7 +5778,7 @@ _wrap_INodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
     if(arg2 == NULL)
     SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in INodeContainer_addChild");
   }
-  result = (bool)(arg1)->addChild(arg2,arg3,arg4);
+  result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2,arg3,(wchar_t const *)arg4);
   vresult = SWIG_From_bool(static_cast< bool >(result));
   return vresult;
 fail:
@@ -5801,8 +5793,8 @@ _wrap_INodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
   int arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  void *argp2 = 0 ;
   int res2 = 0 ;
-  swig_owntype own2 ;
   int val3 ;
   int ecode3 = 0 ;
   bool result;
@@ -5816,14 +5808,11 @@ _wrap_INodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INodeContainer *","addChild", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::video::INodeContainer * >(argp1);
-  {
-    res2 = SWIG_ConvertPtrAndOwn(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 , &own2);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] ));
-    }
-    if (own2 == 0 || own2 == SWIG_RubyRemoveTracking)//no ownership
-    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "OneU::video::INode *","addChild", 2, argv[0]));
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__video__INode, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] )); 
   }
+  arg2 = reinterpret_cast< OneU::video::INode * >(argp2);
   ecode3 = SWIG_AsVal_int(argv[1], &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "int","addChild", 3, argv[1] ));
@@ -5833,7 +5822,7 @@ _wrap_INodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
     if(arg2 == NULL)
     SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in INodeContainer_addChild");
   }
-  result = (bool)(arg1)->addChild(arg2,arg3);
+  result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2,arg3);
   vresult = SWIG_From_bool(static_cast< bool >(result));
   return vresult;
 fail:
@@ -5847,8 +5836,8 @@ _wrap_INodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg2 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  void *argp2 = 0 ;
   int res2 = 0 ;
-  swig_owntype own2 ;
   bool result;
   VALUE vresult = Qnil;
   
@@ -5860,19 +5849,16 @@ _wrap_INodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INodeContainer *","addChild", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::video::INodeContainer * >(argp1);
-  {
-    res2 = SWIG_ConvertPtrAndOwn(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__video__INode, SWIG_POINTER_DISOWN |  0 , &own2);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] ));
-    }
-    if (own2 == 0 || own2 == SWIG_RubyRemoveTracking)//no ownership
-    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "OneU::video::INode *","addChild", 2, argv[0]));
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__video__INode, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] )); 
   }
+  arg2 = reinterpret_cast< OneU::video::INode * >(argp2);
   {
     if(arg2 == NULL)
     SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in INodeContainer_addChild");
   }
-  result = (bool)(arg1)->addChild(arg2);
+  result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2);
   vresult = SWIG_From_bool(static_cast< bool >(result));
   return vresult;
 fail:
@@ -5951,10 +5937,10 @@ SWIGINTERN VALUE _wrap_INodeContainer_addChild(int nargs, VALUE *args, VALUE sel
   }
   
 fail:
-  Ruby_Format_OverloadedError( argc, 5, "INodeContainer.addChild", 
-    "    bool INodeContainer.addChild(OneU::video::INode *child, int z, OneU::pcwstr tag)\n"
-    "    bool INodeContainer.addChild(OneU::video::INode *child, int z)\n"
-    "    bool INodeContainer.addChild(OneU::video::INode *child)\n");
+  Ruby_Format_OverloadedError( argc, 5, "addChild", 
+    "    bool addChild(OneU::video::INode *child, int z, OneU::pcwstr tag)\n"
+    "    bool addChild(OneU::video::INode *child, int z)\n"
+    "    bool addChild(OneU::video::INode *child)\n");
   
   return Qnil;
 }

@@ -25,6 +25,7 @@ THE SOFTWARE.
 #pragma warning(disable : 4311)
 #include "RubyInterpreter.h"
 #include "../Game.h"
+#include "ruby/encoding.h"
 
 #include <sstream>
 namespace OneU
@@ -60,11 +61,14 @@ namespace OneU
 			clog << "backtrace : " << StringValuePtr(btstr) << endl;
 		}
 
-		MessageBoxA(NULL, clog.str().c_str(), "Ruby", MB_OK | MB_ICONERROR);
+		MessageBox(NULL, Char2Wide(clog.str().c_str()), L"Ruby", MB_OK | MB_ICONERROR);
 	}
 
 	static VALUE _rb_prompt(int argc, VALUE* argv, VALUE self);
+	extern "C" void Init_single_byte();//从Ruby源代码中找来的：enc/single_byte.trans生成的.c
 	static void _init_rb_lib(){
+		Init_single_byte();
+		rb_enc_set_default_external(rb_enc_from_encoding(rb_enc_find("UTF-8")));
 		rb_define_global_function("prompt", (VALUE (*)(ANYARGS))_rb_prompt, -1);
 	}
 	static VALUE _rb_prompt(int argc, VALUE* argv, VALUE self){
@@ -80,13 +84,23 @@ namespace OneU
 	}
 
 	static VALUE LoadWrap(VALUE arg){
-		rb_load(arg, false);
+		//wchar buf[MAX_PATH];
+		//::GetCurrentDirectory(MAX_PATH, buf);
+		//wcscat(buf, L"/script/main.rb");
+		//char mbsbuf[MAX_PATH * 2];
+		//::WideCharToMultiByte(CP_UTF8, 0, L"script/啊.rb", -1, mbsbuf, MAX_PATH * 2, NULL, NULL);
+		//没调试出来，另外用这种方法还是没有办法解决require OUE.so路径出现中文的问题
+		//
+		//rb_load(rb_enc_str_new(mbsbuf, strlen(mbsbuf), rb_enc_find("utf-8")), false);
+
+		rb_load(rb_str_new2("script/main.rb"), false);
 		return Qnil;
 	}
 	static VALUE EvalStringWrap(VALUE arg){
 		rb_eval_string((const char*)arg);
 		return Qnil;
 	}
+RUBY_GLOBAL_SETUP
 
 	ONEU_API void RubyRun(){
 		Game_build(Game_create);
@@ -95,24 +109,26 @@ namespace OneU
 		int n = 1;
 		char** argv = a;
 		ruby_sysinit(&n, &argv);
-		RUBY_INIT_STACK;
-		ruby_init();
-		ruby_init_loadpath();
-		ruby_script("oneu");
-		rb_eval_string("$: << \"./\"");
+		{
+			RUBY_INIT_STACK;
+			ruby_init();
+			ruby_init_loadpath();
+			ruby_script("oneu");
+			rb_eval_string("$: << \"./\"");
 #ifdef _DEBUG
-		rb_eval_string("$: << \"./../debug/\"");
+			rb_eval_string("$: << \"./../debug/\"");
 #endif
 
-		_init_rb_lib();
+			_init_rb_lib();
 
-		int state;
-		rb_protect(LoadWrap, rb_str_new2("script/main.rb"), &state);
+			int state;
+			rb_protect(LoadWrap, Qnil, &state);
 
-		if(state)
-			ThrowOnError(state);
+			if(state)
+				ThrowOnError(state);
 
-		ruby_finalize();
+			ruby_finalize();
+		}
 		
 		Game_destroy();
 	}

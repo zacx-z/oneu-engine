@@ -98,18 +98,6 @@ namespace OneU
 
 			/* ----------------------------------------------------------------------------*/
 			/** 
-			 * @brief 使自身成为某个节点的儿子
-			 * 
-			 * @param parent 双亲节点
-			 * @param z 深度
-			 * @param tag 标签
-			 * 
-			 * @remarks 生存期会被双亲管理
-			 */
-			/* ----------------------------------------------------------------------------*/
-			inline void attach(INodeContainer* parent, int z = 0, pcwstr tag = NULL);//跟addChild功能一样
-			/* ----------------------------------------------------------------------------*/
-			/** 
 			 * @brief 解除与双亲的关系
 			 *
 			 * @remarks 生存期不再被双亲管理
@@ -302,6 +290,7 @@ namespace OneU
 		{
 			int z;
 			INode* child;
+			bool ownFlag;
 			String* tag;
 		};
 
@@ -324,7 +313,8 @@ namespace OneU
 			virtual ~INodeContainer(){
 				for(ListType::iterator it = m_Children.begin(); it != m_Children.end();){
 					if(it->tag != NULL) ONEU_DELETE_T(it->tag);
-					ONEU_DELETE (it++)->child;//调用destroy时会使node detach，进而删除it所指元素。所以使用这种写法避免迭代器失效造成的问题。
+					if(it->ownFlag) ONEU_DELETE (it++)->child;//调用destroy时会使node detach，进而删除it所指元素。所以使用这种写法避免迭代器失效造成的问题。
+					else (it++)->child->detach();
 				}
 			}
 			/* ----------------------------------------------------------------------------*/
@@ -334,12 +324,13 @@ namespace OneU
 			 * @param child 孩子节点
 			 * @param z 深度
 			 * @param tag 标签
+			 * @param ownedByParent 是否被父亲管理生存期
 			 * 
 			 * @returns 是否成功
-			 * @remarks 孩子的生存期被自身管理
+			 * @remarks 若ownedByParent为true孩子的生存期被父亲管理，会在父亲删除的时候被删除。对脚本而言，统一为false。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			bool addChild(INode* child, int z = 0, pcwstr tag = NULL){
+			bool addChild(INode* child, int z = 0, pcwstr tag = NULL, bool ownedByParent = true){
 				if(child->m_pParent != NULL){
 					//GetGame().getBroadcast().message(tag == NULL ? L"Node Container fails to add Child." : String().format(L"Node Container fails to add Child, Tag:%s", tag))
 					return false;//fail to add
@@ -351,6 +342,7 @@ namespace OneU
 				ListType::iterator it = m_Children.insert(iter);
 				it->child = child;
 				it->z = z;
+				it->ownFlag = ownedByParent;
 				if(tag == NULL)it->tag = NULL;
 				else it->tag = ONEU_NEW_T(String(tag));
 
@@ -383,9 +375,6 @@ namespace OneU
 			}
 		};
 
-		inline void INode::attach(INodeContainer* parent, int z /* = 0 */, pcwstr tag /* = NULL */){
-			parent->addChild(this, z, tag);
-		}
 		inline void INode::detach(){
 			if(m_pParent != NULL){
 				m_pParent->m_Children.erase(m_It);

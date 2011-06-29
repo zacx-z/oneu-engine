@@ -34,11 +34,9 @@ public:
 #endif
 
 #ifdef SWIGLUA
-%apply SWIGTYPE *VDISOWN {OneU::video::INode* child};
 %inline %{
-static void addToScene(OneU::video::INode* child){
-	OneU::GetScene().getRenderScene()->addChild(child);
+static void addToScene(OneU::video::INode* child, int z = 0, OneU::pcwstr tag = NULL){
+	OneU::GetScene().getRenderScene()->addChild(child, z, tag, false);
 }
 %}
-%clear OneU::video::INode* child;
 #endif
