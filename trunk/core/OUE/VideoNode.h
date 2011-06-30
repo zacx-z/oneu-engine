@@ -52,15 +52,18 @@ namespace OneU
 			List<_NodeTag>::iterator m_It;//被parent所持有的容器的对应自己的迭代器
 
 			struct _TransformInfo2D{
-				matrix m;
+				matrix m;//计算了父级节点的绝对变换;
 				bool mIsReady;
 				float x, y;
 				float scalex, scaley;
 				float rotz;
 			};
-			union{
-				_TransformInfo2D* _2;
-				//why union? - reserved.
+			struct{
+				union{
+					_TransformInfo2D* _2;
+				};//why union? - reserved.
+				matrix absTrans;
+				bool absNeedUpdate;
 			}Transform;
 
 		public:
@@ -78,7 +81,10 @@ namespace OneU
 			 */
 			/* ----------------------------------------------------------------------------*/
 			bool active;
-			INode() : m_pParent(NULL), visible(true), active(true){memset(&Transform, 0, sizeof(Transform)); }
+			INode() : m_pParent(NULL), visible(true), active(true){
+				memset(&Transform, 0, sizeof(Transform));
+				Transform.absTrans = matrix(matrix::IDENTITY);
+			}
 
 			~INode(){
 				detach();
@@ -159,9 +165,10 @@ namespace OneU
 			/* ----------------------------------------------------------------------------*/
 			void visit_paint(){
 				if(visible){
-					bool b = _beginTransform();
+					matrix* m = this->_getTransform();
+					if(m)
+						GetVideo().setTransform(*m);
 					paint();
-					if(b) GetVideo().popMatrix();
 				}
 			}
 
@@ -197,13 +204,19 @@ namespace OneU
 
 			/* ----------------------------------------------------------------------------*/
 			/**
-			 * @brief 开始变换
+			 * @brief 获取绝对变换矩阵
 			 *
-			 * 如果有变换矩阵，则将矩阵压入矩阵栈。
-			 * @remarks 绘制时调用。
+			 * @remarks 内部调用。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			bool _beginTransform(){
+			matrix* _getTransform();
+			/* ----------------------------------------------------------------------------*/
+			/**
+			* @brief 惰性计算当前节点矩阵
+			* @remarks 内部调用
+			*/
+			/* ----------------------------------------------------------------------------*/
+			void _calcTransform(){
 				if(Transform._2){
 					if(!Transform._2->mIsReady){
 						Transform._2->mIsReady = true;
@@ -211,12 +224,33 @@ namespace OneU
 							matrix().setScale(vector3(Transform._2->scalex, Transform._2->scaley, 1.0f))
 							* matrix().setRotation(vector3(0.0f, 0.0f, Transform._2->rotz))
 							* matrix().setTranslation(vector3(Transform._2->x, Transform._2->y, 0.0f));
+						Transform.absNeedUpdate = true;
 					}
-					GetVideo().pushMatrix(Transform._2->m);
-					return true;
 				}
-				return false;
 			}
+			/* ----------------------------------------------------------------------------*/
+			/**
+			 * @brief 获取绝对变换矩阵
+			 *
+			 * @param checkAncester 检查祖先的变化矩阵，是否需要更新。
+			 * @remarks 一般来说，在上一次渲染结束到调用该函数期间，如果祖先的某个节点的变换矩阵有可能变化，则应当设为true。
+			 */
+			/* ----------------------------------------------------------------------------*/
+			matrix& getWorldTransform(bool checkAncester = true);
+			/* ----------------------------------------------------------------------------*/
+			/**
+			 * @brief 获取相对变换矩阵
+			 *
+			 * 获取相对于父节点的变换矩阵
+			 */
+			/* ----------------------------------------------------------------------------*/
+			matrix& getRelativeTransform(){
+				ONEU_ENSURE(Transform._2 != NULL);
+				_calcTransform();
+				return Transform._2->m;
+			}
+			//为INodeContainer用
+			virtual void refreshAll(){}
 
 			/**
 			 * @name 变换属性操作函数
@@ -373,6 +407,16 @@ namespace OneU
 					it->child->getDescription(buffer, depth);
 				}
 			}
+
+			//更新子孙的缓存标记（目前是矩阵）
+			virtual void _refreshAll(){
+				bool absNeedUpdate = Transform.absNeedUpdate || (!(Transform._2 && Transform._2->mIsReady));
+				for(ListType::iterator it = m_Children.begin(); it != m_Children.end(); ++it){
+					INode* node = it->child;
+					node->Transform.absNeedUpdate |= absNeedUpdate;
+					it->child->refreshAll();
+				}
+			}
 		};
 
 		inline void INode::detach(){
@@ -380,6 +424,34 @@ namespace OneU
 				m_pParent->m_Children.erase(m_It);
 				m_pParent = NULL;
 			}
+		}
+		inline matrix* INode::_getTransform(){
+			if(Transform._2){
+				_calcTransform();
+				if(Transform.absNeedUpdate){
+					matrix* parentTrans = m_pParent ? m_pParent->_getTransform() : NULL;
+					Transform.absTrans = parentTrans ? (*parentTrans) * Transform._2->m : Transform._2->m;
+				}
+				return &Transform.absTrans;
+			}
+			return NULL;
+		}
+		inline matrix& INode::getWorldTransform(bool checkAncester){
+			//上溯祖先检查是否需要更新缓存矩阵(absTrans）过期标记
+			if(checkAncester){
+				INode *node = m_pParent, *targetRefresh = NULL;
+				if(node) while(node->m_pParent){
+					node = node->m_pParent;
+					if(node->Transform._2 && (!node->Transform._2->mIsReady))
+						targetRefresh = node;
+				}
+				else node = this;
+				if(targetRefresh) targetRefresh->refreshAll();
+			}
+
+			matrix* ret = _getTransform();
+			if(!ret) return Transform.absTrans;
+			return *ret;
 		}
 	}
 }

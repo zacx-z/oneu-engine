@@ -64,7 +64,6 @@ namespace OneU
 		v[0].Diffuse() = v[1].Diffuse() = v[2].Diffuse() = v[3].Diffuse() = v[4].Diffuse() = m_Color;
 
 		DX::Graphics.SetFVF(v);
-		DX::Graphics.SetWorldTransform((MATRIX*)&GetVideo()._getTransform());
 		if(m_bBorder)
 			g_pRD->RenderVertexUP(DX::RenderManip::PT_LINESTRIP, v, 4);
 		else

@@ -50,26 +50,87 @@ namespace OneU
 	void DXVideo::init(uint32 width, uint32 height, bool bWindowed){
 		ONEU_ASSERT(g_hWnd != NULL);
 		m_IsWindowed = bWindowed;
-		/*try*/{
-			DX::Graphics.PreInit();
-			if(bWindowed)
-				DX::Graphics.InitWindowed(width, height, g_hWnd);
-			else{
-				DX::DisplayMode DM;
-				DM.Format = DX::PXLFMT_A8R8G8B8;
-				DM.Width = width;
-				DM.Height = height;
-				DM.RefreshRate = 0;//use default
-				DX::Graphics.InitFullScreen(&DM, g_hWnd);
-			}
-			DX::Graphics.SetCullMode(0);
+
+		//初始化
+		IDirect3D9* pD3D = Direct3DCreate9( D3D_SDK_VERSION );
+		IDirect3DDevice9* pD3DDevice;
+		if( pD3D == 0 )
+		{
+			ONEU_LOG( L"创建Direct3D对象失败！" );
+			RAISE_HRESULT(0);
 		}
-		//catch(Exception& e){
-		//	ONEU_RAISE(e);
-		//}
-		//catch(...){
-		//	ONEU_RAISE(L"未知错误");
-		//}
+
+		HRESULT hr;
+
+		//获取设备信息
+		pD3D->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &m_Caps);
+
+		//获得后备缓冲的格式
+		D3DFORMAT BackFormat;
+		if(bWindowed){
+			D3DDISPLAYMODE d3dm;
+			hr = pD3D->GetAdapterDisplayMode( D3DADAPTER_DEFAULT, &d3dm );
+
+			//获取当前显示模式
+			if( FAILED( hr ) )
+			{
+				ONEU_LOG( L"获取显示模式失败" );
+				RAISE_HRESULT(hr);
+			}
+			BackFormat = d3dm.Format;
+		}else{
+			BackFormat = D3DFMT_A8R8G8B8;
+		}
+
+		//从多重采样为4开始计算
+		DWORD multisample, quality;
+		for(multisample = 8; multisample >0; multisample--){
+			if(SUCCEEDED(pD3D->CheckDeviceMultiSampleType(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, BackFormat, bWindowed, (D3DMULTISAMPLE_TYPE)multisample, &quality)))
+				break;
+		}
+
+		D3DPRESENT_PARAMETERS d3dpp;
+		memset(&d3dpp, 0, sizeof(d3dpp));
+		d3dpp.Windowed = (BOOL)bWindowed;
+		if(bWindowed){
+			d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+		}else{
+			d3dpp.SwapEffect = D3DSWAPEFFECT_COPY;
+			d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
+			d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+		}
+
+		d3dpp.BackBufferFormat = BackFormat;
+		d3dpp.BackBufferWidth = width;
+		d3dpp.BackBufferHeight = height;
+		d3dpp.BackBufferCount = 1;
+
+		d3dpp.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >(multisample);
+		d3dpp.MultiSampleQuality = quality - 1;
+
+		hr = pD3D->CreateDevice(
+			D3DADAPTER_DEFAULT,
+			D3DDEVTYPE_HAL,
+			g_hWnd,
+			D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+			&d3dpp,
+			&pD3DDevice );
+
+		if( FAILED( hr ) )
+		{
+			ONEU_LOG( "创建Direct3D设备失败" );
+			RAISE_HRESULT(hr);
+		}
+
+		DX::Graphics._InitWithPtr(pD3D, pD3DDevice, width, height);
+		
+		pD3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+		pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+		pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+		pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
+		pD3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 
 		m_DeviceSize = vector2u_t(width, height);
 
@@ -77,13 +138,11 @@ namespace OneU
 
 		m_pRoot->addChild(ONEU_NEW _Video_ClearNode, -100);
 
-		//初始化矩阵栈
-		pushMatrix(GetIdentityMatrix());
-		m_TransformStack.push(m_MatrixStack.top());
 		DX::GetGraphics()->SetViewTransform((D3DMATRIX*)&(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f))));
 	}
 
 	void DXVideo::switchDevice(uint32 width, uint32 height, bool bWindowed){
+		/*需要重写*/
 		unloadD3DResource();
 		m_IsWindowed =bWindowed;
 		if(bWindowed){
@@ -107,45 +166,24 @@ namespace OneU
 		reloadD3DResource();
 		m_DeviceSize = vector2u_t(width, height);
 
-		//重置矩阵栈
-		popMatrix();
-		ONEU_ASSERT(m_MatrixStack.size() == 0);
-		pushMatrix(GetIdentityMatrix());
-		m_TransformStack.push(m_MatrixStack.top());
 		DX::GetGraphics()->SetViewTransform((D3DMATRIX*)&(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f))));
 	}
 	vector2u_t DXVideo::getDeviceSize(){
 		return m_DeviceSize;
 	}
 	void DXVideo::render(){
-		ONEU_ASSERT(m_MatrixStack.size() == 1);
-		/*try*/{
-			DX::RenderManip rd;
-			g_pRD = &rd;
-			m_pRoot->visit_paint();
-			g_pRD = NULL;
-		}
-		//catch(Exception& e){
-		//	ONEU_RAISE(e);
-		//}
-		//catch(...){
-		//	ONEU_RAISE(L"未知错误");
-		//}
+		DX::RenderManip rd;
+		g_pRD = &rd;
+		m_pRoot->_refreshAll();
+		m_pRoot->visit_paint();
+		g_pRD = NULL;
 	}
 	void DXVideo::update(){
 		m_pRoot->visit_update();
 	}
 
 	void DXVideo::flip(){
-		/*try*/{
-			DX::Graphics.Present();
-		}
-		//catch(Exception& e){
-		//	ONEU_RAISE(e);
-		//}
-		//catch(...){
-		//	ONEU_RAISE(L"未知错误");
-		//}
+		DX::Graphics.Present();
 	}
 
 	_DXImageTag* DXVideo::_getDXImageTag(pcwstr filename){
@@ -215,7 +253,6 @@ namespace OneU
 	}
 	//Render functions
 	void DXVideo::renderImage(video::IImage& image, const rect& dest){
-		DX::GetGraphics()->SetWorldTransform((MATRIX*)&(_getTransform()));
 
 		////因为是单Video，所以存在DXVideo必然Image是DXImage。
 		DXImage& img = ((DXImage&)image);
@@ -314,22 +351,8 @@ namespace OneU
 		}
 	}
 
-	matrix& DXVideo::_getTransform(){
-		for(uint32 i = m_TransformStack.size(); i < m_MatrixStack.size(); ++i){
-			m_TransformStack.push(m_MatrixStack.at(i) * m_TransformStack.top());
-		}
-		return m_TransformStack.top();
-	}
-	void DXVideo::pushMatrix(const matrix& m){
-		m_MatrixStack.push(m);
-	}
-	void DXVideo::popMatrix(matrix* out){
-		if(out){
-			*out = m_MatrixStack.top();
-		}
-		m_MatrixStack.pop();
-		if(m_TransformStack.size() > m_MatrixStack.size())
-			m_TransformStack.pop();
+	void DXVideo::setTransform(const matrix& m){
+		DX::GetGraphics()->SetWorldTransform((const MATRIX*)&m);
 	}
 
 	void DXVideo::setBlendMode(video::BLENDMODE mode)
@@ -412,16 +435,8 @@ namespace OneU
 	}
 
 	DXVideo::~DXVideo(){
-		/*try*/{
-			if(m_pRoot != NULL){ ONEU_DELETE m_pRoot; m_pRoot = NULL; }
-			DX::Graphics.Destroy();
-		}
-		//catch(Exception& e){
-		//	ONEU_RAISE(e);
-		//}
-		//catch(...){
-		//	ONEU_RAISE(L"未知错误");
-		//}
+		if(m_pRoot != NULL){ ONEU_DELETE m_pRoot; m_pRoot = NULL; }
+		DX::Graphics.Destroy();
 	}
 
 

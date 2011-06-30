@@ -7,6 +7,8 @@ class MySprite < OUE::Sprite
 		@dy = rand(2) - 1
 		self.x= rand(800)
 		self.y= rand(600)
+		self.scaleX = -1
+		self.srcRect = OUE::Rectf_t.new(1, 1, 0, 0)
 	end
 	def update
 		#self.x += @dx

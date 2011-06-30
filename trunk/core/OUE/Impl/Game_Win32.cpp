@@ -33,7 +33,7 @@ THE SOFTWARE.
 
 namespace OneU
 {
-	HWND Window_create(pcwstr pWndName, bool bPopUp, int iX, int iY, int iWidth, int iHeight);
+	HWND Window_create(pcwstr pWndName, bool bPopUp, int iWidth, int iHeight);
 }
 
 namespace OneU
@@ -59,7 +59,7 @@ namespace OneU
 		g_hInstance = GetModuleHandle(NULL);
 
 		//创建窗口
-		Window_create(WindowName, !bWindowed, 0, 0, width, height);
+		Window_create(WindowName, !bWindowed, width, height);
 		ONEU_ASSERT(m_pVideo == NULL);
 		if(m_VideoFactory != NULL) m_pVideo = m_VideoFactory();
 		else m_pVideo = Video_create();
@@ -216,7 +216,7 @@ namespace OneU
 	* @brief 初始化窗口函数
 	*/
 	/* ----------------------------------------------------------------------------*/
-	HWND Window_create(pcwstr pWndName, bool bPopUp, int iX, int iY, int iWidth, int iHeight){
+	HWND Window_create(pcwstr pWndName, bool bPopUp, int iWidth, int iHeight){
 		ONEU_ASSERT(g_hInstance != NULL);
 
 		WNDCLASSEX wincl;
@@ -242,7 +242,11 @@ namespace OneU
 
 		ONEU_ASSERT(g_hWnd == NULL);
 
-		RECT rc = {iX, iY, iWidth + iX, iHeight + iX};
+		
+		int iX = (GetSystemMetrics(SM_CXFULLSCREEN) - iWidth) / 2,
+			iY = (GetSystemMetrics(SM_CYFULLSCREEN) - iHeight) / 2;
+
+		RECT rc = {iX, iY, iWidth + iX, iHeight + iY};
 		::AdjustWindowRectEx(&rc, bPopUp ? WS_POPUP : WS_OVERLAPPEDWINDOW, FALSE, 0);
 
 		g_hWnd = ::CreateWindowEx(

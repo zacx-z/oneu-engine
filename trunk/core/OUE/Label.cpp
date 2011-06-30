@@ -83,7 +83,7 @@ namespace OneU
 			if(m_Align & T_BOTTOM) flag |= DT_BOTTOM;
 			else if(m_Align & T_VCENTER) flag |= DT_VCENTER;
 
-			DX::XSpriteSetTransform(s_pModule->sprite, (D3DMATRIX*)&GetVideo()._getTransform());
+			DX::XSpriteSetTransform(s_pModule->sprite, (D3DMATRIX*)this->_getTransform());
 			DX::XSpriteBegin(s_pModule->sprite);
 			DX::XDrawText(font, s_pModule->sprite, m_Text.c_str(), (RECT*)&recti_t(0, 0, (int)m_Width, (int)m_Height), m_Color, flag);
 			DX::XSpriteEnd(s_pModule->sprite);

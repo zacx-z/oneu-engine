@@ -46,6 +46,9 @@ namespace OneU
 
 		vector2u_t m_DeviceSize;
 		bool m_IsWindowed;
+
+		//D3D
+		D3DCAPS9 m_Caps;
 	public:
 		DXVideo();
 		~DXVideo();
@@ -66,8 +69,6 @@ namespace OneU
 
 		//Rendering functions
 	private:
-		Stack<matrix, 256> m_MatrixStack, m_TransformStack/*用于保存自底向上矩阵相乘存好的变换*/;
-
 		rect m_ImageSource;
 		color_t mix_color;
 		uint32 mix_mode;
@@ -79,9 +80,7 @@ namespace OneU
 	public:
 		void renderImage(video::IImage& image, const rect& dest);
 		void renderImage_d(video::IImage& image, const rect& dest);
-		void pushMatrix(const matrix& m);
-		void popMatrix(matrix* out = NULL);
-		matrix& _getTransform();
+		void setTransform(const matrix& m);
 		void selectImageSourceRect(const rect& src){ m_ImageSource = src; }
 		void setBlendMode(video::BLENDMODE mode);
 		void setBlendColor(uint32 mode, color_t color){ mix_mode = mode; mix_color = color; }

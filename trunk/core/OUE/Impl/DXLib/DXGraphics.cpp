@@ -31,8 +31,6 @@ THE SOFTWARE.
 
 #include "Texture.h"
 
-#pragma init_seg(lib)
-
 namespace OneU
 {
 	//图形模块对象
@@ -57,8 +55,6 @@ namespace OneU
 		IDirect3DDevice9 * _pD3DDevice = 0;
 		bool _Windowed = false;
 
-		static D3DDISPLAYMODE g_D3DDM = {};
-		static D3DPRESENT_PARAMETERS g_D3DPP = {};
 		//注意：此时把D3DMULTISAMPLE_TYPE强制用dword表示
 		//若DXSDK变化 从dword到D3DMULTISAMPLE_TYPE的强制转换有可能导致错误
 		static uint32 g_MultiSampleType = 0;
@@ -86,8 +82,9 @@ namespace OneU
 
 			HRESULT hr;
 			//获取当前显示模式
+			D3DDISPLAYMODE d3ddm;
 
-			hr = _pD3D->GetAdapterDisplayMode( D3DADAPTER_DEFAULT, &g_D3DDM );
+			hr = _pD3D->GetAdapterDisplayMode( D3DADAPTER_DEFAULT, &d3ddm );
 
 			if( FAILED( hr ) )
 			{
@@ -96,24 +93,26 @@ namespace OneU
 			}
 
 			//
+			D3DPRESENT_PARAMETERS d3dpp;
+			memset(&d3dpp, 0, sizeof(d3dpp));
 
-			g_D3DPP.Windowed = TRUE;
-			g_D3DPP.SwapEffect = D3DSWAPEFFECT_DISCARD;
-			g_D3DPP.BackBufferFormat = g_D3DDM.Format;
+			d3dpp.Windowed = TRUE;
+			d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+			d3dpp.BackBufferFormat = d3ddm.Format;
 
-			g_D3DPP.BackBufferWidth = nWidth;
-			g_D3DPP.BackBufferHeight = nHeight;
-			g_D3DPP.BackBufferCount = 1;
+			d3dpp.BackBufferWidth = nWidth;
+			d3dpp.BackBufferHeight = nHeight;
+			d3dpp.BackBufferCount = 1;
 
-			g_D3DPP.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >( g_MultiSampleType );
-			g_D3DPP.MultiSampleQuality = g_MultiSampleQuality;
+			d3dpp.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >( g_MultiSampleType );
+			d3dpp.MultiSampleQuality = g_MultiSampleQuality;
 
 			hr = _pD3D->CreateDevice(
 				D3DADAPTER_DEFAULT,
 				D3DDEVTYPE_HAL,
 				hWnd,
 				D3DCREATE_SOFTWARE_VERTEXPROCESSING,
-				&g_D3DPP,
+				&d3dpp,
 				&_pD3DDevice );
 
 			if( FAILED( hr ) )
@@ -135,30 +134,30 @@ namespace OneU
 
 			_Windowed = false;
 
-			SetDisplayMode( pDM );
-			ONEU_ASSERT( g_D3DDM.Format );
-
 			HRESULT hr;
 
-			g_D3DPP.Windowed = FALSE;
-			g_D3DPP.SwapEffect = D3DSWAPEFFECT_COPY;
-			g_D3DPP.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
-			g_D3DPP.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
-			g_D3DPP.BackBufferFormat = g_D3DDM.Format;
+			D3DPRESENT_PARAMETERS d3dpp;
+			memset(&d3dpp, 0, sizeof(d3dpp));
 
-			g_D3DPP.BackBufferWidth = g_D3DDM.Width;
-			g_D3DPP.BackBufferHeight = g_D3DDM.Height;
-			g_D3DPP.BackBufferCount = 1;
+			d3dpp.Windowed = FALSE;
+			d3dpp.SwapEffect = D3DSWAPEFFECT_COPY;
+			d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
+			d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+			d3dpp.BackBufferFormat = (D3DFORMAT)pDM->Format;
 
-			g_D3DPP.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >( g_MultiSampleType );
-			g_D3DPP.MultiSampleQuality = g_MultiSampleQuality;
+			d3dpp.BackBufferWidth = (D3DFORMAT)pDM->Width;
+			d3dpp.BackBufferHeight = (D3DFORMAT)pDM->Height;
+			d3dpp.BackBufferCount = 1;
+
+			d3dpp.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >( g_MultiSampleType );
+			d3dpp.MultiSampleQuality = g_MultiSampleQuality;
 
 			hr = _pD3D->CreateDevice(
 				D3DADAPTER_DEFAULT,
 				D3DDEVTYPE_HAL,
 				hWnd,
 				D3DCREATE_SOFTWARE_VERTEXPROCESSING,
-				&g_D3DPP,
+				&d3dpp,
 				&_pD3DDevice);
 
 			if( FAILED( hr ) )
@@ -166,10 +165,15 @@ namespace OneU
 				ONEU_LOG( L"创建Direct3D设备失败" );
 				RAISE_HRESULT(hr);
 			}
-#ifdef ONEU_USE_GE
-			InitializeOneUE();
-#endif
 			InitParameters();
+		}
+
+		void Graphics_t::_InitWithPtr(IDirect3D9* pD3D, IDirect3DDevice9* pDevice, uint32 nWidth, uint32 nHeight){
+			_pD3D = pD3D;
+			_pD3DDevice = pDevice;
+
+			m_Width = nWidth;
+			m_Height = nHeight;
 		}
 
 		void Graphics_t::ResetWindowed( uint32 nWidth, uint32 nHeight, HWND hWnd )
@@ -186,7 +190,8 @@ namespace OneU
 			HRESULT hr;
 			//获取当前显示模式
 
-			hr = _pD3D->GetAdapterDisplayMode( D3DADAPTER_DEFAULT, &g_D3DDM );
+			D3DDISPLAYMODE d3ddm;
+			hr = _pD3D->GetAdapterDisplayMode( D3DADAPTER_DEFAULT, &d3ddm );
 
 			if( FAILED( hr ) )
 			{
@@ -195,19 +200,20 @@ namespace OneU
 			}
 
 			//
-			memset( &g_D3DPP, 0, sizeof( g_D3DPP ) );
-			g_D3DPP.Windowed = TRUE;
-			g_D3DPP.SwapEffect = D3DSWAPEFFECT_DISCARD;
-			g_D3DPP.BackBufferFormat = g_D3DDM.Format;
+			D3DPRESENT_PARAMETERS d3dpp;
+			memset( &d3dpp, 0, sizeof( d3dpp ) );
+			d3dpp.Windowed = TRUE;
+			d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+			d3dpp.BackBufferFormat = d3ddm.Format;
 
-			g_D3DPP.BackBufferWidth = nWidth;
-			g_D3DPP.BackBufferHeight = nHeight;
-			g_D3DPP.BackBufferCount = 1;
+			d3dpp.BackBufferWidth = nWidth;
+			d3dpp.BackBufferHeight = nHeight;
+			d3dpp.BackBufferCount = 1;
 
-			g_D3DPP.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >( g_MultiSampleType );
-			g_D3DPP.MultiSampleQuality = g_MultiSampleQuality;
+			d3dpp.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >( g_MultiSampleType );
+			d3dpp.MultiSampleQuality = g_MultiSampleQuality;
 
-			hr = _pD3DDevice->Reset( &g_D3DPP );
+			hr = _pD3DDevice->Reset( &d3dpp );
 
 			if( FAILED( hr ) )
 			{
@@ -228,28 +234,26 @@ namespace OneU
 
 			m_Width = pDM->Width;m_Height = pDM->Height;
 
-			SetDisplayMode( pDM );
-			ONEU_ASSERT( g_D3DDM.Format );
-
 			_Windowed = false;
 
 			HRESULT hr;
 
-			memset( &g_D3DPP, 0, sizeof( g_D3DPP ) );
-			g_D3DPP.Windowed = FALSE;
-			g_D3DPP.SwapEffect = D3DSWAPEFFECT_COPY;
-			g_D3DPP.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
-			g_D3DPP.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
-			g_D3DPP.BackBufferFormat = g_D3DDM.Format;
+			D3DPRESENT_PARAMETERS d3dpp;
+			memset( &d3dpp, 0, sizeof( d3dpp ) );
+			d3dpp.Windowed = FALSE;
+			d3dpp.SwapEffect = D3DSWAPEFFECT_COPY;
+			d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
+			d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+			d3dpp.BackBufferFormat = (D3DFORMAT)pDM->Format;
 
-			g_D3DPP.BackBufferWidth = g_D3DDM.Width;
-			g_D3DPP.BackBufferHeight = g_D3DDM.Height;
-			g_D3DPP.BackBufferCount = 1;
+			d3dpp.BackBufferWidth = pDM->Width;
+			d3dpp.BackBufferHeight = pDM->Height;
+			d3dpp.BackBufferCount = 1;
 
-			g_D3DPP.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >( g_MultiSampleType );
-			g_D3DPP.MultiSampleQuality = g_MultiSampleQuality;
+			d3dpp.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >( g_MultiSampleType );
+			d3dpp.MultiSampleQuality = g_MultiSampleQuality;
 
-			hr = _pD3DDevice->Reset( &g_D3DPP );
+			hr = _pD3DDevice->Reset( &d3dpp );
 
 			if( FAILED( hr ) )
 			{
@@ -278,17 +282,6 @@ namespace OneU
 		void Graphics_t::OnResetDevice()
 		{
 		}
-		void Graphics_t::Reset()
-		{
-			ONEU_ASSERT( _pD3D );
-			ONEU_ASSERT( _pD3DDevice );
-			OnLostDevice();
-			HRESULT hr;
-			if( FAILED( hr = _pD3DDevice->Reset( &g_D3DPP ) ) )
-				RAISE_HRESULT(hr);
-			OnResetDevice();
-			InitParameters();
-		}
 
 		DisplayMode * Graphics_t::GetAvailableDisplayMode( PXLFORMAT Format, int index )
 		{
@@ -298,32 +291,6 @@ namespace OneU
 				RAISE_HRESULT(hr);
 
 			return &_DM;
-		}
-
-		uint32 Graphics_t::CheckMultiSampleType( PXLFORMAT SurfaceFormat, bool Windowed, uint32 MultiSampleType )
-		{
-			HRESULT hr;
-			uint32 QualityLevels;
-			//注意：若DXSDK变化 从dword到D3DMULTISAMPLE_TYPE的强制转换有可能导致错误
-			if( SUCCEEDED( hr = _pD3D->CheckDeviceMultiSampleType( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,
-					static_cast< D3DFORMAT >( SurfaceFormat ), Windowed, static_cast< D3DMULTISAMPLE_TYPE > ( MultiSampleType ), &QualityLevels ) ) )
-					return QualityLevels;
-			else
-			{
-				if( hr != D3DERR_NOTAVAILABLE ){ ONEU_LOG( L"检查多重采样失败！"); ONEU_LOG_DXERR( hr );}
-				return 0;
-			}
-		}
-
-		void Graphics_t::SetMultiSample( uint32 Type, uint32 Quality )
-		{
-			g_MultiSampleType = Type;
-			g_MultiSampleQuality = Quality;
-		}
-
-		void Graphics_t::SetDisplayMode( const DisplayMode * pDM )
-		{
-			g_D3DDM = *reinterpret_cast< const D3DDISPLAYMODE* >( pDM );
 		}
 
 		Surface Graphics_t::GetRenderTarget() const
