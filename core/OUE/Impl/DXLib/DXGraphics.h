@@ -156,6 +156,7 @@ namespace OneU
 			 */
 			/* ----------------------------------------------------------------------------*/
 			void InitFullScreen( const DisplayMode *pDM, HWND hWnd );
+			void _InitWithPtr(IDirect3D9* pD3D, IDirect3DDevice9* pDevice, uint32 Width, uint32 Height);
 
 			/* ----------------------------------------------------------------------------*/
 			/**
@@ -233,16 +234,6 @@ namespace OneU
 				if( FAILED( hr = _pD3DDevice->Present( NULL, NULL, NULL, NULL ) ) )
 					RAISE_HRESULT(hr);
 			}
-			/* ----------------------------------------------------------------------------*/
-			/** 
-			 * @brief 重置
-			 *
-			 * 在丢失设备后调用，重新获取设备。
-			 * @todo 改变g_D3DPP的内容后，也可以改变设备参数和模式，重启设备。
-			 * @attention 参数设定的情况无法保留，调用该函数后需要重新设定。
-			 */
-			/* ----------------------------------------------------------------------------*/
-			void Reset();
 
 #ifdef ONEU_USE_GRAPHICS_3D
 			/* ----------------------------------------------------------------------------*/
@@ -352,33 +343,6 @@ namespace OneU
 			/* ----------------------------------------------------------------------------*/
 			DisplayMode *GetAvailableDisplayMode( PXLFORMAT Format, int index );
 
-			/* ----------------------------------------------------------------------------*/
-			/** 
-			 * @brief 检查多重采样支持
-			 * 
-			 * @param SurfaceFormat 后备表面的像素格式
-			 * @param Windowed 是否为窗口模式
-			 * @param MultiSampleType 采样数
-			 * 
-			 * @returns 对应采样数的最高采样质量
-			 *
-			 * 返回值为SetMultiSample的Quality可设定的最高值
-			 * @sa SetMultiSampleType
-			 */
-			/* ----------------------------------------------------------------------------*/
-			uint32 CheckMultiSampleType( PXLFORMAT SurfaceFormat, bool Windowed, uint32 MultiSampleType );
-
-			/* ----------------------------------------------------------------------------*/
-			/** 
-			 * @brief 设定多重采样
-			 * 
-			 * @param Type 采样数
-			 * @param Quality 采样质量
-			 *
-			 * @sa CheckMultiSampleType
-			 */
-			/* ----------------------------------------------------------------------------*/
-			void SetMultiSample( uint32 Type, uint32 Quality );
 #define __ONEU_DISPLAYMODE_CHECK //可检查显示模式
 			/* ----------------------------------------------------------------------------*/
 			/** 
@@ -396,17 +360,6 @@ namespace OneU
 					return TRUE;
 				return FALSE;
 			}
-			/* ----------------------------------------------------------------------------*/
-			/** 
-			 * @brief 设置显示格式
-			 *
-			 * 仅用于全屏
-			 * 调用CreateFullScreen、ResetFullScreen才会生效
-			 * 
-			 * @param pDM 指向显示格式的指针
-			 */
-			/* ----------------------------------------------------------------------------*/
-			void SetDisplayMode( const DisplayMode * pDM );
 
 			/* ----------------------------------------------------------------------------*/
 			/** 
