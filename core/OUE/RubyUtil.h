@@ -21,19 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "../Interpreter.h"
-extern "C"{
-#include <ruby.h>
-}
+#include "OUEDefs.h"
+
 namespace OneU
 {
-	class RubyInterpreter
-		: public IInterpreter
-	{
-	public:
-		RubyInterpreter();
-		~RubyInterpreter();
-		void execFile(pcwstr filename);
-		void execCode(pcstr code);
-	};
+	ONEU_API void RubyInit();//结束时需要调用ruby_finalize
+	ONEU_API void RubyExecFile(pcwstr filename);
+	ONEU_API void RubyExecCode(pcstr code);
+	ONEU_API void RubyFinalize();//ruby_finalize
+
+	ONEU_API void RubyRun();
 }

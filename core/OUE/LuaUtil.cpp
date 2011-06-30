@@ -20,22 +20,33 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include "../Interpreter.h"
-extern "C"{
-#include "../../_lua/lua.h"
-#include "../../_lua/lauxlib.h"
-#include "../../_lua/lualib.h"
-}
+#include "LuaUtil.h"
 namespace OneU
 {
-	class LuaInterpreter
-		: public IInterpreter
-	{
-		lua_State* L;
-	public:
-		LuaInterpreter();
-		~LuaInterpreter();
-		void execFile(pcwstr filename);
-		void execCode(pcstr code);
-	};
+	lua_State* LuaOpen(){
+		lua_State* L = lua_open();
+		luaL_openlibs(L);
+		luaL_dostring(L, "package.path = package.path..\";./script/?.lua;./script/lib/?.lua\"");
+
+#ifdef _DEBUG
+		luaL_dostring(L, "package.cpath = package.cpath..\";./?.dll;./../debug/?.dll\"");//for test
+#else
+		luaL_dostring(L, "package.cpath = package.cpath..\";./?.dll\"");//for test
+#endif
+		lua_setfield(L, -2, "cpath");
+		lua_pop(L, 1);
+		return L;
+	}
+	void LuaExecFile(lua_State* L, pcwstr filename){
+		if(luaL_loadfile(L, Wide2Char(filename)))
+			ONEU_RAISE(Char2Wide(lua_tostring(L, -1)));
+		if(lua_pcall(L, 0, 0, 0))
+			ONEU_RAISE(Char2Wide(lua_tostring(L, -1)));
+	}
+	void LuaExecCode(lua_State* L, pcstr code){
+		if(luaL_loadstring(L, code))
+			ONEU_RAISE(Char2Wide(lua_tostring(L, -1)));
+		if(lua_pcall(L, 0, 0, 0))
+			ONEU_RAISE(Char2Wide(lua_tostring(L, -1)));
+	}
 }

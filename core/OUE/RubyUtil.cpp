@@ -26,11 +26,15 @@ THE SOFTWARE.
 #define WIN32_LEAN_AND_MEAN
 #pragma warning(disable : 4312)
 #pragma warning(disable : 4311)
-#include "RubyInterpreter.h"
-#include "../Game.h"
-#include "ruby/encoding.h"
+#include "RubyUtil.h"
+#include "Game.h"
 
 #include <sstream>
+
+extern "C"{
+#include <ruby.h>
+};
+
 namespace OneU
 {
 	static void ThrowOnError(int error) {
@@ -91,46 +95,41 @@ namespace OneU
 		rb_eval_string((const char*)arg);
 		return Qnil;
 	}
-RUBY_GLOBAL_SETUP
+	RUBY_GLOBAL_SETUP
 
-	ONEU_API void RubyRun(){
-		Game_build(Game_create);
+		ONEU_API void RubyRun(){
+			Game_build(Game_create);
 
-		char* a[] = {"a"};
-		int n = 1;
-		char** argv = a;
-		ruby_sysinit(&n, &argv);
-		{
-			RUBY_INIT_STACK;
-			ruby_init();
-			ruby_init_loadpath();
-			ruby_script("oneu");
-			rb_eval_string("$: << \"./\"");
+			char* a[] = {"a"};
+			int n = 1;
+			char** argv = a;
+			ruby_sysinit(&n, &argv);
+			{
+				RUBY_INIT_STACK;
+				ruby_init();
+				ruby_init_loadpath();
+				ruby_script("oneu");
+				rb_eval_string("$: << \"./\"");
 #ifdef _DEBUG
-			rb_eval_string("$: << \"./../debug/\"");
+				rb_eval_string("$: << \"./../debug/\"");
 #endif
 
-			_init_rb_lib();
+				_init_rb_lib();
 
-			int state;
-			rb_protect(LoadWrap, Qnil, &state);
+				int state;
+				rb_protect(LoadWrap, Qnil, &state);
 
-			if(state)
-				ThrowOnError(state);
+				if(state)
+					ThrowOnError(state);
 
-			ruby_finalize();
-		}
-		
-		Game_destroy();
+				ruby_finalize();
+			}
+
+			Game_destroy();
 	}
 
 
-
-	ONEU_API IInterpreter* Interpreter_Ruby(){
-		return ONEU_NEW RubyInterpreter();
-	}
-
-	RubyInterpreter::RubyInterpreter(){
+	ONEU_API void RubyInit(){
 		char* a[] = {"a"};
 		int n = 1;
 		char** argv = a;
@@ -140,21 +139,21 @@ RUBY_GLOBAL_SETUP
 		ruby_init_loadpath();
 		ruby_script("oneu");
 	}
-	
-	void RubyInterpreter::execFile(pcwstr filename){
+
+	ONEU_API void RubyExecFile(pcwstr filename){
 		int state;
 		rb_protect(LoadWrap,rb_str_new2((const char*)Wide2Char(filename)), &state);
 		if(state)
 			ThrowOnError(state);
 	}
-	void RubyInterpreter::execCode(pcstr code){
+	ONEU_API void RubyExecCode(pcstr code){
 		int state;
 		rb_protect(EvalStringWrap,(VALUE)code, &state);
 		if(state)
 			ThrowOnError(state);
 	}
 
-	RubyInterpreter::~RubyInterpreter(){
+	ONEU_API void RubyFinalize(){
 		ruby_finalize();
 	}
 }
