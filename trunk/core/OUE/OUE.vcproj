@@ -213,11 +213,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LuaUtil.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Memory.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\OS.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RubyUtil.cpp"
 				>
 			</File>
 			<File
@@ -275,11 +283,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Interpreter.h"
+				RelativePath=".\Logger.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Logger.h"
+				RelativePath=".\LuaUtil.h"
 				>
 			</File>
 			<File
@@ -304,6 +312,10 @@
 			</File>
 			<File
 				RelativePath=".\OUEDefs.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RubyUtil.h"
 				>
 			</File>
 			<File
@@ -392,22 +404,6 @@
 			</File>
 			<File
 				RelativePath=".\Impl\LoggerNull.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Impl\LuaInterpreter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Impl\LuaInterpreter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Impl\RubyInterpreter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Impl\RubyInterpreter.h"
 				>
 			</File>
 			<File

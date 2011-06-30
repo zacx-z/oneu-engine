@@ -42,7 +42,5 @@ THE SOFTWARE.
 #include "Label.h"
 #include "Shape.h"
 
-#include "Interpreter.h"
-
 #define olog GetLogger().stream()
 #define oout GetGame().stream()
