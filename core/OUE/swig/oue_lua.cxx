@@ -1510,18 +1510,6 @@ SWIG_Lua_dostring(lua_State *L, const char* str) {
 /* ------------------------------ end luarun.swg  ------------------------------ */
 
 
-int SWIGEX_Lua_Ownership(lua_State* L, int index){
-  swig_lua_userdata* usr;
-  if (lua_isnil(L,index)) return -1;
-  usr=(swig_lua_userdata*)lua_touserdata(L,index);  /* get data */
-  if (usr)
-  {
-    return usr->own;
-  }
-  return -1;
-}
-
-
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define SWIGTYPE_p_LPCTSTR swig_types[0]
@@ -1598,6 +1586,14 @@ SWIGINTERN bool OneU_video_INodeContainer_addChild__SWIG_0(OneU::video::INodeCon
 #include "../Video.h"
 
 
+#include "../Scene.h"
+
+
+static void addToScene(OneU::video::INode* child, int z = 0, OneU::pcwstr tag = NULL){
+	OneU::GetScene().getRenderScene()->addChild(child, z, tag, false);
+}
+
+
 #include "../Game.h"
 
 
@@ -1605,14 +1601,6 @@ SWIGINTERN bool OneU_video_INodeContainer_addChild__SWIG_0(OneU::video::INodeCon
 
 
 #include "../Control.h"
-
-
-#include "../Scene.h"
-
-
-static void addToScene(OneU::video::INode* child, int z = 0, OneU::pcwstr tag = NULL){
-	OneU::GetScene().getRenderScene()->addChild(child, z, tag, false);
-}
 
 
 #include "../Sprite.h"
@@ -5043,6 +5031,318 @@ static swig_lua_class *swig_OneU_IVideo_bases[] = {0};
 static const char *swig_OneU_IVideo_base_names[] = {0};
 static swig_lua_class _wrap_class_OneU_IVideo = { "IVideo", &SWIGTYPE_p_OneU__IVideo,0, swig_delete_IVideo, swig_OneU_IVideo_methods, swig_OneU_IVideo_attributes, swig_OneU_IVideo_bases, swig_OneU_IVideo_base_names };
 
+static int _wrap_IScene_update(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  float arg2 ;
+  
+  SWIG_check_num_args("OneU::IScene::update",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::update",1,"OneU::IScene *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::IScene::update",2,"float");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
+    SWIG_fail_ptr("IScene_update",1,SWIGTYPE_p_OneU__IScene);
+  }
+  
+  arg2 = (float)lua_tonumber(L, 2);
+  (arg1)->update(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_IScene_getRenderScene(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  OneU::video::IRenderScene *result = 0 ;
+  
+  SWIG_check_num_args("OneU::IScene::getRenderScene",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::getRenderScene",1,"OneU::IScene *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
+    SWIG_fail_ptr("IScene_getRenderScene",1,SWIGTYPE_p_OneU__IScene);
+  }
+  
+  result = (OneU::video::IRenderScene *)(arg1)->getRenderScene();
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__video__IRenderScene,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_IScene_replaceInputFocus(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
+  OneU::IInputReceiver *result = 0 ;
+  
+  SWIG_check_num_args("OneU::IScene::replaceInputFocus",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::replaceInputFocus",1,"OneU::IScene *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("OneU::IScene::replaceInputFocus",2,"OneU::IInputReceiver *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
+    SWIG_fail_ptr("IScene_replaceInputFocus",1,SWIGTYPE_p_OneU__IScene);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__IInputReceiver,0))){
+    SWIG_fail_ptr("IScene_replaceInputFocus",2,SWIGTYPE_p_OneU__IInputReceiver);
+  }
+  
+  result = (OneU::IInputReceiver *)(arg1)->replaceInputFocus(arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__IInputReceiver,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_IScene_pushInputFocus(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
+  
+  SWIG_check_num_args("OneU::IScene::pushInputFocus",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::pushInputFocus",1,"OneU::IScene *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("OneU::IScene::pushInputFocus",2,"OneU::IInputReceiver *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
+    SWIG_fail_ptr("IScene_pushInputFocus",1,SWIGTYPE_p_OneU__IScene);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__IInputReceiver,0))){
+    SWIG_fail_ptr("IScene_pushInputFocus",2,SWIGTYPE_p_OneU__IInputReceiver);
+  }
+  
+  (arg1)->pushInputFocus(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_IScene_popInputFocus(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  OneU::IInputReceiver *result = 0 ;
+  
+  SWIG_check_num_args("OneU::IScene::popInputFocus",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::popInputFocus",1,"OneU::IScene *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
+    SWIG_fail_ptr("IScene_popInputFocus",1,SWIGTYPE_p_OneU__IScene);
+  }
+  
+  result = (OneU::IInputReceiver *)(arg1)->popInputFocus();
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__IInputReceiver,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static void swig_delete_IScene(void *obj) {
+OneU::IScene *arg1 = (OneU::IScene *) obj;
+delete arg1;
+}
+static swig_lua_method swig_OneU_IScene_methods[] = {
+    {"update", _wrap_IScene_update}, 
+    {"getRenderScene", _wrap_IScene_getRenderScene}, 
+    {"replaceInputFocus", _wrap_IScene_replaceInputFocus}, 
+    {"pushInputFocus", _wrap_IScene_pushInputFocus}, 
+    {"popInputFocus", _wrap_IScene_popInputFocus}, 
+    {0,0}
+};
+static swig_lua_attribute swig_OneU_IScene_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_class *swig_OneU_IScene_bases[] = {0};
+static const char *swig_OneU_IScene_base_names[] = {0};
+static swig_lua_class _wrap_class_OneU_IScene = { "IScene", &SWIGTYPE_p_OneU__IScene,0, swig_delete_IScene, swig_OneU_IScene_methods, swig_OneU_IScene_attributes, swig_OneU_IScene_bases, swig_OneU_IScene_base_names };
+
+static int _wrap_addToScene__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  int arg2 ;
+  OneU::pcwstr arg3 = (OneU::pcwstr) 0 ;
+  OneU::AutoPtr< wchar_t > temp3 ;
+  
+  SWIG_check_num_args("addToScene",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("addToScene",1,"OneU::video::INode *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("addToScene",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  {
+    if(lua_type(L, 3) != LUA_TSTRING)
+    SWIG_fail_arg("addToScene", 3, "OneU::pcwstr");
+    
+    temp3 = OneU::Char2Wide(lua_tostring(L, 3), 65001);
+    arg3 = temp3;
+  }
+  addToScene(arg1,arg2,(wchar_t const *)arg3);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_addToScene__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  int arg2 ;
+  
+  SWIG_check_num_args("addToScene",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("addToScene",1,"OneU::video::INode *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("addToScene",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  addToScene(arg1,arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_addToScene__SWIG_2(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  
+  SWIG_check_num_args("addToScene",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("addToScene",1,"OneU::video::INode *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
+  }
+  
+  addToScene(arg1);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_addToScene(lua_State* L) {
+  int argc;
+  int argv[4]={
+    1,2,3,4
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_OneU__video__INode, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_addToScene__SWIG_2(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_OneU__video__INode, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isnumber(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_addToScene__SWIG_1(L);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_OneU__video__INode, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isnumber(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = SWIG_lua_isnilstring(L,argv[2]);
+        }
+        if (_v) {
+          return _wrap_addToScene__SWIG_0(L);
+        }
+      }
+    }
+  }
+  
+  lua_pushstring(L,"Wrong arguments for overloaded function 'addToScene'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    addToScene(OneU::video::INode *,int,OneU::pcwstr)\n"
+    "    addToScene(OneU::video::INode *,int)\n"
+    "    addToScene(OneU::video::INode *)\n");
+  lua_error(L);return 0;
+}
+
+
 static int _wrap_IGame_getVideo(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
@@ -5937,315 +6237,6 @@ static swig_lua_attribute swig_OneU_IControl_attributes[] = {
 static swig_lua_class *swig_OneU_IControl_bases[] = {0};
 static const char *swig_OneU_IControl_base_names[] = {0};
 static swig_lua_class _wrap_class_OneU_IControl = { "IControl", &SWIGTYPE_p_OneU__IControl,0, swig_delete_IControl, swig_OneU_IControl_methods, swig_OneU_IControl_attributes, swig_OneU_IControl_bases, swig_OneU_IControl_base_names };
-
-static int _wrap_IScene_update(lua_State* L) {
-  int SWIG_arg = 0;
-  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
-  
-  SWIG_check_num_args("OneU::IScene::update",1,1)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::update",1,"OneU::IScene *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
-    SWIG_fail_ptr("IScene_update",1,SWIGTYPE_p_OneU__IScene);
-  }
-  
-  (arg1)->update();
-  
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_IScene_getRenderScene(lua_State* L) {
-  int SWIG_arg = 0;
-  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
-  OneU::video::IRenderScene *result = 0 ;
-  
-  SWIG_check_num_args("OneU::IScene::getRenderScene",1,1)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::getRenderScene",1,"OneU::IScene *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
-    SWIG_fail_ptr("IScene_getRenderScene",1,SWIGTYPE_p_OneU__IScene);
-  }
-  
-  result = (OneU::video::IRenderScene *)(arg1)->getRenderScene();
-  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__video__IRenderScene,0); SWIG_arg++; 
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_IScene_replaceInputFocus(lua_State* L) {
-  int SWIG_arg = 0;
-  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
-  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
-  OneU::IInputReceiver *result = 0 ;
-  
-  SWIG_check_num_args("OneU::IScene::replaceInputFocus",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::replaceInputFocus",1,"OneU::IScene *");
-  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("OneU::IScene::replaceInputFocus",2,"OneU::IInputReceiver *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
-    SWIG_fail_ptr("IScene_replaceInputFocus",1,SWIGTYPE_p_OneU__IScene);
-  }
-  
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__IInputReceiver,0))){
-    SWIG_fail_ptr("IScene_replaceInputFocus",2,SWIGTYPE_p_OneU__IInputReceiver);
-  }
-  
-  result = (OneU::IInputReceiver *)(arg1)->replaceInputFocus(arg2);
-  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__IInputReceiver,0); SWIG_arg++; 
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_IScene_pushInputFocus(lua_State* L) {
-  int SWIG_arg = 0;
-  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
-  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
-  
-  SWIG_check_num_args("OneU::IScene::pushInputFocus",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::pushInputFocus",1,"OneU::IScene *");
-  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("OneU::IScene::pushInputFocus",2,"OneU::IInputReceiver *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
-    SWIG_fail_ptr("IScene_pushInputFocus",1,SWIGTYPE_p_OneU__IScene);
-  }
-  
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__IInputReceiver,0))){
-    SWIG_fail_ptr("IScene_pushInputFocus",2,SWIGTYPE_p_OneU__IInputReceiver);
-  }
-  
-  (arg1)->pushInputFocus(arg2);
-  
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_IScene_popInputFocus(lua_State* L) {
-  int SWIG_arg = 0;
-  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
-  OneU::IInputReceiver *result = 0 ;
-  
-  SWIG_check_num_args("OneU::IScene::popInputFocus",1,1)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IScene::popInputFocus",1,"OneU::IScene *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IScene,0))){
-    SWIG_fail_ptr("IScene_popInputFocus",1,SWIGTYPE_p_OneU__IScene);
-  }
-  
-  result = (OneU::IInputReceiver *)(arg1)->popInputFocus();
-  SWIG_NewPointerObj(L,result,SWIGTYPE_p_OneU__IInputReceiver,0); SWIG_arg++; 
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static void swig_delete_IScene(void *obj) {
-OneU::IScene *arg1 = (OneU::IScene *) obj;
-delete arg1;
-}
-static swig_lua_method swig_OneU_IScene_methods[] = {
-    {"update", _wrap_IScene_update}, 
-    {"getRenderScene", _wrap_IScene_getRenderScene}, 
-    {"replaceInputFocus", _wrap_IScene_replaceInputFocus}, 
-    {"pushInputFocus", _wrap_IScene_pushInputFocus}, 
-    {"popInputFocus", _wrap_IScene_popInputFocus}, 
-    {0,0}
-};
-static swig_lua_attribute swig_OneU_IScene_attributes[] = {
-    {0,0,0}
-};
-static swig_lua_class *swig_OneU_IScene_bases[] = {0};
-static const char *swig_OneU_IScene_base_names[] = {0};
-static swig_lua_class _wrap_class_OneU_IScene = { "IScene", &SWIGTYPE_p_OneU__IScene,0, swig_delete_IScene, swig_OneU_IScene_methods, swig_OneU_IScene_attributes, swig_OneU_IScene_bases, swig_OneU_IScene_base_names };
-
-static int _wrap_addToScene__SWIG_0(lua_State* L) {
-  int SWIG_arg = 0;
-  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
-  int arg2 ;
-  OneU::pcwstr arg3 = (OneU::pcwstr) 0 ;
-  OneU::AutoPtr< wchar_t > temp3 ;
-  
-  SWIG_check_num_args("addToScene",3,3)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("addToScene",1,"OneU::video::INode *");
-  if(!lua_isnumber(L,2)) SWIG_fail_arg("addToScene",2,"int");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
-    SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
-  }
-  
-  arg2 = (int)lua_tonumber(L, 2);
-  {
-    if(lua_type(L, 3) != LUA_TSTRING)
-    SWIG_fail_arg("addToScene", 3, "OneU::pcwstr");
-    
-    temp3 = OneU::Char2Wide(lua_tostring(L, 3), 65001);
-    arg3 = temp3;
-  }
-  addToScene(arg1,arg2,(wchar_t const *)arg3);
-  
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_addToScene__SWIG_1(lua_State* L) {
-  int SWIG_arg = 0;
-  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
-  int arg2 ;
-  
-  SWIG_check_num_args("addToScene",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("addToScene",1,"OneU::video::INode *");
-  if(!lua_isnumber(L,2)) SWIG_fail_arg("addToScene",2,"int");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
-    SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
-  }
-  
-  arg2 = (int)lua_tonumber(L, 2);
-  addToScene(arg1,arg2);
-  
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_addToScene__SWIG_2(lua_State* L) {
-  int SWIG_arg = 0;
-  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
-  
-  SWIG_check_num_args("addToScene",1,1)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("addToScene",1,"OneU::video::INode *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
-    SWIG_fail_ptr("addToScene",1,SWIGTYPE_p_OneU__video__INode);
-  }
-  
-  addToScene(arg1);
-  
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_addToScene(lua_State* L) {
-  int argc;
-  int argv[4]={
-    1,2,3,4
-  };
-  
-  argc = lua_gettop(L);
-  if (argc == 1) {
-    int _v;
-    {
-      void *ptr;
-      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_OneU__video__INode, 0)) {
-        _v = 0;
-      } else {
-        _v = 1;
-      }
-    }
-    if (_v) {
-      return _wrap_addToScene__SWIG_2(L);
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    {
-      void *ptr;
-      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_OneU__video__INode, 0)) {
-        _v = 0;
-      } else {
-        _v = 1;
-      }
-    }
-    if (_v) {
-      {
-        _v = lua_isnumber(L,argv[1]);
-      }
-      if (_v) {
-        return _wrap_addToScene__SWIG_1(L);
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    {
-      void *ptr;
-      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_OneU__video__INode, 0)) {
-        _v = 0;
-      } else {
-        _v = 1;
-      }
-    }
-    if (_v) {
-      {
-        _v = lua_isnumber(L,argv[1]);
-      }
-      if (_v) {
-        {
-          _v = SWIG_lua_isnilstring(L,argv[2]);
-        }
-        if (_v) {
-          return _wrap_addToScene__SWIG_0(L);
-        }
-      }
-    }
-  }
-  
-  lua_pushstring(L,"Wrong arguments for overloaded function 'addToScene'\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    addToScene(OneU::video::INode *,int,OneU::pcwstr)\n"
-    "    addToScene(OneU::video::INode *,int)\n"
-    "    addToScene(OneU::video::INode *)\n");
-  lua_error(L);return 0;
-}
-
 
 static int _wrap_Sprite_setImage(lua_State* L) {
   int SWIG_arg = 0;
@@ -7314,12 +7305,12 @@ static swig_lua_class _wrap_class_OneU_ILabel = { "Label", &SWIGTYPE_p_OneU__ILa
 #endif
 
 static const struct luaL_reg swig_commands[] = {
+    { "addToScene",_wrap_addToScene},
     { "GetGame", _wrap_GetGame},
     { "GetVideo", _wrap_GetVideo},
     { "GetStereo", _wrap_GetStereo},
     { "GetControl", _wrap_GetControl},
     { "GetScene", _wrap_GetScene},
-    { "addToScene",_wrap_addToScene},
     {0,0}
 };
 

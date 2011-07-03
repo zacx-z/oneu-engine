@@ -20,7 +20,7 @@ class SwigDirector_Scene : public Scene, public Swig::Director {
 
 public:
     SwigDirector_Scene(VALUE self);
-    virtual void update();
+    virtual void update(float dt);
     virtual ~SwigDirector_Scene();
 };
 

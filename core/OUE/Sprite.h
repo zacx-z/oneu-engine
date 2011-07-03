@@ -60,8 +60,8 @@ namespace OneU
 		virtual void setSrcRect(rect rc) = 0;
 		virtual rect getSrcRect() = 0;
 
-		float getWidth(){ return getImage().get()->getWidth() * getScaleX(); }
-		float getHeight(){ return getImage().get()->getHeight() * getScaleY(); }
+		virtual float getWidth() = 0; //计算了SrcRect 可能为负
+		virtual float getHeight() = 0;//计算了SrcRect 可能为负
 
 		virtual void setBlendMode(video::BLENDMODE mode) = 0;
 		virtual video::BLENDMODE getBlendMode() = 0;

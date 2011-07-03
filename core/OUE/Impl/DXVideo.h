@@ -62,7 +62,7 @@ namespace OneU
 		vector2u_t getDeviceSize();
 
 		void render();
-		void update();
+		void update(float dt);
 		void flip();
 
 		image_t loadImage(pcwstr filename);
@@ -87,8 +87,8 @@ namespace OneU
 
 		//äÖÈ¾Ê÷º¯Êý
 		video::IRenderScene* setRenderScene(video::IRenderScene* pRenderScene){
-			if(m_pRenderScene != NULL)m_pRenderScene->detach();
-			m_pRoot->addChild(pRenderScene, 0);
+			if(m_pRenderScene)m_pRenderScene->detach();
+			if(pRenderScene) m_pRoot->addChild(pRenderScene, 0);
 			return IVideo::setRenderScene(pRenderScene);
 		}
 		video::IRenderScene* getRenderScene();

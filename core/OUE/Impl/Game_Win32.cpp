@@ -115,7 +115,8 @@ end:
 		IScene* ret = m_pScene;
 		m_pScene = newscene;
 
-		m_pVideo->setRenderScene(newscene->getRenderScene());
+		if(newscene) m_pVideo->setRenderScene(newscene->getRenderScene());
+		else m_pVideo->setRenderScene(NULL);
 		return ret;
 	}
 
@@ -127,19 +128,23 @@ end:
 		++m_Frames;
 		if(m_lastTime != 0){
 			uint32 now = ::timeGetTime();
-			m_TimeInterval = float(now - m_lastTime);
-			if(m_TimeInterval > 1000){
+			uint32 interval = now - m_lastTime;
+			if(interval > 1000){
 				m_lastTime = now;
-				m_FPS = ((float)m_Frames) / m_TimeInterval * 1000.0f;
+				m_FPS = ((float)m_Frames) / interval * 1000;
 				m_Frames = 0;
 			}
+			m_TimeInterval = float(now - m_TimeLastFrame) / 1000.0f;
+			m_TimeLastFrame = now;
 		}
-		else m_lastTime = ::timeGetTime();
+		else {
+			m_TimeLastFrame = m_lastTime = ::timeGetTime();
+		}
 
 		m_pControl->update();
 		m_pBroadcast->sendEvent(event::ENTER_FRAME);
-		if(m_pScene != NULL) m_pScene->update();
-		m_pVideo->update();
+		if(m_pScene != NULL) m_pScene->update(m_TimeInterval);
+		m_pVideo->update(m_TimeInterval);
 		m_pVideo->render();
 		m_pVideo->flip();
 	}

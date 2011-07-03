@@ -21,8 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#pragma comment(lib, "msvcr80-ruby191.lib")
-
 #define WIN32_LEAN_AND_MEAN
 #pragma warning(disable : 4312)
 #pragma warning(disable : 4311)

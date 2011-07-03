@@ -178,8 +178,8 @@ namespace OneU
 		m_pRoot->visit_paint();
 		g_pRD = NULL;
 	}
-	void DXVideo::update(){
-		m_pRoot->visit_update();
+	void DXVideo::update(float dt){
+		m_pRoot->visit_update(dt);
 	}
 
 	void DXVideo::flip(){

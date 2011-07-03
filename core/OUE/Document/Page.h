@@ -321,11 +321,12 @@ namespace OneU{
 /* ----------------------------------------------------------------------------*/
 /**
  * @page page_script 使用脚本编写游戏
- * 目前脚本处于比较纠结的状态。
+ * 目前脚本处于比较纠结的状态，是附加特性，因此许多东西的支持都比较简单。
  * 目前实现了Lua和Ruby的接口，由于在SWIG里Lua不支持Directors，所以功能很受限，一般只能做单场景游戏。
  * 1.使用ruby(recommanded)
  * 提供便利函数@ref RubyRun。直接在主函数调用即可，不需要做任何其他事。
  * 除了Game_build, Game_destroy所有逻辑都在Ruby中编写。
+ * 要在最后调用GetGame.replaceScene(nil)。
  * 2.使用Lua
  * 需要自己编写一个场景（是唯一的场景），参考r19的Game\\main.cpp。(注：由于新版的改动，需要在run函数后调用Game_destroy）
  * Game_build，Game.run等基本逻辑在C++里编写。
@@ -339,18 +340,17 @@ namespace OneU{
  * - 要先销毁脚本解释器再销毁Game，因为脚本解释器里的变量可能关乎资源。
  * - 相当多函数和类（主要是接口类，也有core中的类）都需要在有内存分配器的存在才可被使用。而Game_destroy会销毁掉内存分配器。所以在Game_build之前和Game_destroy之后都不能使用。
  *   对于上述Ruby逻辑编写方式而言，由于开始解释的时候没有内存分配器，因此连RubyInterpreter都不能创建。所以才会出现了不使用内存分配器的RubyRun便利函数。
- * - 关于脚本语言协作，涉及到Ownership，见SWIG。有时Script调用某函数会获取到Ownership，有时又会失去。当Ownership获取的时候一般通过返回值，而对于某些会失去Ownership时此时该变量必须有Ownership。
+ * - 关于脚本语言协作，涉及到Ownership，见SWIG。有时Script调用某函数会获取到Ownership，有时又会失去。当Ownership获取的时候一般通过返回值，而对于某些会失去Ownership时此时该变量必须有Ownership。Ownership的转移会带来过多复杂性，已经被取消。
  * - win32：一旦调用了PostQuitMessage，就无法显示MessageBox了。
  * - 目前基本类型的typemap可能不够完善。
  * - 由于该SDK并不是完全面向脚本编写的，因此导出到脚本时出现了Ownership等复杂的问题（且由于SWIG是外部Wrap的方式，不具有内建的优势，如果面向脚本编写则要抛弃SWIG或自己写SWIG扩展）。
  *	- 每次调用Get函数或其他方法获取某个对象时，其实是新建了一个script里的Wrapper，所以一个对象可能对应许多wrapper。而最多一个有ownership，只有有ownership的对象才能销毁内容。而如果通过调用某个函数ownership被C++内核拿走，则要求传入的必须是有ownership的对象。这为脚本带来了不必要的复杂性。如果想消除这种复杂性，则要在每个导出的类里定义一个对应脚本里的VALUE，也就是侵入式编程，一要框架重新设计，二则难以使用SWIG。（SWIG是非侵入式编程）
- *	- 如果使用SWIG的默认库的话，不满足能查看一个变量是否有ownership的要求。因此自己写了一段代码，这段代码与SWIG对应语言的具体实现强相关，如果出现大改动可能失效。所以暂时推荐swig2.0.4。
  *  - SWIG导出返回pcwstr的director虚函数可能会有内存被提前释放的问题。（未验证）
  *	.
  * .
  * 脚本与C++边缘（容易出莫名其妙错误的地方，需要特别注意）：
  * - @ref IGame::pushInputReceiver，如果不在脚本中保持该变量，则会引起空引用错误，且该错误出现的时机是随机的。
- * - @ref IGame::replaceScene，如果不保持返回的变量，会自动销毁原来的场景，一般不建议使用返回的变量，会丢失掉脚本部分的信息，会很麻烦。
+ * - @ref IGame::replaceScene，同上，需要使用变量保持（建议用全局变量），否则会引起段错误。
  * - @ref INode::addChild不将ownership转移给父节点，脚本若不保持该变量可能会使显示元素消失。
  * .
  * @attention 重要改动，Game.run后需要调用Game.destroy
