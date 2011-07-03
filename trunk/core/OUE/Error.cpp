@@ -142,8 +142,13 @@ namespace OneU
 	}//GetErrorString
 
 	static TerminateHandler s_eh = NULL;
+	static bool isTerminating = false;
 
 	void _TerminateApp(const char * FileName, const int Line, const char* Function, pcwstr str ){
+		if(isTerminating){
+			MessageBoxW(NULL, L"二次异常抛出！！", L"错误", MB_OK | MB_ICONERROR);
+		}
+		isTerminating = true;
 		GetLogger().stream(ILogger::ML_CRITICAL) << FileName << L':' << Line << L"\nFunction:" << Function << L"\n发生异常，程序终止执行。\n异常信息：" << str;
 		::MessageBoxW(NULL, str, L"错误", MB_OK | MB_ICONERROR);
 

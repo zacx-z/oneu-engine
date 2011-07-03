@@ -137,7 +137,7 @@ namespace OneU
 
 	public:
 		Handle(T* v){
-			if(!v) m_hInfo = NULL;
+			if(!v) {m_hInfo = NULL; return;}
 
 			m_hInfo = _getInfo(v);
 			++m_hInfo->ref;
@@ -156,7 +156,7 @@ namespace OneU
 		}
 		Handle& operator=(T* v){
 			_releaseInfo();
-			if(!v) m_hInfo = NULL;
+			if(!v){ m_hInfo = NULL; return *this;}
 			m_hInfo = _getInfo(v);
 			++m_hInfo->ref;
 
@@ -167,16 +167,16 @@ namespace OneU
 		}
 
 		bool isValid(){
-			return m_hInfo && m_hInfo->isvalid;
+			return (!m_hInfo) || (m_hInfo && m_hInfo->isvalid);
 		}
 
 		T* get(){
 			if(!isValid()) ONEU_RAISE(L"¾ä±úÒÑÊ§Ð§£¡");
-			return (T*)m_hInfo->pI;
+			return m_hInfo ? (T*)m_hInfo->pI : NULL;
 		}
 		const T* get() const{
 			if(!isValid()) ONEU_RAISE(L"¾ä±úÒÑÊ§Ð§£¡");
-			return (const T*)m_hInfo->pI;
+			return m_hInfo ? (const T*)m_hInfo->pI : NULL;
 		}
 
 		T* operator->(){ return this->get(); }
@@ -186,11 +186,11 @@ namespace OneU
 
 		T* get(const char* srcname, int line, const char* function){
 			if(!isValid()) ONEU_RAISE(String().format(L"¾ä±úÒÑÊ§Ð§£¡\n%s(%d)\nFunction:%s", srcname, line, function).c_str());
-			return (T*)m_hInfo->pI;
+			return m_hInfo ? (T*)m_hInfo->pI : NULL;
 		}
 		const T* get(const char* srcname, int line, const char* function) const{
 			if(!isValid()) ONEU_RAISE(String().format(L"¾ä±úÒÑÊ§Ð§£¡\n%s(%d)\nFunction:%s", srcname, line, function).c_str());
-			return (const T*)m_hInfo->pI;
+			return m_hInfo ? (const T*)m_hInfo->pI : NULL;
 		}
 	};
 #define SAFE_H(handle) (handle.get(__FILE__, __LINE__, __FUNCTION__))

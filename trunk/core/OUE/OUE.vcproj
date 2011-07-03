@@ -140,6 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="msvcr80-ruby191.lib"
 				OutputFile="$(OutDir)\$(ProjectName).so"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\lib\;$(DXSDK_DIR)Lib\x86"

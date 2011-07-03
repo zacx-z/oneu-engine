@@ -2,6 +2,7 @@
 
 %include "types.i"
 %include "Video.i"
+%include "Scene.i"
 
 %{
 #include "../Game.h"
@@ -32,10 +33,16 @@ namespace OneU
 		virtual float getTimeInterval() = 0;
 			
 #ifdef SUPPORT_DIRECTORS
-		%apply SWIGTYPE *VDISOWN {OneU::IScene* scene};
-		%newobject replaceScene;
-		virtual OneU::IScene* replaceScene(OneU::IScene* scene) = 0;
-		%clear OneU::IScene* scene;
+		%extend {
+		virtual void replaceScene(Scene* scene){
+			if(scene) scene->__isActive = true;
+			OneU::IScene* ret = self->replaceScene(scene);
+			if(!ret) return;
+			Scene* s = dynamic_cast<Scene*>(ret);
+			if(!s) ONEU_RAISE(L"Doesn't allow scene not created by script.");
+			s->__isActive = false;
+		}
+		}
 		virtual void onChar(const OneU::CharEvent& event);
 		virtual void onKey(const OneU::KeyEvent& event);
 		virtual void onMouse(const OneU::MouseEvent& event);	

@@ -2520,8 +2520,30 @@ SWIG_AsVal_unsigned_SS_long (VALUE obj, unsigned long *val)
 }
 
 
+#include "../Scene.h"
+
+
+class Scene : public OneU::IScene
+{
+public:
+	bool __isActive;
+	Scene():__isActive(false){}
+	~Scene(){if(__isActive) rb_raise(rb_eRuntimeError, "Can't remove a scene while it is active."); }
+	
+	void update(float dt){}
+};
+
+
 #include "../Game.h"
 
+SWIGINTERN void OneU_IGame_replaceScene(OneU::IGame *self,Scene *scene){
+			if(scene) scene->__isActive = true;
+			OneU::IScene* ret = self->replaceScene(scene);
+			if(!ret) return;
+			Scene* s = dynamic_cast<Scene*>(ret);
+			if(!s) ONEU_RAISE(L"Doesn't allow scene not created by script.");
+			s->__isActive = false;
+		}
 
 #include "../Stereo.h"
 
@@ -2534,16 +2556,6 @@ SWIG_From_unsigned_SS_long  (unsigned long value)
 {
   return ULONG2NUM(value); 
 }
-
-
-#include "../Scene.h"
-
-
-class Scene : public OneU::IScene
-{
-public:
-	virtual void update(){}
-};
 
 
 #include "../Sprite.h"
@@ -2663,10 +2675,12 @@ SwigDirector_Scene::SwigDirector_Scene(VALUE self): Scene(), Swig::Director(self
 
 
 
-void SwigDirector_Scene::update() {
+void SwigDirector_Scene::update(float dt) {
+  VALUE obj0 = Qnil ;
   VALUE result;
   
-  result = rb_funcall(swig_get_self(), rb_intern("update"), 0, NULL);
+  obj0 = SWIG_From_float(static_cast< float >(dt));
+  result = rb_funcall(swig_get_self(), rb_intern("update"), 1,obj0);
 }
 
 
@@ -6417,6 +6431,319 @@ free_OneU_IVideo(OneU::IVideo *arg1) {
     delete arg1;
 }
 
+swig_class SwigClassIScene;
+
+SWIGINTERN VALUE
+_wrap_IScene_update(int argc, VALUE *argv, VALUE self) {
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  float arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","update", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
+  ecode2 = SWIG_AsVal_float(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","update", 2, argv[0] ));
+  } 
+  arg2 = static_cast< float >(val2);
+  (arg1)->update(arg2);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_IScene_RS(int argc, VALUE *argv, VALUE self) {
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  OneU::video::IRenderScene *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","getRenderScene", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
+  result = (OneU::video::IRenderScene *)(arg1)->getRenderScene();
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__video__IRenderScene, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_OneU_IScene(OneU::IScene *arg1) {
+    delete arg1;
+}
+
+SWIGINTERN VALUE
+_wrap_IScene_replaceInputFocus(int argc, VALUE *argv, VALUE self) {
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  OneU::IInputReceiver *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","replaceInputFocus", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IInputReceiver *","replaceInputFocus", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< OneU::IInputReceiver * >(argp2);
+  result = (OneU::IInputReceiver *)(arg1)->replaceInputFocus(arg2);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_IScene_pushInputFocus(int argc, VALUE *argv, VALUE self) {
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","pushInputFocus", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IInputReceiver *","pushInputFocus", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< OneU::IInputReceiver * >(argp2);
+  (arg1)->pushInputFocus(arg2);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_IScene_popInputFocus(int argc, VALUE *argv, VALUE self) {
+  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  OneU::IInputReceiver *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","popInputFocus", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
+  result = (OneU::IInputReceiver *)(arg1)->popInputFocus();
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+swig_class SwigClassScene;
+
+SWIGINTERN VALUE
+_wrap_Scene___isActive_set(int argc, VALUE *argv, VALUE self) {
+  Scene *arg1 = (Scene *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Scene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "Scene *","__isActive", 1, self )); 
+  }
+  arg1 = reinterpret_cast< Scene * >(argp1);
+  ecode2 = SWIG_AsVal_bool(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "bool","__isActive", 2, argv[0] ));
+  } 
+  arg2 = static_cast< bool >(val2);
+  if (arg1) (arg1)->__isActive = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Scene___isActive_get(int argc, VALUE *argv, VALUE self) {
+  Scene *arg1 = (Scene *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Scene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "Scene *","__isActive", 1, self )); 
+  }
+  arg1 = reinterpret_cast< Scene * >(argp1);
+  result = (bool) ((arg1)->__isActive);
+  vresult = SWIG_From_bool(static_cast< bool >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_Scene_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_Scene_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_Scene);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_Scene(int argc, VALUE *argv, VALUE self) {
+  VALUE arg1 = (VALUE) 0 ;
+  const char *classname SWIGUNUSED = "OUE::Scene";
+  Scene *result = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  arg1 = self;
+  if ( strcmp(rb_obj_classname(self), classname) != 0 ) {
+    /* subclassed */
+    result = (Scene *)new SwigDirector_Scene(arg1); 
+  } else {
+    result = (Scene *)new Scene(); 
+  }
+  
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_Scene(Scene *arg1) {
+    delete arg1;
+}
+
+SWIGINTERN VALUE
+_wrap_Scene_update(int argc, VALUE *argv, VALUE self) {
+  Scene *arg1 = (Scene *) 0 ;
+  float arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float val2 ;
+  int ecode2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Scene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "Scene *","update", 1, self )); 
+  }
+  arg1 = reinterpret_cast< Scene * >(argp1);
+  ecode2 = SWIG_AsVal_float(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","update", 2, argv[0] ));
+  } 
+  arg2 = static_cast< float >(val2);
+  director = dynamic_cast<Swig::Director *>(arg1);
+  upcall = (director && (director->swig_get_self() == self));
+  try {
+    if (upcall) {
+      (arg1)->Scene::update(arg2);
+    } else {
+      (arg1)->update(arg2);
+    }
+  } catch (Swig::DirectorException& e) {
+    rb_exc_raise(e.getError());
+    SWIG_fail;
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_disown_Scene(int argc, VALUE *argv, VALUE self) {
+  Scene *arg1 = (Scene *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(argv[0], &argp1,SWIGTYPE_p_Scene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "Scene *","disown_Scene", 1, argv[0] )); 
+  }
+  arg1 = reinterpret_cast< Scene * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
 swig_class SwigClassIGame;
 
 SWIGINTERN VALUE
@@ -6801,13 +7128,11 @@ fail:
 SWIGINTERN VALUE
 _wrap_IGame_replaceScene(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
-  OneU::IScene *arg2 = (OneU::IScene *) 0 ;
+  Scene *arg2 = (Scene *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  void *argp2 = 0 ;
   int res2 = 0 ;
-  swig_owntype own2 ;
-  OneU::IScene *result = 0 ;
-  VALUE vresult = Qnil;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
@@ -6817,17 +7142,13 @@ _wrap_IGame_replaceScene(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IGame *","replaceScene", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::IGame * >(argp1);
-  {
-    res2 = SWIG_ConvertPtrAndOwn(argv[0], SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_OneU__IScene, SWIG_POINTER_DISOWN |  0 , &own2);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IScene *","replaceScene", 2, argv[0] ));
-    }
-    if (own2 == 0 || own2 == SWIG_RubyRemoveTracking)//no ownership
-    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("The value must have ownership!", "OneU::IScene *","replaceScene", 2, argv[0]));
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_Scene, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "Scene *","replaceScene", 2, argv[0] )); 
   }
-  result = (OneU::IScene *)(arg1)->replaceScene(arg2);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IScene, SWIG_POINTER_OWN |  0 );
-  return vresult;
+  arg2 = reinterpret_cast< Scene * >(argp2);
+  OneU_IGame_replaceScene(arg1,arg2);
+  return Qnil;
 fail:
   return Qnil;
 }
@@ -7405,250 +7726,6 @@ SWIGINTERN void
 free_OneU_IControl(OneU::IControl *arg1) {
     delete arg1;
 }
-
-swig_class SwigClassIScene;
-
-SWIGINTERN VALUE
-_wrap_IScene_update(int argc, VALUE *argv, VALUE self) {
-  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if ((argc < 0) || (argc > 0)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","update", 1, self )); 
-  }
-  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
-  (arg1)->update();
-  return Qnil;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE
-_wrap_IScene_RS(int argc, VALUE *argv, VALUE self) {
-  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  OneU::video::IRenderScene *result = 0 ;
-  VALUE vresult = Qnil;
-  
-  if ((argc < 0) || (argc > 0)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","getRenderScene", 1, self )); 
-  }
-  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
-  result = (OneU::video::IRenderScene *)(arg1)->getRenderScene();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__video__IRenderScene, 0 |  0 );
-  return vresult;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN void
-free_OneU_IScene(OneU::IScene *arg1) {
-    delete arg1;
-}
-
-SWIGINTERN VALUE
-_wrap_IScene_replaceInputFocus(int argc, VALUE *argv, VALUE self) {
-  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
-  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  OneU::IInputReceiver *result = 0 ;
-  VALUE vresult = Qnil;
-  
-  if ((argc < 1) || (argc > 1)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","replaceInputFocus", 1, self )); 
-  }
-  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
-  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IInputReceiver *","replaceInputFocus", 2, argv[0] )); 
-  }
-  arg2 = reinterpret_cast< OneU::IInputReceiver * >(argp2);
-  result = (OneU::IInputReceiver *)(arg1)->replaceInputFocus(arg2);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
-  return vresult;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE
-_wrap_IScene_pushInputFocus(int argc, VALUE *argv, VALUE self) {
-  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
-  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  if ((argc < 1) || (argc > 1)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","pushInputFocus", 1, self )); 
-  }
-  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
-  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IInputReceiver *","pushInputFocus", 2, argv[0] )); 
-  }
-  arg2 = reinterpret_cast< OneU::IInputReceiver * >(argp2);
-  (arg1)->pushInputFocus(arg2);
-  return Qnil;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE
-_wrap_IScene_popInputFocus(int argc, VALUE *argv, VALUE self) {
-  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  OneU::IInputReceiver *result = 0 ;
-  VALUE vresult = Qnil;
-  
-  if ((argc < 0) || (argc > 0)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","popInputFocus", 1, self )); 
-  }
-  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
-  result = (OneU::IInputReceiver *)(arg1)->popInputFocus();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
-  return vresult;
-fail:
-  return Qnil;
-}
-
-
-swig_class SwigClassScene;
-
-SWIGINTERN VALUE
-_wrap_Scene_update(int argc, VALUE *argv, VALUE self) {
-  Scene *arg1 = (Scene *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  Swig::Director *director = 0;
-  bool upcall = false;
-  
-  if ((argc < 0) || (argc > 0)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Scene, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "Scene *","update", 1, self )); 
-  }
-  arg1 = reinterpret_cast< Scene * >(argp1);
-  director = dynamic_cast<Swig::Director *>(arg1);
-  upcall = (director && (director->swig_get_self() == self));
-  try {
-    if (upcall) {
-      (arg1)->Scene::update();
-    } else {
-      (arg1)->update();
-    }
-  } catch (Swig::DirectorException& e) {
-    rb_exc_raise(e.getError());
-    SWIG_fail;
-  }
-  return Qnil;
-fail:
-  return Qnil;
-}
-
-
-#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
-SWIGINTERN VALUE
-_wrap_Scene_allocate(VALUE self) {
-#else
-  SWIGINTERN VALUE
-  _wrap_Scene_allocate(int argc, VALUE *argv, VALUE self) {
-#endif
-    
-    
-    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_Scene);
-#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
-    rb_obj_call_init(vresult, argc, argv);
-#endif
-    return vresult;
-  }
-  
-
-SWIGINTERN VALUE
-_wrap_new_Scene(int argc, VALUE *argv, VALUE self) {
-  VALUE arg1 = (VALUE) 0 ;
-  const char *classname SWIGUNUSED = "OUE::Scene";
-  Scene *result = 0 ;
-  
-  if ((argc < 0) || (argc > 0)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
-  }
-  arg1 = self;
-  if ( strcmp(rb_obj_classname(self), classname) != 0 ) {
-    /* subclassed */
-    result = (Scene *)new SwigDirector_Scene(arg1); 
-  } else {
-    result = (Scene *)new Scene(); 
-  }
-  
-  DATA_PTR(self) = result;
-  return self;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN void
-free_Scene(Scene *arg1) {
-    delete arg1;
-}
-
-SWIGINTERN VALUE
-_wrap_disown_Scene(int argc, VALUE *argv, VALUE self) {
-  Scene *arg1 = (Scene *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  
-  if ((argc < 1) || (argc > 1)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(argv[0], &argp1,SWIGTYPE_p_Scene, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "Scene *","disown_Scene", 1, argv[0] )); 
-  }
-  arg1 = reinterpret_cast< Scene * >(argp1);
-  {
-    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
-    if (director) director->swig_disown();
-  }
-  
-  return Qnil;
-fail:
-  return Qnil;
-}
-
 
 swig_class SwigClassSprite;
 
@@ -9839,6 +9916,30 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassIVideo.destroy = (void (*)(void *)) free_OneU_IVideo;
   SwigClassIVideo.trackObjects = 0;
   
+  SwigClassIScene.klass = rb_define_class_under(mOUE, "IScene", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__IScene, (void *) &SwigClassIScene);
+  rb_undef_alloc_func(SwigClassIScene.klass);
+  rb_define_method(SwigClassIScene.klass, "update", VALUEFUNC(_wrap_IScene_update), -1);
+  rb_define_method(SwigClassIScene.klass, "RS", VALUEFUNC(_wrap_IScene_RS), -1);
+  rb_define_method(SwigClassIScene.klass, "replaceInputFocus", VALUEFUNC(_wrap_IScene_replaceInputFocus), -1);
+  rb_define_method(SwigClassIScene.klass, "pushInputFocus", VALUEFUNC(_wrap_IScene_pushInputFocus), -1);
+  rb_define_method(SwigClassIScene.klass, "popInputFocus", VALUEFUNC(_wrap_IScene_popInputFocus), -1);
+  SwigClassIScene.mark = 0;
+  SwigClassIScene.destroy = (void (*)(void *)) free_OneU_IScene;
+  SwigClassIScene.trackObjects = 0;
+  rb_define_module_function(mOUE, "disown_Scene", VALUEFUNC(_wrap_disown_Scene), -1);
+  
+  SwigClassScene.klass = rb_define_class_under(mOUE, "Scene", ((swig_class *) SWIGTYPE_p_OneU__IScene->clientdata)->klass);
+  SWIG_TypeClientData(SWIGTYPE_p_Scene, (void *) &SwigClassScene);
+  rb_define_alloc_func(SwigClassScene.klass, _wrap_Scene_allocate);
+  rb_define_method(SwigClassScene.klass, "initialize", VALUEFUNC(_wrap_new_Scene), -1);
+  rb_define_method(SwigClassScene.klass, "__isActive=", VALUEFUNC(_wrap_Scene___isActive_set), -1);
+  rb_define_method(SwigClassScene.klass, "__isActive", VALUEFUNC(_wrap_Scene___isActive_get), -1);
+  rb_define_method(SwigClassScene.klass, "update", VALUEFUNC(_wrap_Scene_update), -1);
+  SwigClassScene.mark = 0;
+  SwigClassScene.destroy = (void (*)(void *)) free_Scene;
+  SwigClassScene.trackObjects = 0;
+  
   SwigClassIGame.klass = rb_define_class_under(mOUE, "IGame", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__IGame, (void *) &SwigClassIGame);
   rb_undef_alloc_func(SwigClassIGame.klass);
@@ -10055,28 +10156,6 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassIControl.mark = 0;
   SwigClassIControl.destroy = (void (*)(void *)) free_OneU_IControl;
   SwigClassIControl.trackObjects = 0;
-  
-  SwigClassIScene.klass = rb_define_class_under(mOUE, "IScene", rb_cObject);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__IScene, (void *) &SwigClassIScene);
-  rb_undef_alloc_func(SwigClassIScene.klass);
-  rb_define_method(SwigClassIScene.klass, "update", VALUEFUNC(_wrap_IScene_update), -1);
-  rb_define_method(SwigClassIScene.klass, "RS", VALUEFUNC(_wrap_IScene_RS), -1);
-  rb_define_method(SwigClassIScene.klass, "replaceInputFocus", VALUEFUNC(_wrap_IScene_replaceInputFocus), -1);
-  rb_define_method(SwigClassIScene.klass, "pushInputFocus", VALUEFUNC(_wrap_IScene_pushInputFocus), -1);
-  rb_define_method(SwigClassIScene.klass, "popInputFocus", VALUEFUNC(_wrap_IScene_popInputFocus), -1);
-  SwigClassIScene.mark = 0;
-  SwigClassIScene.destroy = (void (*)(void *)) free_OneU_IScene;
-  SwigClassIScene.trackObjects = 0;
-  rb_define_module_function(mOUE, "disown_Scene", VALUEFUNC(_wrap_disown_Scene), -1);
-  
-  SwigClassScene.klass = rb_define_class_under(mOUE, "Scene", ((swig_class *) SWIGTYPE_p_OneU__IScene->clientdata)->klass);
-  SWIG_TypeClientData(SWIGTYPE_p_Scene, (void *) &SwigClassScene);
-  rb_define_alloc_func(SwigClassScene.klass, _wrap_Scene_allocate);
-  rb_define_method(SwigClassScene.klass, "initialize", VALUEFUNC(_wrap_new_Scene), -1);
-  rb_define_method(SwigClassScene.klass, "update", VALUEFUNC(_wrap_Scene_update), -1);
-  SwigClassScene.mark = 0;
-  SwigClassScene.destroy = (void (*)(void *)) free_Scene;
-  SwigClassScene.trackObjects = 0;
   
   SwigClassSprite.klass = rb_define_class_under(mOUE, "Sprite", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__ISprite, (void *) &SwigClassSprite);

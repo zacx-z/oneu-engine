@@ -40,6 +40,7 @@ namespace OneU
 		uint32 m_Frames;//º∆À„m_FPS”√
 
 		float m_TimeInterval;
+		uint32 m_TimeLastFrame;
 
 		//
 		tool::Shell* m_pShell;

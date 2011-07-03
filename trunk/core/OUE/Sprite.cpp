@@ -59,6 +59,9 @@ namespace OneU
 		virtual void setSrcRect(rect rc){ m_SrcRc = rc; }
 		virtual rect getSrcRect(){ return m_SrcRc; }
 
+		virtual float getWidth(){ return getImage()->getWidth() * (m_SrcRc.right - m_SrcRc.left); }
+		virtual float getHeight(){ return getImage()->getHeight() * (m_SrcRc.bottom - m_SrcRc.top); }
+
 		void setBlendMode(video::BLENDMODE mode){ m_Mode = mode;}
 		video::BLENDMODE getBlendMode(){ return m_Mode; }
 		void setColorBlendMode(uint32 mode){ m_CMode = mode; }

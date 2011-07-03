@@ -126,10 +126,11 @@ namespace OneU
 			 * @brief 更新函数
 			 *
 			 * 需要被重写来扩充，填充上更新结点时的操作。
+			 * @param dt 时间长度
 			 * @remarks 只有visible且active为true时才会被调用。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			virtual void update(){}
+			virtual void update(float dt){}
 
 			/* ----------------------------------------------------------------------------*/
 			/**
@@ -178,9 +179,9 @@ namespace OneU
 			 * @remarks 在IVideo::update函数中被调用。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			void visit_update(){
+			void visit_update(float dt){
 				if(visible && active)
-					update();
+					update(dt);
 			}
 			void getDescription(String& buffer, int depth = 0){
 				_describe(buffer, depth);
@@ -389,9 +390,9 @@ namespace OneU
 					it->child->visit_paint();
 				}
 			}
-			virtual void update(){
+			virtual void update(float dt){
 				for(ListType::iterator it = m_Children.begin(); it != m_Children.end(); ++it){
-					it->child->visit_update();
+					it->child->visit_update(dt);
 				}
 			}
 			virtual pcwstr name(){

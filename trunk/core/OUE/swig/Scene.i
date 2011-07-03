@@ -12,7 +12,7 @@ namespace OneU
 	public:
 		PROP_R(getRenderScene, RS);
 		IScene();
-		virtual void update() = 0;
+		virtual void update(float dt) = 0;
 		video::IRenderScene* getRenderScene();
 		virtual ~IScene();
 		
@@ -28,7 +28,11 @@ namespace OneU
 class Scene : public OneU::IScene
 {
 public:
-	virtual void update(){}
+	bool __isActive;
+	Scene():__isActive(false){}
+	~Scene(){if(__isActive) rb_raise(rb_eRuntimeError, "Can't remove a scene while it is active."); }
+	
+	void update(float dt){}
 };
 %}
 #endif
