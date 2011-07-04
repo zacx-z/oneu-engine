@@ -28,6 +28,7 @@ namespace OneU
 		image_t& operator=(video::IImage* i);
 	};
 	
+	%rename(Video) IVideo;
 	class IVideo
 	{
 	public:

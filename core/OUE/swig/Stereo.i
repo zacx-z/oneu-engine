@@ -6,6 +6,7 @@
 
 namespace OneU
 {
+	%rename(Stereo) IStereo;
 	class IStereo
 	{
 	public:

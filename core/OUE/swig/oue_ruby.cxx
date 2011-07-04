@@ -2527,8 +2527,9 @@ class Scene : public OneU::IScene
 {
 public:
 	bool __isActive;
+	OneU::IGame* __game;
 	Scene():__isActive(false){}
-	~Scene(){if(__isActive) rb_raise(rb_eRuntimeError, "Can't remove a scene while it is active."); }
+	~Scene(){if(__isActive) __game->replaceScene(NULL); }
 	
 	void update(float dt){}
 };
@@ -2537,11 +2538,11 @@ public:
 #include "../Game.h"
 
 SWIGINTERN void OneU_IGame_replaceScene(OneU::IGame *self,Scene *scene){
-			if(scene) scene->__isActive = true;
+			if(scene){ scene->__isActive = true; scene->__game = self; }
 			OneU::IScene* ret = self->replaceScene(scene);
 			if(!ret) return;
 			Scene* s = dynamic_cast<Scene*>(ret);
-			if(!s) ONEU_RAISE(L"Doesn't allow scene not created by script.");
+			if(!s) rb_raise(rb_eRuntimeError, "Doesn't allow scene not created by script.");
 			s->__isActive = false;
 		}
 
@@ -5719,10 +5720,10 @@ free_OneU_video_INode(OneU::video::INode *arg1) {
     delete arg1;
 }
 
-swig_class SwigClassINodeContainer;
+swig_class SwigClassNodeContainer;
 
 SWIGINTERN VALUE
-_wrap_INodeContainer_name(int argc, VALUE *argv, VALUE self) {
+_wrap_NodeContainer_name(int argc, VALUE *argv, VALUE self) {
   OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5748,7 +5749,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
+_wrap_NodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
   OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
   OneU::video::INode *arg2 = (OneU::video::INode *) 0 ;
   int arg3 ;
@@ -5790,7 +5791,7 @@ _wrap_INodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
   }
   {
     if(arg2 == NULL)
-    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in INodeContainer_addChild");
+    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in NodeContainer_addChild");
   }
   result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2,arg3,(wchar_t const *)arg4);
   vresult = SWIG_From_bool(static_cast< bool >(result));
@@ -5801,7 +5802,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
+_wrap_NodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
   OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
   OneU::video::INode *arg2 = (OneU::video::INode *) 0 ;
   int arg3 ;
@@ -5834,7 +5835,7 @@ _wrap_INodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
   arg3 = static_cast< int >(val3);
   {
     if(arg2 == NULL)
-    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in INodeContainer_addChild");
+    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in NodeContainer_addChild");
   }
   result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2,arg3);
   vresult = SWIG_From_bool(static_cast< bool >(result));
@@ -5845,7 +5846,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_INodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
+_wrap_NodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
   OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
   OneU::video::INode *arg2 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
@@ -5870,7 +5871,7 @@ _wrap_INodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
   arg2 = reinterpret_cast< OneU::video::INode * >(argp2);
   {
     if(arg2 == NULL)
-    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in INodeContainer_addChild");
+    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in NodeContainer_addChild");
   }
   result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2);
   vresult = SWIG_From_bool(static_cast< bool >(result));
@@ -5880,7 +5881,7 @@ fail:
 }
 
 
-SWIGINTERN VALUE _wrap_INodeContainer_addChild(int nargs, VALUE *args, VALUE self) {
+SWIGINTERN VALUE _wrap_NodeContainer_addChild(int nargs, VALUE *args, VALUE self) {
   int argc;
   VALUE argv[5];
   int ii;
@@ -5901,7 +5902,7 @@ SWIGINTERN VALUE _wrap_INodeContainer_addChild(int nargs, VALUE *args, VALUE sel
       int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_OneU__video__INode, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_INodeContainer_addChild__SWIG_2(nargs, args, self);
+        return _wrap_NodeContainer_addChild__SWIG_2(nargs, args, self);
       }
     }
   }
@@ -5920,7 +5921,7 @@ SWIGINTERN VALUE _wrap_INodeContainer_addChild(int nargs, VALUE *args, VALUE sel
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_INodeContainer_addChild__SWIG_1(nargs, args, self);
+          return _wrap_NodeContainer_addChild__SWIG_1(nargs, args, self);
         }
       }
     }
@@ -5943,7 +5944,7 @@ SWIGINTERN VALUE _wrap_INodeContainer_addChild(int nargs, VALUE *args, VALUE sel
           int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
           _v = SWIG_CheckState(res);
           if (_v) {
-            return _wrap_INodeContainer_addChild__SWIG_0(nargs, args, self);
+            return _wrap_NodeContainer_addChild__SWIG_0(nargs, args, self);
           }
         }
       }
@@ -5962,10 +5963,10 @@ fail:
 
 #ifdef HAVE_RB_DEFINE_ALLOC_FUNC
 SWIGINTERN VALUE
-_wrap_INodeContainer_allocate(VALUE self) {
+_wrap_NodeContainer_allocate(VALUE self) {
 #else
   SWIGINTERN VALUE
-  _wrap_INodeContainer_allocate(int argc, VALUE *argv, VALUE self) {
+  _wrap_NodeContainer_allocate(int argc, VALUE *argv, VALUE self) {
 #endif
     
     
@@ -5978,8 +5979,8 @@ _wrap_INodeContainer_allocate(VALUE self) {
   
 
 SWIGINTERN VALUE
-_wrap_new_INodeContainer(int argc, VALUE *argv, VALUE self) {
-  const char *classname SWIGUNUSED = "OUE::INodeContainer";
+_wrap_new_NodeContainer(int argc, VALUE *argv, VALUE self) {
+  const char *classname SWIGUNUSED = "OUE::NodeContainer";
   OneU::video::INodeContainer *result = 0 ;
   
   if ((argc < 0) || (argc > 0)) {
@@ -6104,10 +6105,10 @@ free_OneU_image_t(OneU::image_t *arg1) {
     delete arg1;
 }
 
-swig_class SwigClassIVideo;
+swig_class SwigClassVideo;
 
 SWIGINTERN VALUE
-_wrap_IVideo_getName(int argc, VALUE *argv, VALUE self) {
+_wrap_Video_getName(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6131,7 +6132,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IVideo_init(int argc, VALUE *argv, VALUE self) {
+_wrap_Video_init(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   OneU::uint32 arg2 ;
   OneU::uint32 arg3 ;
@@ -6176,7 +6177,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IVideo_switchDevice(int argc, VALUE *argv, VALUE self) {
+_wrap_Video_switchDevice(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   OneU::uint32 arg2 ;
   OneU::uint32 arg3 ;
@@ -6221,7 +6222,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IVideo_isWindowed(int argc, VALUE *argv, VALUE self) {
+_wrap_Video_isWindowed(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6245,7 +6246,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IVideo_getDeviceSize(int argc, VALUE *argv, VALUE self) {
+_wrap_Video_getDeviceSize(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6269,7 +6270,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IVideo_loadImage(int argc, VALUE *argv, VALUE self) {
+_wrap_Video_loadImage(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
   void *argp1 = 0 ;
@@ -6302,7 +6303,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IVideo_getRoot(int argc, VALUE *argv, VALUE self) {
+_wrap_Video_getRoot(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6326,7 +6327,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IVideo_getRenderScene(int argc, VALUE *argv, VALUE self) {
+_wrap_Video_getRenderScene(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6350,7 +6351,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IVideo_setRenderScene(int argc, VALUE *argv, VALUE self) {
+_wrap_Video_setRenderScene(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   OneU::video::IRenderScene *arg2 = (OneU::video::IRenderScene *) 0 ;
   void *argp1 = 0 ;
@@ -6382,7 +6383,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IVideo_createRenderScene(int argc, VALUE *argv, VALUE self) {
+_wrap_Video_createRenderScene(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6406,7 +6407,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IVideo_showInfo(int argc, VALUE *argv, VALUE self) {
+_wrap_Video_showInfo(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6631,6 +6632,59 @@ fail:
 }
 
 
+SWIGINTERN VALUE
+_wrap_Scene___game_set(int argc, VALUE *argv, VALUE self) {
+  Scene *arg1 = (Scene *) 0 ;
+  OneU::IGame *arg2 = (OneU::IGame *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Scene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "Scene *","__game", 1, self )); 
+  }
+  arg1 = reinterpret_cast< Scene * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__IGame, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IGame *","__game", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< OneU::IGame * >(argp2);
+  if (arg1) (arg1)->__game = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Scene___game_get(int argc, VALUE *argv, VALUE self) {
+  Scene *arg1 = (Scene *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  OneU::IGame *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_Scene, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "Scene *","__game", 1, self )); 
+  }
+  arg1 = reinterpret_cast< Scene * >(argp1);
+  result = (OneU::IGame *) ((arg1)->__game);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IGame, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
 #ifdef HAVE_RB_DEFINE_ALLOC_FUNC
 SWIGINTERN VALUE
 _wrap_Scene_allocate(VALUE self) {
@@ -6744,10 +6798,10 @@ fail:
 }
 
 
-swig_class SwigClassIGame;
+swig_class SwigClassGame;
 
 SWIGINTERN VALUE
-_wrap_IGame_getVideo(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_getVideo(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6771,7 +6825,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_getStereo(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_getStereo(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6795,7 +6849,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_getControl(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_getControl(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6819,7 +6873,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_getScene(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_getScene(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6843,7 +6897,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_init(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_init(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
   OneU::uint32 arg3 ;
@@ -6897,7 +6951,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_run(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_run(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6921,7 +6975,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_quit(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_quit(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6942,7 +6996,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_onFrame(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_onFrame(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6963,7 +7017,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_onActiveWindow(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_onActiveWindow(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   bool arg2 ;
   void *argp1 = 0 ;
@@ -6992,7 +7046,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_setWindowTitle(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_setWindowTitle(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
   void *argp1 = 0 ;
@@ -7022,7 +7076,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_getWindowPos(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_getWindowPos(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7046,7 +7100,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_setWindowPos(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_setWindowPos(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::vector2i_t *arg2 = 0 ;
   void *argp1 = 0 ;
@@ -7078,7 +7132,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_getFPS(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_getFPS(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7102,7 +7156,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_getTimeInterval(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_getTimeInterval(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7126,7 +7180,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_replaceScene(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_replaceScene(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   Scene *arg2 = (Scene *) 0 ;
   void *argp1 = 0 ;
@@ -7155,7 +7209,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_onChar(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_onChar(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::CharEvent *arg2 = 0 ;
   void *argp1 = 0 ;
@@ -7187,7 +7241,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_onKey(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_onKey(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::KeyEvent *arg2 = 0 ;
   void *argp1 = 0 ;
@@ -7219,7 +7273,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_onMouse(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_onMouse(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::MouseEvent *arg2 = 0 ;
   void *argp1 = 0 ;
@@ -7251,7 +7305,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_runShell(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_runShell(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
   void *argp1 = 0 ;
@@ -7281,7 +7335,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_output(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_output(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
   void *argp1 = 0 ;
@@ -7311,7 +7365,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IGame_showInfo(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_showInfo(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7416,10 +7470,10 @@ fail:
 }
 
 
-swig_class SwigClassIStereo;
+swig_class SwigClassStereo;
 
 SWIGINTERN VALUE
-_wrap_IStereo_init(int argc, VALUE *argv, VALUE self) {
+_wrap_Stereo_init(int argc, VALUE *argv, VALUE self) {
   OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7440,7 +7494,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IStereo_playMusic(int argc, VALUE *argv, VALUE self) {
+_wrap_Stereo_playMusic(int argc, VALUE *argv, VALUE self) {
   OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
   void *argp1 = 0 ;
@@ -7470,7 +7524,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IStereo_playSound(int argc, VALUE *argv, VALUE self) {
+_wrap_Stereo_playSound(int argc, VALUE *argv, VALUE self) {
   OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
   void *argp1 = 0 ;
@@ -7504,10 +7558,10 @@ free_OneU_IStereo(OneU::IStereo *arg1) {
     delete arg1;
 }
 
-swig_class SwigClassIControl;
+swig_class SwigClassControl;
 
 SWIGINTERN VALUE
-_wrap_IControl_keyIsDown(int argc, VALUE *argv, VALUE self) {
+_wrap_Control_keyIsDown(int argc, VALUE *argv, VALUE self) {
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
   void *argp1 = 0 ;
@@ -7539,7 +7593,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IControl_keyPress(int argc, VALUE *argv, VALUE self) {
+_wrap_Control_keyPress(int argc, VALUE *argv, VALUE self) {
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
   void *argp1 = 0 ;
@@ -7571,7 +7625,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IControl_keyRelease(int argc, VALUE *argv, VALUE self) {
+_wrap_Control_keyRelease(int argc, VALUE *argv, VALUE self) {
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
   void *argp1 = 0 ;
@@ -7603,7 +7657,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IControl_buttonIsDown(int argc, VALUE *argv, VALUE self) {
+_wrap_Control_buttonIsDown(int argc, VALUE *argv, VALUE self) {
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
   void *argp1 = 0 ;
@@ -7635,7 +7689,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IControl_buttonRelease(int argc, VALUE *argv, VALUE self) {
+_wrap_Control_buttonRelease(int argc, VALUE *argv, VALUE self) {
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
   void *argp1 = 0 ;
@@ -7667,7 +7721,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IControl_buttonPress(int argc, VALUE *argv, VALUE self) {
+_wrap_Control_buttonPress(int argc, VALUE *argv, VALUE self) {
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
   void *argp1 = 0 ;
@@ -7699,7 +7753,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_IControl_mouseOffset(int argc, VALUE *argv, VALUE self) {
+_wrap_Control_mouseOffset(int argc, VALUE *argv, VALUE self) {
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -9864,15 +9918,15 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassINode.destroy = (void (*)(void *)) free_OneU_video_INode;
   SwigClassINode.trackObjects = 0;
   
-  SwigClassINodeContainer.klass = rb_define_class_under(mOUE, "INodeContainer", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__video__INodeContainer, (void *) &SwigClassINodeContainer);
-  rb_define_alloc_func(SwigClassINodeContainer.klass, _wrap_INodeContainer_allocate);
-  rb_define_method(SwigClassINodeContainer.klass, "initialize", VALUEFUNC(_wrap_new_INodeContainer), -1);
-  rb_define_method(SwigClassINodeContainer.klass, "name", VALUEFUNC(_wrap_INodeContainer_name), -1);
-  rb_define_method(SwigClassINodeContainer.klass, "addChild", VALUEFUNC(_wrap_INodeContainer_addChild), -1);
-  SwigClassINodeContainer.mark = 0;
-  SwigClassINodeContainer.destroy = (void (*)(void *)) free_OneU_video_INodeContainer;
-  SwigClassINodeContainer.trackObjects = 0;
+  SwigClassNodeContainer.klass = rb_define_class_under(mOUE, "NodeContainer", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__video__INodeContainer, (void *) &SwigClassNodeContainer);
+  rb_define_alloc_func(SwigClassNodeContainer.klass, _wrap_NodeContainer_allocate);
+  rb_define_method(SwigClassNodeContainer.klass, "initialize", VALUEFUNC(_wrap_new_NodeContainer), -1);
+  rb_define_method(SwigClassNodeContainer.klass, "name", VALUEFUNC(_wrap_NodeContainer_name), -1);
+  rb_define_method(SwigClassNodeContainer.klass, "addChild", VALUEFUNC(_wrap_NodeContainer_addChild), -1);
+  SwigClassNodeContainer.mark = 0;
+  SwigClassNodeContainer.destroy = (void (*)(void *)) free_OneU_video_INodeContainer;
+  SwigClassNodeContainer.trackObjects = 0;
   
   SwigClassIRenderScene.klass = rb_define_class_under(mOUE, "IRenderScene", ((swig_class *) SWIGTYPE_p_OneU__video__INodeContainer->clientdata)->klass);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__video__IRenderScene, (void *) &SwigClassIRenderScene);
@@ -9898,23 +9952,23 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassImage_t.destroy = (void (*)(void *)) free_OneU_image_t;
   SwigClassImage_t.trackObjects = 0;
   
-  SwigClassIVideo.klass = rb_define_class_under(mOUE, "IVideo", rb_cObject);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__IVideo, (void *) &SwigClassIVideo);
-  rb_undef_alloc_func(SwigClassIVideo.klass);
-  rb_define_method(SwigClassIVideo.klass, "getName", VALUEFUNC(_wrap_IVideo_getName), -1);
-  rb_define_method(SwigClassIVideo.klass, "init", VALUEFUNC(_wrap_IVideo_init), -1);
-  rb_define_method(SwigClassIVideo.klass, "switchDevice", VALUEFUNC(_wrap_IVideo_switchDevice), -1);
-  rb_define_method(SwigClassIVideo.klass, "isWindowed", VALUEFUNC(_wrap_IVideo_isWindowed), -1);
-  rb_define_method(SwigClassIVideo.klass, "getDeviceSize", VALUEFUNC(_wrap_IVideo_getDeviceSize), -1);
-  rb_define_method(SwigClassIVideo.klass, "loadImage", VALUEFUNC(_wrap_IVideo_loadImage), -1);
-  rb_define_method(SwigClassIVideo.klass, "getRoot", VALUEFUNC(_wrap_IVideo_getRoot), -1);
-  rb_define_method(SwigClassIVideo.klass, "getRenderScene", VALUEFUNC(_wrap_IVideo_getRenderScene), -1);
-  rb_define_method(SwigClassIVideo.klass, "setRenderScene", VALUEFUNC(_wrap_IVideo_setRenderScene), -1);
-  rb_define_method(SwigClassIVideo.klass, "createRenderScene", VALUEFUNC(_wrap_IVideo_createRenderScene), -1);
-  rb_define_method(SwigClassIVideo.klass, "showInfo", VALUEFUNC(_wrap_IVideo_showInfo), -1);
-  SwigClassIVideo.mark = 0;
-  SwigClassIVideo.destroy = (void (*)(void *)) free_OneU_IVideo;
-  SwigClassIVideo.trackObjects = 0;
+  SwigClassVideo.klass = rb_define_class_under(mOUE, "Video", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__IVideo, (void *) &SwigClassVideo);
+  rb_undef_alloc_func(SwigClassVideo.klass);
+  rb_define_method(SwigClassVideo.klass, "getName", VALUEFUNC(_wrap_Video_getName), -1);
+  rb_define_method(SwigClassVideo.klass, "init", VALUEFUNC(_wrap_Video_init), -1);
+  rb_define_method(SwigClassVideo.klass, "switchDevice", VALUEFUNC(_wrap_Video_switchDevice), -1);
+  rb_define_method(SwigClassVideo.klass, "isWindowed", VALUEFUNC(_wrap_Video_isWindowed), -1);
+  rb_define_method(SwigClassVideo.klass, "getDeviceSize", VALUEFUNC(_wrap_Video_getDeviceSize), -1);
+  rb_define_method(SwigClassVideo.klass, "loadImage", VALUEFUNC(_wrap_Video_loadImage), -1);
+  rb_define_method(SwigClassVideo.klass, "getRoot", VALUEFUNC(_wrap_Video_getRoot), -1);
+  rb_define_method(SwigClassVideo.klass, "getRenderScene", VALUEFUNC(_wrap_Video_getRenderScene), -1);
+  rb_define_method(SwigClassVideo.klass, "setRenderScene", VALUEFUNC(_wrap_Video_setRenderScene), -1);
+  rb_define_method(SwigClassVideo.klass, "createRenderScene", VALUEFUNC(_wrap_Video_createRenderScene), -1);
+  rb_define_method(SwigClassVideo.klass, "showInfo", VALUEFUNC(_wrap_Video_showInfo), -1);
+  SwigClassVideo.mark = 0;
+  SwigClassVideo.destroy = (void (*)(void *)) free_OneU_IVideo;
+  SwigClassVideo.trackObjects = 0;
   
   SwigClassIScene.klass = rb_define_class_under(mOUE, "IScene", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__IScene, (void *) &SwigClassIScene);
@@ -9935,227 +9989,229 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_method(SwigClassScene.klass, "initialize", VALUEFUNC(_wrap_new_Scene), -1);
   rb_define_method(SwigClassScene.klass, "__isActive=", VALUEFUNC(_wrap_Scene___isActive_set), -1);
   rb_define_method(SwigClassScene.klass, "__isActive", VALUEFUNC(_wrap_Scene___isActive_get), -1);
+  rb_define_method(SwigClassScene.klass, "__game=", VALUEFUNC(_wrap_Scene___game_set), -1);
+  rb_define_method(SwigClassScene.klass, "__game", VALUEFUNC(_wrap_Scene___game_get), -1);
   rb_define_method(SwigClassScene.klass, "update", VALUEFUNC(_wrap_Scene_update), -1);
   SwigClassScene.mark = 0;
   SwigClassScene.destroy = (void (*)(void *)) free_Scene;
   SwigClassScene.trackObjects = 0;
   
-  SwigClassIGame.klass = rb_define_class_under(mOUE, "IGame", rb_cObject);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__IGame, (void *) &SwigClassIGame);
-  rb_undef_alloc_func(SwigClassIGame.klass);
-  rb_define_method(SwigClassIGame.klass, "getVideo", VALUEFUNC(_wrap_IGame_getVideo), -1);
-  rb_define_method(SwigClassIGame.klass, "getStereo", VALUEFUNC(_wrap_IGame_getStereo), -1);
-  rb_define_method(SwigClassIGame.klass, "getControl", VALUEFUNC(_wrap_IGame_getControl), -1);
-  rb_define_method(SwigClassIGame.klass, "getScene", VALUEFUNC(_wrap_IGame_getScene), -1);
-  rb_define_method(SwigClassIGame.klass, "init", VALUEFUNC(_wrap_IGame_init), -1);
-  rb_define_method(SwigClassIGame.klass, "run", VALUEFUNC(_wrap_IGame_run), -1);
-  rb_define_method(SwigClassIGame.klass, "quit", VALUEFUNC(_wrap_IGame_quit), -1);
-  rb_define_method(SwigClassIGame.klass, "onFrame", VALUEFUNC(_wrap_IGame_onFrame), -1);
-  rb_define_method(SwigClassIGame.klass, "onActiveWindow", VALUEFUNC(_wrap_IGame_onActiveWindow), -1);
-  rb_define_method(SwigClassIGame.klass, "setWindowTitle", VALUEFUNC(_wrap_IGame_setWindowTitle), -1);
-  rb_define_method(SwigClassIGame.klass, "getWindowPos", VALUEFUNC(_wrap_IGame_getWindowPos), -1);
-  rb_define_method(SwigClassIGame.klass, "setWindowPos", VALUEFUNC(_wrap_IGame_setWindowPos), -1);
-  rb_define_method(SwigClassIGame.klass, "getFPS", VALUEFUNC(_wrap_IGame_getFPS), -1);
-  rb_define_method(SwigClassIGame.klass, "getTimeInterval", VALUEFUNC(_wrap_IGame_getTimeInterval), -1);
-  rb_define_method(SwigClassIGame.klass, "replaceScene", VALUEFUNC(_wrap_IGame_replaceScene), -1);
-  rb_define_method(SwigClassIGame.klass, "onChar", VALUEFUNC(_wrap_IGame_onChar), -1);
-  rb_define_method(SwigClassIGame.klass, "onKey", VALUEFUNC(_wrap_IGame_onKey), -1);
-  rb_define_method(SwigClassIGame.klass, "onMouse", VALUEFUNC(_wrap_IGame_onMouse), -1);
-  rb_define_method(SwigClassIGame.klass, "runShell", VALUEFUNC(_wrap_IGame_runShell), -1);
-  rb_define_method(SwigClassIGame.klass, "output", VALUEFUNC(_wrap_IGame_output), -1);
-  rb_define_method(SwigClassIGame.klass, "showInfo", VALUEFUNC(_wrap_IGame_showInfo), -1);
-  SwigClassIGame.mark = 0;
-  SwigClassIGame.destroy = (void (*)(void *)) free_OneU_IGame;
-  SwigClassIGame.trackObjects = 0;
+  SwigClassGame.klass = rb_define_class_under(mOUE, "Game", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__IGame, (void *) &SwigClassGame);
+  rb_undef_alloc_func(SwigClassGame.klass);
+  rb_define_method(SwigClassGame.klass, "getVideo", VALUEFUNC(_wrap_Game_getVideo), -1);
+  rb_define_method(SwigClassGame.klass, "getStereo", VALUEFUNC(_wrap_Game_getStereo), -1);
+  rb_define_method(SwigClassGame.klass, "getControl", VALUEFUNC(_wrap_Game_getControl), -1);
+  rb_define_method(SwigClassGame.klass, "getScene", VALUEFUNC(_wrap_Game_getScene), -1);
+  rb_define_method(SwigClassGame.klass, "init", VALUEFUNC(_wrap_Game_init), -1);
+  rb_define_method(SwigClassGame.klass, "run", VALUEFUNC(_wrap_Game_run), -1);
+  rb_define_method(SwigClassGame.klass, "quit", VALUEFUNC(_wrap_Game_quit), -1);
+  rb_define_method(SwigClassGame.klass, "onFrame", VALUEFUNC(_wrap_Game_onFrame), -1);
+  rb_define_method(SwigClassGame.klass, "onActiveWindow", VALUEFUNC(_wrap_Game_onActiveWindow), -1);
+  rb_define_method(SwigClassGame.klass, "setWindowTitle", VALUEFUNC(_wrap_Game_setWindowTitle), -1);
+  rb_define_method(SwigClassGame.klass, "getWindowPos", VALUEFUNC(_wrap_Game_getWindowPos), -1);
+  rb_define_method(SwigClassGame.klass, "setWindowPos", VALUEFUNC(_wrap_Game_setWindowPos), -1);
+  rb_define_method(SwigClassGame.klass, "getFPS", VALUEFUNC(_wrap_Game_getFPS), -1);
+  rb_define_method(SwigClassGame.klass, "getTimeInterval", VALUEFUNC(_wrap_Game_getTimeInterval), -1);
+  rb_define_method(SwigClassGame.klass, "replaceScene", VALUEFUNC(_wrap_Game_replaceScene), -1);
+  rb_define_method(SwigClassGame.klass, "onChar", VALUEFUNC(_wrap_Game_onChar), -1);
+  rb_define_method(SwigClassGame.klass, "onKey", VALUEFUNC(_wrap_Game_onKey), -1);
+  rb_define_method(SwigClassGame.klass, "onMouse", VALUEFUNC(_wrap_Game_onMouse), -1);
+  rb_define_method(SwigClassGame.klass, "runShell", VALUEFUNC(_wrap_Game_runShell), -1);
+  rb_define_method(SwigClassGame.klass, "output", VALUEFUNC(_wrap_Game_output), -1);
+  rb_define_method(SwigClassGame.klass, "showInfo", VALUEFUNC(_wrap_Game_showInfo), -1);
+  SwigClassGame.mark = 0;
+  SwigClassGame.destroy = (void (*)(void *)) free_OneU_IGame;
+  SwigClassGame.trackObjects = 0;
   rb_define_module_function(mOUE, "GetGame", VALUEFUNC(_wrap_GetGame), -1);
   rb_define_module_function(mOUE, "GetVideo", VALUEFUNC(_wrap_GetVideo), -1);
   rb_define_module_function(mOUE, "GetStereo", VALUEFUNC(_wrap_GetStereo), -1);
   rb_define_module_function(mOUE, "GetControl", VALUEFUNC(_wrap_GetControl), -1);
   rb_define_module_function(mOUE, "GetScene", VALUEFUNC(_wrap_GetScene), -1);
   
-  SwigClassIStereo.klass = rb_define_class_under(mOUE, "IStereo", rb_cObject);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__IStereo, (void *) &SwigClassIStereo);
-  rb_undef_alloc_func(SwigClassIStereo.klass);
-  rb_define_method(SwigClassIStereo.klass, "init", VALUEFUNC(_wrap_IStereo_init), -1);
-  rb_define_method(SwigClassIStereo.klass, "playMusic", VALUEFUNC(_wrap_IStereo_playMusic), -1);
-  rb_define_method(SwigClassIStereo.klass, "playSound", VALUEFUNC(_wrap_IStereo_playSound), -1);
-  SwigClassIStereo.mark = 0;
-  SwigClassIStereo.destroy = (void (*)(void *)) free_OneU_IStereo;
-  SwigClassIStereo.trackObjects = 0;
+  SwigClassStereo.klass = rb_define_class_under(mOUE, "Stereo", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__IStereo, (void *) &SwigClassStereo);
+  rb_undef_alloc_func(SwigClassStereo.klass);
+  rb_define_method(SwigClassStereo.klass, "init", VALUEFUNC(_wrap_Stereo_init), -1);
+  rb_define_method(SwigClassStereo.klass, "playMusic", VALUEFUNC(_wrap_Stereo_playMusic), -1);
+  rb_define_method(SwigClassStereo.klass, "playSound", VALUEFUNC(_wrap_Stereo_playSound), -1);
+  SwigClassStereo.mark = 0;
+  SwigClassStereo.destroy = (void (*)(void *)) free_OneU_IStereo;
+  SwigClassStereo.trackObjects = 0;
   
-  SwigClassIControl.klass = rb_define_class_under(mOUE, "IControl", rb_cObject);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__IControl, (void *) &SwigClassIControl);
-  rb_undef_alloc_func(SwigClassIControl.klass);
-  rb_define_method(SwigClassIControl.klass, "keyIsDown", VALUEFUNC(_wrap_IControl_keyIsDown), -1);
-  rb_define_method(SwigClassIControl.klass, "keyPress", VALUEFUNC(_wrap_IControl_keyPress), -1);
-  rb_define_method(SwigClassIControl.klass, "keyRelease", VALUEFUNC(_wrap_IControl_keyRelease), -1);
-  rb_define_method(SwigClassIControl.klass, "buttonIsDown", VALUEFUNC(_wrap_IControl_buttonIsDown), -1);
-  rb_define_method(SwigClassIControl.klass, "buttonRelease", VALUEFUNC(_wrap_IControl_buttonRelease), -1);
-  rb_define_method(SwigClassIControl.klass, "buttonPress", VALUEFUNC(_wrap_IControl_buttonPress), -1);
-  rb_define_method(SwigClassIControl.klass, "mouseOffset", VALUEFUNC(_wrap_IControl_mouseOffset), -1);
-  rb_define_const(SwigClassIControl.klass, "IK_ESCAPE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x01)));
-  rb_define_const(SwigClassIControl.klass, "IK_1", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x02)));
-  rb_define_const(SwigClassIControl.klass, "IK_2", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x03)));
-  rb_define_const(SwigClassIControl.klass, "IK_3", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x04)));
-  rb_define_const(SwigClassIControl.klass, "IK_4", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0)));
-  rb_define_const(SwigClassIControl.klass, "IK_5", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x06)));
-  rb_define_const(SwigClassIControl.klass, "IK_6", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x07)));
-  rb_define_const(SwigClassIControl.klass, "IK_7", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x08)));
-  rb_define_const(SwigClassIControl.klass, "IK_8", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x09)));
-  rb_define_const(SwigClassIControl.klass, "IK_9", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0A)));
-  rb_define_const(SwigClassIControl.klass, "IK_0", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0B)));
-  rb_define_const(SwigClassIControl.klass, "IK_MINUS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0C)));
-  rb_define_const(SwigClassIControl.klass, "IK_EQUALS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0D)));
-  rb_define_const(SwigClassIControl.klass, "IK_BACK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0E)));
-  rb_define_const(SwigClassIControl.klass, "IK_TAB", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0F)));
-  rb_define_const(SwigClassIControl.klass, "IK_Q", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x10)));
-  rb_define_const(SwigClassIControl.klass, "IK_W", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x11)));
-  rb_define_const(SwigClassIControl.klass, "IK_E", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x12)));
-  rb_define_const(SwigClassIControl.klass, "IK_R", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x13)));
-  rb_define_const(SwigClassIControl.klass, "IK_T", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x14)));
-  rb_define_const(SwigClassIControl.klass, "IK_Y", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x15)));
-  rb_define_const(SwigClassIControl.klass, "IK_U", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x16)));
-  rb_define_const(SwigClassIControl.klass, "IK_I", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x17)));
-  rb_define_const(SwigClassIControl.klass, "IK_O", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x18)));
-  rb_define_const(SwigClassIControl.klass, "IK_P", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x19)));
-  rb_define_const(SwigClassIControl.klass, "IK_LBRACKET", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1A)));
-  rb_define_const(SwigClassIControl.klass, "IK_RBRACKET", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1B)));
-  rb_define_const(SwigClassIControl.klass, "IK_RETURN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1C)));
-  rb_define_const(SwigClassIControl.klass, "IK_LCONTROL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1D)));
-  rb_define_const(SwigClassIControl.klass, "IK_A", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1E)));
-  rb_define_const(SwigClassIControl.klass, "IK_S", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1F)));
-  rb_define_const(SwigClassIControl.klass, "IK_D", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x20)));
-  rb_define_const(SwigClassIControl.klass, "IK_F", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x21)));
-  rb_define_const(SwigClassIControl.klass, "IK_G", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x22)));
-  rb_define_const(SwigClassIControl.klass, "IK_H", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x23)));
-  rb_define_const(SwigClassIControl.klass, "IK_J", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x24)));
-  rb_define_const(SwigClassIControl.klass, "IK_K", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x25)));
-  rb_define_const(SwigClassIControl.klass, "IK_L", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x26)));
-  rb_define_const(SwigClassIControl.klass, "IK_SEMICOLON", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x27)));
-  rb_define_const(SwigClassIControl.klass, "IK_APOSTROPHE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x28)));
-  rb_define_const(SwigClassIControl.klass, "IK_GRAVE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x29)));
-  rb_define_const(SwigClassIControl.klass, "IK_LSHIFT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2A)));
-  rb_define_const(SwigClassIControl.klass, "IK_BACKSLASH", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2B)));
-  rb_define_const(SwigClassIControl.klass, "IK_Z", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2C)));
-  rb_define_const(SwigClassIControl.klass, "IK_X", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2D)));
-  rb_define_const(SwigClassIControl.klass, "IK_C", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2E)));
-  rb_define_const(SwigClassIControl.klass, "IK_V", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2F)));
-  rb_define_const(SwigClassIControl.klass, "IK_B", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x30)));
-  rb_define_const(SwigClassIControl.klass, "IK_N", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x31)));
-  rb_define_const(SwigClassIControl.klass, "IK_M", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x32)));
-  rb_define_const(SwigClassIControl.klass, "IK_COMMA", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x33)));
-  rb_define_const(SwigClassIControl.klass, "IK_PERIOD", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x34)));
-  rb_define_const(SwigClassIControl.klass, "IK_SLASH", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x35)));
-  rb_define_const(SwigClassIControl.klass, "IK_RSHIFT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x36)));
-  rb_define_const(SwigClassIControl.klass, "IK_MULTIPLY", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x37)));
-  rb_define_const(SwigClassIControl.klass, "IK_LMENU", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x38)));
-  rb_define_const(SwigClassIControl.klass, "IK_SPACE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x39)));
-  rb_define_const(SwigClassIControl.klass, "IK_CAPITAL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3A)));
-  rb_define_const(SwigClassIControl.klass, "IK_F1", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3B)));
-  rb_define_const(SwigClassIControl.klass, "IK_F2", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3C)));
-  rb_define_const(SwigClassIControl.klass, "IK_F3", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3D)));
-  rb_define_const(SwigClassIControl.klass, "IK_F4", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3E)));
-  rb_define_const(SwigClassIControl.klass, "IK_F5", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3F)));
-  rb_define_const(SwigClassIControl.klass, "IK_F6", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x40)));
-  rb_define_const(SwigClassIControl.klass, "IK_F7", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x41)));
-  rb_define_const(SwigClassIControl.klass, "IK_F8", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x42)));
-  rb_define_const(SwigClassIControl.klass, "IK_F9", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x43)));
-  rb_define_const(SwigClassIControl.klass, "IK_F10", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x44)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMLOCK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x45)));
-  rb_define_const(SwigClassIControl.klass, "IK_SCROLL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x46)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPAD7", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x47)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPAD8", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x48)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPAD9", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x49)));
-  rb_define_const(SwigClassIControl.klass, "IK_SUBTRACT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4A)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPAD4", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4B)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPAD5", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4C)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPAD6", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4D)));
-  rb_define_const(SwigClassIControl.klass, "IK_ADD", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4E)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPAD1", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4F)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPAD2", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x50)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPAD3", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x51)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPAD0", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x52)));
-  rb_define_const(SwigClassIControl.klass, "IK_DECIMAL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x53)));
-  rb_define_const(SwigClassIControl.klass, "IK_OEM_102", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x56)));
-  rb_define_const(SwigClassIControl.klass, "IK_F11", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x57)));
-  rb_define_const(SwigClassIControl.klass, "IK_F12", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x58)));
-  rb_define_const(SwigClassIControl.klass, "IK_F13", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x64)));
-  rb_define_const(SwigClassIControl.klass, "IK_F14", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x65)));
-  rb_define_const(SwigClassIControl.klass, "IK_F15", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x66)));
-  rb_define_const(SwigClassIControl.klass, "IK_KANA", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x70)));
-  rb_define_const(SwigClassIControl.klass, "IK_ABNT_C1", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x73)));
-  rb_define_const(SwigClassIControl.klass, "IK_CONVERT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x79)));
-  rb_define_const(SwigClassIControl.klass, "IK_NOCONVERT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x7B)));
-  rb_define_const(SwigClassIControl.klass, "IK_YEN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x7D)));
-  rb_define_const(SwigClassIControl.klass, "IK_ABNT_C2", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x7E)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPADEQUALS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x8D)));
-  rb_define_const(SwigClassIControl.klass, "IK_PREVTRACK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x90)));
-  rb_define_const(SwigClassIControl.klass, "IK_AT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x91)));
-  rb_define_const(SwigClassIControl.klass, "IK_COLON", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x92)));
-  rb_define_const(SwigClassIControl.klass, "IK_UNDERLINE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x93)));
-  rb_define_const(SwigClassIControl.klass, "IK_KANJI", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x94)));
-  rb_define_const(SwigClassIControl.klass, "IK_STOP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x95)));
-  rb_define_const(SwigClassIControl.klass, "IK_AX", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x96)));
-  rb_define_const(SwigClassIControl.klass, "IK_UNLABELED", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x97)));
-  rb_define_const(SwigClassIControl.klass, "IK_NEXTTRACK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x99)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPADENTER", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x9C)));
-  rb_define_const(SwigClassIControl.klass, "IK_RCONTROL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x9D)));
-  rb_define_const(SwigClassIControl.klass, "IK_MUTE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xA0)));
-  rb_define_const(SwigClassIControl.klass, "IK_CALCULATOR", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xA1)));
-  rb_define_const(SwigClassIControl.klass, "IK_PLAYPAUSE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xA2)));
-  rb_define_const(SwigClassIControl.klass, "IK_MEDIASTOP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xA4)));
-  rb_define_const(SwigClassIControl.klass, "IK_VOLUMEDOWN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xAE)));
-  rb_define_const(SwigClassIControl.klass, "IK_VOLUMEUP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB0)));
-  rb_define_const(SwigClassIControl.klass, "IK_WEBHOME", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB2)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPADCOMMA", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB3)));
-  rb_define_const(SwigClassIControl.klass, "IK_DIVIDE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB5)));
-  rb_define_const(SwigClassIControl.klass, "IK_SYSRQ", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB7)));
-  rb_define_const(SwigClassIControl.klass, "IK_RMENU", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB8)));
-  rb_define_const(SwigClassIControl.klass, "IK_PAUSE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xC5)));
-  rb_define_const(SwigClassIControl.klass, "IK_HOME", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xC7)));
-  rb_define_const(SwigClassIControl.klass, "IK_UP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xC8)));
-  rb_define_const(SwigClassIControl.klass, "IK_PRIOR", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xC9)));
-  rb_define_const(SwigClassIControl.klass, "IK_LEFT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xCB)));
-  rb_define_const(SwigClassIControl.klass, "IK_RIGHT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xCD)));
-  rb_define_const(SwigClassIControl.klass, "IK_END", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xCF)));
-  rb_define_const(SwigClassIControl.klass, "IK_DOWN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xD0)));
-  rb_define_const(SwigClassIControl.klass, "IK_NEXT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xD1)));
-  rb_define_const(SwigClassIControl.klass, "IK_INSERT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xD2)));
-  rb_define_const(SwigClassIControl.klass, "IK_DELETE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xD3)));
-  rb_define_const(SwigClassIControl.klass, "IK_LWIN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xDB)));
-  rb_define_const(SwigClassIControl.klass, "IK_RWIN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xDC)));
-  rb_define_const(SwigClassIControl.klass, "IK_APPS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xDD)));
-  rb_define_const(SwigClassIControl.klass, "IK_POWER", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xDE)));
-  rb_define_const(SwigClassIControl.klass, "IK_SLEEP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xDF)));
-  rb_define_const(SwigClassIControl.klass, "IK_WAKE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE3)));
-  rb_define_const(SwigClassIControl.klass, "IK_WEBSEARCH", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE5)));
-  rb_define_const(SwigClassIControl.klass, "IK_WEBFAVORITES", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE6)));
-  rb_define_const(SwigClassIControl.klass, "IK_WEBREFRESH", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE7)));
-  rb_define_const(SwigClassIControl.klass, "IK_WEBSTOP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE8)));
-  rb_define_const(SwigClassIControl.klass, "IK_WEBFORWARD", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE9)));
-  rb_define_const(SwigClassIControl.klass, "IK_WEBBACK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xEA)));
-  rb_define_const(SwigClassIControl.klass, "IK_MYCOMPUTER", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xEB)));
-  rb_define_const(SwigClassIControl.klass, "IK_MAIL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xEC)));
-  rb_define_const(SwigClassIControl.klass, "IK_MEDIASELECT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xED)));
-  rb_define_const(SwigClassIControl.klass, "IK_BACKSPACE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_BACK)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPADSTAR", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_MULTIPLY)));
-  rb_define_const(SwigClassIControl.klass, "IK_LALT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_LMENU)));
-  rb_define_const(SwigClassIControl.klass, "IK_CAPSLOCK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_CAPITAL)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPADMINUS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_SUBTRACT)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPADPLUS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_ADD)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPADPERIOD", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_DECIMAL)));
-  rb_define_const(SwigClassIControl.klass, "IK_NUMPADSLASH", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_DIVIDE)));
-  rb_define_const(SwigClassIControl.klass, "IK_RALT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_RMENU)));
-  rb_define_const(SwigClassIControl.klass, "IK_UPARROW", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_UP)));
-  rb_define_const(SwigClassIControl.klass, "IK_PGUP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_PRIOR)));
-  rb_define_const(SwigClassIControl.klass, "IK_LEFTARROW", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_LEFT)));
-  rb_define_const(SwigClassIControl.klass, "IK_RIGHTARROW", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_RIGHT)));
-  rb_define_const(SwigClassIControl.klass, "IK_DOWNARROW", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_DOWN)));
-  rb_define_const(SwigClassIControl.klass, "IK_PGDN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_NEXT)));
-  rb_define_const(SwigClassIControl.klass, "IK_CIRCUMFLEX", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_PREVTRACK)));
-  SwigClassIControl.mark = 0;
-  SwigClassIControl.destroy = (void (*)(void *)) free_OneU_IControl;
-  SwigClassIControl.trackObjects = 0;
+  SwigClassControl.klass = rb_define_class_under(mOUE, "Control", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__IControl, (void *) &SwigClassControl);
+  rb_undef_alloc_func(SwigClassControl.klass);
+  rb_define_method(SwigClassControl.klass, "keyIsDown", VALUEFUNC(_wrap_Control_keyIsDown), -1);
+  rb_define_method(SwigClassControl.klass, "keyPress", VALUEFUNC(_wrap_Control_keyPress), -1);
+  rb_define_method(SwigClassControl.klass, "keyRelease", VALUEFUNC(_wrap_Control_keyRelease), -1);
+  rb_define_method(SwigClassControl.klass, "buttonIsDown", VALUEFUNC(_wrap_Control_buttonIsDown), -1);
+  rb_define_method(SwigClassControl.klass, "buttonRelease", VALUEFUNC(_wrap_Control_buttonRelease), -1);
+  rb_define_method(SwigClassControl.klass, "buttonPress", VALUEFUNC(_wrap_Control_buttonPress), -1);
+  rb_define_method(SwigClassControl.klass, "mouseOffset", VALUEFUNC(_wrap_Control_mouseOffset), -1);
+  rb_define_const(SwigClassControl.klass, "IK_ESCAPE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x01)));
+  rb_define_const(SwigClassControl.klass, "IK_1", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x02)));
+  rb_define_const(SwigClassControl.klass, "IK_2", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x03)));
+  rb_define_const(SwigClassControl.klass, "IK_3", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x04)));
+  rb_define_const(SwigClassControl.klass, "IK_4", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0)));
+  rb_define_const(SwigClassControl.klass, "IK_5", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x06)));
+  rb_define_const(SwigClassControl.klass, "IK_6", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x07)));
+  rb_define_const(SwigClassControl.klass, "IK_7", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x08)));
+  rb_define_const(SwigClassControl.klass, "IK_8", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x09)));
+  rb_define_const(SwigClassControl.klass, "IK_9", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0A)));
+  rb_define_const(SwigClassControl.klass, "IK_0", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0B)));
+  rb_define_const(SwigClassControl.klass, "IK_MINUS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0C)));
+  rb_define_const(SwigClassControl.klass, "IK_EQUALS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0D)));
+  rb_define_const(SwigClassControl.klass, "IK_BACK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0E)));
+  rb_define_const(SwigClassControl.klass, "IK_TAB", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x0F)));
+  rb_define_const(SwigClassControl.klass, "IK_Q", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x10)));
+  rb_define_const(SwigClassControl.klass, "IK_W", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x11)));
+  rb_define_const(SwigClassControl.klass, "IK_E", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x12)));
+  rb_define_const(SwigClassControl.klass, "IK_R", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x13)));
+  rb_define_const(SwigClassControl.klass, "IK_T", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x14)));
+  rb_define_const(SwigClassControl.klass, "IK_Y", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x15)));
+  rb_define_const(SwigClassControl.klass, "IK_U", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x16)));
+  rb_define_const(SwigClassControl.klass, "IK_I", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x17)));
+  rb_define_const(SwigClassControl.klass, "IK_O", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x18)));
+  rb_define_const(SwigClassControl.klass, "IK_P", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x19)));
+  rb_define_const(SwigClassControl.klass, "IK_LBRACKET", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1A)));
+  rb_define_const(SwigClassControl.klass, "IK_RBRACKET", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1B)));
+  rb_define_const(SwigClassControl.klass, "IK_RETURN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1C)));
+  rb_define_const(SwigClassControl.klass, "IK_LCONTROL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1D)));
+  rb_define_const(SwigClassControl.klass, "IK_A", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1E)));
+  rb_define_const(SwigClassControl.klass, "IK_S", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x1F)));
+  rb_define_const(SwigClassControl.klass, "IK_D", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x20)));
+  rb_define_const(SwigClassControl.klass, "IK_F", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x21)));
+  rb_define_const(SwigClassControl.klass, "IK_G", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x22)));
+  rb_define_const(SwigClassControl.klass, "IK_H", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x23)));
+  rb_define_const(SwigClassControl.klass, "IK_J", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x24)));
+  rb_define_const(SwigClassControl.klass, "IK_K", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x25)));
+  rb_define_const(SwigClassControl.klass, "IK_L", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x26)));
+  rb_define_const(SwigClassControl.klass, "IK_SEMICOLON", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x27)));
+  rb_define_const(SwigClassControl.klass, "IK_APOSTROPHE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x28)));
+  rb_define_const(SwigClassControl.klass, "IK_GRAVE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x29)));
+  rb_define_const(SwigClassControl.klass, "IK_LSHIFT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2A)));
+  rb_define_const(SwigClassControl.klass, "IK_BACKSLASH", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2B)));
+  rb_define_const(SwigClassControl.klass, "IK_Z", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2C)));
+  rb_define_const(SwigClassControl.klass, "IK_X", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2D)));
+  rb_define_const(SwigClassControl.klass, "IK_C", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2E)));
+  rb_define_const(SwigClassControl.klass, "IK_V", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x2F)));
+  rb_define_const(SwigClassControl.klass, "IK_B", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x30)));
+  rb_define_const(SwigClassControl.klass, "IK_N", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x31)));
+  rb_define_const(SwigClassControl.klass, "IK_M", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x32)));
+  rb_define_const(SwigClassControl.klass, "IK_COMMA", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x33)));
+  rb_define_const(SwigClassControl.klass, "IK_PERIOD", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x34)));
+  rb_define_const(SwigClassControl.klass, "IK_SLASH", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x35)));
+  rb_define_const(SwigClassControl.klass, "IK_RSHIFT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x36)));
+  rb_define_const(SwigClassControl.klass, "IK_MULTIPLY", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x37)));
+  rb_define_const(SwigClassControl.klass, "IK_LMENU", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x38)));
+  rb_define_const(SwigClassControl.klass, "IK_SPACE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x39)));
+  rb_define_const(SwigClassControl.klass, "IK_CAPITAL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3A)));
+  rb_define_const(SwigClassControl.klass, "IK_F1", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3B)));
+  rb_define_const(SwigClassControl.klass, "IK_F2", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3C)));
+  rb_define_const(SwigClassControl.klass, "IK_F3", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3D)));
+  rb_define_const(SwigClassControl.klass, "IK_F4", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3E)));
+  rb_define_const(SwigClassControl.klass, "IK_F5", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x3F)));
+  rb_define_const(SwigClassControl.klass, "IK_F6", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x40)));
+  rb_define_const(SwigClassControl.klass, "IK_F7", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x41)));
+  rb_define_const(SwigClassControl.klass, "IK_F8", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x42)));
+  rb_define_const(SwigClassControl.klass, "IK_F9", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x43)));
+  rb_define_const(SwigClassControl.klass, "IK_F10", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x44)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMLOCK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x45)));
+  rb_define_const(SwigClassControl.klass, "IK_SCROLL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x46)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPAD7", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x47)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPAD8", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x48)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPAD9", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x49)));
+  rb_define_const(SwigClassControl.klass, "IK_SUBTRACT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4A)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPAD4", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4B)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPAD5", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4C)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPAD6", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4D)));
+  rb_define_const(SwigClassControl.klass, "IK_ADD", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4E)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPAD1", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x4F)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPAD2", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x50)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPAD3", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x51)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPAD0", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x52)));
+  rb_define_const(SwigClassControl.klass, "IK_DECIMAL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x53)));
+  rb_define_const(SwigClassControl.klass, "IK_OEM_102", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x56)));
+  rb_define_const(SwigClassControl.klass, "IK_F11", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x57)));
+  rb_define_const(SwigClassControl.klass, "IK_F12", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x58)));
+  rb_define_const(SwigClassControl.klass, "IK_F13", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x64)));
+  rb_define_const(SwigClassControl.klass, "IK_F14", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x65)));
+  rb_define_const(SwigClassControl.klass, "IK_F15", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x66)));
+  rb_define_const(SwigClassControl.klass, "IK_KANA", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x70)));
+  rb_define_const(SwigClassControl.klass, "IK_ABNT_C1", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x73)));
+  rb_define_const(SwigClassControl.klass, "IK_CONVERT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x79)));
+  rb_define_const(SwigClassControl.klass, "IK_NOCONVERT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x7B)));
+  rb_define_const(SwigClassControl.klass, "IK_YEN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x7D)));
+  rb_define_const(SwigClassControl.klass, "IK_ABNT_C2", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x7E)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPADEQUALS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x8D)));
+  rb_define_const(SwigClassControl.klass, "IK_PREVTRACK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x90)));
+  rb_define_const(SwigClassControl.klass, "IK_AT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x91)));
+  rb_define_const(SwigClassControl.klass, "IK_COLON", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x92)));
+  rb_define_const(SwigClassControl.klass, "IK_UNDERLINE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x93)));
+  rb_define_const(SwigClassControl.klass, "IK_KANJI", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x94)));
+  rb_define_const(SwigClassControl.klass, "IK_STOP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x95)));
+  rb_define_const(SwigClassControl.klass, "IK_AX", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x96)));
+  rb_define_const(SwigClassControl.klass, "IK_UNLABELED", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x97)));
+  rb_define_const(SwigClassControl.klass, "IK_NEXTTRACK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x99)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPADENTER", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x9C)));
+  rb_define_const(SwigClassControl.klass, "IK_RCONTROL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0x9D)));
+  rb_define_const(SwigClassControl.klass, "IK_MUTE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xA0)));
+  rb_define_const(SwigClassControl.klass, "IK_CALCULATOR", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xA1)));
+  rb_define_const(SwigClassControl.klass, "IK_PLAYPAUSE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xA2)));
+  rb_define_const(SwigClassControl.klass, "IK_MEDIASTOP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xA4)));
+  rb_define_const(SwigClassControl.klass, "IK_VOLUMEDOWN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xAE)));
+  rb_define_const(SwigClassControl.klass, "IK_VOLUMEUP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB0)));
+  rb_define_const(SwigClassControl.klass, "IK_WEBHOME", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB2)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPADCOMMA", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB3)));
+  rb_define_const(SwigClassControl.klass, "IK_DIVIDE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB5)));
+  rb_define_const(SwigClassControl.klass, "IK_SYSRQ", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB7)));
+  rb_define_const(SwigClassControl.klass, "IK_RMENU", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xB8)));
+  rb_define_const(SwigClassControl.klass, "IK_PAUSE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xC5)));
+  rb_define_const(SwigClassControl.klass, "IK_HOME", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xC7)));
+  rb_define_const(SwigClassControl.klass, "IK_UP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xC8)));
+  rb_define_const(SwigClassControl.klass, "IK_PRIOR", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xC9)));
+  rb_define_const(SwigClassControl.klass, "IK_LEFT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xCB)));
+  rb_define_const(SwigClassControl.klass, "IK_RIGHT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xCD)));
+  rb_define_const(SwigClassControl.klass, "IK_END", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xCF)));
+  rb_define_const(SwigClassControl.klass, "IK_DOWN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xD0)));
+  rb_define_const(SwigClassControl.klass, "IK_NEXT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xD1)));
+  rb_define_const(SwigClassControl.klass, "IK_INSERT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xD2)));
+  rb_define_const(SwigClassControl.klass, "IK_DELETE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xD3)));
+  rb_define_const(SwigClassControl.klass, "IK_LWIN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xDB)));
+  rb_define_const(SwigClassControl.klass, "IK_RWIN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xDC)));
+  rb_define_const(SwigClassControl.klass, "IK_APPS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xDD)));
+  rb_define_const(SwigClassControl.klass, "IK_POWER", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xDE)));
+  rb_define_const(SwigClassControl.klass, "IK_SLEEP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xDF)));
+  rb_define_const(SwigClassControl.klass, "IK_WAKE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE3)));
+  rb_define_const(SwigClassControl.klass, "IK_WEBSEARCH", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE5)));
+  rb_define_const(SwigClassControl.klass, "IK_WEBFAVORITES", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE6)));
+  rb_define_const(SwigClassControl.klass, "IK_WEBREFRESH", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE7)));
+  rb_define_const(SwigClassControl.klass, "IK_WEBSTOP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE8)));
+  rb_define_const(SwigClassControl.klass, "IK_WEBFORWARD", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xE9)));
+  rb_define_const(SwigClassControl.klass, "IK_WEBBACK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xEA)));
+  rb_define_const(SwigClassControl.klass, "IK_MYCOMPUTER", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xEB)));
+  rb_define_const(SwigClassControl.klass, "IK_MAIL", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xEC)));
+  rb_define_const(SwigClassControl.klass, "IK_MEDIASELECT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(0xED)));
+  rb_define_const(SwigClassControl.klass, "IK_BACKSPACE", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_BACK)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPADSTAR", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_MULTIPLY)));
+  rb_define_const(SwigClassControl.klass, "IK_LALT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_LMENU)));
+  rb_define_const(SwigClassControl.klass, "IK_CAPSLOCK", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_CAPITAL)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPADMINUS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_SUBTRACT)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPADPLUS", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_ADD)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPADPERIOD", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_DECIMAL)));
+  rb_define_const(SwigClassControl.klass, "IK_NUMPADSLASH", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_DIVIDE)));
+  rb_define_const(SwigClassControl.klass, "IK_RALT", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_RMENU)));
+  rb_define_const(SwigClassControl.klass, "IK_UPARROW", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_UP)));
+  rb_define_const(SwigClassControl.klass, "IK_PGUP", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_PRIOR)));
+  rb_define_const(SwigClassControl.klass, "IK_LEFTARROW", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_LEFT)));
+  rb_define_const(SwigClassControl.klass, "IK_RIGHTARROW", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_RIGHT)));
+  rb_define_const(SwigClassControl.klass, "IK_DOWNARROW", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_DOWN)));
+  rb_define_const(SwigClassControl.klass, "IK_PGDN", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_NEXT)));
+  rb_define_const(SwigClassControl.klass, "IK_CIRCUMFLEX", SWIG_From_unsigned_SS_long(static_cast< unsigned long >(OIK_PREVTRACK)));
+  SwigClassControl.mark = 0;
+  SwigClassControl.destroy = (void (*)(void *)) free_OneU_IControl;
+  SwigClassControl.trackObjects = 0;
   
   SwigClassSprite.klass = rb_define_class_under(mOUE, "Sprite", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__ISprite, (void *) &SwigClassSprite);

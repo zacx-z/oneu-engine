@@ -4313,7 +4313,7 @@ static swig_lua_class *swig_OneU_video_INode_bases[] = {0};
 static const char *swig_OneU_video_INode_base_names[] = {0};
 static swig_lua_class _wrap_class_OneU_video_INode = { "INode", &SWIGTYPE_p_OneU__video__INode,0, swig_delete_INode, swig_OneU_video_INode_methods, swig_OneU_video_INode_attributes, swig_OneU_video_INode_bases, swig_OneU_video_INode_base_names };
 
-static int _wrap_INodeContainer_name(lua_State* L) {
+static int _wrap_NodeContainer_name(lua_State* L) {
   int SWIG_arg = 0;
   OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
   OneU::pcwstr result;
@@ -4322,7 +4322,7 @@ static int _wrap_INodeContainer_name(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::video::INodeContainer::name",1,"OneU::video::INodeContainer *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INodeContainer,0))){
-    SWIG_fail_ptr("INodeContainer_name",1,SWIGTYPE_p_OneU__video__INodeContainer);
+    SWIG_fail_ptr("NodeContainer_name",1,SWIGTYPE_p_OneU__video__INodeContainer);
   }
   
   result = (OneU::pcwstr)(arg1)->name();
@@ -4339,7 +4339,7 @@ fail:
 }
 
 
-static int _wrap_INodeContainer_addChild__SWIG_0(lua_State* L) {
+static int _wrap_NodeContainer_addChild__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
   OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
   OneU::video::INode *arg2 = (OneU::video::INode *) 0 ;
@@ -4354,25 +4354,25 @@ static int _wrap_INodeContainer_addChild__SWIG_0(lua_State* L) {
   if(!lua_isnumber(L,3)) SWIG_fail_arg("OneU::video::INodeContainer::addChild",3,"int");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INodeContainer,0))){
-    SWIG_fail_ptr("INodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
+    SWIG_fail_ptr("NodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
   }
   
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,0))){
-    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+    SWIG_fail_ptr("NodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
   
   arg3 = (int)lua_tonumber(L, 3);
   {
     if(lua_type(L, 4) != LUA_TSTRING)
-    SWIG_fail_arg("INodeContainer_addChild", 4, "OneU::pcwstr");
+    SWIG_fail_arg("NodeContainer_addChild", 4, "OneU::pcwstr");
     
     temp4 = OneU::Char2Wide(lua_tostring(L, 4), 65001);
     arg4 = temp4;
   }
   {
     if(arg2 == NULL)
-    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+    SWIG_fail_ptr("NodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
   result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2,arg3,(wchar_t const *)arg4);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
@@ -4386,7 +4386,7 @@ fail:
 }
 
 
-static int _wrap_INodeContainer_addChild__SWIG_1(lua_State* L) {
+static int _wrap_NodeContainer_addChild__SWIG_1(lua_State* L) {
   int SWIG_arg = 0;
   OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
   OneU::video::INode *arg2 = (OneU::video::INode *) 0 ;
@@ -4399,18 +4399,18 @@ static int _wrap_INodeContainer_addChild__SWIG_1(lua_State* L) {
   if(!lua_isnumber(L,3)) SWIG_fail_arg("OneU::video::INodeContainer::addChild",3,"int");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INodeContainer,0))){
-    SWIG_fail_ptr("INodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
+    SWIG_fail_ptr("NodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
   }
   
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,0))){
-    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+    SWIG_fail_ptr("NodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
   
   arg3 = (int)lua_tonumber(L, 3);
   {
     if(arg2 == NULL)
-    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+    SWIG_fail_ptr("NodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
   result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2,arg3);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
@@ -4424,7 +4424,7 @@ fail:
 }
 
 
-static int _wrap_INodeContainer_addChild__SWIG_2(lua_State* L) {
+static int _wrap_NodeContainer_addChild__SWIG_2(lua_State* L) {
   int SWIG_arg = 0;
   OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
   OneU::video::INode *arg2 = (OneU::video::INode *) 0 ;
@@ -4435,17 +4435,17 @@ static int _wrap_INodeContainer_addChild__SWIG_2(lua_State* L) {
   if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("OneU::video::INodeContainer::addChild",2,"OneU::video::INode *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INodeContainer,0))){
-    SWIG_fail_ptr("INodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
+    SWIG_fail_ptr("NodeContainer_addChild",1,SWIGTYPE_p_OneU__video__INodeContainer);
   }
   
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__INode,0))){
-    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+    SWIG_fail_ptr("NodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
   
   {
     if(arg2 == NULL)
-    SWIG_fail_ptr("INodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
+    SWIG_fail_ptr("NodeContainer_addChild",2,SWIGTYPE_p_OneU__video__INode);
   }
   result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
@@ -4459,7 +4459,7 @@ fail:
 }
 
 
-static int _wrap_INodeContainer_addChild(lua_State* L) {
+static int _wrap_NodeContainer_addChild(lua_State* L) {
   int argc;
   int argv[5]={
     1,2,3,4,5
@@ -4486,7 +4486,7 @@ static int _wrap_INodeContainer_addChild(lua_State* L) {
         }
       }
       if (_v) {
-        return _wrap_INodeContainer_addChild__SWIG_2(L);
+        return _wrap_NodeContainer_addChild__SWIG_2(L);
       }
     }
   }
@@ -4514,7 +4514,7 @@ static int _wrap_INodeContainer_addChild(lua_State* L) {
           _v = lua_isnumber(L,argv[2]);
         }
         if (_v) {
-          return _wrap_INodeContainer_addChild__SWIG_1(L);
+          return _wrap_NodeContainer_addChild__SWIG_1(L);
         }
       }
     }
@@ -4547,14 +4547,14 @@ static int _wrap_INodeContainer_addChild(lua_State* L) {
             _v = SWIG_lua_isnilstring(L,argv[3]);
           }
           if (_v) {
-            return _wrap_INodeContainer_addChild__SWIG_0(L);
+            return _wrap_NodeContainer_addChild__SWIG_0(L);
           }
         }
       }
     }
   }
   
-  lua_pushstring(L,"Wrong arguments for overloaded function 'INodeContainer_addChild'\n"
+  lua_pushstring(L,"Wrong arguments for overloaded function 'NodeContainer_addChild'\n"
     "  Possible C/C++ prototypes are:\n"
     "    OneU::video::INodeContainer::addChild(OneU::video::INode *,int,OneU::pcwstr)\n"
     "    OneU::video::INodeContainer::addChild(OneU::video::INode *,int)\n"
@@ -4563,7 +4563,7 @@ static int _wrap_INodeContainer_addChild(lua_State* L) {
 }
 
 
-static int _wrap_new_INodeContainer(lua_State* L) {
+static int _wrap_new_NodeContainer(lua_State* L) {
   int SWIG_arg = 0;
   OneU::video::INodeContainer *result = 0 ;
   
@@ -4580,13 +4580,13 @@ fail:
 }
 
 
-static void swig_delete_INodeContainer(void *obj) {
+static void swig_delete_NodeContainer(void *obj) {
 OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) obj;
 delete arg1;
 }
 static swig_lua_method swig_OneU_video_INodeContainer_methods[] = {
-    {"name", _wrap_INodeContainer_name}, 
-    {"addChild", _wrap_INodeContainer_addChild}, 
+    {"name", _wrap_NodeContainer_name}, 
+    {"addChild", _wrap_NodeContainer_addChild}, 
     {0,0}
 };
 static swig_lua_attribute swig_OneU_video_INodeContainer_attributes[] = {
@@ -4594,7 +4594,7 @@ static swig_lua_attribute swig_OneU_video_INodeContainer_attributes[] = {
 };
 static swig_lua_class *swig_OneU_video_INodeContainer_bases[] = {0,0};
 static const char *swig_OneU_video_INodeContainer_base_names[] = {"OneU::video::INode *",0};
-static swig_lua_class _wrap_class_OneU_video_INodeContainer = { "INodeContainer", &SWIGTYPE_p_OneU__video__INodeContainer,_wrap_new_INodeContainer, swig_delete_INodeContainer, swig_OneU_video_INodeContainer_methods, swig_OneU_video_INodeContainer_attributes, swig_OneU_video_INodeContainer_bases, swig_OneU_video_INodeContainer_base_names };
+static swig_lua_class _wrap_class_OneU_video_INodeContainer = { "NodeContainer", &SWIGTYPE_p_OneU__video__INodeContainer,_wrap_new_NodeContainer, swig_delete_NodeContainer, swig_OneU_video_INodeContainer_methods, swig_OneU_video_INodeContainer_attributes, swig_OneU_video_INodeContainer_bases, swig_OneU_video_INodeContainer_base_names };
 
 static void swig_delete_IRenderScene(void *obj) {
 OneU::video::IRenderScene *arg1 = (OneU::video::IRenderScene *) obj;
@@ -4698,7 +4698,7 @@ static swig_lua_class *swig_OneU_image_t_bases[] = {0};
 static const char *swig_OneU_image_t_base_names[] = {0};
 static swig_lua_class _wrap_class_OneU_image_t = { "Image_t", &SWIGTYPE_p_OneU__image_t,_wrap_new_Image_t, swig_delete_Image_t, swig_OneU_image_t_methods, swig_OneU_image_t_attributes, swig_OneU_image_t_bases, swig_OneU_image_t_base_names };
 
-static int _wrap_IVideo_getName(lua_State* L) {
+static int _wrap_Video_getName(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   LPCTSTR result;
@@ -4707,7 +4707,7 @@ static int _wrap_IVideo_getName(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IVideo::getName",1,"OneU::IVideo *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IVideo,0))){
-    SWIG_fail_ptr("IVideo_getName",1,SWIGTYPE_p_OneU__IVideo);
+    SWIG_fail_ptr("Video_getName",1,SWIGTYPE_p_OneU__IVideo);
   }
   
   result = (arg1)->getName();
@@ -4725,7 +4725,7 @@ fail:
 }
 
 
-static int _wrap_IVideo_init(lua_State* L) {
+static int _wrap_Video_init(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   OneU::uint32 arg2 ;
@@ -4739,7 +4739,7 @@ static int _wrap_IVideo_init(lua_State* L) {
   if(!lua_isboolean(L,4)) SWIG_fail_arg("OneU::IVideo::init",4,"bool");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IVideo,0))){
-    SWIG_fail_ptr("IVideo_init",1,SWIGTYPE_p_OneU__IVideo);
+    SWIG_fail_ptr("Video_init",1,SWIGTYPE_p_OneU__IVideo);
   }
   
   SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
@@ -4759,7 +4759,7 @@ fail:
 }
 
 
-static int _wrap_IVideo_switchDevice(lua_State* L) {
+static int _wrap_Video_switchDevice(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   OneU::uint32 arg2 ;
@@ -4773,7 +4773,7 @@ static int _wrap_IVideo_switchDevice(lua_State* L) {
   if(!lua_isboolean(L,4)) SWIG_fail_arg("OneU::IVideo::switchDevice",4,"bool");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IVideo,0))){
-    SWIG_fail_ptr("IVideo_switchDevice",1,SWIGTYPE_p_OneU__IVideo);
+    SWIG_fail_ptr("Video_switchDevice",1,SWIGTYPE_p_OneU__IVideo);
   }
   
   SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
@@ -4793,7 +4793,7 @@ fail:
 }
 
 
-static int _wrap_IVideo_isWindowed(lua_State* L) {
+static int _wrap_Video_isWindowed(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   bool result;
@@ -4802,7 +4802,7 @@ static int _wrap_IVideo_isWindowed(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IVideo::isWindowed",1,"OneU::IVideo *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IVideo,0))){
-    SWIG_fail_ptr("IVideo_isWindowed",1,SWIGTYPE_p_OneU__IVideo);
+    SWIG_fail_ptr("Video_isWindowed",1,SWIGTYPE_p_OneU__IVideo);
   }
   
   result = (bool)(arg1)->isWindowed();
@@ -4817,7 +4817,7 @@ fail:
 }
 
 
-static int _wrap_IVideo_getDeviceSize(lua_State* L) {
+static int _wrap_Video_getDeviceSize(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   SwigValueWrapper< OneU::Vector2< unsigned long > > result;
@@ -4826,7 +4826,7 @@ static int _wrap_IVideo_getDeviceSize(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IVideo::getDeviceSize",1,"OneU::IVideo *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IVideo,0))){
-    SWIG_fail_ptr("IVideo_getDeviceSize",1,SWIGTYPE_p_OneU__IVideo);
+    SWIG_fail_ptr("Video_getDeviceSize",1,SWIGTYPE_p_OneU__IVideo);
   }
   
   result = (arg1)->getDeviceSize();
@@ -4844,7 +4844,7 @@ fail:
 }
 
 
-static int _wrap_IVideo_loadImage(lua_State* L) {
+static int _wrap_Video_loadImage(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
@@ -4855,12 +4855,12 @@ static int _wrap_IVideo_loadImage(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IVideo::loadImage",1,"OneU::IVideo *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IVideo,0))){
-    SWIG_fail_ptr("IVideo_loadImage",1,SWIGTYPE_p_OneU__IVideo);
+    SWIG_fail_ptr("Video_loadImage",1,SWIGTYPE_p_OneU__IVideo);
   }
   
   {
     if(lua_type(L, 2) != LUA_TSTRING)
-    SWIG_fail_arg("IVideo_loadImage", 2, "OneU::pcwstr");
+    SWIG_fail_arg("Video_loadImage", 2, "OneU::pcwstr");
     
     temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
@@ -4880,7 +4880,7 @@ fail:
 }
 
 
-static int _wrap_IVideo_getRoot(lua_State* L) {
+static int _wrap_Video_getRoot(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   OneU::video::INodeContainer *result = 0 ;
@@ -4889,7 +4889,7 @@ static int _wrap_IVideo_getRoot(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IVideo::getRoot",1,"OneU::IVideo *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IVideo,0))){
-    SWIG_fail_ptr("IVideo_getRoot",1,SWIGTYPE_p_OneU__IVideo);
+    SWIG_fail_ptr("Video_getRoot",1,SWIGTYPE_p_OneU__IVideo);
   }
   
   result = (OneU::video::INodeContainer *) &(arg1)->getRoot();
@@ -4904,7 +4904,7 @@ fail:
 }
 
 
-static int _wrap_IVideo_getRenderScene(lua_State* L) {
+static int _wrap_Video_getRenderScene(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   OneU::video::IRenderScene *result = 0 ;
@@ -4913,7 +4913,7 @@ static int _wrap_IVideo_getRenderScene(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IVideo::getRenderScene",1,"OneU::IVideo *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IVideo,0))){
-    SWIG_fail_ptr("IVideo_getRenderScene",1,SWIGTYPE_p_OneU__IVideo);
+    SWIG_fail_ptr("Video_getRenderScene",1,SWIGTYPE_p_OneU__IVideo);
   }
   
   result = (OneU::video::IRenderScene *)(arg1)->getRenderScene();
@@ -4928,7 +4928,7 @@ fail:
 }
 
 
-static int _wrap_IVideo_setRenderScene(lua_State* L) {
+static int _wrap_Video_setRenderScene(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   OneU::video::IRenderScene *arg2 = (OneU::video::IRenderScene *) 0 ;
@@ -4939,12 +4939,12 @@ static int _wrap_IVideo_setRenderScene(lua_State* L) {
   if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("OneU::IVideo::setRenderScene",2,"OneU::video::IRenderScene *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IVideo,0))){
-    SWIG_fail_ptr("IVideo_setRenderScene",1,SWIGTYPE_p_OneU__IVideo);
+    SWIG_fail_ptr("Video_setRenderScene",1,SWIGTYPE_p_OneU__IVideo);
   }
   
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__video__IRenderScene,0))){
-    SWIG_fail_ptr("IVideo_setRenderScene",2,SWIGTYPE_p_OneU__video__IRenderScene);
+    SWIG_fail_ptr("Video_setRenderScene",2,SWIGTYPE_p_OneU__video__IRenderScene);
   }
   
   result = (OneU::video::IRenderScene *)(arg1)->setRenderScene(arg2);
@@ -4959,7 +4959,7 @@ fail:
 }
 
 
-static int _wrap_IVideo_createRenderScene(lua_State* L) {
+static int _wrap_Video_createRenderScene(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   OneU::video::IRenderScene *result = 0 ;
@@ -4968,7 +4968,7 @@ static int _wrap_IVideo_createRenderScene(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IVideo::createRenderScene",1,"OneU::IVideo *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IVideo,0))){
-    SWIG_fail_ptr("IVideo_createRenderScene",1,SWIGTYPE_p_OneU__IVideo);
+    SWIG_fail_ptr("Video_createRenderScene",1,SWIGTYPE_p_OneU__IVideo);
   }
   
   result = (OneU::video::IRenderScene *)(arg1)->createRenderScene();
@@ -4983,7 +4983,7 @@ fail:
 }
 
 
-static int _wrap_IVideo_showInfo(lua_State* L) {
+static int _wrap_Video_showInfo(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   
@@ -4991,7 +4991,7 @@ static int _wrap_IVideo_showInfo(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IVideo::showInfo",1,"OneU::IVideo *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IVideo,0))){
-    SWIG_fail_ptr("IVideo_showInfo",1,SWIGTYPE_p_OneU__IVideo);
+    SWIG_fail_ptr("Video_showInfo",1,SWIGTYPE_p_OneU__IVideo);
   }
   
   (arg1)->showInfo();
@@ -5006,22 +5006,22 @@ fail:
 }
 
 
-static void swig_delete_IVideo(void *obj) {
+static void swig_delete_Video(void *obj) {
 OneU::IVideo *arg1 = (OneU::IVideo *) obj;
 delete arg1;
 }
 static swig_lua_method swig_OneU_IVideo_methods[] = {
-    {"getName", _wrap_IVideo_getName}, 
-    {"init", _wrap_IVideo_init}, 
-    {"switchDevice", _wrap_IVideo_switchDevice}, 
-    {"isWindowed", _wrap_IVideo_isWindowed}, 
-    {"getDeviceSize", _wrap_IVideo_getDeviceSize}, 
-    {"loadImage", _wrap_IVideo_loadImage}, 
-    {"getRoot", _wrap_IVideo_getRoot}, 
-    {"getRenderScene", _wrap_IVideo_getRenderScene}, 
-    {"setRenderScene", _wrap_IVideo_setRenderScene}, 
-    {"createRenderScene", _wrap_IVideo_createRenderScene}, 
-    {"showInfo", _wrap_IVideo_showInfo}, 
+    {"getName", _wrap_Video_getName}, 
+    {"init", _wrap_Video_init}, 
+    {"switchDevice", _wrap_Video_switchDevice}, 
+    {"isWindowed", _wrap_Video_isWindowed}, 
+    {"getDeviceSize", _wrap_Video_getDeviceSize}, 
+    {"loadImage", _wrap_Video_loadImage}, 
+    {"getRoot", _wrap_Video_getRoot}, 
+    {"getRenderScene", _wrap_Video_getRenderScene}, 
+    {"setRenderScene", _wrap_Video_setRenderScene}, 
+    {"createRenderScene", _wrap_Video_createRenderScene}, 
+    {"showInfo", _wrap_Video_showInfo}, 
     {0,0}
 };
 static swig_lua_attribute swig_OneU_IVideo_attributes[] = {
@@ -5029,7 +5029,7 @@ static swig_lua_attribute swig_OneU_IVideo_attributes[] = {
 };
 static swig_lua_class *swig_OneU_IVideo_bases[] = {0};
 static const char *swig_OneU_IVideo_base_names[] = {0};
-static swig_lua_class _wrap_class_OneU_IVideo = { "IVideo", &SWIGTYPE_p_OneU__IVideo,0, swig_delete_IVideo, swig_OneU_IVideo_methods, swig_OneU_IVideo_attributes, swig_OneU_IVideo_bases, swig_OneU_IVideo_base_names };
+static swig_lua_class _wrap_class_OneU_IVideo = { "Video", &SWIGTYPE_p_OneU__IVideo,0, swig_delete_Video, swig_OneU_IVideo_methods, swig_OneU_IVideo_attributes, swig_OneU_IVideo_bases, swig_OneU_IVideo_base_names };
 
 static int _wrap_IScene_update(lua_State* L) {
   int SWIG_arg = 0;
@@ -5343,7 +5343,7 @@ static int _wrap_addToScene(lua_State* L) {
 }
 
 
-static int _wrap_IGame_getVideo(lua_State* L) {
+static int _wrap_Game_getVideo(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::IVideo *result = 0 ;
@@ -5352,7 +5352,7 @@ static int _wrap_IGame_getVideo(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::getVideo",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_getVideo",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_getVideo",1,SWIGTYPE_p_OneU__IGame);
   }
   
   result = (OneU::IVideo *) &(arg1)->getVideo();
@@ -5367,7 +5367,7 @@ fail:
 }
 
 
-static int _wrap_IGame_getStereo(lua_State* L) {
+static int _wrap_Game_getStereo(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::IStereo *result = 0 ;
@@ -5376,7 +5376,7 @@ static int _wrap_IGame_getStereo(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::getStereo",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_getStereo",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_getStereo",1,SWIGTYPE_p_OneU__IGame);
   }
   
   result = (OneU::IStereo *) &(arg1)->getStereo();
@@ -5391,7 +5391,7 @@ fail:
 }
 
 
-static int _wrap_IGame_getControl(lua_State* L) {
+static int _wrap_Game_getControl(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::IControl *result = 0 ;
@@ -5400,7 +5400,7 @@ static int _wrap_IGame_getControl(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::getControl",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_getControl",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_getControl",1,SWIGTYPE_p_OneU__IGame);
   }
   
   result = (OneU::IControl *) &(arg1)->getControl();
@@ -5415,7 +5415,7 @@ fail:
 }
 
 
-static int _wrap_IGame_getScene(lua_State* L) {
+static int _wrap_Game_getScene(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::IScene *result = 0 ;
@@ -5424,7 +5424,7 @@ static int _wrap_IGame_getScene(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::getScene",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_getScene",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_getScene",1,SWIGTYPE_p_OneU__IGame);
   }
   
   result = (OneU::IScene *) &(arg1)->getScene();
@@ -5439,7 +5439,7 @@ fail:
 }
 
 
-static int _wrap_IGame_init(lua_State* L) {
+static int _wrap_Game_init(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
@@ -5455,12 +5455,12 @@ static int _wrap_IGame_init(lua_State* L) {
   if(!lua_isboolean(L,5)) SWIG_fail_arg("OneU::IGame::init",5,"bool");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_init",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_init",1,SWIGTYPE_p_OneU__IGame);
   }
   
   {
     if(lua_type(L, 2) != LUA_TSTRING)
-    SWIG_fail_arg("IGame_init", 2, "OneU::pcwstr");
+    SWIG_fail_arg("Game_init", 2, "OneU::pcwstr");
     
     temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
@@ -5482,7 +5482,7 @@ fail:
 }
 
 
-static int _wrap_IGame_run(lua_State* L) {
+static int _wrap_Game_run(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   int result;
@@ -5491,7 +5491,7 @@ static int _wrap_IGame_run(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::run",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_run",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_run",1,SWIGTYPE_p_OneU__IGame);
   }
   
   result = (int)(arg1)->run();
@@ -5506,7 +5506,7 @@ fail:
 }
 
 
-static int _wrap_IGame_quit(lua_State* L) {
+static int _wrap_Game_quit(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   
@@ -5514,7 +5514,7 @@ static int _wrap_IGame_quit(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::quit",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_quit",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_quit",1,SWIGTYPE_p_OneU__IGame);
   }
   
   (arg1)->quit();
@@ -5529,7 +5529,7 @@ fail:
 }
 
 
-static int _wrap_IGame_onFrame(lua_State* L) {
+static int _wrap_Game_onFrame(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   
@@ -5537,7 +5537,7 @@ static int _wrap_IGame_onFrame(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::onFrame",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_onFrame",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_onFrame",1,SWIGTYPE_p_OneU__IGame);
   }
   
   (arg1)->onFrame();
@@ -5552,7 +5552,7 @@ fail:
 }
 
 
-static int _wrap_IGame_onActiveWindow(lua_State* L) {
+static int _wrap_Game_onActiveWindow(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   bool arg2 ;
@@ -5562,7 +5562,7 @@ static int _wrap_IGame_onActiveWindow(lua_State* L) {
   if(!lua_isboolean(L,2)) SWIG_fail_arg("OneU::IGame::onActiveWindow",2,"bool");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_onActiveWindow",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_onActiveWindow",1,SWIGTYPE_p_OneU__IGame);
   }
   
   arg2 = (lua_toboolean(L, 2)!=0);
@@ -5578,7 +5578,7 @@ fail:
 }
 
 
-static int _wrap_IGame_setWindowTitle(lua_State* L) {
+static int _wrap_Game_setWindowTitle(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
@@ -5588,12 +5588,12 @@ static int _wrap_IGame_setWindowTitle(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::setWindowTitle",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_setWindowTitle",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_setWindowTitle",1,SWIGTYPE_p_OneU__IGame);
   }
   
   {
     if(lua_type(L, 2) != LUA_TSTRING)
-    SWIG_fail_arg("IGame_setWindowTitle", 2, "OneU::pcwstr");
+    SWIG_fail_arg("Game_setWindowTitle", 2, "OneU::pcwstr");
     
     temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
@@ -5610,7 +5610,7 @@ fail:
 }
 
 
-static int _wrap_IGame_getWindowPos(lua_State* L) {
+static int _wrap_Game_getWindowPos(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::vector2i_t result;
@@ -5619,7 +5619,7 @@ static int _wrap_IGame_getWindowPos(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::getWindowPos",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_getWindowPos",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_getWindowPos",1,SWIGTYPE_p_OneU__IGame);
   }
   
   result = (arg1)->getWindowPos();
@@ -5637,7 +5637,7 @@ fail:
 }
 
 
-static int _wrap_IGame_setWindowPos(lua_State* L) {
+static int _wrap_Game_setWindowPos(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::vector2i_t *arg2 = 0 ;
@@ -5647,12 +5647,12 @@ static int _wrap_IGame_setWindowPos(lua_State* L) {
   if(!lua_isuserdata(L,2)) SWIG_fail_arg("OneU::IGame::setWindowPos",2,"OneU::vector2i_t const &");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_setWindowPos",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_setWindowPos",1,SWIGTYPE_p_OneU__IGame);
   }
   
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_OneU__Vector2T_int_t,0))){
-    SWIG_fail_ptr("IGame_setWindowPos",2,SWIGTYPE_p_OneU__Vector2T_int_t);
+    SWIG_fail_ptr("Game_setWindowPos",2,SWIGTYPE_p_OneU__Vector2T_int_t);
   }
   
   (arg1)->setWindowPos((OneU::vector2i_t const &)*arg2);
@@ -5667,7 +5667,7 @@ fail:
 }
 
 
-static int _wrap_IGame_getFPS(lua_State* L) {
+static int _wrap_Game_getFPS(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   float result;
@@ -5676,7 +5676,7 @@ static int _wrap_IGame_getFPS(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::getFPS",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_getFPS",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_getFPS",1,SWIGTYPE_p_OneU__IGame);
   }
   
   result = (float)(arg1)->getFPS();
@@ -5691,7 +5691,7 @@ fail:
 }
 
 
-static int _wrap_IGame_getTimeInterval(lua_State* L) {
+static int _wrap_Game_getTimeInterval(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   float result;
@@ -5700,7 +5700,7 @@ static int _wrap_IGame_getTimeInterval(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::getTimeInterval",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_getTimeInterval",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_getTimeInterval",1,SWIGTYPE_p_OneU__IGame);
   }
   
   result = (float)(arg1)->getTimeInterval();
@@ -5715,7 +5715,7 @@ fail:
 }
 
 
-static int _wrap_IGame_runShell(lua_State* L) {
+static int _wrap_Game_runShell(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
@@ -5725,12 +5725,12 @@ static int _wrap_IGame_runShell(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::runShell",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_runShell",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_runShell",1,SWIGTYPE_p_OneU__IGame);
   }
   
   {
     if(lua_type(L, 2) != LUA_TSTRING)
-    SWIG_fail_arg("IGame_runShell", 2, "OneU::pcwstr");
+    SWIG_fail_arg("Game_runShell", 2, "OneU::pcwstr");
     
     temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
@@ -5747,7 +5747,7 @@ fail:
 }
 
 
-static int _wrap_IGame_output(lua_State* L) {
+static int _wrap_Game_output(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
@@ -5757,12 +5757,12 @@ static int _wrap_IGame_output(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::output",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_output",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_output",1,SWIGTYPE_p_OneU__IGame);
   }
   
   {
     if(lua_type(L, 2) != LUA_TSTRING)
-    SWIG_fail_arg("IGame_output", 2, "OneU::pcwstr");
+    SWIG_fail_arg("Game_output", 2, "OneU::pcwstr");
     
     temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
@@ -5779,7 +5779,7 @@ fail:
 }
 
 
-static int _wrap_IGame_showInfo(lua_State* L) {
+static int _wrap_Game_showInfo(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   
@@ -5787,7 +5787,7 @@ static int _wrap_IGame_showInfo(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IGame::showInfo",1,"OneU::IGame *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IGame,0))){
-    SWIG_fail_ptr("IGame_showInfo",1,SWIGTYPE_p_OneU__IGame);
+    SWIG_fail_ptr("Game_showInfo",1,SWIGTYPE_p_OneU__IGame);
   }
   
   (arg1)->showInfo();
@@ -5802,28 +5802,28 @@ fail:
 }
 
 
-static void swig_delete_IGame(void *obj) {
+static void swig_delete_Game(void *obj) {
 OneU::IGame *arg1 = (OneU::IGame *) obj;
 delete arg1;
 }
 static swig_lua_method swig_OneU_IGame_methods[] = {
-    {"getVideo", _wrap_IGame_getVideo}, 
-    {"getStereo", _wrap_IGame_getStereo}, 
-    {"getControl", _wrap_IGame_getControl}, 
-    {"getScene", _wrap_IGame_getScene}, 
-    {"init", _wrap_IGame_init}, 
-    {"run", _wrap_IGame_run}, 
-    {"quit", _wrap_IGame_quit}, 
-    {"onFrame", _wrap_IGame_onFrame}, 
-    {"onActiveWindow", _wrap_IGame_onActiveWindow}, 
-    {"setWindowTitle", _wrap_IGame_setWindowTitle}, 
-    {"getWindowPos", _wrap_IGame_getWindowPos}, 
-    {"setWindowPos", _wrap_IGame_setWindowPos}, 
-    {"getFPS", _wrap_IGame_getFPS}, 
-    {"getTimeInterval", _wrap_IGame_getTimeInterval}, 
-    {"runShell", _wrap_IGame_runShell}, 
-    {"output", _wrap_IGame_output}, 
-    {"showInfo", _wrap_IGame_showInfo}, 
+    {"getVideo", _wrap_Game_getVideo}, 
+    {"getStereo", _wrap_Game_getStereo}, 
+    {"getControl", _wrap_Game_getControl}, 
+    {"getScene", _wrap_Game_getScene}, 
+    {"init", _wrap_Game_init}, 
+    {"run", _wrap_Game_run}, 
+    {"quit", _wrap_Game_quit}, 
+    {"onFrame", _wrap_Game_onFrame}, 
+    {"onActiveWindow", _wrap_Game_onActiveWindow}, 
+    {"setWindowTitle", _wrap_Game_setWindowTitle}, 
+    {"getWindowPos", _wrap_Game_getWindowPos}, 
+    {"setWindowPos", _wrap_Game_setWindowPos}, 
+    {"getFPS", _wrap_Game_getFPS}, 
+    {"getTimeInterval", _wrap_Game_getTimeInterval}, 
+    {"runShell", _wrap_Game_runShell}, 
+    {"output", _wrap_Game_output}, 
+    {"showInfo", _wrap_Game_showInfo}, 
     {0,0}
 };
 static swig_lua_attribute swig_OneU_IGame_attributes[] = {
@@ -5831,7 +5831,7 @@ static swig_lua_attribute swig_OneU_IGame_attributes[] = {
 };
 static swig_lua_class *swig_OneU_IGame_bases[] = {0};
 static const char *swig_OneU_IGame_base_names[] = {0};
-static swig_lua_class _wrap_class_OneU_IGame = { "IGame", &SWIGTYPE_p_OneU__IGame,0, swig_delete_IGame, swig_OneU_IGame_methods, swig_OneU_IGame_attributes, swig_OneU_IGame_bases, swig_OneU_IGame_base_names };
+static swig_lua_class _wrap_class_OneU_IGame = { "Game", &SWIGTYPE_p_OneU__IGame,0, swig_delete_Game, swig_OneU_IGame_methods, swig_OneU_IGame_attributes, swig_OneU_IGame_bases, swig_OneU_IGame_base_names };
 
 static int _wrap_GetGame(lua_State* L) {
   int SWIG_arg = 0;
@@ -5918,7 +5918,7 @@ fail:
 }
 
 
-static int _wrap_IStereo_init(lua_State* L) {
+static int _wrap_Stereo_init(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
   
@@ -5926,7 +5926,7 @@ static int _wrap_IStereo_init(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IStereo::init",1,"OneU::IStereo *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IStereo,0))){
-    SWIG_fail_ptr("IStereo_init",1,SWIGTYPE_p_OneU__IStereo);
+    SWIG_fail_ptr("Stereo_init",1,SWIGTYPE_p_OneU__IStereo);
   }
   
   (arg1)->init();
@@ -5941,7 +5941,7 @@ fail:
 }
 
 
-static int _wrap_IStereo_playMusic(lua_State* L) {
+static int _wrap_Stereo_playMusic(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
@@ -5951,12 +5951,12 @@ static int _wrap_IStereo_playMusic(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IStereo::playMusic",1,"OneU::IStereo *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IStereo,0))){
-    SWIG_fail_ptr("IStereo_playMusic",1,SWIGTYPE_p_OneU__IStereo);
+    SWIG_fail_ptr("Stereo_playMusic",1,SWIGTYPE_p_OneU__IStereo);
   }
   
   {
     if(lua_type(L, 2) != LUA_TSTRING)
-    SWIG_fail_arg("IStereo_playMusic", 2, "OneU::pcwstr");
+    SWIG_fail_arg("Stereo_playMusic", 2, "OneU::pcwstr");
     
     temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
@@ -5973,7 +5973,7 @@ fail:
 }
 
 
-static int _wrap_IStereo_playSound(lua_State* L) {
+static int _wrap_Stereo_playSound(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
@@ -5983,12 +5983,12 @@ static int _wrap_IStereo_playSound(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IStereo::playSound",1,"OneU::IStereo *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IStereo,0))){
-    SWIG_fail_ptr("IStereo_playSound",1,SWIGTYPE_p_OneU__IStereo);
+    SWIG_fail_ptr("Stereo_playSound",1,SWIGTYPE_p_OneU__IStereo);
   }
   
   {
     if(lua_type(L, 2) != LUA_TSTRING)
-    SWIG_fail_arg("IStereo_playSound", 2, "OneU::pcwstr");
+    SWIG_fail_arg("Stereo_playSound", 2, "OneU::pcwstr");
     
     temp2 = OneU::Char2Wide(lua_tostring(L, 2), 65001);
     arg2 = temp2;
@@ -6005,14 +6005,14 @@ fail:
 }
 
 
-static void swig_delete_IStereo(void *obj) {
+static void swig_delete_Stereo(void *obj) {
 OneU::IStereo *arg1 = (OneU::IStereo *) obj;
 delete arg1;
 }
 static swig_lua_method swig_OneU_IStereo_methods[] = {
-    {"init", _wrap_IStereo_init}, 
-    {"playMusic", _wrap_IStereo_playMusic}, 
-    {"playSound", _wrap_IStereo_playSound}, 
+    {"init", _wrap_Stereo_init}, 
+    {"playMusic", _wrap_Stereo_playMusic}, 
+    {"playSound", _wrap_Stereo_playSound}, 
     {0,0}
 };
 static swig_lua_attribute swig_OneU_IStereo_attributes[] = {
@@ -6020,9 +6020,9 @@ static swig_lua_attribute swig_OneU_IStereo_attributes[] = {
 };
 static swig_lua_class *swig_OneU_IStereo_bases[] = {0};
 static const char *swig_OneU_IStereo_base_names[] = {0};
-static swig_lua_class _wrap_class_OneU_IStereo = { "IStereo", &SWIGTYPE_p_OneU__IStereo,0, swig_delete_IStereo, swig_OneU_IStereo_methods, swig_OneU_IStereo_attributes, swig_OneU_IStereo_bases, swig_OneU_IStereo_base_names };
+static swig_lua_class _wrap_class_OneU_IStereo = { "Stereo", &SWIGTYPE_p_OneU__IStereo,0, swig_delete_Stereo, swig_OneU_IStereo_methods, swig_OneU_IStereo_attributes, swig_OneU_IStereo_bases, swig_OneU_IStereo_base_names };
 
-static int _wrap_IControl_keyIsDown(lua_State* L) {
+static int _wrap_Control_keyIsDown(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
@@ -6033,7 +6033,7 @@ static int _wrap_IControl_keyIsDown(lua_State* L) {
   if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::IControl::keyIsDown",2,"OneU::uint32");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IControl,0))){
-    SWIG_fail_ptr("IControl_keyIsDown",1,SWIGTYPE_p_OneU__IControl);
+    SWIG_fail_ptr("Control_keyIsDown",1,SWIGTYPE_p_OneU__IControl);
   }
   
   SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
@@ -6050,7 +6050,7 @@ fail:
 }
 
 
-static int _wrap_IControl_keyPress(lua_State* L) {
+static int _wrap_Control_keyPress(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
@@ -6061,7 +6061,7 @@ static int _wrap_IControl_keyPress(lua_State* L) {
   if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::IControl::keyPress",2,"OneU::uint32");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IControl,0))){
-    SWIG_fail_ptr("IControl_keyPress",1,SWIGTYPE_p_OneU__IControl);
+    SWIG_fail_ptr("Control_keyPress",1,SWIGTYPE_p_OneU__IControl);
   }
   
   SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
@@ -6078,7 +6078,7 @@ fail:
 }
 
 
-static int _wrap_IControl_keyRelease(lua_State* L) {
+static int _wrap_Control_keyRelease(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
@@ -6089,7 +6089,7 @@ static int _wrap_IControl_keyRelease(lua_State* L) {
   if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::IControl::keyRelease",2,"OneU::uint32");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IControl,0))){
-    SWIG_fail_ptr("IControl_keyRelease",1,SWIGTYPE_p_OneU__IControl);
+    SWIG_fail_ptr("Control_keyRelease",1,SWIGTYPE_p_OneU__IControl);
   }
   
   SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
@@ -6106,7 +6106,7 @@ fail:
 }
 
 
-static int _wrap_IControl_buttonIsDown(lua_State* L) {
+static int _wrap_Control_buttonIsDown(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
@@ -6117,7 +6117,7 @@ static int _wrap_IControl_buttonIsDown(lua_State* L) {
   if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::IControl::buttonIsDown",2,"OneU::uint32");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IControl,0))){
-    SWIG_fail_ptr("IControl_buttonIsDown",1,SWIGTYPE_p_OneU__IControl);
+    SWIG_fail_ptr("Control_buttonIsDown",1,SWIGTYPE_p_OneU__IControl);
   }
   
   SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
@@ -6134,7 +6134,7 @@ fail:
 }
 
 
-static int _wrap_IControl_buttonRelease(lua_State* L) {
+static int _wrap_Control_buttonRelease(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
@@ -6145,7 +6145,7 @@ static int _wrap_IControl_buttonRelease(lua_State* L) {
   if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::IControl::buttonRelease",2,"OneU::uint32");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IControl,0))){
-    SWIG_fail_ptr("IControl_buttonRelease",1,SWIGTYPE_p_OneU__IControl);
+    SWIG_fail_ptr("Control_buttonRelease",1,SWIGTYPE_p_OneU__IControl);
   }
   
   SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
@@ -6162,7 +6162,7 @@ fail:
 }
 
 
-static int _wrap_IControl_buttonPress(lua_State* L) {
+static int _wrap_Control_buttonPress(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::uint32 arg2 ;
@@ -6173,7 +6173,7 @@ static int _wrap_IControl_buttonPress(lua_State* L) {
   if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::IControl::buttonPress",2,"OneU::uint32");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IControl,0))){
-    SWIG_fail_ptr("IControl_buttonPress",1,SWIGTYPE_p_OneU__IControl);
+    SWIG_fail_ptr("Control_buttonPress",1,SWIGTYPE_p_OneU__IControl);
   }
   
   SWIG_contract_assert((lua_tonumber(L,2)>=0),"number must not be negative")
@@ -6190,7 +6190,7 @@ fail:
 }
 
 
-static int _wrap_IControl_mouseOffset(lua_State* L) {
+static int _wrap_Control_mouseOffset(lua_State* L) {
   int SWIG_arg = 0;
   OneU::IControl *arg1 = (OneU::IControl *) 0 ;
   OneU::vector2i_t result;
@@ -6199,7 +6199,7 @@ static int _wrap_IControl_mouseOffset(lua_State* L) {
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::IControl::mouseOffset",1,"OneU::IControl *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__IControl,0))){
-    SWIG_fail_ptr("IControl_mouseOffset",1,SWIGTYPE_p_OneU__IControl);
+    SWIG_fail_ptr("Control_mouseOffset",1,SWIGTYPE_p_OneU__IControl);
   }
   
   result = (arg1)->mouseOffset();
@@ -6217,18 +6217,18 @@ fail:
 }
 
 
-static void swig_delete_IControl(void *obj) {
+static void swig_delete_Control(void *obj) {
 OneU::IControl *arg1 = (OneU::IControl *) obj;
 delete arg1;
 }
 static swig_lua_method swig_OneU_IControl_methods[] = {
-    {"keyIsDown", _wrap_IControl_keyIsDown}, 
-    {"keyPress", _wrap_IControl_keyPress}, 
-    {"keyRelease", _wrap_IControl_keyRelease}, 
-    {"buttonIsDown", _wrap_IControl_buttonIsDown}, 
-    {"buttonRelease", _wrap_IControl_buttonRelease}, 
-    {"buttonPress", _wrap_IControl_buttonPress}, 
-    {"mouseOffset", _wrap_IControl_mouseOffset}, 
+    {"keyIsDown", _wrap_Control_keyIsDown}, 
+    {"keyPress", _wrap_Control_keyPress}, 
+    {"keyRelease", _wrap_Control_keyRelease}, 
+    {"buttonIsDown", _wrap_Control_buttonIsDown}, 
+    {"buttonRelease", _wrap_Control_buttonRelease}, 
+    {"buttonPress", _wrap_Control_buttonPress}, 
+    {"mouseOffset", _wrap_Control_mouseOffset}, 
     {0,0}
 };
 static swig_lua_attribute swig_OneU_IControl_attributes[] = {
@@ -6236,7 +6236,7 @@ static swig_lua_attribute swig_OneU_IControl_attributes[] = {
 };
 static swig_lua_class *swig_OneU_IControl_bases[] = {0};
 static const char *swig_OneU_IControl_base_names[] = {0};
-static swig_lua_class _wrap_class_OneU_IControl = { "IControl", &SWIGTYPE_p_OneU__IControl,0, swig_delete_IControl, swig_OneU_IControl_methods, swig_OneU_IControl_attributes, swig_OneU_IControl_bases, swig_OneU_IControl_base_names };
+static swig_lua_class _wrap_class_OneU_IControl = { "Control", &SWIGTYPE_p_OneU__IControl,0, swig_delete_Control, swig_OneU_IControl_methods, swig_OneU_IControl_attributes, swig_OneU_IControl_bases, swig_OneU_IControl_base_names };
 
 static int _wrap_Sprite_setImage(lua_State* L) {
   int SWIG_arg = 0;
@@ -7328,166 +7328,166 @@ static swig_lua_const_info swig_constants[] = {
 { SWIG_LUA_INT,     (char *)"CBM_RIGHT", (long) OneU::video::CBM_RIGHT, 0, 0, 0},
 { SWIG_LUA_INT,     (char *)"CBM_TOP", (long) OneU::video::CBM_TOP, 0, 0, 0},
 { SWIG_LUA_INT,     (char *)"CBM_DOWN", (long) OneU::video::CBM_DOWN, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_ESCAPE", (long) 0x01, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_1", (long) 0x02, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_2", (long) 0x03, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_3", (long) 0x04, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_4", (long) 0x0, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_5", (long) 0x06, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_6", (long) 0x07, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_7", (long) 0x08, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_8", (long) 0x09, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_9", (long) 0x0A, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_0", (long) 0x0B, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_MINUS", (long) 0x0C, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_EQUALS", (long) 0x0D, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_BACK", (long) 0x0E, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_TAB", (long) 0x0F, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_Q", (long) 0x10, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_W", (long) 0x11, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_E", (long) 0x12, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_R", (long) 0x13, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_T", (long) 0x14, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_Y", (long) 0x15, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_U", (long) 0x16, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_I", (long) 0x17, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_O", (long) 0x18, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_P", (long) 0x19, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_LBRACKET", (long) 0x1A, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_RBRACKET", (long) 0x1B, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_RETURN", (long) 0x1C, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_LCONTROL", (long) 0x1D, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_A", (long) 0x1E, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_S", (long) 0x1F, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_D", (long) 0x20, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F", (long) 0x21, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_G", (long) 0x22, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_H", (long) 0x23, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_J", (long) 0x24, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_K", (long) 0x25, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_L", (long) 0x26, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_SEMICOLON", (long) 0x27, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_APOSTROPHE", (long) 0x28, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_GRAVE", (long) 0x29, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_LSHIFT", (long) 0x2A, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_BACKSLASH", (long) 0x2B, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_Z", (long) 0x2C, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_X", (long) 0x2D, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_C", (long) 0x2E, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_V", (long) 0x2F, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_B", (long) 0x30, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_N", (long) 0x31, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_M", (long) 0x32, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_COMMA", (long) 0x33, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_PERIOD", (long) 0x34, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_SLASH", (long) 0x35, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_RSHIFT", (long) 0x36, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_MULTIPLY", (long) 0x37, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_LMENU", (long) 0x38, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_SPACE", (long) 0x39, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_CAPITAL", (long) 0x3A, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F1", (long) 0x3B, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F2", (long) 0x3C, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F3", (long) 0x3D, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F4", (long) 0x3E, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F5", (long) 0x3F, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F6", (long) 0x40, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F7", (long) 0x41, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F8", (long) 0x42, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F9", (long) 0x43, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F10", (long) 0x44, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMLOCK", (long) 0x45, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_SCROLL", (long) 0x46, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPAD7", (long) 0x47, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPAD8", (long) 0x48, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPAD9", (long) 0x49, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_SUBTRACT", (long) 0x4A, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPAD4", (long) 0x4B, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPAD5", (long) 0x4C, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPAD6", (long) 0x4D, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_ADD", (long) 0x4E, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPAD1", (long) 0x4F, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPAD2", (long) 0x50, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPAD3", (long) 0x51, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPAD0", (long) 0x52, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_DECIMAL", (long) 0x53, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_OEM_102", (long) 0x56, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F11", (long) 0x57, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F12", (long) 0x58, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F13", (long) 0x64, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F14", (long) 0x65, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_F15", (long) 0x66, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_KANA", (long) 0x70, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_ABNT_C1", (long) 0x73, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_CONVERT", (long) 0x79, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NOCONVERT", (long) 0x7B, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_YEN", (long) 0x7D, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_ABNT_C2", (long) 0x7E, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPADEQUALS", (long) 0x8D, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_PREVTRACK", (long) 0x90, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_AT", (long) 0x91, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_COLON", (long) 0x92, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_UNDERLINE", (long) 0x93, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_KANJI", (long) 0x94, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_STOP", (long) 0x95, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_AX", (long) 0x96, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_UNLABELED", (long) 0x97, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NEXTTRACK", (long) 0x99, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPADENTER", (long) 0x9C, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_RCONTROL", (long) 0x9D, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_MUTE", (long) 0xA0, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_CALCULATOR", (long) 0xA1, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_PLAYPAUSE", (long) 0xA2, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_MEDIASTOP", (long) 0xA4, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_VOLUMEDOWN", (long) 0xAE, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_VOLUMEUP", (long) 0xB0, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_WEBHOME", (long) 0xB2, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPADCOMMA", (long) 0xB3, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_DIVIDE", (long) 0xB5, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_SYSRQ", (long) 0xB7, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_RMENU", (long) 0xB8, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_PAUSE", (long) 0xC5, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_HOME", (long) 0xC7, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_UP", (long) 0xC8, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_PRIOR", (long) 0xC9, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_LEFT", (long) 0xCB, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_RIGHT", (long) 0xCD, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_END", (long) 0xCF, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_DOWN", (long) 0xD0, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NEXT", (long) 0xD1, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_INSERT", (long) 0xD2, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_DELETE", (long) 0xD3, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_LWIN", (long) 0xDB, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_RWIN", (long) 0xDC, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_APPS", (long) 0xDD, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_POWER", (long) 0xDE, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_SLEEP", (long) 0xDF, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_WAKE", (long) 0xE3, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_WEBSEARCH", (long) 0xE5, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_WEBFAVORITES", (long) 0xE6, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_WEBREFRESH", (long) 0xE7, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_WEBSTOP", (long) 0xE8, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_WEBFORWARD", (long) 0xE9, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_WEBBACK", (long) 0xEA, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_MYCOMPUTER", (long) 0xEB, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_MAIL", (long) 0xEC, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_MEDIASELECT", (long) 0xED, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_BACKSPACE", (long) OIK_BACK, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPADSTAR", (long) OIK_MULTIPLY, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_LALT", (long) OIK_LMENU, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_CAPSLOCK", (long) OIK_CAPITAL, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPADMINUS", (long) OIK_SUBTRACT, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPADPLUS", (long) OIK_ADD, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPADPERIOD", (long) OIK_DECIMAL, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_NUMPADSLASH", (long) OIK_DIVIDE, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_RALT", (long) OIK_RMENU, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_UPARROW", (long) OIK_UP, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_PGUP", (long) OIK_PRIOR, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_LEFTARROW", (long) OIK_LEFT, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_RIGHTARROW", (long) OIK_RIGHT, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_DOWNARROW", (long) OIK_DOWN, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_PGDN", (long) OIK_NEXT, 0, 0, 0},
-{ SWIG_LUA_INT,     (char *)"IControl_IK_CIRCUMFLEX", (long) OIK_PREVTRACK, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_ESCAPE", (long) 0x01, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_1", (long) 0x02, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_2", (long) 0x03, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_3", (long) 0x04, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_4", (long) 0x0, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_5", (long) 0x06, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_6", (long) 0x07, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_7", (long) 0x08, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_8", (long) 0x09, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_9", (long) 0x0A, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_0", (long) 0x0B, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_MINUS", (long) 0x0C, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_EQUALS", (long) 0x0D, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_BACK", (long) 0x0E, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_TAB", (long) 0x0F, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_Q", (long) 0x10, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_W", (long) 0x11, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_E", (long) 0x12, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_R", (long) 0x13, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_T", (long) 0x14, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_Y", (long) 0x15, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_U", (long) 0x16, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_I", (long) 0x17, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_O", (long) 0x18, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_P", (long) 0x19, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_LBRACKET", (long) 0x1A, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_RBRACKET", (long) 0x1B, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_RETURN", (long) 0x1C, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_LCONTROL", (long) 0x1D, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_A", (long) 0x1E, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_S", (long) 0x1F, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_D", (long) 0x20, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F", (long) 0x21, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_G", (long) 0x22, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_H", (long) 0x23, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_J", (long) 0x24, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_K", (long) 0x25, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_L", (long) 0x26, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_SEMICOLON", (long) 0x27, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_APOSTROPHE", (long) 0x28, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_GRAVE", (long) 0x29, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_LSHIFT", (long) 0x2A, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_BACKSLASH", (long) 0x2B, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_Z", (long) 0x2C, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_X", (long) 0x2D, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_C", (long) 0x2E, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_V", (long) 0x2F, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_B", (long) 0x30, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_N", (long) 0x31, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_M", (long) 0x32, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_COMMA", (long) 0x33, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_PERIOD", (long) 0x34, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_SLASH", (long) 0x35, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_RSHIFT", (long) 0x36, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_MULTIPLY", (long) 0x37, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_LMENU", (long) 0x38, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_SPACE", (long) 0x39, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_CAPITAL", (long) 0x3A, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F1", (long) 0x3B, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F2", (long) 0x3C, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F3", (long) 0x3D, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F4", (long) 0x3E, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F5", (long) 0x3F, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F6", (long) 0x40, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F7", (long) 0x41, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F8", (long) 0x42, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F9", (long) 0x43, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F10", (long) 0x44, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMLOCK", (long) 0x45, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_SCROLL", (long) 0x46, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPAD7", (long) 0x47, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPAD8", (long) 0x48, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPAD9", (long) 0x49, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_SUBTRACT", (long) 0x4A, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPAD4", (long) 0x4B, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPAD5", (long) 0x4C, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPAD6", (long) 0x4D, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_ADD", (long) 0x4E, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPAD1", (long) 0x4F, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPAD2", (long) 0x50, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPAD3", (long) 0x51, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPAD0", (long) 0x52, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_DECIMAL", (long) 0x53, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_OEM_102", (long) 0x56, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F11", (long) 0x57, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F12", (long) 0x58, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F13", (long) 0x64, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F14", (long) 0x65, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_F15", (long) 0x66, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_KANA", (long) 0x70, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_ABNT_C1", (long) 0x73, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_CONVERT", (long) 0x79, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NOCONVERT", (long) 0x7B, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_YEN", (long) 0x7D, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_ABNT_C2", (long) 0x7E, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPADEQUALS", (long) 0x8D, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_PREVTRACK", (long) 0x90, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_AT", (long) 0x91, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_COLON", (long) 0x92, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_UNDERLINE", (long) 0x93, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_KANJI", (long) 0x94, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_STOP", (long) 0x95, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_AX", (long) 0x96, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_UNLABELED", (long) 0x97, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NEXTTRACK", (long) 0x99, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPADENTER", (long) 0x9C, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_RCONTROL", (long) 0x9D, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_MUTE", (long) 0xA0, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_CALCULATOR", (long) 0xA1, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_PLAYPAUSE", (long) 0xA2, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_MEDIASTOP", (long) 0xA4, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_VOLUMEDOWN", (long) 0xAE, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_VOLUMEUP", (long) 0xB0, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_WEBHOME", (long) 0xB2, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPADCOMMA", (long) 0xB3, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_DIVIDE", (long) 0xB5, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_SYSRQ", (long) 0xB7, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_RMENU", (long) 0xB8, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_PAUSE", (long) 0xC5, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_HOME", (long) 0xC7, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_UP", (long) 0xC8, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_PRIOR", (long) 0xC9, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_LEFT", (long) 0xCB, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_RIGHT", (long) 0xCD, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_END", (long) 0xCF, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_DOWN", (long) 0xD0, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NEXT", (long) 0xD1, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_INSERT", (long) 0xD2, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_DELETE", (long) 0xD3, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_LWIN", (long) 0xDB, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_RWIN", (long) 0xDC, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_APPS", (long) 0xDD, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_POWER", (long) 0xDE, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_SLEEP", (long) 0xDF, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_WAKE", (long) 0xE3, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_WEBSEARCH", (long) 0xE5, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_WEBFAVORITES", (long) 0xE6, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_WEBREFRESH", (long) 0xE7, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_WEBSTOP", (long) 0xE8, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_WEBFORWARD", (long) 0xE9, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_WEBBACK", (long) 0xEA, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_MYCOMPUTER", (long) 0xEB, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_MAIL", (long) 0xEC, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_MEDIASELECT", (long) 0xED, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_BACKSPACE", (long) OIK_BACK, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPADSTAR", (long) OIK_MULTIPLY, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_LALT", (long) OIK_LMENU, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_CAPSLOCK", (long) OIK_CAPITAL, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPADMINUS", (long) OIK_SUBTRACT, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPADPLUS", (long) OIK_ADD, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPADPERIOD", (long) OIK_DECIMAL, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_NUMPADSLASH", (long) OIK_DIVIDE, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_RALT", (long) OIK_RMENU, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_UPARROW", (long) OIK_UP, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_PGUP", (long) OIK_PRIOR, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_LEFTARROW", (long) OIK_LEFT, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_RIGHTARROW", (long) OIK_RIGHT, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_DOWNARROW", (long) OIK_DOWN, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_PGDN", (long) OIK_NEXT, 0, 0, 0},
+{ SWIG_LUA_INT,     (char *)"Control_IK_CIRCUMFLEX", (long) OIK_PREVTRACK, 0, 0, 0},
 { SWIG_LUA_INT,     (char *)"T_TOP", (long) OneU::T_TOP, 0, 0, 0},
 { SWIG_LUA_INT,     (char *)"T_BOTTOM", (long) OneU::T_BOTTOM, 0, 0, 0},
 { SWIG_LUA_INT,     (char *)"T_VCENTER", (long) OneU::T_VCENTER, 0, 0, 0},

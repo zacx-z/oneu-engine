@@ -10,6 +10,7 @@
 
 namespace OneU
 {
+	%rename(Game) IGame;
 	class IGame
 	{
 	public:
@@ -35,11 +36,11 @@ namespace OneU
 #ifdef SUPPORT_DIRECTORS
 		%extend {
 		virtual void replaceScene(Scene* scene){
-			if(scene) scene->__isActive = true;
+			if(scene){ scene->__isActive = true; scene->__game = self; }
 			OneU::IScene* ret = self->replaceScene(scene);
 			if(!ret) return;
 			Scene* s = dynamic_cast<Scene*>(ret);
-			if(!s) ONEU_RAISE(L"Doesn't allow scene not created by script.");
+			if(!s) rb_raise(rb_eRuntimeError, "Doesn't allow scene not created by script.");
 			s->__isActive = false;
 		}
 		}
