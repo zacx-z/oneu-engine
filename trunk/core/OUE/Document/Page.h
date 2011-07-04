@@ -326,7 +326,6 @@ namespace OneU{
  * 1.使用ruby(recommanded)
  * 提供便利函数@ref RubyRun。直接在主函数调用即可，不需要做任何其他事。
  * 除了Game_build, Game_destroy所有逻辑都在Ruby中编写。
- * 要在最后调用GetGame.replaceScene(nil)。
  * 2.使用Lua
  * 需要自己编写一个场景（是唯一的场景），参考r19的Game\\main.cpp。(注：由于新版的改动，需要在run函数后调用Game_destroy）
  * Game_build，Game.run等基本逻辑在C++里编写。

@@ -43,6 +43,7 @@ namespace OneU
 			float getScaleY() const;
 		};
 
+		%rename(NodeContainer) INodeContainer;
 		class INodeContainer
 			: public INode
 		{

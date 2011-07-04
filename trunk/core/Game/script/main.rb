@@ -27,7 +27,7 @@ class MainScene < OUE::Scene
 
 		@list = [@sp]
 	end
-	def update(dt)
+	def update dt
 		@label.text= "FPS:#{$Game.getFPS()}\nSprite Nums:#{@list.size}\n"
 
 		@list.each{|x| x.update}
@@ -49,4 +49,3 @@ $Game = OUE.GetGame()
 $Game.init("This is a game", 800, 600, true)
 NewScene(MainScene.new)
 $Game.run()
-$Game.replaceScene(nil)

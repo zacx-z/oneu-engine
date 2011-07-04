@@ -29,8 +29,9 @@ class Scene : public OneU::IScene
 {
 public:
 	bool __isActive;
+	OneU::IGame* __game;
 	Scene():__isActive(false){}
-	~Scene(){if(__isActive) rb_raise(rb_eRuntimeError, "Can't remove a scene while it is active."); }
+	~Scene(){if(__isActive) __game->replaceScene(NULL); }
 	
 	void update(float dt){}
 };

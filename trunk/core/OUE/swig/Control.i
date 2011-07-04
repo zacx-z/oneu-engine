@@ -7,6 +7,7 @@
 
 namespace OneU
 {
+	%rename(Control) IControl;
 	class IControl
 	{
 	public:
