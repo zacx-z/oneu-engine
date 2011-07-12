@@ -11,8 +11,8 @@ namespace OneU
 		: public OneU::video::INode
 	{
 	public:
-		PROP_RW(getCenterX, setCenterX, ox);
-		PROP_RW(getCenterY, setCenterY, oy);
+		PROP_RW(getCenterH, setCenterH, oh);
+		PROP_RW(getCenterV, setCenterV, ov);
 		PROP_RW(getColor, setColor, color);
 		PROP_RW(getAlpha, setAlpha, alpha);
 		PROP_RW(getSrcRect, setSrcRect, srcRect);
@@ -21,10 +21,10 @@ namespace OneU
 		
 		virtual void setImage(OneU::image_t img);
 		virtual OneU::image_t getImage();
-		virtual void setCenterX(float nx);
-		virtual float getCenterX() const;
-		virtual void setCenterY(float ny);
-		virtual float getCenterY() const;
+		virtual void setCenterH(float nx);
+		virtual float getCenterH() const;
+		virtual void setCenterV(float ny);
+		virtual float getCenterV() const;
 
 		virtual void setColor(OneU::color_t color) ;
 		virtual OneU::color_t getColor();

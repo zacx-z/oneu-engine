@@ -16,6 +16,8 @@ namespace OneU
 		public:
 			PROP_RW(getX, setX, x);
 			PROP_RW(getY, setY, y);
+			PROP_RW(getCenterX, setCenterX, ox);
+			PROP_RW(getCenterY, setCenterY, oy);
 			PROP_RW(getRotation, setRotation, rotation);
 			PROP_RW(getScaleX, setScaleX, scaleX);
 			PROP_RW(getScaleY, setScaleY, scaleY);
@@ -35,6 +37,10 @@ namespace OneU
 			float getX() const;
 			void setY(float y);
 			float getY() const;
+			void setCenterX(float x);
+			float getCenterX() const;
+			void setCenterY(float y);
+			float getCenterY() const;
 			void setRotation(float z);
 			float getRotation() const;
 			void setScaleX(float ns);

@@ -54,7 +54,7 @@ namespace OneU
 			struct _TransformInfo2D{
 				matrix m;//计算了父级节点的绝对变换;
 				bool mIsReady;
-				float x, y;
+				float x, y, ox, oy;
 				float scalex, scaley;
 				float rotz;
 			};
@@ -221,8 +221,9 @@ namespace OneU
 				if(Transform._2){
 					if(!Transform._2->mIsReady){
 						Transform._2->mIsReady = true;
-						Transform._2->m = 
-							matrix().setScale(vector3(Transform._2->scalex, Transform._2->scaley, 1.0f))
+						Transform._2->m =
+							matrix().setTranslation(vector3(-Transform._2->ox, -Transform._2->oy, 0.0f))
+							* matrix().setScale(vector3(Transform._2->scalex, Transform._2->scaley, 1.0f))
 							* matrix().setRotation(vector3(0.0f, 0.0f, Transform._2->rotz))
 							* matrix().setTranslation(vector3(Transform._2->x, Transform._2->y, 0.0f));
 						Transform.absNeedUpdate = true;
@@ -261,60 +262,84 @@ namespace OneU
 				if(Transform._2){
 					Transform._2->x = x;
 					Transform._2->mIsReady = false;
-				}else ONEU_ASSERT(FALSE);
+				}else ONEU_ENSURE(FALSE);
 			}
 			float getX() const{
 				if(Transform._2){
 					return Transform._2->x;
-				}else ONEU_ASSERT(FALSE);
+				}else ONEU_ENSURE(FALSE);
 				return 0.0f;
 			}
 			void setY(float y){
 				if(Transform._2){
 					Transform._2->y = y;
 					Transform._2->mIsReady = false;
-				}else ONEU_ASSERT(FALSE);
+				}else ONEU_ENSURE(FALSE);
 			}
 			float getY() const{
 				if(Transform._2){
 					return Transform._2->y;
-				}else ONEU_ASSERT(FALSE);
+				}else ONEU_ENSURE(FALSE);
+				return 0.0f;
+			}
+			void setCenterX(float x){
+				if(Transform._2){
+					Transform._2->ox = x;
+					Transform._2->mIsReady = false;
+				}else ONEU_ENSURE(FALSE);
+			}
+			float getCenterX() const{
+				if(Transform._2)
+					return Transform._2->ox;
+				else ONEU_ENSURE(FALSE);
+				return 0.0f;
+			}
+			void setCenterY(float y){
+				if(Transform._2){
+					Transform._2->oy = y;
+					Transform._2->mIsReady = false;
+				}else ONEU_ENSURE(FALSE);
+			}
+			float getCenterY() const{
+				if(Transform._2)
+					return Transform._2->oy;
+				else ONEU_ENSURE(FALSE);
 				return 0.0f;
 			}
 			void setRotation(float z){
 				if(Transform._2){
 					Transform._2->rotz = z;
 					Transform._2->mIsReady = false;
-				}else ONEU_ASSERT(FALSE);
+				}else ONEU_ENSURE(FALSE);
 			}
 			float getRotation() const{
 				if(Transform._2){
 					return Transform._2->rotz;
-				}else ONEU_ASSERT(FALSE);
+				}else ONEU_ENSURE(FALSE);
 				return 0.0f;
 			}
 			void setScaleX(float ns){
 				if(Transform._2){
 					Transform._2->scalex = ns;
 					Transform._2->mIsReady = false;
-				}else ONEU_ASSERT(FALSE);
+				}else ONEU_ENSURE(FALSE);
 			}
 			float getScaleX() const{
 				if(Transform._2){
 					return Transform._2->scalex;
-				}else ONEU_ASSERT(FALSE);
+				}else ONEU_ENSURE(FALSE);
 				return 0.0f;
 			}
 			void setScaleY(float ns){
 				if(Transform._2){
 					Transform._2->scaley = ns;
 					Transform._2->mIsReady = false;
-				}else ONEU_ASSERT(FALSE);
+				}else ONEU_ENSURE(FALSE);
 			}
 			float getScaleY() const{
 				if(Transform._2){
 					return Transform._2->scaley;
-				}else ONEU_ASSERT(FALSE);
+				}else ONEU_ENSURE(FALSE);
 				return 0.0f;
 			}
 			//@}
@@ -431,7 +456,7 @@ namespace OneU
 				_calcTransform();
 				if(Transform.absNeedUpdate){
 					matrix* parentTrans = m_pParent ? m_pParent->_getTransform() : NULL;
-					Transform.absTrans = parentTrans ? (*parentTrans) * Transform._2->m : Transform._2->m;
+					Transform.absTrans = parentTrans ? Transform._2->m * (*parentTrans) : Transform._2->m;
 				}
 				return &Transform.absTrans;
 			}
