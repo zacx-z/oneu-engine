@@ -47,10 +47,10 @@ namespace OneU
 		virtual void setImage(image_t img) = 0;
 		virtual image_t getImage() = 0;
 		//已被归一化
-		virtual void setCenterX(float nx) = 0;
-		virtual float getCenterX() const = 0;
-		virtual void setCenterY(float ny) = 0;
-		virtual float getCenterY() const = 0;
+		virtual void setCenterH(float nx) = 0;
+		virtual float getCenterH() const = 0;
+		virtual void setCenterV(float ny) = 0;
+		virtual float getCenterV() const = 0;
 
 		virtual void setColor(color_t color) = 0;
 		virtual color_t getColor() = 0;

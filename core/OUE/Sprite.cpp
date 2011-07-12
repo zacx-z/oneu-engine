@@ -31,13 +31,13 @@ namespace OneU
 		image_t m_Img;
 		color_t color;
 
-		float m_CenterX, m_CenterY;
+		float m_CenterH, m_CenterV;
 		video::BLENDMODE m_Mode;
 		uint32 m_CMode;
 		rect m_SrcRc;
 	public:
 		Sprite_Impl(image_t& img)
-			: m_Img(img), color(0, 0, 0), m_CenterX(0.0f), m_CenterY(0.0f),
+			: m_Img(img), color(0, 0, 0), m_CenterH(0.0f), m_CenterV(0.0f),
 			m_Mode(video::BM_NORMAL), m_CMode(video::CBM_ADD),
 			m_SrcRc(0.0f, 0.0f, 1.0f, 1.0f){
 			this->create2DTransform();
@@ -47,10 +47,10 @@ namespace OneU
 
 		void setImage(image_t img){ m_Img = img; }
 		image_t getImage(){ return m_Img; }
-		void setCenterX(float nx){ m_CenterX = nx;}
-		float getCenterX() const { return m_CenterX; }
-		void setCenterY(float ny){ m_CenterY = ny;}
-		float getCenterY() const { return m_CenterY; }
+		void setCenterH(float nx){ m_CenterH = nx;}
+		float getCenterH() const { return m_CenterH; }
+		void setCenterV(float ny){ m_CenterV = ny;}
+		float getCenterV() const { return m_CenterV; }
 
 		void setColor(color_t c){ color = c; }
 		color_t getColor(){ return color; }
@@ -79,7 +79,7 @@ namespace OneU
 		Vi.setBlendMode(m_Mode);
 		Vi.selectImageSourceRect(m_SrcRc);
 		float w = (float)m_Img.get()->getWidth() * (m_SrcRc.right - m_SrcRc.left), h = (float)m_Img.get()->getHeight() * (m_SrcRc.bottom - m_SrcRc.top);
-		Vi.renderImage(*m_Img.get(), rect(-m_CenterX * w, -m_CenterY * h, (1 - m_CenterX) * w, (1 - m_CenterY) * h));
+		Vi.renderImage(*m_Img.get(), rect(-m_CenterH * w, -m_CenterV * h, (1 - m_CenterH) * w, (1 - m_CenterV) * h));
 	}
 
 	ONEU_API ISprite* Sprite_create(image_t& img)

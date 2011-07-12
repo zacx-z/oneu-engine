@@ -4133,6 +4133,106 @@ fail:
 }
 
 
+static int _wrap_INode_setCenterX(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  float arg2 ;
+  
+  SWIG_check_num_args("OneU::video::INode::setCenterX",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::video::INode::setCenterX",1,"OneU::video::INode *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::video::INode::setCenterX",2,"float");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("INode_setCenterX",1,SWIGTYPE_p_OneU__video__INode);
+  }
+  
+  arg2 = (float)lua_tonumber(L, 2);
+  (arg1)->setCenterX(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_INode_getCenterX(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  float result;
+  
+  SWIG_check_num_args("OneU::video::INode::getCenterX",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::video::INode::getCenterX",1,"OneU::video::INode const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("INode_getCenterX",1,SWIGTYPE_p_OneU__video__INode);
+  }
+  
+  result = (float)((OneU::video::INode const *)arg1)->getCenterX();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_INode_setCenterY(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  float arg2 ;
+  
+  SWIG_check_num_args("OneU::video::INode::setCenterY",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::video::INode::setCenterY",1,"OneU::video::INode *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::video::INode::setCenterY",2,"float");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("INode_setCenterY",1,SWIGTYPE_p_OneU__video__INode);
+  }
+  
+  arg2 = (float)lua_tonumber(L, 2);
+  (arg1)->setCenterY(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_INode_getCenterY(lua_State* L) {
+  int SWIG_arg = 0;
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  float result;
+  
+  SWIG_check_num_args("OneU::video::INode::getCenterY",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::video::INode::getCenterY",1,"OneU::video::INode const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__video__INode,0))){
+    SWIG_fail_ptr("INode_getCenterY",1,SWIGTYPE_p_OneU__video__INode);
+  }
+  
+  result = (float)((OneU::video::INode const *)arg1)->getCenterY();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_INode_setRotation(lua_State* L) {
   int SWIG_arg = 0;
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
@@ -4296,6 +4396,10 @@ static swig_lua_method swig_OneU_video_INode_methods[] = {
     {"getX", _wrap_INode_getX}, 
     {"setY", _wrap_INode_setY}, 
     {"getY", _wrap_INode_getY}, 
+    {"setCenterX", _wrap_INode_setCenterX}, 
+    {"getCenterX", _wrap_INode_getCenterX}, 
+    {"setCenterY", _wrap_INode_setCenterY}, 
+    {"getCenterY", _wrap_INode_getCenterY}, 
     {"setRotation", _wrap_INode_setRotation}, 
     {"getRotation", _wrap_INode_getRotation}, 
     {"setScaleX", _wrap_INode_setScaleX}, 
@@ -6297,21 +6401,21 @@ fail:
 }
 
 
-static int _wrap_Sprite_setCenterX(lua_State* L) {
+static int _wrap_Sprite_setCenterH(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float arg2 ;
   
-  SWIG_check_num_args("OneU::ISprite::setCenterX",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::setCenterX",1,"OneU::ISprite *");
-  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ISprite::setCenterX",2,"float");
+  SWIG_check_num_args("OneU::ISprite::setCenterH",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::setCenterH",1,"OneU::ISprite *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ISprite::setCenterH",2,"float");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("Sprite_setCenterX",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_setCenterH",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   arg2 = (float)lua_tonumber(L, 2);
-  (arg1)->setCenterX(arg2);
+  (arg1)->setCenterH(arg2);
   
   return SWIG_arg;
   
@@ -6323,19 +6427,19 @@ fail:
 }
 
 
-static int _wrap_Sprite_getCenterX(lua_State* L) {
+static int _wrap_Sprite_getCenterH(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float result;
   
-  SWIG_check_num_args("OneU::ISprite::getCenterX",1,1)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getCenterX",1,"OneU::ISprite const *");
+  SWIG_check_num_args("OneU::ISprite::getCenterH",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getCenterH",1,"OneU::ISprite const *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("Sprite_getCenterX",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_getCenterH",1,SWIGTYPE_p_OneU__ISprite);
   }
   
-  result = (float)((OneU::ISprite const *)arg1)->getCenterX();
+  result = (float)((OneU::ISprite const *)arg1)->getCenterH();
   lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
   return SWIG_arg;
   
@@ -6347,21 +6451,21 @@ fail:
 }
 
 
-static int _wrap_Sprite_setCenterY(lua_State* L) {
+static int _wrap_Sprite_setCenterV(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float arg2 ;
   
-  SWIG_check_num_args("OneU::ISprite::setCenterY",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::setCenterY",1,"OneU::ISprite *");
-  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ISprite::setCenterY",2,"float");
+  SWIG_check_num_args("OneU::ISprite::setCenterV",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::setCenterV",1,"OneU::ISprite *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("OneU::ISprite::setCenterV",2,"float");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("Sprite_setCenterY",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_setCenterV",1,SWIGTYPE_p_OneU__ISprite);
   }
   
   arg2 = (float)lua_tonumber(L, 2);
-  (arg1)->setCenterY(arg2);
+  (arg1)->setCenterV(arg2);
   
   return SWIG_arg;
   
@@ -6373,19 +6477,19 @@ fail:
 }
 
 
-static int _wrap_Sprite_getCenterY(lua_State* L) {
+static int _wrap_Sprite_getCenterV(lua_State* L) {
   int SWIG_arg = 0;
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float result;
   
-  SWIG_check_num_args("OneU::ISprite::getCenterY",1,1)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getCenterY",1,"OneU::ISprite const *");
+  SWIG_check_num_args("OneU::ISprite::getCenterV",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("OneU::ISprite::getCenterV",1,"OneU::ISprite const *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_OneU__ISprite,0))){
-    SWIG_fail_ptr("Sprite_getCenterY",1,SWIGTYPE_p_OneU__ISprite);
+    SWIG_fail_ptr("Sprite_getCenterV",1,SWIGTYPE_p_OneU__ISprite);
   }
   
-  result = (float)((OneU::ISprite const *)arg1)->getCenterY();
+  result = (float)((OneU::ISprite const *)arg1)->getCenterV();
   lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
   return SWIG_arg;
   
@@ -6811,10 +6915,10 @@ delete arg1;
 static swig_lua_method swig_OneU_ISprite_methods[] = {
     {"setImage", _wrap_Sprite_setImage}, 
     {"getImage", _wrap_Sprite_getImage}, 
-    {"setCenterX", _wrap_Sprite_setCenterX}, 
-    {"getCenterX", _wrap_Sprite_getCenterX}, 
-    {"setCenterY", _wrap_Sprite_setCenterY}, 
-    {"getCenterY", _wrap_Sprite_getCenterY}, 
+    {"setCenterH", _wrap_Sprite_setCenterH}, 
+    {"getCenterH", _wrap_Sprite_getCenterH}, 
+    {"setCenterV", _wrap_Sprite_setCenterV}, 
+    {"getCenterV", _wrap_Sprite_getCenterV}, 
     {"setColor", _wrap_Sprite_setColor}, 
     {"getColor", _wrap_Sprite_getColor}, 
     {"setAlpha", _wrap_Sprite_setAlpha}, 

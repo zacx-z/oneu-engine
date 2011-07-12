@@ -5557,6 +5557,112 @@ fail:
 
 
 SWIGINTERN VALUE
+_wrap_INode_oxe___(int argc, VALUE *argv, VALUE self) {
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  float arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__INode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INode *","setCenterX", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::video::INode * >(argp1);
+  ecode2 = SWIG_AsVal_float(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","setCenterX", 2, argv[0] ));
+  } 
+  arg2 = static_cast< float >(val2);
+  (arg1)->setCenterX(arg2);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_INode_ox(int argc, VALUE *argv, VALUE self) {
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__INode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INode const *","getCenterX", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::video::INode * >(argp1);
+  result = (float)((OneU::video::INode const *)arg1)->getCenterX();
+  vresult = SWIG_From_float(static_cast< float >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_INode_oye___(int argc, VALUE *argv, VALUE self) {
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  float arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__INode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INode *","setCenterY", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::video::INode * >(argp1);
+  ecode2 = SWIG_AsVal_float(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","setCenterY", 2, argv[0] ));
+  } 
+  arg2 = static_cast< float >(val2);
+  (arg1)->setCenterY(arg2);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_INode_oy(int argc, VALUE *argv, VALUE self) {
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__INode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INode const *","getCenterY", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::video::INode * >(argp1);
+  result = (float)((OneU::video::INode const *)arg1)->getCenterY();
+  vresult = SWIG_From_float(static_cast< float >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
 _wrap_INode_rotatione___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
@@ -7843,7 +7949,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Sprite_oxe___(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_ohe___(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -7856,15 +7962,15 @@ _wrap_Sprite_oxe___(int argc, VALUE *argv, VALUE self) {
   }
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__ISprite, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite *","setCenterX", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite *","setCenterH", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::ISprite * >(argp1);
   ecode2 = SWIG_AsVal_float(argv[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","setCenterX", 2, argv[0] ));
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","setCenterH", 2, argv[0] ));
   } 
   arg2 = static_cast< float >(val2);
-  (arg1)->setCenterX(arg2);
+  (arg1)->setCenterH(arg2);
   return Qnil;
 fail:
   return Qnil;
@@ -7872,7 +7978,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Sprite_ox(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_oh(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7884,10 +7990,10 @@ _wrap_Sprite_ox(int argc, VALUE *argv, VALUE self) {
   }
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__ISprite, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite const *","getCenterX", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite const *","getCenterH", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::ISprite * >(argp1);
-  result = (float)((OneU::ISprite const *)arg1)->getCenterX();
+  result = (float)((OneU::ISprite const *)arg1)->getCenterH();
   vresult = SWIG_From_float(static_cast< float >(result));
   return vresult;
 fail:
@@ -7896,7 +8002,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Sprite_oye___(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_ove___(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -7909,15 +8015,15 @@ _wrap_Sprite_oye___(int argc, VALUE *argv, VALUE self) {
   }
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__ISprite, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite *","setCenterY", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite *","setCenterV", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::ISprite * >(argp1);
   ecode2 = SWIG_AsVal_float(argv[0], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","setCenterY", 2, argv[0] ));
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","setCenterV", 2, argv[0] ));
   } 
   arg2 = static_cast< float >(val2);
-  (arg1)->setCenterY(arg2);
+  (arg1)->setCenterV(arg2);
   return Qnil;
 fail:
   return Qnil;
@@ -7925,7 +8031,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Sprite_oy(int argc, VALUE *argv, VALUE self) {
+_wrap_Sprite_ov(int argc, VALUE *argv, VALUE self) {
   OneU::ISprite *arg1 = (OneU::ISprite *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7937,10 +8043,10 @@ _wrap_Sprite_oy(int argc, VALUE *argv, VALUE self) {
   }
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__ISprite, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite const *","getCenterY", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::ISprite const *","getCenterV", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::ISprite * >(argp1);
-  result = (float)((OneU::ISprite const *)arg1)->getCenterY();
+  result = (float)((OneU::ISprite const *)arg1)->getCenterV();
   vresult = SWIG_From_float(static_cast< float >(result));
   return vresult;
 fail:
@@ -9908,6 +10014,10 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_method(SwigClassINode.klass, "x", VALUEFUNC(_wrap_INode_x), -1);
   rb_define_method(SwigClassINode.klass, "y=", VALUEFUNC(_wrap_INode_ye___), -1);
   rb_define_method(SwigClassINode.klass, "y", VALUEFUNC(_wrap_INode_y), -1);
+  rb_define_method(SwigClassINode.klass, "ox=", VALUEFUNC(_wrap_INode_oxe___), -1);
+  rb_define_method(SwigClassINode.klass, "ox", VALUEFUNC(_wrap_INode_ox), -1);
+  rb_define_method(SwigClassINode.klass, "oy=", VALUEFUNC(_wrap_INode_oye___), -1);
+  rb_define_method(SwigClassINode.klass, "oy", VALUEFUNC(_wrap_INode_oy), -1);
   rb_define_method(SwigClassINode.klass, "rotation=", VALUEFUNC(_wrap_INode_rotatione___), -1);
   rb_define_method(SwigClassINode.klass, "rotation", VALUEFUNC(_wrap_INode_rotation), -1);
   rb_define_method(SwigClassINode.klass, "scaleX=", VALUEFUNC(_wrap_INode_scaleXe___), -1);
@@ -10219,10 +10329,10 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_method(SwigClassSprite.klass, "initialize", VALUEFUNC(_wrap_new_Sprite), -1);
   rb_define_method(SwigClassSprite.klass, "setImage", VALUEFUNC(_wrap_Sprite_setImage), -1);
   rb_define_method(SwigClassSprite.klass, "getImage", VALUEFUNC(_wrap_Sprite_getImage), -1);
-  rb_define_method(SwigClassSprite.klass, "ox=", VALUEFUNC(_wrap_Sprite_oxe___), -1);
-  rb_define_method(SwigClassSprite.klass, "ox", VALUEFUNC(_wrap_Sprite_ox), -1);
-  rb_define_method(SwigClassSprite.klass, "oy=", VALUEFUNC(_wrap_Sprite_oye___), -1);
-  rb_define_method(SwigClassSprite.klass, "oy", VALUEFUNC(_wrap_Sprite_oy), -1);
+  rb_define_method(SwigClassSprite.klass, "oh=", VALUEFUNC(_wrap_Sprite_ohe___), -1);
+  rb_define_method(SwigClassSprite.klass, "oh", VALUEFUNC(_wrap_Sprite_oh), -1);
+  rb_define_method(SwigClassSprite.klass, "ov=", VALUEFUNC(_wrap_Sprite_ove___), -1);
+  rb_define_method(SwigClassSprite.klass, "ov", VALUEFUNC(_wrap_Sprite_ov), -1);
   rb_define_method(SwigClassSprite.klass, "color=", VALUEFUNC(_wrap_Sprite_colore___), -1);
   rb_define_method(SwigClassSprite.klass, "color", VALUEFUNC(_wrap_Sprite_color), -1);
   rb_define_method(SwigClassSprite.klass, "alpha=", VALUEFUNC(_wrap_Sprite_alphae___), -1);
