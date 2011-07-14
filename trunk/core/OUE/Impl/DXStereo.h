@@ -21,32 +21,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 #include "../Stereo.h"
-#include <dshow.h>
+#include "DXLib/DXDefs.h"
 #include <dsound.h>
-#include <dmusici.h>
 #include <dxerr.h>
+#include <ogg/ogg.h>
+#include <vorbis/codec.h>
+#include <vorbis/vorbisfile.h>
+#include "../List.h"
 
 namespace OneU
 {
 	class DXStereo
 		: public IStereo
 	{
-		//DirectShow
-		IGraphBuilder* m_pGraphBuilder;
-		IMediaControl* m_pMediaControl;
-		IMediaEvent* m_pMediaEvent;
 		//DirectSound
-		IDirectSound* m_pDS;
-		IDirectMusic* m_pDM;
-		IDirectMusicPerformance8* m_pDMPfm;
-		IDirectMusicLoader8* m_pDMLoader;
+		IDirectSound8* m_pDS;
+		IDirectSoundBuffer* m_pDSPrimary;
+		sound_t m_Music;
+		List<IDirectSoundBuffer*> m_playingFX;
 	public:
 		DXStereo()
-			: m_pGraphBuilder(NULL), m_pMediaControl(NULL), m_pMediaEvent(NULL),
-			m_pDS(NULL), m_pDM(NULL), m_pDMPfm(NULL), m_pDMLoader(NULL){}
+			: m_pDS(NULL), m_pDSPrimary(NULL){}
 		~DXStereo();
 		void init();
-		void playMusic(pcwstr filename);
-		void playSound(pcwstr filename);
+		sound_t loadSound(pcwstr filename, bool streamed);
+		void playMusic(sound_t filename, bool looped);
+		void playFX(sound_t filename);
+		void update();
 	};
 }

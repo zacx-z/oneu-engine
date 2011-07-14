@@ -21,50 +21,48 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 /**
- * @file OUEDefs.h
- * @brief 定义文件
+ * @file TplTypes.h
+ * @brief 模板类型
  * @author Ladace
  * @version 1.0.0.1
  * @date 2011-04-09
  */
 #pragma once
-#include "Base.h"
-#include <windows.h>
-
-//前置声明
 namespace OneU
 {
-	class IVideo;
-	class IControl;
-	class IScene;
-	class IRendererScene;
-	class IGame;
-
-	/* ----------------------------------------------------------------------------*/
-	/** 
-	 * @brief 颜色
-	 */
-	/* ----------------------------------------------------------------------------*/
-	class color_t
+	template<class T>
+	class RefWrapper
 	{
-		uint32 c;
+		T* m_pI;
 	public:
-		color_t(){}
-		color_t(uint32 c) : c(c){}
-		color_t(ubyte red, ubyte green, ubyte blue, ubyte alpha = 255)
-			: c(alpha << 24 | red << 16 | green << 8 | blue)
-		{}
-		operator uint32(){ return c; }
-		ubyte getAlpha(){ return (ubyte)(c >> 24 & 0xff); }
-		ubyte getRed(){ return (ubyte)(c >> 16 & 0xff); }
-		ubyte getGreen(){ return (ubyte)(c >> 8 & 0xff); }
-		ubyte getBlue(){ return (ubyte)(c & 0xff); }
-
-		void setAlpha(ubyte alpha){ c =  0xffffff & c | alpha << 24; }
-		void setRed(ubyte red){ c = 0xff00ffff & c | red << 16; }
-		void setGreen(ubyte green){ c = 0xffff00ff & c | green << 8; }
-		void setBlue(ubyte blue){ c = 0xffffff00 & c | blue; }
+		RefWrapper(): m_pI(NULL){}
+		RefWrapper(T* i): m_pI(i){
+			if(m_pI != NULL)
+				m_pI->addRef();
+		}
+		RefWrapper(const RefWrapper<T>& rhs): m_pI(rhs.m_pI){
+			if(m_pI != NULL)
+				m_pI->addRef();
+		}
+		~RefWrapper(){
+			if(m_pI != NULL)
+				m_pI->release();
+		}
+		RefWrapper<T>& operator=(const RefWrapper<T>& rhs){
+			if(m_pI != NULL)
+				m_pI->release();
+			m_pI = rhs.m_pI;
+			m_pI->addRef();
+			return *this;
+		}
+		RefWrapper& operator=(T* i){
+			if(m_pI != NULL)
+				m_pI->release();
+			m_pI = i;
+			if(m_pI) m_pI->addRef();
+			return *this;
+		}
+		T* operator->(){ return m_pI; }
+		T* get(){ return m_pI; }
 	};
 }
-
-#include "Vector.h"

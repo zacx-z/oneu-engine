@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include "List.h"
 #include "Vector.h"
 #include "Matrix.h"
+#include "TplTypes.h"
 
 //IVideo Game基本组成之一
 namespace OneU
@@ -89,6 +90,7 @@ namespace OneU
 		};
 	}
 
+	typedef RefWrapper<video::IImage> image_t;
 	/**
 	 * @addtogroup group_game
 	 */
@@ -337,63 +339,6 @@ namespace OneU
 	/* ----------------------------------------------------------------------------*/
 	ONEU_API IVideo* Video_create();
 	//@}
-
-	/* ----------------------------------------------------------------------------*/
-	/** 
-	 * @brief 图像类型
-	 *
-	 * 可当做基本类型使用。一般从IVideo::loadImage返回的值直接用此类型变量持有。
-	 */
-	/* ----------------------------------------------------------------------------*/
-	class image_t
-	{
-		video::IImage* m_pI;
-	public:
-		image_t(): m_pI(NULL){}
-		image_t(video::IImage* i): m_pI(i){
-			if(m_pI != NULL)
-				m_pI->addRef();
-		}
-		image_t(const image_t& rhs): m_pI(rhs.m_pI){
-			if(m_pI != NULL)
-				m_pI->addRef();
-		}
-		~image_t(){
-			if(m_pI != NULL)
-				m_pI->release();
-		}
-		image_t& operator=(const image_t& rhs){
-			if(m_pI != NULL)
-				m_pI->release();
-			m_pI = rhs.m_pI;
-			m_pI->addRef();
-			return *this;
-		}
-		image_t& operator=(video::IImage* i){
-			if(m_pI != NULL)
-				m_pI->release();
-			m_pI = i;
-			m_pI->addRef();
-			return *this;
-		}
-		/* ----------------------------------------------------------------------------*/
-		/** 
-		 * @brief 获取图像接口
-		 * 
-		 * @returns 图像接口
-		 */
-		/* ----------------------------------------------------------------------------*/
-		video::IImage* operator->(){ return m_pI; }
-		/* ----------------------------------------------------------------------------*/
-		/** 
-		 * @brief 获取图像接口
-		 * 
-		 * @returns 图像接口
-		 */
-		/* ----------------------------------------------------------------------------*/
-		video::IImage* get(){ return m_pI; }
-	};
-
 }
 
 #include "VideoNode.h"

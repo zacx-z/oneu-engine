@@ -2228,21 +2228,22 @@ namespace Swig {
 #define SWIGTYPE_p_OneU__rect_tT_float_t swig_types[24]
 #define SWIGTYPE_p_OneU__rect_tT_int_t swig_types[25]
 #define SWIGTYPE_p_OneU__rect_tT_unsigned_long_t swig_types[26]
-#define SWIGTYPE_p_OneU__video__INode swig_types[27]
-#define SWIGTYPE_p_OneU__video__INodeContainer swig_types[28]
-#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[29]
-#define SWIGTYPE_p_Scene swig_types[30]
-#define SWIGTYPE_p_char swig_types[31]
-#define SWIGTYPE_p_long swig_types[32]
-#define SWIGTYPE_p_long_long swig_types[33]
-#define SWIGTYPE_p_short swig_types[34]
-#define SWIGTYPE_p_unsigned_char swig_types[35]
-#define SWIGTYPE_p_unsigned_long swig_types[36]
-#define SWIGTYPE_p_unsigned_long_long swig_types[37]
-#define SWIGTYPE_p_unsigned_short swig_types[38]
-#define SWIGTYPE_p_wchar_t swig_types[39]
-static swig_type_info *swig_types[41];
-static swig_module_info swig_module = {swig_types, 40, 0, 0, 0, 0};
+#define SWIGTYPE_p_OneU__sound_t swig_types[27]
+#define SWIGTYPE_p_OneU__video__INode swig_types[28]
+#define SWIGTYPE_p_OneU__video__INodeContainer swig_types[29]
+#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[30]
+#define SWIGTYPE_p_Scene swig_types[31]
+#define SWIGTYPE_p_char swig_types[32]
+#define SWIGTYPE_p_long swig_types[33]
+#define SWIGTYPE_p_long_long swig_types[34]
+#define SWIGTYPE_p_short swig_types[35]
+#define SWIGTYPE_p_unsigned_char swig_types[36]
+#define SWIGTYPE_p_unsigned_long swig_types[37]
+#define SWIGTYPE_p_unsigned_long_long swig_types[38]
+#define SWIGTYPE_p_unsigned_short swig_types[39]
+#define SWIGTYPE_p_wchar_t swig_types[40]
+static swig_type_info *swig_types[42];
+static swig_module_info swig_module = {swig_types, 41, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6114,22 +6115,6 @@ free_OneU_video_IRenderScene(OneU::video::IRenderScene *arg1) {
 
 swig_class SwigClassImage_t;
 
-SWIGINTERN VALUE
-_wrap_new_Image_t__SWIG_0(int argc, VALUE *argv, VALUE self) {
-  const char *classname SWIGUNUSED = "OUE::Image_t";
-  OneU::image_t *result = 0 ;
-  
-  if ((argc < 0) || (argc > 0)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
-  }
-  result = (OneU::image_t *)new OneU::image_t();
-  DATA_PTR(self) = result;
-  return self;
-fail:
-  return Qnil;
-}
-
-
 #ifdef HAVE_RB_DEFINE_ALLOC_FUNC
 SWIGINTERN VALUE
 _wrap_Image_t_allocate(VALUE self) {
@@ -6148,60 +6133,17 @@ _wrap_Image_t_allocate(VALUE self) {
   
 
 SWIGINTERN VALUE
-_wrap_new_Image_t__SWIG_1(int argc, VALUE *argv, VALUE self) {
-  OneU::image_t *arg1 = 0 ;
-  void *argp1 ;
-  int res1 = 0 ;
+_wrap_new_Image_t(int argc, VALUE *argv, VALUE self) {
   const char *classname SWIGUNUSED = "OUE::Image_t";
   OneU::image_t *result = 0 ;
   
-  if ((argc < 1) || (argc > 1)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(argv[0], &argp1, SWIGTYPE_p_OneU__image_t,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::image_t const &","OneU::image_t", 1, argv[0] )); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::image_t const &","OneU::image_t", 1, argv[0])); 
-  }
-  arg1 = reinterpret_cast< OneU::image_t * >(argp1);
-  result = (OneU::image_t *)new OneU::image_t((OneU::image_t const &)*arg1);
+  result = (OneU::image_t *)new OneU::image_t();
   DATA_PTR(self) = result;
   return self;
 fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE _wrap_new_Image_t(int nargs, VALUE *args, VALUE self) {
-  int argc;
-  VALUE argv[1];
-  int ii;
-  
-  argc = nargs;
-  if (argc > 1) SWIG_fail;
-  for (ii = 0; (ii < argc); ++ii) {
-    argv[ii] = args[ii];
-  }
-  if (argc == 0) {
-    return _wrap_new_Image_t__SWIG_0(nargs, args, self);
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__image_t, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_new_Image_t__SWIG_1(nargs, args, self);
-    }
-  }
-  
-fail:
-  Ruby_Format_OverloadedError( argc, 1, "image_t.new", 
-    "    image_t.new()\n"
-    "    image_t.new(OneU::image_t const &rhs)\n");
-  
   return Qnil;
 }
 
@@ -7576,6 +7518,46 @@ fail:
 }
 
 
+swig_class SwigClassSound_t;
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_Sound_t_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_Sound_t_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_OneU__sound_t);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_Sound_t(int argc, VALUE *argv, VALUE self) {
+  const char *classname SWIGUNUSED = "OUE::Sound_t";
+  OneU::sound_t *result = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  result = (OneU::sound_t *)new OneU::sound_t();
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_OneU_sound_t(OneU::sound_t *arg1) {
+    delete arg1;
+}
+
 swig_class SwigClassStereo;
 
 SWIGINTERN VALUE
@@ -7600,12 +7582,97 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Stereo_playMusic(int argc, VALUE *argv, VALUE self) {
+_wrap_Stereo_loadSound(int argc, VALUE *argv, VALUE self) {
   OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
+  bool arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   OneU::AutoPtr< wchar_t > temp2 ;
+  bool val3 ;
+  int ecode3 = 0 ;
+  OneU::sound_t result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IStereo *","loadSound", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IStereo * >(argp1);
+  {
+    if(TYPE(argv[0]) != T_STRING)
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "filename", "OneU::pcwstr","loadSound", 2, argv[0] ));
+    
+    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
+    arg2 = temp2;
+  }
+  ecode3 = SWIG_AsVal_bool(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "bool","loadSound", 3, argv[1] ));
+  } 
+  arg3 = static_cast< bool >(val3);
+  result = (arg1)->loadSound(arg2,arg3);
+  vresult = SWIG_NewPointerObj((new OneU::sound_t(static_cast< const OneU::sound_t& >(result))), SWIGTYPE_p_OneU__sound_t, SWIG_POINTER_OWN |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Stereo_playMusic__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
+  OneU::sound_t arg2 ;
+  bool arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  bool val3 ;
+  int ecode3 = 0 ;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IStereo *","playMusic", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IStereo * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__sound_t,  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::sound_t","playMusic", 2, argv[0] )); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::sound_t","playMusic", 2, argv[0]));
+    } else {
+      arg2 = *(reinterpret_cast< OneU::sound_t * >(argp2));
+    }
+  }
+  ecode3 = SWIG_AsVal_bool(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "bool","playMusic", 3, argv[1] ));
+  } 
+  arg3 = static_cast< bool >(val3);
+  (arg1)->playMusic(arg2,arg3);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Stereo_playMusic__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
+  OneU::sound_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
@@ -7616,11 +7683,15 @@ _wrap_Stereo_playMusic(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::IStereo * >(argp1);
   {
-    if(TYPE(argv[0]) != T_STRING)
-    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "filename", "OneU::pcwstr","playMusic", 2, argv[0] ));
-    
-    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
-    arg2 = temp2;
+    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__sound_t,  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::sound_t","playMusic", 2, argv[0] )); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::sound_t","playMusic", 2, argv[0]));
+    } else {
+      arg2 = *(reinterpret_cast< OneU::sound_t * >(argp2));
+    }
   }
   (arg1)->playMusic(arg2);
   return Qnil;
@@ -7629,30 +7700,90 @@ fail:
 }
 
 
+SWIGINTERN VALUE _wrap_Stereo_playMusic(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[4];
+  int ii;
+  
+  argc = nargs + 1;
+  argv[0] = self;
+  if (argc > 4) SWIG_fail;
+  for (ii = 1; (ii < argc); ++ii) {
+    argv[ii] = args[ii-1];
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__IStereo, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_OneU__sound_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_Stereo_playMusic__SWIG_1(nargs, args, self);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__IStereo, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_OneU__sound_t, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_bool(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_Stereo_playMusic__SWIG_0(nargs, args, self);
+        }
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 4, "Stereo.playMusic", 
+    "    void Stereo.playMusic(OneU::sound_t sound, bool looped)\n"
+    "    void Stereo.playMusic(OneU::sound_t sound)\n");
+  
+  return Qnil;
+}
+
+
 SWIGINTERN VALUE
-_wrap_Stereo_playSound(int argc, VALUE *argv, VALUE self) {
+_wrap_Stereo_playFX(int argc, VALUE *argv, VALUE self) {
   OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
-  OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
+  OneU::sound_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  OneU::AutoPtr< wchar_t > temp2 ;
+  void *argp2 ;
+  int res2 = 0 ;
   
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
   }
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IStereo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IStereo *","playSound", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IStereo *","playFX", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::IStereo * >(argp1);
   {
-    if(TYPE(argv[0]) != T_STRING)
-    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "filename", "OneU::pcwstr","playSound", 2, argv[0] ));
-    
-    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
-    arg2 = temp2;
+    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__sound_t,  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::sound_t","playFX", 2, argv[0] )); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "OneU::sound_t","playFX", 2, argv[0]));
+    } else {
+      arg2 = *(reinterpret_cast< OneU::sound_t * >(argp2));
+    }
   }
-  (arg1)->playSound(arg2);
+  (arg1)->playFX(arg2);
   return Qnil;
 fail:
   return Qnil;
@@ -9479,6 +9610,7 @@ static swig_type_info _swigt__p_OneU__image_t = {"_p_OneU__image_t", "OneU::imag
 static swig_type_info _swigt__p_OneU__rect_tT_float_t = {"_p_OneU__rect_tT_float_t", "OneU::rect_t< float > *|OneU::rect *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__rect_tT_int_t = {"_p_OneU__rect_tT_int_t", "OneU::recti_t *|OneU::rect_t< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__rect_tT_unsigned_long_t = {"_p_OneU__rect_tT_unsigned_long_t", "OneU::rect_t< unsigned long > *|OneU::rectu_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_OneU__sound_t = {"_p_OneU__sound_t", "OneU::sound_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__INode = {"_p_OneU__video__INode", "OneU::video::INode *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__INodeContainer = {"_p_OneU__video__INodeContainer", "OneU::video::INodeContainer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__IRenderScene = {"_p_OneU__video__IRenderScene", "OneU::video::IRenderScene *", 0, 0, (void*)0, 0};
@@ -9521,6 +9653,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_OneU__rect_tT_float_t,
   &_swigt__p_OneU__rect_tT_int_t,
   &_swigt__p_OneU__rect_tT_unsigned_long_t,
+  &_swigt__p_OneU__sound_t,
   &_swigt__p_OneU__video__INode,
   &_swigt__p_OneU__video__INodeContainer,
   &_swigt__p_OneU__video__IRenderScene,
@@ -9563,6 +9696,7 @@ static swig_cast_info _swigc__p_OneU__image_t[] = {  {&_swigt__p_OneU__image_t, 
 static swig_cast_info _swigc__p_OneU__rect_tT_float_t[] = {  {&_swigt__p_OneU__rect_tT_float_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__rect_tT_int_t[] = {  {&_swigt__p_OneU__rect_tT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__rect_tT_unsigned_long_t[] = {  {&_swigt__p_OneU__rect_tT_unsigned_long_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_OneU__sound_t[] = {  {&_swigt__p_OneU__sound_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__INode[] = {  {&_swigt__p_OneU__IShape, _p_OneU__IShapeTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ILabel, _p_OneU__ILabelTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ISprite, _p_OneU__ISpriteTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__INodeContainer, _p_OneU__video__INodeContainerTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__INode, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__INodeContainer[] = {  {&_swigt__p_OneU__video__INodeContainer, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__INodeContainer, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__IRenderScene[] = {  {&_swigt__p_OneU__video__IRenderScene, 0, 0, 0},{0, 0, 0, 0}};
@@ -9605,6 +9739,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_OneU__rect_tT_float_t,
   _swigc__p_OneU__rect_tT_int_t,
   _swigc__p_OneU__rect_tT_unsigned_long_t,
+  _swigc__p_OneU__sound_t,
   _swigc__p_OneU__video__INode,
   _swigc__p_OneU__video__INodeContainer,
   _swigc__p_OneU__video__IRenderScene,
@@ -10139,12 +10274,21 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_module_function(mOUE, "GetControl", VALUEFUNC(_wrap_GetControl), -1);
   rb_define_module_function(mOUE, "GetScene", VALUEFUNC(_wrap_GetScene), -1);
   
+  SwigClassSound_t.klass = rb_define_class_under(mOUE, "Sound_t", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__sound_t, (void *) &SwigClassSound_t);
+  rb_define_alloc_func(SwigClassSound_t.klass, _wrap_Sound_t_allocate);
+  rb_define_method(SwigClassSound_t.klass, "initialize", VALUEFUNC(_wrap_new_Sound_t), -1);
+  SwigClassSound_t.mark = 0;
+  SwigClassSound_t.destroy = (void (*)(void *)) free_OneU_sound_t;
+  SwigClassSound_t.trackObjects = 0;
+  
   SwigClassStereo.klass = rb_define_class_under(mOUE, "Stereo", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__IStereo, (void *) &SwigClassStereo);
   rb_undef_alloc_func(SwigClassStereo.klass);
   rb_define_method(SwigClassStereo.klass, "init", VALUEFUNC(_wrap_Stereo_init), -1);
+  rb_define_method(SwigClassStereo.klass, "loadSound", VALUEFUNC(_wrap_Stereo_loadSound), -1);
   rb_define_method(SwigClassStereo.klass, "playMusic", VALUEFUNC(_wrap_Stereo_playMusic), -1);
-  rb_define_method(SwigClassStereo.klass, "playSound", VALUEFUNC(_wrap_Stereo_playSound), -1);
+  rb_define_method(SwigClassStereo.klass, "playFX", VALUEFUNC(_wrap_Stereo_playFX), -1);
   SwigClassStereo.mark = 0;
   SwigClassStereo.destroy = (void (*)(void *)) free_OneU_IStereo;
   SwigClassStereo.trackObjects = 0;
