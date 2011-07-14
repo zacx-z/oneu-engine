@@ -144,6 +144,7 @@ end:
 		m_pControl->update();
 		m_pBroadcast->sendEvent(event::ENTER_FRAME);
 		if(m_pScene != NULL) m_pScene->update(m_TimeInterval);
+		m_pStereo->update();
 		m_pVideo->update(m_TimeInterval);
 		m_pVideo->render();
 		m_pVideo->flip();

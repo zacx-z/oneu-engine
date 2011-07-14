@@ -29,9 +29,25 @@ THE SOFTWARE.
  */
 #pragma once
 #include "OUEDefs.h"
+#include "TplTypes.h"
 
 namespace OneU
 {
+	namespace stereo
+	{
+		class ISound
+			: public InterfaceRef
+		{
+		public:
+			virtual long getVolume() = 0;
+			virtual void setVolume(long volume) = 0;
+			virtual uint32 getFrequency() = 0;
+			virtual void setFrequency(uint32 freq) = 0;
+			virtual long getPan() = 0;
+			virtual void setPan(long pan) = 0;
+		};
+	}
+	typedef RefWrapper<stereo::ISound> sound_t;
 	class IStereo
 		: public Interface
 	{
@@ -42,6 +58,7 @@ namespace OneU
 		 */
 		/* ----------------------------------------------------------------------------*/
 		virtual void init() = 0;
+		virtual sound_t loadSound(pcwstr filename, bool streamed) = 0;
 		/* ----------------------------------------------------------------------------*/
 		/**
 		 * @brief 播放音乐流
@@ -50,9 +67,10 @@ namespace OneU
 		 * @remarks 会停止当前播放的音乐
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual void playMusic(pcwstr filename) = 0;
+		virtual void playMusic(sound_t sound, bool looped = true) = 0;
 
-		virtual void playSound(pcwstr filename) = 0;
+		virtual void playFX(sound_t sound) = 0;
+		virtual void update() = 0;
 	};
 
 	/* ----------------------------------------------------------------------------*/

@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.2-p180;..\include\ruby-1.9.2-p180\i386-mswin32_80;$(DXSDK_DIR)Include\"
+				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.2-p180;..\include\ruby-1.9.2-p180\i386-mswin32_80;$(DXSDK_DIR)Include\;../include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;ONEU_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -121,7 +121,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.2-p180;..\include\ruby-1.9.2-p180\i386-mswin32_80;$(DXSDK_DIR)Include\"
+				AdditionalIncludeDirectories="..\_lua;..\include\ruby-1.9.2-p180;..\include\ruby-1.9.2-p180\i386-mswin32_80;$(DXSDK_DIR)Include\;..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;ONEU_EXPORTS"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -496,6 +496,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TplTypes.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Vector.h"
 				>
 			</File>
@@ -529,10 +533,6 @@
 			</File>
 			<File
 				RelativePath=".\swig\OUE.i"
-				>
-			</File>
-			<File
-				RelativePath=".\swig\oue_lua.cxx"
 				>
 			</File>
 			<File

@@ -23,9 +23,6 @@ namespace OneU
 	{
 	public:
 		image_t();
-		image_t(const image_t& rhs);
-		image_t& operator=(const image_t& rhs);
-		image_t& operator=(video::IImage* i);
 	};
 	
 	%rename(Video) IVideo;
