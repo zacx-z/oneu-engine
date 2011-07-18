@@ -46,6 +46,6 @@ def NewScene(scene)
 end
 srand
 $Game = OUE.GetGame()
-$Game.init("This is a game", 800, 600, true)
+OUE::Aux_GameInit("This is a game", 800, 600, true)
 NewScene(MainScene.new)
 $Game.run()

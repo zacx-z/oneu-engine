@@ -43,94 +43,95 @@ namespace OneU
 	};
 
 	DXVideo::DXVideo()
-		: m_ImageSource(0.0f, 0.0f, 1.0f, 1.0f), mix_color(0, 0, 0, 0), mix_mode(video::CBM_NONE)
+		: m_pD3D(NULL), m_pD3DDevice(NULL),
+		m_ImageSource(0.0f, 0.0f, 1.0f, 1.0f), mix_color(0, 0, 0, 0), mix_mode(video::CBM_NONE)
 	{
 		g_pRD = NULL;
+	}
+	void DXVideo::prepare(){
+		//初始化
+		m_pD3D = Direct3DCreate9( D3D_SDK_VERSION );
+		if( m_pD3D == 0 )
+		{
+			ONEU_LOG( L"创建Direct3D对象失败！" );
+			RAISE_HRESULT(0);
+		}
 	}
 	void DXVideo::init(uint32 width, uint32 height, bool bWindowed){
 		ONEU_ASSERT(g_hWnd != NULL);
 		m_IsWindowed = bWindowed;
 
-		//初始化
-		IDirect3D9* pD3D = Direct3DCreate9( D3D_SDK_VERSION );
-		IDirect3DDevice9* pD3DDevice;
-		if( pD3D == 0 )
-		{
-			ONEU_LOG( L"创建Direct3D对象失败！" );
-			RAISE_HRESULT(0);
-		}
+		if(!m_pD3D)
+			prepare();
 
 		HRESULT hr;
 
 		//获取设备信息
-		pD3D->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &m_Caps);
+		m_pD3D->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &m_Caps);
 
+		//获取当前显示模式
+		hr = m_pD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &m_desktopMode);
+
+		if(FAILED(hr))
+		{
+			ONEU_LOG( L"获取显示模式失败" );
+			RAISE_HRESULT(hr);
+		}
 		//获得后备缓冲的格式
 		D3DFORMAT BackFormat;
 		if(bWindowed){
-			D3DDISPLAYMODE d3dm;
-			hr = pD3D->GetAdapterDisplayMode( D3DADAPTER_DEFAULT, &d3dm );
-
-			//获取当前显示模式
-			if( FAILED( hr ) )
-			{
-				ONEU_LOG( L"获取显示模式失败" );
-				RAISE_HRESULT(hr);
-			}
-			BackFormat = d3dm.Format;
+			BackFormat = m_desktopMode.Format;
 		}else{
 			BackFormat = D3DFMT_A8R8G8B8;
 		}
 
 		//从多重采样为4开始计算
-		DWORD multisample, quality;
+		DWORD multisample, quality = 1;
 		for(multisample = 8; multisample >0; multisample--){
-			if(SUCCEEDED(pD3D->CheckDeviceMultiSampleType(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, BackFormat, bWindowed, (D3DMULTISAMPLE_TYPE)multisample, &quality)))
+			if(SUCCEEDED(m_pD3D->CheckDeviceMultiSampleType(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, BackFormat, (BOOL)bWindowed, (D3DMULTISAMPLE_TYPE)multisample, &quality)))
 				break;
 		}
 
 		D3DPRESENT_PARAMETERS d3dpp;
 		memset(&d3dpp, 0, sizeof(d3dpp));
 		d3dpp.Windowed = (BOOL)bWindowed;
-		if(bWindowed){
-			d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-		}else{
-			d3dpp.SwapEffect = D3DSWAPEFFECT_COPY;
+		if(!bWindowed){
 			d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 			d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 		}
 
+		d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 		d3dpp.BackBufferFormat = BackFormat;
 		d3dpp.BackBufferWidth = width;
 		d3dpp.BackBufferHeight = height;
 		d3dpp.BackBufferCount = 1;
 
 		d3dpp.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >(multisample);
-		d3dpp.MultiSampleQuality = quality - 1;
+		d3dpp.MultiSampleQuality = 0;
 
-		hr = pD3D->CreateDevice(
+		hr = m_pD3D->CreateDevice(
 			D3DADAPTER_DEFAULT,
 			D3DDEVTYPE_HAL,
 			g_hWnd,
 			D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 			&d3dpp,
-			&pD3DDevice );
+			&m_pD3DDevice );
 
 		if( FAILED( hr ) )
 		{
-			ONEU_LOG( "创建Direct3D设备失败" );
+			ONEU_LOG( L"创建Direct3D设备失败" );
 			RAISE_HRESULT(hr);
 		}
 
-		DX::Graphics._InitWithPtr(pD3D, pD3DDevice, width, height);
+		DX::Graphics._InitWithPtr(m_pD3D, m_pD3DDevice, width, height);
 		
-		pD3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
-		pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-		pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-		pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-		pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+		m_pD3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+		m_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+		m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+		m_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-		pD3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+		m_pD3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 
 		m_DeviceSize = vector2u_t(width, height);
 
@@ -142,29 +143,57 @@ namespace OneU
 	}
 
 	void DXVideo::switchDevice(uint32 width, uint32 height, bool bWindowed){
-		/*需要重写*/
 		unloadD3DResource();
-		m_IsWindowed =bWindowed;
-		if(bWindowed){
-			if(width == 0 || height == 0){
-				width = m_DeviceSize.x;
-				height = m_DeviceSize.y;
-			}
-			DX::Graphics.ResetWindowed(width, height, g_hWnd);
+		m_IsWindowed = bWindowed;
+		if(width == 0 || height == 0){
+			width = m_DeviceSize.x;
+			height = m_DeviceSize.y;
 		}else{
-			if(width == 0 || height == 0){
-				width = m_DeviceSize.x;
-				height = m_DeviceSize.y;
-			}
-			DX::DisplayMode DM;
-			DM.Format = DX::PXLFMT_A8R8G8B8;
-			DM.RefreshRate = 0;//use default
-			DM.Width = width;
-			DM.Height = height;
-			DX::Graphics.ResetFullScreen(&DM, g_hWnd);
+			m_DeviceSize = vector2u_t(width, height);
+		}
+
+		HRESULT hr;
+		//获得后备缓冲的格式
+		D3DFORMAT BackFormat;
+		if(bWindowed){
+			BackFormat = m_desktopMode.Format;
+		}else{
+			BackFormat = D3DFMT_A8R8G8B8;
+		}
+
+		//从多重采样为4开始计算
+		DWORD multisample, quality = 1;
+		for(multisample = 8; multisample >0; multisample--){
+			if(SUCCEEDED(m_pD3D->CheckDeviceMultiSampleType(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, BackFormat, (BOOL)bWindowed, (D3DMULTISAMPLE_TYPE)multisample, &quality)))
+				break;
+		}
+
+		D3DPRESENT_PARAMETERS d3dpp;
+		memset(&d3dpp, 0, sizeof(d3dpp));
+		d3dpp.Windowed = (BOOL)bWindowed;
+		if(!bWindowed){
+			d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
+			d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+		}
+
+		d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+		d3dpp.BackBufferFormat = BackFormat;
+		d3dpp.BackBufferWidth = width;
+		d3dpp.BackBufferHeight = height;
+		d3dpp.BackBufferCount = 1;
+
+		d3dpp.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >(multisample);
+		d3dpp.MultiSampleQuality = 0;
+
+		hr = m_pD3DDevice->Reset(
+			&d3dpp);
+
+		if( FAILED( hr ) )
+		{
+			ONEU_LOG( L"重置Direct3D设备失败。" );
+			RAISE_HRESULT(hr);
 		}
 		reloadD3DResource();
-		m_DeviceSize = vector2u_t(width, height);
 
 		DX::GetGraphics()->SetViewTransform((D3DMATRIX*)&(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f))));
 	}
@@ -357,18 +386,17 @@ namespace OneU
 
 	void DXVideo::setBlendMode(video::BLENDMODE mode)
 	{
-		using DX::_pD3DDevice;
 		switch(mode)
 		{
 		case BM_NORMAL:
-			_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-			_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-			_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+			m_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+			m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+			m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 			break;
 		case BM_ADD:
-			_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-			_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-			_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+			m_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+			m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+			m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
 			break;
 		}
 	}
@@ -388,6 +416,19 @@ namespace OneU
 		}
 	}
 
+	void DXVideo::getAvailableMode(List<video::Mode>& buf){
+		if(!m_pD3D) ONEU_RAISE(L"未初始化Direct3D！");
+		buf.clear();
+		int s = m_pD3D->GetAdapterModeCount(D3DADAPTER_DEFAULT, D3DFMT_A8R8G8B8);
+		for(int i = 0; i < s; ++i){
+			D3DDISPLAYMODE mode;
+			XV(m_pD3D->EnumAdapterModes(D3DADAPTER_DEFAULT, D3DFMT_A8R8G8B8, i, &mode));
+			video::Mode m;
+			m.size = vector2u_t(mode.Width, mode.Height);
+			m.refreshRate = mode.RefreshRate;
+			buf.pushBack(m);
+		}
+	}
 	void DXVideo::showInfo(){
 		//-------------------------------------------------------------
 		//Shell输出信息
@@ -396,7 +437,7 @@ namespace OneU
 		// Adapter details
 		D3DADAPTER_IDENTIFIER9 adapterID;
 		memset(&adapterID, 0, sizeof(adapterID));
-		DX::_pD3D->GetAdapterIdentifier(0, 0, &adapterID);
+		m_pD3D->GetAdapterIdentifier(0, 0, &adapterID);
 
 		GetGame().stream() << "Driver:" << adapterID.Description << endl;
 		//GetGame().stream() << "Vendor:";

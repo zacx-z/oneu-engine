@@ -20,7 +20,7 @@ namespace OneU
 		virtual OneU::IControl& getControl();
 		virtual OneU::IScene& getScene();
 	
-		virtual void init(OneU::pcwstr WindowName, OneU::uint32 width, OneU::uint32 height, bool bWindowed) = 0;
+		virtual void init(OneU::pcwstr WindowName, uint32 width, uint32 height, bool bWindowed) = 0;
 		virtual int run() = 0;
 		virtual void quit() = 0;
 
@@ -54,6 +54,8 @@ namespace OneU
 
 		virtual void showInfo() = 0;
 	};
+	
+	void Aux_GameInit(OneU::pcwstr WindowName, OneU::uint32 width, OneU::uint32 height, bool bWindowed);
 	
 	OneU::IGame& GetGame();
 	

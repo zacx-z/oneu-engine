@@ -96,7 +96,7 @@ namespace OneU
 	RUBY_GLOBAL_SETUP
 
 		ONEU_API void RubyRun(){
-			Game_build(Game_create);
+			Game_build();
 
 			char* a[] = {"a"};
 			int n = 1;

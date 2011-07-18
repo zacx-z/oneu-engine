@@ -11,6 +11,7 @@ namespace OneU
 	class IControl
 	{
 	public:
+		void init() = 0;
 		virtual bool keyIsDown(OneU::uint32 scancode) = 0;
 		virtual bool keyPress(OneU::uint32 scancode) = 0;
 		virtual bool keyRelease(OneU::uint32 scancode) = 0;

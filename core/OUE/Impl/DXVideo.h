@@ -39,6 +39,8 @@ namespace OneU
 	class DXVideo
 		: public IVideo
 	{
+		IDirect3D9* m_pD3D;
+		IDirect3DDevice9* m_pD3DDevice;
 
 		typedef Table<_DXImageTag*> ImageTable_t;
 		ImageTable_t m_ImageTable;
@@ -49,12 +51,14 @@ namespace OneU
 
 		//D3D
 		D3DCAPS9 m_Caps;
+		D3DDISPLAYMODE m_desktopMode;
 	public:
 		DXVideo();
 		~DXVideo();
 
 		LPCTSTR getName(){ return L"OneU D3D Video 1.0"; }
 
+		void prepare();
 		void init(uint32 width, uint32 height, bool bWindowed);
 		void switchDevice(uint32 width, uint32 height, bool bWindowed);
 
@@ -67,7 +71,6 @@ namespace OneU
 
 		image_t loadImage(pcwstr filename);
 
-		//Rendering functions
 	private:
 		rect m_ImageSource;
 		color_t mix_color;
@@ -78,6 +81,7 @@ namespace OneU
 		template<class T>
 		inline void _RenderImage_SetDiffuse(T vertex[]);
 	public:
+		//Rendering functions
 		void renderImage(video::IImage& image, const rect& dest);
 		void renderImage_d(video::IImage& image, const rect& dest);
 		void setTransform(const matrix& m);
@@ -99,6 +103,7 @@ namespace OneU
 		void reloadD3DResource();
 
 	public:
+		void getAvailableMode(List<video::Mode>& buf);
 		//others
 		//不太重要的
 		void showInfo();

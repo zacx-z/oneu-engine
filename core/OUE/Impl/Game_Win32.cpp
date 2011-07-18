@@ -52,8 +52,7 @@ namespace OneU
 		srand(::GetTickCount());
 		//创建广播系统
 		ONEU_ASSERT(m_pBroadcast == NULL);
-		if(m_pBroadcast != NULL) m_pBroadcast = m_BroadcastFactory();
-		else m_pBroadcast = BroadCast_create();
+		m_pBroadcast = BroadCast_create();
 
 		//设定好全局变量
 		g_hInstance = GetModuleHandle(NULL);
@@ -61,18 +60,12 @@ namespace OneU
 		//创建窗口
 		Window_create(WindowName, !bWindowed, width, height);
 		ONEU_ASSERT(m_pVideo == NULL);
-		if(m_VideoFactory != NULL) m_pVideo = m_VideoFactory();
-		else m_pVideo = Video_create();
+		m_pVideo = Video_create();
 
-		m_pVideo->init(width, height, bWindowed);
 
-		if(m_StereoFactory != NULL) m_pStereo = m_StereoFactory();
-		else m_pStereo = Stereo_create();
-		m_pStereo->init();
-
+		m_pStereo = Stereo_create();
 		ONEU_ASSERT(m_pControl == NULL);
-		if(m_ControlFactory != NULL) m_pControl = m_ControlFactory();
-		else m_pControl = Control_create();
+		m_pControl = Control_create();
 
 		//shell初始化
 		//m_pShell = tool::Shell_config();
@@ -152,9 +145,11 @@ end:
 	void Game_Win32::onActiveWindow(bool bActive){
 		m_bActive = bActive;
 		m_lastTime = 0;
+		m_Frames = 0;
 		if(m_bActive)
 			m_pBroadcast->sendEvent(event::WINDOW_ACTIVE);
-		else m_pBroadcast->sendEvent(event::WINDOW_DEACTIVE);
+		else
+			m_pBroadcast->sendEvent(event::WINDOW_DEACTIVE);
 	}
 
 	void Game_Win32::setWindowTitle(pcwstr title){

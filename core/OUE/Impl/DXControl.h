@@ -39,6 +39,7 @@ namespace OneU
 		DXControl();
 		~DXControl();
 
+		void init(){}
 		void update();
 		bool keyIsDown(uint32 scancode);
 		bool keyPress(uint32 scancode);

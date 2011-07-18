@@ -106,9 +106,9 @@ namespace OneU{
  * 接下来写主函数：
  * @code
  * extern "C" int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, ::LPSTR lpCmdLine, int nShowCmd){
- *	Game_build(Game_create);
+ *	Game_build();
  *	IGame* game = GetGame();
- *	game->init(L"Hello World", 800, 600, true);
+ *	Aux_GameInit(L"Hello World", 800, 600, true);
  *	game->replaceScene(ONEU_NEW HelloScene);
  *	int ret = game->run();
  *  Game_destroy();
