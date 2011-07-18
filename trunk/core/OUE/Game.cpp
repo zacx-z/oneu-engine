@@ -44,12 +44,15 @@ namespace OneU
 
 	static TerminateHandler _last_eh = NULL;
 	static void _destroyGame();
-	ONEU_API void Game_build(Factory<IGame>::type gf)
+	ONEU_API void Game_build()
 	{
 		ONEU_ASSERT(s_pGame == NULL);
 		Allocator_build(Allocator_create);
 		Logger_build(LoggerDisk_Factory);//FIXME: 见LoggerDisk.cpp ruby的fclose符号如何消除？
-		s_pGame = gf();
+
+#ifdef _WIN32
+		s_pGame = ONEU_NEW Game_Win32;
+#endif
 
 		_last_eh = SetTerminateHandler(_destroyGame);
 	}	
@@ -71,11 +74,6 @@ namespace OneU
 			_last_eh();
 	}
 
-	ONEU_API IGame* Game_create(){
-#ifdef _WIN32
-		return ONEU_NEW Game_Win32;
-#endif
-	}
 	ONEU_API IVideo* Video_create(){
 #ifdef ONEU_USE_DIRECT3D
 		return ONEU_NEW DXVideo;
@@ -88,5 +86,14 @@ namespace OneU
 #ifdef ONEU_USE_DIRECTINPUT
 		return ONEU_NEW DXControl;
 #endif
+	}
+
+	ONEU_API void Aux_GameInit(pcwstr WindowName, uint32 width, uint32 height, bool bWindowed){
+		IGame& g = GetGame();
+		g.init(WindowName, width, height, bWindowed);
+
+		g.getVideo().init(width, height, bWindowed);
+		g.getStereo().init();
+		g.getControl().init();
 	}
 }

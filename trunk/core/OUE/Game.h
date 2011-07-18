@@ -73,14 +73,9 @@ namespace OneU
 		IStereo* m_pStereo;
 		IControl* m_pControl;
 		IScene* m_pScene;
-		Factory<IBroadcast>::type m_BroadcastFactory;
-		Factory<IVideo>::type m_VideoFactory;
-		Factory<IStereo>::type m_StereoFactory;
-		Factory<IControl>::type m_ControlFactory;
 	public:
 		IGame()
-			: m_pBroadcast(NULL), m_pVideo(NULL), m_pStereo(NULL), m_pControl(NULL), m_pScene(NULL),
-			  m_BroadcastFactory(NULL), m_VideoFactory(NULL), m_StereoFactory(NULL), m_ControlFactory(NULL)
+			: m_pBroadcast(NULL), m_pVideo(NULL), m_pStereo(NULL), m_pControl(NULL), m_pScene(NULL)
 		{}
 		~IGame(){
 			ONEU_ASSERT(m_pScene == NULL);
@@ -124,28 +119,6 @@ namespace OneU
 		/* ----------------------------------------------------------------------------*/
 		virtual IScene& getScene(){ return *m_pScene; }
 
-		//在Game_create之后、init之前调用
-		//设置游戏各模块的工厂
-		virtual Factory<IBroadcast>::type setBroadcastFactory(Factory<IBroadcast>::type c){
-			Factory<IBroadcast>::type ret = m_BroadcastFactory;
-			m_BroadcastFactory = c;
-			return ret;
-		}
-		virtual Factory<IVideo>::type setVideoFactory(Factory<IVideo>::type c){
-			Factory<IVideo>::type ret = m_VideoFactory;
-			m_VideoFactory = c;
-			return ret;
-		}
-		virtual Factory<IStereo>::type setStereoFactory(Factory<IStereo>::type c){
-			Factory<IStereo>::type ret = m_StereoFactory;
-			m_StereoFactory = c;
-			return ret;
-		}
-		virtual Factory<IControl>::type setControlFactory(Factory<IControl>::type c){
-			Factory<IControl>::type ret = m_ControlFactory;
-			m_ControlFactory = c;
-			return ret;
-		}
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 替换场景
@@ -322,35 +295,24 @@ namespace OneU
 		virtual void showInfo() = 0;
 	};
 
+	ONEU_API void Aux_GameInit(pcwstr WindowName, uint32 width, uint32 height, bool bWindowed);
+
 	/* ----------------------------------------------------------------------------*/
 	/** 
 	 * @brief 创建游戏单态
 	 * 
-	 * @param gf 游戏工厂，一般传入@ref Game_create
-	 * 
-	 * @sa Game_create, Game_destroy, GetGame
+	 * @sa Game_destroy, GetGame
 	 */
 	/* ----------------------------------------------------------------------------*/
-	ONEU_API void Game_build(Factory<IGame>::type gf);
+	ONEU_API void Game_build();
 	/* ----------------------------------------------------------------------------*/
 	/** 
 	 * @brief 销毁游戏单态
 	 * 
-	 * @sa Game_create, Game_build, GetGame
+	 * @sa Game_build, GetGame
 	 */
 	/* ----------------------------------------------------------------------------*/
 	ONEU_API void Game_destroy();
-
-	/* ----------------------------------------------------------------------------*/
-	/** 
-	 * @brief 游戏工厂
-	 *
-	 * 一般作为参数传入@ref Game_build
-	 * 
-	 * @returns 新的游戏对象接口
-	 */
-	/* ----------------------------------------------------------------------------*/
-	ONEU_API IGame* Game_create();
 
 	
 	//@}

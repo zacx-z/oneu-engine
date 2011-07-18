@@ -7439,6 +7439,52 @@ free_OneU_IGame(OneU::IGame *arg1) {
 }
 
 SWIGINTERN VALUE
+_wrap_Aux_GameInit(int argc, VALUE *argv, VALUE self) {
+  OneU::pcwstr arg1 = (OneU::pcwstr) 0 ;
+  OneU::uint32 arg2 ;
+  OneU::uint32 arg3 ;
+  bool arg4 ;
+  OneU::AutoPtr< wchar_t > temp1 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  unsigned long val3 ;
+  int ecode3 = 0 ;
+  bool val4 ;
+  int ecode4 = 0 ;
+  
+  if ((argc < 4) || (argc > 4)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 4)",argc); SWIG_fail;
+  }
+  {
+    if(TYPE(argv[0]) != T_STRING)
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "WindowName", "OneU::pcwstr","OneU::Aux_GameInit", 1, argv[0] ));
+    
+    temp1 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
+    arg1 = temp1;
+  }
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "OneU::uint32","OneU::Aux_GameInit", 2, argv[1] ));
+  } 
+  arg2 = static_cast< OneU::uint32 >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long(argv[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "OneU::uint32","OneU::Aux_GameInit", 3, argv[2] ));
+  } 
+  arg3 = static_cast< OneU::uint32 >(val3);
+  ecode4 = SWIG_AsVal_bool(argv[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), Ruby_Format_TypeError( "", "bool","OneU::Aux_GameInit", 4, argv[3] ));
+  } 
+  arg4 = static_cast< bool >(val4);
+  OneU::Aux_GameInit((wchar_t const *)arg1,arg2,arg3,arg4);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
 _wrap_GetGame(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *result = 0 ;
   VALUE vresult = Qnil;
@@ -7796,6 +7842,27 @@ free_OneU_IStereo(OneU::IStereo *arg1) {
 }
 
 swig_class SwigClassControl;
+
+SWIGINTERN VALUE
+_wrap_Control_init(int argc, VALUE *argv, VALUE self) {
+  OneU::IControl *arg1 = (OneU::IControl *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IControl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IControl *","init", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IControl * >(argp1);
+  (arg1)->init();
+  return Qnil;
+fail:
+  return Qnil;
+}
+
 
 SWIGINTERN VALUE
 _wrap_Control_keyIsDown(int argc, VALUE *argv, VALUE self) {
@@ -10268,6 +10335,7 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassGame.mark = 0;
   SwigClassGame.destroy = (void (*)(void *)) free_OneU_IGame;
   SwigClassGame.trackObjects = 0;
+  rb_define_module_function(mOUE, "Aux_GameInit", VALUEFUNC(_wrap_Aux_GameInit), -1);
   rb_define_module_function(mOUE, "GetGame", VALUEFUNC(_wrap_GetGame), -1);
   rb_define_module_function(mOUE, "GetVideo", VALUEFUNC(_wrap_GetVideo), -1);
   rb_define_module_function(mOUE, "GetStereo", VALUEFUNC(_wrap_GetStereo), -1);
@@ -10296,6 +10364,7 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassControl.klass = rb_define_class_under(mOUE, "Control", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__IControl, (void *) &SwigClassControl);
   rb_undef_alloc_func(SwigClassControl.klass);
+  rb_define_method(SwigClassControl.klass, "init", VALUEFUNC(_wrap_Control_init), -1);
   rb_define_method(SwigClassControl.klass, "keyIsDown", VALUEFUNC(_wrap_Control_keyIsDown), -1);
   rb_define_method(SwigClassControl.klass, "keyPress", VALUEFUNC(_wrap_Control_keyPress), -1);
   rb_define_method(SwigClassControl.klass, "keyRelease", VALUEFUNC(_wrap_Control_keyRelease), -1);
