@@ -26,6 +26,9 @@ namespace OneU
 	%typemap(out) uint8 = unsigned int;
 	%typemap(in) ubyte = unsigned int;
 	%typemap(out) ubyte = unsigned int;
+	
+	template<class T>
+	class List{};
 }
 
 	
@@ -101,6 +104,36 @@ namespace OneU
 		$result = rb_ary_new3(4, INT2NUM($1.getRed()), INT2NUM($1.getGreen()), INT2NUM($1.getBlue()), INT2NUM($1.getAlpha()));
 	}
 }
+%define %ListIns(type)
+	%typemap(in, numinputs = 0, noblock = 1) OneU::List<type>* OUTPUT, OneU::List<type>& OUTPUT (OneU::List<type> list){
+		$1 = &list;
+	}
+	%typemap(in) OneU::List<type>, OneU::List<type>*, OneU::List<type>& (OneU::List<type> list, VALUE it, type* ptr, int res = 0){
+		$1 = &list;
+		if(TYPE($input) != T_ARRAY)
+			SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
+		while((it = rb_ary_shift($input)) != Qnil){
+			res = SWIG_ConvertPtr($input, %as_voidptrptr(&ptr), $descriptor(type*), %convertptr_flags);
+			if(!SWIG_IsOK(res)){
+				%argument_fail(res, "$type", $symname, $argnum);
+			}
+			$1->pushBack(*ptr);
+		}
+	}
+	%typemap(out) OneU::List<type>, OneU::List<type>*, OneU::List<type>&  {
+		$result = rb_ary_new();
+		for(OneU::List<type>::iterator it = $1->begin(); it != $1->end(); ++it){
+			rb_ary_push($result, SWIG_NewPointerObj(new type(*it), $descriptor(type*), SWIG_POINTER_OWN));
+		}
+	}
+	%typemap(argout) OneU::List<type> *OUTPUT, OneU::List<type> &OUTPUT (VALUE out) {
+		out = rb_ary_new();
+		for(OneU::List<type>::iterator it = $1->begin(); it != $1->end(); ++it){
+			rb_ary_push(out, SWIG_NewPointerObj(new type(*it), $descriptor(type*), SWIG_POINTER_OWN));
+		}
+		%append_output(out);
+	}
+%enddef
 #endif
 
 namespace OneU

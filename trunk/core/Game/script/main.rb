@@ -47,5 +47,10 @@ end
 srand
 $Game = OUE.GetGame()
 OUE::Aux_GameInit("This is a game", 800, 600, true)
+$Video = OUE::GetVideo();
+$Video.getAvailableMode().each do |x|
+	prompt "#{x.size.x}, #{x.size.y}, #{x.refreshRate}"
+end
 NewScene(MainScene.new)
+
 $Game.run()

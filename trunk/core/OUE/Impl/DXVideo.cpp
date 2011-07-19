@@ -419,10 +419,10 @@ namespace OneU
 	void DXVideo::getAvailableMode(List<video::Mode>& buf){
 		if(!m_pD3D) ONEU_RAISE(L"Î´³õÊ¼»¯Direct3D£¡");
 		buf.clear();
-		int s = m_pD3D->GetAdapterModeCount(D3DADAPTER_DEFAULT, D3DFMT_A8R8G8B8);
+		int s = m_pD3D->GetAdapterModeCount(D3DADAPTER_DEFAULT, D3DFMT_X8R8G8B8);
 		for(int i = 0; i < s; ++i){
 			D3DDISPLAYMODE mode;
-			XV(m_pD3D->EnumAdapterModes(D3DADAPTER_DEFAULT, D3DFMT_A8R8G8B8, i, &mode));
+			XV(m_pD3D->EnumAdapterModes(D3DADAPTER_DEFAULT, D3DFMT_X8R8G8B8, i, &mode));
 			video::Mode m;
 			m.size = vector2u_t(mode.Width, mode.Height);
 			m.refreshRate = mode.RefreshRate;

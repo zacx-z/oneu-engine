@@ -2213,37 +2213,39 @@ namespace Swig {
 #define SWIGTYPE_p_OneU__IStereo swig_types[9]
 #define SWIGTYPE_p_OneU__IVideo swig_types[10]
 #define SWIGTYPE_p_OneU__KeyEvent swig_types[11]
-#define SWIGTYPE_p_OneU__MouseEvent swig_types[12]
-#define SWIGTYPE_p_OneU__Vector2T_float_t swig_types[13]
-#define SWIGTYPE_p_OneU__Vector2T_int_t swig_types[14]
-#define SWIGTYPE_p_OneU__Vector2T_unsigned_long_t swig_types[15]
-#define SWIGTYPE_p_OneU__Vector3T_float_t swig_types[16]
-#define SWIGTYPE_p_OneU__Vector3T_int_t swig_types[17]
-#define SWIGTYPE_p_OneU__Vector3T_unsigned_long_t swig_types[18]
-#define SWIGTYPE_p_OneU__Vector4T_float_t swig_types[19]
-#define SWIGTYPE_p_OneU__Vector4T_int_t swig_types[20]
-#define SWIGTYPE_p_OneU__Vector4T_unsigned_long_t swig_types[21]
-#define SWIGTYPE_p_OneU__color_t swig_types[22]
-#define SWIGTYPE_p_OneU__image_t swig_types[23]
-#define SWIGTYPE_p_OneU__rect_tT_float_t swig_types[24]
-#define SWIGTYPE_p_OneU__rect_tT_int_t swig_types[25]
-#define SWIGTYPE_p_OneU__rect_tT_unsigned_long_t swig_types[26]
-#define SWIGTYPE_p_OneU__sound_t swig_types[27]
-#define SWIGTYPE_p_OneU__video__INode swig_types[28]
-#define SWIGTYPE_p_OneU__video__INodeContainer swig_types[29]
-#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[30]
-#define SWIGTYPE_p_Scene swig_types[31]
-#define SWIGTYPE_p_char swig_types[32]
-#define SWIGTYPE_p_long swig_types[33]
-#define SWIGTYPE_p_long_long swig_types[34]
-#define SWIGTYPE_p_short swig_types[35]
-#define SWIGTYPE_p_unsigned_char swig_types[36]
-#define SWIGTYPE_p_unsigned_long swig_types[37]
-#define SWIGTYPE_p_unsigned_long_long swig_types[38]
-#define SWIGTYPE_p_unsigned_short swig_types[39]
-#define SWIGTYPE_p_wchar_t swig_types[40]
-static swig_type_info *swig_types[42];
-static swig_module_info swig_module = {swig_types, 41, 0, 0, 0, 0};
+#define SWIGTYPE_p_OneU__ListT_OneU__video__Mode_t swig_types[12]
+#define SWIGTYPE_p_OneU__MouseEvent swig_types[13]
+#define SWIGTYPE_p_OneU__Vector2T_float_t swig_types[14]
+#define SWIGTYPE_p_OneU__Vector2T_int_t swig_types[15]
+#define SWIGTYPE_p_OneU__Vector2T_unsigned_long_t swig_types[16]
+#define SWIGTYPE_p_OneU__Vector3T_float_t swig_types[17]
+#define SWIGTYPE_p_OneU__Vector3T_int_t swig_types[18]
+#define SWIGTYPE_p_OneU__Vector3T_unsigned_long_t swig_types[19]
+#define SWIGTYPE_p_OneU__Vector4T_float_t swig_types[20]
+#define SWIGTYPE_p_OneU__Vector4T_int_t swig_types[21]
+#define SWIGTYPE_p_OneU__Vector4T_unsigned_long_t swig_types[22]
+#define SWIGTYPE_p_OneU__color_t swig_types[23]
+#define SWIGTYPE_p_OneU__image_t swig_types[24]
+#define SWIGTYPE_p_OneU__rect_tT_float_t swig_types[25]
+#define SWIGTYPE_p_OneU__rect_tT_int_t swig_types[26]
+#define SWIGTYPE_p_OneU__rect_tT_unsigned_long_t swig_types[27]
+#define SWIGTYPE_p_OneU__sound_t swig_types[28]
+#define SWIGTYPE_p_OneU__video__INode swig_types[29]
+#define SWIGTYPE_p_OneU__video__INodeContainer swig_types[30]
+#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[31]
+#define SWIGTYPE_p_OneU__video__Mode swig_types[32]
+#define SWIGTYPE_p_Scene swig_types[33]
+#define SWIGTYPE_p_char swig_types[34]
+#define SWIGTYPE_p_long swig_types[35]
+#define SWIGTYPE_p_long_long swig_types[36]
+#define SWIGTYPE_p_short swig_types[37]
+#define SWIGTYPE_p_unsigned_char swig_types[38]
+#define SWIGTYPE_p_unsigned_long swig_types[39]
+#define SWIGTYPE_p_unsigned_long_long swig_types[40]
+#define SWIGTYPE_p_unsigned_short swig_types[41]
+#define SWIGTYPE_p_wchar_t swig_types[42]
+static swig_type_info *swig_types[44];
+static swig_module_info swig_module = {swig_types, 43, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2341,6 +2343,42 @@ SWIGINTERNINLINE VALUE
 SWIG_From_int  (int value)
 {    
   return SWIG_From_long  (value);
+}
+
+
+/*@SWIG:D:\swigwin-2.0.4\Lib\ruby\rubyprimtypes.swg,19,%ruby_aux_method@*/
+SWIGINTERN VALUE SWIG_AUX_NUM2ULONG(VALUE *args)
+{
+  VALUE obj = args[0];
+  VALUE type = TYPE(obj);
+  unsigned long *res = (unsigned long *)(args[1]);
+  *res = type == T_FIXNUM ? NUM2ULONG(obj) : rb_big2ulong(obj);
+  return obj;
+}
+/*@SWIG@*/
+
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_long (VALUE obj, unsigned long *val) 
+{
+  VALUE type = TYPE(obj);
+  if ((type == T_FIXNUM) || (type == T_BIGNUM)) {
+    unsigned long v;
+    VALUE a[2];
+    a[0] = obj;
+    a[1] = (VALUE)(&v);
+    if (rb_rescue(RUBY_METHOD_FUNC(SWIG_AUX_NUM2ULONG), (VALUE)a, RUBY_METHOD_FUNC(SWIG_ruby_failed), 0) != Qnil) {
+      if (val) *val = v;
+      return SWIG_OK;
+    }
+  }
+  return SWIG_TypeError;
+}
+
+
+SWIGINTERNINLINE VALUE
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return ULONG2NUM(value); 
 }
 
 
@@ -2492,35 +2530,6 @@ SWIGINTERN bool OneU_video_INodeContainer_addChild__SWIG_0(OneU::video::INodeCon
 #include "../Video.h"
 
 
-/*@SWIG:D:\swigwin-2.0.4\Lib\ruby\rubyprimtypes.swg,19,%ruby_aux_method@*/
-SWIGINTERN VALUE SWIG_AUX_NUM2ULONG(VALUE *args)
-{
-  VALUE obj = args[0];
-  VALUE type = TYPE(obj);
-  unsigned long *res = (unsigned long *)(args[1]);
-  *res = type == T_FIXNUM ? NUM2ULONG(obj) : rb_big2ulong(obj);
-  return obj;
-}
-/*@SWIG@*/
-
-SWIGINTERN int
-SWIG_AsVal_unsigned_SS_long (VALUE obj, unsigned long *val) 
-{
-  VALUE type = TYPE(obj);
-  if ((type == T_FIXNUM) || (type == T_BIGNUM)) {
-    unsigned long v;
-    VALUE a[2];
-    a[0] = obj;
-    a[1] = (VALUE)(&v);
-    if (rb_rescue(RUBY_METHOD_FUNC(SWIG_AUX_NUM2ULONG), (VALUE)a, RUBY_METHOD_FUNC(SWIG_ruby_failed), 0) != Qnil) {
-      if (val) *val = v;
-      return SWIG_OK;
-    }
-  }
-  return SWIG_TypeError;
-}
-
-
 #include "../Scene.h"
 
 
@@ -2551,13 +2560,6 @@ SWIGINTERN void OneU_IGame_replaceScene(OneU::IGame *self,Scene *scene){
 
 
 #include "../Control.h"
-
-
-SWIGINTERNINLINE VALUE
-SWIG_From_unsigned_SS_long  (unsigned long value)
-{
-  return ULONG2NUM(value); 
-}
 
 
 #include "../Sprite.h"
@@ -3097,6 +3099,357 @@ fail:
 
 SWIGINTERN void
 free_OneU_rect_t_Sl_int_Sg_(OneU::rect_t< int > *arg1) {
+    delete arg1;
+}
+
+swig_class SwigClassRectu_t;
+
+SWIGINTERN VALUE
+_wrap_Rectu_t_left_set(int argc, VALUE *argv, VALUE self) {
+  OneU::rect_t< OneU::uint32 > *arg1 = (OneU::rect_t< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__rect_tT_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::rect_t< OneU::uint32 > *","left", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::rect_t< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","left", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->left = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Rectu_t_left_get(int argc, VALUE *argv, VALUE self) {
+  OneU::rect_t< OneU::uint32 > *arg1 = (OneU::rect_t< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__rect_tT_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::rect_t< OneU::uint32 > *","left", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::rect_t< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->left);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Rectu_t_top_set(int argc, VALUE *argv, VALUE self) {
+  OneU::rect_t< OneU::uint32 > *arg1 = (OneU::rect_t< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__rect_tT_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::rect_t< OneU::uint32 > *","top", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::rect_t< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","top", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->top = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Rectu_t_top_get(int argc, VALUE *argv, VALUE self) {
+  OneU::rect_t< OneU::uint32 > *arg1 = (OneU::rect_t< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__rect_tT_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::rect_t< OneU::uint32 > *","top", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::rect_t< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->top);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Rectu_t_right_set(int argc, VALUE *argv, VALUE self) {
+  OneU::rect_t< OneU::uint32 > *arg1 = (OneU::rect_t< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__rect_tT_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::rect_t< OneU::uint32 > *","right", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::rect_t< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","right", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->right = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Rectu_t_right_get(int argc, VALUE *argv, VALUE self) {
+  OneU::rect_t< OneU::uint32 > *arg1 = (OneU::rect_t< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__rect_tT_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::rect_t< OneU::uint32 > *","right", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::rect_t< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->right);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Rectu_t_bottom_set(int argc, VALUE *argv, VALUE self) {
+  OneU::rect_t< OneU::uint32 > *arg1 = (OneU::rect_t< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__rect_tT_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::rect_t< OneU::uint32 > *","bottom", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::rect_t< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","bottom", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->bottom = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Rectu_t_bottom_get(int argc, VALUE *argv, VALUE self) {
+  OneU::rect_t< OneU::uint32 > *arg1 = (OneU::rect_t< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__rect_tT_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::rect_t< OneU::uint32 > *","bottom", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::rect_t< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->bottom);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_new_Rectu_t__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  const char *classname SWIGUNUSED = "OUE::Rectu_t";
+  OneU::rect_t< OneU::uint32 > *result = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  result = (OneU::rect_t< OneU::uint32 > *)new OneU::rect_t< OneU::uint32 >();
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_Rectu_t_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_Rectu_t_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_OneU__rect_tT_unsigned_long_t);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_Rectu_t__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  unsigned long arg1 ;
+  unsigned long arg2 ;
+  unsigned long arg3 ;
+  unsigned long arg4 ;
+  unsigned long val1 ;
+  int ecode1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  unsigned long val3 ;
+  int ecode3 = 0 ;
+  unsigned long val4 ;
+  int ecode4 = 0 ;
+  const char *classname SWIGUNUSED = "OUE::Rectu_t";
+  OneU::rect_t< OneU::uint32 > *result = 0 ;
+  
+  if ((argc < 4) || (argc > 4)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 4)",argc); SWIG_fail;
+  }
+  ecode1 = SWIG_AsVal_unsigned_SS_long(argv[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "unsigned long","OneU::rect_t<(OneU::uint32)>", 1, argv[0] ));
+  } 
+  arg1 = static_cast< unsigned long >(val1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","OneU::rect_t<(OneU::uint32)>", 2, argv[1] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long(argv[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "unsigned long","OneU::rect_t<(OneU::uint32)>", 3, argv[2] ));
+  } 
+  arg3 = static_cast< unsigned long >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_long(argv[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), Ruby_Format_TypeError( "", "unsigned long","OneU::rect_t<(OneU::uint32)>", 4, argv[3] ));
+  } 
+  arg4 = static_cast< unsigned long >(val4);
+  result = (OneU::rect_t< OneU::uint32 > *)new OneU::rect_t< OneU::uint32 >(arg1,arg2,arg3,arg4);
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_new_Rectu_t(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[4];
+  int ii;
+  
+  argc = nargs;
+  if (argc > 4) SWIG_fail;
+  for (ii = 0; (ii < argc); ++ii) {
+    argv[ii] = args[ii];
+  }
+  if (argc == 0) {
+    return _wrap_new_Rectu_t__SWIG_0(nargs, args, self);
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      int res = SWIG_AsVal_unsigned_SS_long(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_unsigned_SS_long(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_Rectu_t__SWIG_1(nargs, args, self);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 4, "Rectu_t.new", 
+    "    Rectu_t.new()\n"
+    "    Rectu_t.new(unsigned long left, unsigned long top, unsigned long right, unsigned long bottom)\n");
+  
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_OneU_rect_t_Sl_OneU_uint32_Sg_(OneU::rect_t< OneU::uint32 > *arg1) {
     delete arg1;
 }
 
@@ -3692,6 +4045,247 @@ free_OneU_Vector2_Sl_int_Sg_(OneU::Vector2< int > *arg1) {
     delete arg1;
 }
 
+swig_class SwigClassVector2u_t;
+
+SWIGINTERN VALUE
+_wrap_Vector2u_t_x_set(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector2< OneU::uint32 > *arg1 = (OneU::Vector2< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector2T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector2< OneU::uint32 > *","x", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector2< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","x", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->x = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector2u_t_x_get(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector2< OneU::uint32 > *arg1 = (OneU::Vector2< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector2T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector2< OneU::uint32 > *","x", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector2< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->x);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector2u_t_y_set(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector2< OneU::uint32 > *arg1 = (OneU::Vector2< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector2T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector2< OneU::uint32 > *","y", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector2< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","y", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->y = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector2u_t_y_get(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector2< OneU::uint32 > *arg1 = (OneU::Vector2< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector2T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector2< OneU::uint32 > *","y", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector2< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->y);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_new_Vector2u_t__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  const char *classname SWIGUNUSED = "OUE::Vector2u_t";
+  OneU::Vector2< OneU::uint32 > *result = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  result = (OneU::Vector2< OneU::uint32 > *)new OneU::Vector2< OneU::uint32 >();
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_Vector2u_t_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_Vector2u_t_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_OneU__Vector2T_unsigned_long_t);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_Vector2u_t__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  unsigned long arg1 ;
+  unsigned long arg2 ;
+  unsigned long val1 ;
+  int ecode1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  const char *classname SWIGUNUSED = "OUE::Vector2u_t";
+  OneU::Vector2< OneU::uint32 > *result = 0 ;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  ecode1 = SWIG_AsVal_unsigned_SS_long(argv[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "unsigned long","OneU::Vector2<(OneU::uint32)>", 1, argv[0] ));
+  } 
+  arg1 = static_cast< unsigned long >(val1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","OneU::Vector2<(OneU::uint32)>", 2, argv[1] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  result = (OneU::Vector2< OneU::uint32 > *)new OneU::Vector2< OneU::uint32 >(arg1,arg2);
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_new_Vector2u_t(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[2];
+  int ii;
+  
+  argc = nargs;
+  if (argc > 2) SWIG_fail;
+  for (ii = 0; (ii < argc); ++ii) {
+    argv[ii] = args[ii];
+  }
+  if (argc == 0) {
+    return _wrap_new_Vector2u_t__SWIG_0(nargs, args, self);
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_unsigned_SS_long(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_Vector2u_t__SWIG_1(nargs, args, self);
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 2, "Vector2u_t.new", 
+    "    Vector2u_t.new()\n"
+    "    Vector2u_t.new(unsigned long x, unsigned long y)\n");
+  
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector2u_t_length(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector2< OneU::uint32 > *arg1 = (OneU::Vector2< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector2T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector2< OneU::uint32 > *","length", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector2< OneU::uint32 > * >(argp1);
+  result = (unsigned long)(arg1)->length();
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_OneU_Vector2_Sl_OneU_uint32_Sg_(OneU::Vector2< OneU::uint32 > *arg1) {
+    delete arg1;
+}
+
 swig_class SwigClassVector2f_t;
 
 SWIGINTERN VALUE
@@ -4238,6 +4832,314 @@ fail:
 
 SWIGINTERN void
 free_OneU_Vector3_Sl_int_Sg_(OneU::Vector3< int > *arg1) {
+    delete arg1;
+}
+
+swig_class SwigClassVector3u_t;
+
+SWIGINTERN VALUE
+_wrap_Vector3u_t_x_set(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector3< OneU::uint32 > *arg1 = (OneU::Vector3< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector3T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector3< OneU::uint32 > *","x", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector3< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","x", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->x = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector3u_t_x_get(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector3< OneU::uint32 > *arg1 = (OneU::Vector3< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector3T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector3< OneU::uint32 > *","x", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector3< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->x);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector3u_t_y_set(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector3< OneU::uint32 > *arg1 = (OneU::Vector3< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector3T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector3< OneU::uint32 > *","y", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector3< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","y", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->y = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector3u_t_y_get(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector3< OneU::uint32 > *arg1 = (OneU::Vector3< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector3T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector3< OneU::uint32 > *","y", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector3< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->y);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector3u_t_z_set(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector3< OneU::uint32 > *arg1 = (OneU::Vector3< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector3T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector3< OneU::uint32 > *","z", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector3< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","z", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->z = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector3u_t_z_get(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector3< OneU::uint32 > *arg1 = (OneU::Vector3< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector3T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector3< OneU::uint32 > *","z", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector3< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->z);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_new_Vector3u_t__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  const char *classname SWIGUNUSED = "OUE::Vector3u_t";
+  OneU::Vector3< OneU::uint32 > *result = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  result = (OneU::Vector3< OneU::uint32 > *)new OneU::Vector3< OneU::uint32 >();
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_Vector3u_t_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_Vector3u_t_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_OneU__Vector3T_unsigned_long_t);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_Vector3u_t__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  unsigned long arg1 ;
+  unsigned long arg2 ;
+  unsigned long arg3 ;
+  unsigned long val1 ;
+  int ecode1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  unsigned long val3 ;
+  int ecode3 = 0 ;
+  const char *classname SWIGUNUSED = "OUE::Vector3u_t";
+  OneU::Vector3< OneU::uint32 > *result = 0 ;
+  
+  if ((argc < 3) || (argc > 3)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 3)",argc); SWIG_fail;
+  }
+  ecode1 = SWIG_AsVal_unsigned_SS_long(argv[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "unsigned long","OneU::Vector3<(OneU::uint32)>", 1, argv[0] ));
+  } 
+  arg1 = static_cast< unsigned long >(val1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","OneU::Vector3<(OneU::uint32)>", 2, argv[1] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long(argv[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "unsigned long","OneU::Vector3<(OneU::uint32)>", 3, argv[2] ));
+  } 
+  arg3 = static_cast< unsigned long >(val3);
+  result = (OneU::Vector3< OneU::uint32 > *)new OneU::Vector3< OneU::uint32 >(arg1,arg2,arg3);
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_new_Vector3u_t(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[3];
+  int ii;
+  
+  argc = nargs;
+  if (argc > 3) SWIG_fail;
+  for (ii = 0; (ii < argc); ++ii) {
+    argv[ii] = args[ii];
+  }
+  if (argc == 0) {
+    return _wrap_new_Vector3u_t__SWIG_0(nargs, args, self);
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      int res = SWIG_AsVal_unsigned_SS_long(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_new_Vector3u_t__SWIG_1(nargs, args, self);
+        }
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 3, "Vector3u_t.new", 
+    "    Vector3u_t.new()\n"
+    "    Vector3u_t.new(unsigned long x, unsigned long y, unsigned long z)\n");
+  
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector3u_t_length(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector3< OneU::uint32 > *arg1 = (OneU::Vector3< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector3T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector3< OneU::uint32 > *","length", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector3< OneU::uint32 > * >(argp1);
+  result = (unsigned long)(arg1)->length();
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_OneU_Vector3_Sl_OneU_uint32_Sg_(OneU::Vector3< OneU::uint32 > *arg1) {
     delete arg1;
 }
 
@@ -4897,6 +5799,357 @@ fail:
 
 SWIGINTERN void
 free_OneU_Vector4_Sl_int_Sg_(OneU::Vector4< int > *arg1) {
+    delete arg1;
+}
+
+swig_class SwigClassVector4u_t;
+
+SWIGINTERN VALUE
+_wrap_Vector4u_t_x_set(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector4< OneU::uint32 > *arg1 = (OneU::Vector4< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector4T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector4< OneU::uint32 > *","x", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector4< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","x", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->x = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector4u_t_x_get(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector4< OneU::uint32 > *arg1 = (OneU::Vector4< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector4T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector4< OneU::uint32 > *","x", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector4< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->x);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector4u_t_y_set(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector4< OneU::uint32 > *arg1 = (OneU::Vector4< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector4T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector4< OneU::uint32 > *","y", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector4< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","y", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->y = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector4u_t_y_get(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector4< OneU::uint32 > *arg1 = (OneU::Vector4< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector4T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector4< OneU::uint32 > *","y", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector4< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->y);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector4u_t_z_set(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector4< OneU::uint32 > *arg1 = (OneU::Vector4< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector4T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector4< OneU::uint32 > *","z", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector4< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","z", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->z = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector4u_t_z_get(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector4< OneU::uint32 > *arg1 = (OneU::Vector4< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector4T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector4< OneU::uint32 > *","z", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector4< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->z);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector4u_t_w_set(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector4< OneU::uint32 > *arg1 = (OneU::Vector4< OneU::uint32 > *) 0 ;
+  unsigned long arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector4T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector4< OneU::uint32 > *","w", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector4< OneU::uint32 > * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","w", 2, argv[0] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  if (arg1) (arg1)->w = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Vector4u_t_w_get(int argc, VALUE *argv, VALUE self) {
+  OneU::Vector4< OneU::uint32 > *arg1 = (OneU::Vector4< OneU::uint32 > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__Vector4T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::Vector4< OneU::uint32 > *","w", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::Vector4< OneU::uint32 > * >(argp1);
+  result = (unsigned long) ((arg1)->w);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_new_Vector4u_t__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  const char *classname SWIGUNUSED = "OUE::Vector4u_t";
+  OneU::Vector4< OneU::uint32 > *result = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  result = (OneU::Vector4< OneU::uint32 > *)new OneU::Vector4< OneU::uint32 >();
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_Vector4u_t_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_Vector4u_t_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_OneU__Vector4T_unsigned_long_t);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_Vector4u_t__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  unsigned long arg1 ;
+  unsigned long arg2 ;
+  unsigned long arg3 ;
+  unsigned long arg4 ;
+  unsigned long val1 ;
+  int ecode1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  unsigned long val3 ;
+  int ecode3 = 0 ;
+  unsigned long val4 ;
+  int ecode4 = 0 ;
+  const char *classname SWIGUNUSED = "OUE::Vector4u_t";
+  OneU::Vector4< OneU::uint32 > *result = 0 ;
+  
+  if ((argc < 4) || (argc > 4)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 4)",argc); SWIG_fail;
+  }
+  ecode1 = SWIG_AsVal_unsigned_SS_long(argv[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "unsigned long","OneU::Vector4<(OneU::uint32)>", 1, argv[0] ));
+  } 
+  arg1 = static_cast< unsigned long >(val1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned long","OneU::Vector4<(OneU::uint32)>", 2, argv[1] ));
+  } 
+  arg2 = static_cast< unsigned long >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_long(argv[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "unsigned long","OneU::Vector4<(OneU::uint32)>", 3, argv[2] ));
+  } 
+  arg3 = static_cast< unsigned long >(val3);
+  ecode4 = SWIG_AsVal_unsigned_SS_long(argv[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), Ruby_Format_TypeError( "", "unsigned long","OneU::Vector4<(OneU::uint32)>", 4, argv[3] ));
+  } 
+  arg4 = static_cast< unsigned long >(val4);
+  result = (OneU::Vector4< OneU::uint32 > *)new OneU::Vector4< OneU::uint32 >(arg1,arg2,arg3,arg4);
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_new_Vector4u_t(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[4];
+  int ii;
+  
+  argc = nargs;
+  if (argc > 4) SWIG_fail;
+  for (ii = 0; (ii < argc); ++ii) {
+    argv[ii] = args[ii];
+  }
+  if (argc == 0) {
+    return _wrap_new_Vector4u_t__SWIG_0(nargs, args, self);
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      int res = SWIG_AsVal_unsigned_SS_long(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_unsigned_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_unsigned_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_unsigned_SS_long(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_Vector4u_t__SWIG_1(nargs, args, self);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 4, "Vector4u_t.new", 
+    "    Vector4u_t.new()\n"
+    "    Vector4u_t.new(unsigned long x, unsigned long y, unsigned long z, unsigned long w)\n");
+  
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_OneU_Vector4_Sl_OneU_uint32_Sg_(OneU::Vector4< OneU::uint32 > *arg1) {
     delete arg1;
 }
 
@@ -6113,6 +7366,170 @@ free_OneU_video_IRenderScene(OneU::video::IRenderScene *arg1) {
     delete arg1;
 }
 
+swig_class SwigClassMode;
+
+
+/*
+  Document-method: OUE::Mode.size
+
+  call-seq:
+    size -> vector2u_t
+
+Size or Length of the Mode.
+*/
+
+/*
+  Document-method: OUE::Mode.size=
+
+  call-seq:
+    size=(x) -> vector2u_t
+
+Size or Length of the Mode.
+*/
+SWIGINTERN VALUE
+_wrap_Mode_size_set(int argc, VALUE *argv, VALUE self) {
+  OneU::video::Mode *arg1 = (OneU::video::Mode *) 0 ;
+  OneU::vector2u_t *arg2 = (OneU::vector2u_t *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__Mode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::Mode *","size", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::video::Mode * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__Vector2T_unsigned_long_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::vector2u_t *","size", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< OneU::vector2u_t * >(argp2);
+  if (arg1) (arg1)->size = *arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Mode_size_get(int argc, VALUE *argv, VALUE self) {
+  OneU::video::Mode *arg1 = (OneU::video::Mode *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  OneU::vector2u_t *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__Mode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::Mode *","size", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::video::Mode * >(argp1);
+  result = (OneU::vector2u_t *)& ((arg1)->size);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__Vector2T_unsigned_long_t, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Mode_refreshRate_set(int argc, VALUE *argv, VALUE self) {
+  OneU::video::Mode *arg1 = (OneU::video::Mode *) 0 ;
+  OneU::uint32 arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__Mode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::Mode *","refreshRate", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::video::Mode * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "OneU::uint32","refreshRate", 2, argv[0] ));
+  } 
+  arg2 = static_cast< OneU::uint32 >(val2);
+  if (arg1) (arg1)->refreshRate = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Mode_refreshRate_get(int argc, VALUE *argv, VALUE self) {
+  OneU::video::Mode *arg1 = (OneU::video::Mode *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  OneU::uint32 result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__Mode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::Mode *","refreshRate", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::video::Mode * >(argp1);
+  result = (OneU::uint32) ((arg1)->refreshRate);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_Mode_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_Mode_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_OneU__video__Mode);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_Mode(int argc, VALUE *argv, VALUE self) {
+  const char *classname SWIGUNUSED = "OUE::Mode";
+  OneU::video::Mode *result = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  result = (OneU::video::Mode *)new OneU::video::Mode();
+  DATA_PTR(self) = result;
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_OneU_video_Mode(OneU::video::Mode *arg1) {
+    delete arg1;
+}
+
 swig_class SwigClassImage_t;
 
 #ifdef HAVE_RB_DEFINE_ALLOC_FUNC
@@ -6174,6 +7591,27 @@ _wrap_Video_getName(int argc, VALUE *argv, VALUE self) {
   result = (arg1)->getName();
   vresult = SWIG_NewPointerObj((new LPCTSTR(static_cast< const LPCTSTR& >(result))), SWIGTYPE_p_LPCTSTR, SWIG_POINTER_OWN |  0 );
   return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Video_prepare(int argc, VALUE *argv, VALUE self) {
+  OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IVideo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IVideo *","prepare", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IVideo * >(argp1);
+  (arg1)->prepare();
+  return Qnil;
 fail:
   return Qnil;
 }
@@ -6298,7 +7736,7 @@ _wrap_Video_getDeviceSize(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  SwigValueWrapper< OneU::Vector2< unsigned long > > result;
+  OneU::vector2u_t result;
   VALUE vresult = Qnil;
   
   if ((argc < 0) || (argc > 0)) {
@@ -6470,6 +7908,39 @@ _wrap_Video_showInfo(int argc, VALUE *argv, VALUE self) {
   arg1 = reinterpret_cast< OneU::IVideo * >(argp1);
   (arg1)->showInfo();
   return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Video_getAvailableMode(int argc, VALUE *argv, VALUE self) {
+  OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
+  OneU::List< OneU::video::Mode > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  OneU::List< OneU::video::Mode > list2 ;
+  VALUE out2 ;
+  VALUE vresult = Qnil;
+  
+  arg2 = &list2;
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IVideo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IVideo *","getAvailableMode", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IVideo * >(argp1);
+  (arg1)->getAvailableMode(*arg2);
+  {
+    out2 = rb_ary_new();
+    for(OneU::List<OneU::video::Mode>::iterator it = arg2->begin(); it != arg2->end(); ++it){
+      rb_ary_push(out2, SWIG_NewPointerObj(new OneU::video::Mode(*it), SWIGTYPE_p_OneU__video__Mode, SWIG_POINTER_OWN));
+    }
+    vresult = SWIG_Ruby_AppendOutput(vresult, out2);
+  }
+  return vresult;
 fail:
   return Qnil;
 }
@@ -9662,25 +11133,27 @@ static swig_type_info _swigt__p_OneU__ISprite = {"_p_OneU__ISprite", "OneU::ISpr
 static swig_type_info _swigt__p_OneU__IStereo = {"_p_OneU__IStereo", "OneU::IStereo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__IVideo = {"_p_OneU__IVideo", "OneU::IVideo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__KeyEvent = {"_p_OneU__KeyEvent", "OneU::KeyEvent *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_OneU__ListT_OneU__video__Mode_t = {"_p_OneU__ListT_OneU__video__Mode_t", "OneU::List< OneU::video::Mode > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__MouseEvent = {"_p_OneU__MouseEvent", "OneU::MouseEvent *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__Vector2T_float_t = {"_p_OneU__Vector2T_float_t", "OneU::vector2 *|OneU::Vector2< float > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__Vector2T_int_t = {"_p_OneU__Vector2T_int_t", "OneU::vector2i_t *|OneU::Vector2< int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_OneU__Vector2T_unsigned_long_t = {"_p_OneU__Vector2T_unsigned_long_t", "OneU::vector2u_t *|OneU::Vector2< unsigned long > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_OneU__Vector2T_unsigned_long_t = {"_p_OneU__Vector2T_unsigned_long_t", "OneU::vector2u_t *|OneU::Vector2< unsigned long > *|OneU::Vector2< OneU::uint32 > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__Vector3T_float_t = {"_p_OneU__Vector3T_float_t", "OneU::Vector3< float > *|OneU::vector3 *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__Vector3T_int_t = {"_p_OneU__Vector3T_int_t", "OneU::vector3i_t *|OneU::Vector3< int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_OneU__Vector3T_unsigned_long_t = {"_p_OneU__Vector3T_unsigned_long_t", "OneU::Vector3< unsigned long > *|OneU::vector3u_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_OneU__Vector3T_unsigned_long_t = {"_p_OneU__Vector3T_unsigned_long_t", "OneU::Vector3< unsigned long > *|OneU::vector3u_t *|OneU::Vector3< OneU::uint32 > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__Vector4T_float_t = {"_p_OneU__Vector4T_float_t", "OneU::Vector4< float > *|OneU::vector4 *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__Vector4T_int_t = {"_p_OneU__Vector4T_int_t", "OneU::Vector4< int > *|OneU::vector4i_t *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_OneU__Vector4T_unsigned_long_t = {"_p_OneU__Vector4T_unsigned_long_t", "OneU::Vector4< unsigned long > *|OneU::vector4u_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_OneU__Vector4T_unsigned_long_t = {"_p_OneU__Vector4T_unsigned_long_t", "OneU::Vector4< unsigned long > *|OneU::Vector4< OneU::uint32 > *|OneU::vector4u_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__color_t = {"_p_OneU__color_t", "OneU::color_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__image_t = {"_p_OneU__image_t", "OneU::image_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__rect_tT_float_t = {"_p_OneU__rect_tT_float_t", "OneU::rect_t< float > *|OneU::rect *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__rect_tT_int_t = {"_p_OneU__rect_tT_int_t", "OneU::recti_t *|OneU::rect_t< int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_OneU__rect_tT_unsigned_long_t = {"_p_OneU__rect_tT_unsigned_long_t", "OneU::rect_t< unsigned long > *|OneU::rectu_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_OneU__rect_tT_unsigned_long_t = {"_p_OneU__rect_tT_unsigned_long_t", "OneU::rect_t< unsigned long > *|OneU::rectu_t *|OneU::rect_t< OneU::uint32 > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__sound_t = {"_p_OneU__sound_t", "OneU::sound_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__INode = {"_p_OneU__video__INode", "OneU::video::INode *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__INodeContainer = {"_p_OneU__video__INodeContainer", "OneU::video::INodeContainer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__IRenderScene = {"_p_OneU__video__IRenderScene", "OneU::video::IRenderScene *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_OneU__video__Mode = {"_p_OneU__video__Mode", "OneU::video::Mode *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Scene = {"_p_Scene", "Scene *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_long = {"_p_long", "OneU::int32 *|long *", 0, 0, (void*)0, 0};
@@ -9705,6 +11178,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_OneU__IStereo,
   &_swigt__p_OneU__IVideo,
   &_swigt__p_OneU__KeyEvent,
+  &_swigt__p_OneU__ListT_OneU__video__Mode_t,
   &_swigt__p_OneU__MouseEvent,
   &_swigt__p_OneU__Vector2T_float_t,
   &_swigt__p_OneU__Vector2T_int_t,
@@ -9724,6 +11198,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_OneU__video__INode,
   &_swigt__p_OneU__video__INodeContainer,
   &_swigt__p_OneU__video__IRenderScene,
+  &_swigt__p_OneU__video__Mode,
   &_swigt__p_Scene,
   &_swigt__p_char,
   &_swigt__p_long,
@@ -9748,6 +11223,7 @@ static swig_cast_info _swigc__p_OneU__ISprite[] = {  {&_swigt__p_OneU__ISprite, 
 static swig_cast_info _swigc__p_OneU__IStereo[] = {  {&_swigt__p_OneU__IStereo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IVideo[] = {  {&_swigt__p_OneU__IVideo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__KeyEvent[] = {  {&_swigt__p_OneU__KeyEvent, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_OneU__ListT_OneU__video__Mode_t[] = {  {&_swigt__p_OneU__ListT_OneU__video__Mode_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__MouseEvent[] = {  {&_swigt__p_OneU__MouseEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__Vector2T_float_t[] = {  {&_swigt__p_OneU__Vector2T_float_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__Vector2T_int_t[] = {  {&_swigt__p_OneU__Vector2T_int_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -9767,6 +11243,7 @@ static swig_cast_info _swigc__p_OneU__sound_t[] = {  {&_swigt__p_OneU__sound_t, 
 static swig_cast_info _swigc__p_OneU__video__INode[] = {  {&_swigt__p_OneU__IShape, _p_OneU__IShapeTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ILabel, _p_OneU__ILabelTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ISprite, _p_OneU__ISpriteTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__INodeContainer, _p_OneU__video__INodeContainerTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__INode, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__INodeContainer[] = {  {&_swigt__p_OneU__video__INodeContainer, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__INodeContainer, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__IRenderScene[] = {  {&_swigt__p_OneU__video__IRenderScene, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_OneU__video__Mode[] = {  {&_swigt__p_OneU__video__Mode, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Scene[] = {  {&_swigt__p_Scene, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_long[] = {  {&_swigt__p_long, 0, 0, 0},{0, 0, 0, 0}};
@@ -9791,6 +11268,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_OneU__IStereo,
   _swigc__p_OneU__IVideo,
   _swigc__p_OneU__KeyEvent,
+  _swigc__p_OneU__ListT_OneU__video__Mode_t,
   _swigc__p_OneU__MouseEvent,
   _swigc__p_OneU__Vector2T_float_t,
   _swigc__p_OneU__Vector2T_int_t,
@@ -9810,6 +11288,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_OneU__video__INode,
   _swigc__p_OneU__video__INodeContainer,
   _swigc__p_OneU__video__IRenderScene,
+  _swigc__p_OneU__video__Mode,
   _swigc__p_Scene,
   _swigc__p_char,
   _swigc__p_long,
@@ -10097,6 +11576,22 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassRecti_t.destroy = (void (*)(void *)) free_OneU_rect_t_Sl_int_Sg_;
   SwigClassRecti_t.trackObjects = 0;
   
+  SwigClassRectu_t.klass = rb_define_class_under(mOUE, "Rectu_t", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__rect_tT_unsigned_long_t, (void *) &SwigClassRectu_t);
+  rb_define_alloc_func(SwigClassRectu_t.klass, _wrap_Rectu_t_allocate);
+  rb_define_method(SwigClassRectu_t.klass, "initialize", VALUEFUNC(_wrap_new_Rectu_t), -1);
+  rb_define_method(SwigClassRectu_t.klass, "left=", VALUEFUNC(_wrap_Rectu_t_left_set), -1);
+  rb_define_method(SwigClassRectu_t.klass, "left", VALUEFUNC(_wrap_Rectu_t_left_get), -1);
+  rb_define_method(SwigClassRectu_t.klass, "top=", VALUEFUNC(_wrap_Rectu_t_top_set), -1);
+  rb_define_method(SwigClassRectu_t.klass, "top", VALUEFUNC(_wrap_Rectu_t_top_get), -1);
+  rb_define_method(SwigClassRectu_t.klass, "right=", VALUEFUNC(_wrap_Rectu_t_right_set), -1);
+  rb_define_method(SwigClassRectu_t.klass, "right", VALUEFUNC(_wrap_Rectu_t_right_get), -1);
+  rb_define_method(SwigClassRectu_t.klass, "bottom=", VALUEFUNC(_wrap_Rectu_t_bottom_set), -1);
+  rb_define_method(SwigClassRectu_t.klass, "bottom", VALUEFUNC(_wrap_Rectu_t_bottom_get), -1);
+  SwigClassRectu_t.mark = 0;
+  SwigClassRectu_t.destroy = (void (*)(void *)) free_OneU_rect_t_Sl_OneU_uint32_Sg_;
+  SwigClassRectu_t.trackObjects = 0;
+  
   SwigClassRectf_t.klass = rb_define_class_under(mOUE, "Rectf_t", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__rect_tT_float_t, (void *) &SwigClassRectf_t);
   rb_define_alloc_func(SwigClassRectf_t.klass, _wrap_Rectf_t_allocate);
@@ -10126,6 +11621,19 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassVector2i_t.destroy = (void (*)(void *)) free_OneU_Vector2_Sl_int_Sg_;
   SwigClassVector2i_t.trackObjects = 0;
   
+  SwigClassVector2u_t.klass = rb_define_class_under(mOUE, "Vector2u_t", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__Vector2T_unsigned_long_t, (void *) &SwigClassVector2u_t);
+  rb_define_alloc_func(SwigClassVector2u_t.klass, _wrap_Vector2u_t_allocate);
+  rb_define_method(SwigClassVector2u_t.klass, "initialize", VALUEFUNC(_wrap_new_Vector2u_t), -1);
+  rb_define_method(SwigClassVector2u_t.klass, "x=", VALUEFUNC(_wrap_Vector2u_t_x_set), -1);
+  rb_define_method(SwigClassVector2u_t.klass, "x", VALUEFUNC(_wrap_Vector2u_t_x_get), -1);
+  rb_define_method(SwigClassVector2u_t.klass, "y=", VALUEFUNC(_wrap_Vector2u_t_y_set), -1);
+  rb_define_method(SwigClassVector2u_t.klass, "y", VALUEFUNC(_wrap_Vector2u_t_y_get), -1);
+  rb_define_method(SwigClassVector2u_t.klass, "length", VALUEFUNC(_wrap_Vector2u_t_length), -1);
+  SwigClassVector2u_t.mark = 0;
+  SwigClassVector2u_t.destroy = (void (*)(void *)) free_OneU_Vector2_Sl_OneU_uint32_Sg_;
+  SwigClassVector2u_t.trackObjects = 0;
+  
   SwigClassVector2f_t.klass = rb_define_class_under(mOUE, "Vector2f_t", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__Vector2T_float_t, (void *) &SwigClassVector2f_t);
   rb_define_alloc_func(SwigClassVector2f_t.klass, _wrap_Vector2f_t_allocate);
@@ -10153,6 +11661,21 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassVector3i_t.mark = 0;
   SwigClassVector3i_t.destroy = (void (*)(void *)) free_OneU_Vector3_Sl_int_Sg_;
   SwigClassVector3i_t.trackObjects = 0;
+  
+  SwigClassVector3u_t.klass = rb_define_class_under(mOUE, "Vector3u_t", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__Vector3T_unsigned_long_t, (void *) &SwigClassVector3u_t);
+  rb_define_alloc_func(SwigClassVector3u_t.klass, _wrap_Vector3u_t_allocate);
+  rb_define_method(SwigClassVector3u_t.klass, "initialize", VALUEFUNC(_wrap_new_Vector3u_t), -1);
+  rb_define_method(SwigClassVector3u_t.klass, "x=", VALUEFUNC(_wrap_Vector3u_t_x_set), -1);
+  rb_define_method(SwigClassVector3u_t.klass, "x", VALUEFUNC(_wrap_Vector3u_t_x_get), -1);
+  rb_define_method(SwigClassVector3u_t.klass, "y=", VALUEFUNC(_wrap_Vector3u_t_y_set), -1);
+  rb_define_method(SwigClassVector3u_t.klass, "y", VALUEFUNC(_wrap_Vector3u_t_y_get), -1);
+  rb_define_method(SwigClassVector3u_t.klass, "z=", VALUEFUNC(_wrap_Vector3u_t_z_set), -1);
+  rb_define_method(SwigClassVector3u_t.klass, "z", VALUEFUNC(_wrap_Vector3u_t_z_get), -1);
+  rb_define_method(SwigClassVector3u_t.klass, "length", VALUEFUNC(_wrap_Vector3u_t_length), -1);
+  SwigClassVector3u_t.mark = 0;
+  SwigClassVector3u_t.destroy = (void (*)(void *)) free_OneU_Vector3_Sl_OneU_uint32_Sg_;
+  SwigClassVector3u_t.trackObjects = 0;
   
   SwigClassVector3f_t.klass = rb_define_class_under(mOUE, "Vector3f_t", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__Vector3T_float_t, (void *) &SwigClassVector3f_t);
@@ -10184,6 +11707,22 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassVector4i_t.mark = 0;
   SwigClassVector4i_t.destroy = (void (*)(void *)) free_OneU_Vector4_Sl_int_Sg_;
   SwigClassVector4i_t.trackObjects = 0;
+  
+  SwigClassVector4u_t.klass = rb_define_class_under(mOUE, "Vector4u_t", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__Vector4T_unsigned_long_t, (void *) &SwigClassVector4u_t);
+  rb_define_alloc_func(SwigClassVector4u_t.klass, _wrap_Vector4u_t_allocate);
+  rb_define_method(SwigClassVector4u_t.klass, "initialize", VALUEFUNC(_wrap_new_Vector4u_t), -1);
+  rb_define_method(SwigClassVector4u_t.klass, "x=", VALUEFUNC(_wrap_Vector4u_t_x_set), -1);
+  rb_define_method(SwigClassVector4u_t.klass, "x", VALUEFUNC(_wrap_Vector4u_t_x_get), -1);
+  rb_define_method(SwigClassVector4u_t.klass, "y=", VALUEFUNC(_wrap_Vector4u_t_y_set), -1);
+  rb_define_method(SwigClassVector4u_t.klass, "y", VALUEFUNC(_wrap_Vector4u_t_y_get), -1);
+  rb_define_method(SwigClassVector4u_t.klass, "z=", VALUEFUNC(_wrap_Vector4u_t_z_set), -1);
+  rb_define_method(SwigClassVector4u_t.klass, "z", VALUEFUNC(_wrap_Vector4u_t_z_get), -1);
+  rb_define_method(SwigClassVector4u_t.klass, "w=", VALUEFUNC(_wrap_Vector4u_t_w_set), -1);
+  rb_define_method(SwigClassVector4u_t.klass, "w", VALUEFUNC(_wrap_Vector4u_t_w_get), -1);
+  SwigClassVector4u_t.mark = 0;
+  SwigClassVector4u_t.destroy = (void (*)(void *)) free_OneU_Vector4_Sl_OneU_uint32_Sg_;
+  SwigClassVector4u_t.trackObjects = 0;
   
   SwigClassVector4f_t.klass = rb_define_class_under(mOUE, "Vector4f_t", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__Vector4T_float_t, (void *) &SwigClassVector4f_t);
@@ -10256,6 +11795,18 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_const(mOUE, "CBM_TOP", SWIG_From_int(static_cast< int >(OneU::video::CBM_TOP)));
   rb_define_const(mOUE, "CBM_DOWN", SWIG_From_int(static_cast< int >(OneU::video::CBM_DOWN)));
   
+  SwigClassMode.klass = rb_define_class_under(mOUE, "Mode", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__video__Mode, (void *) &SwigClassMode);
+  rb_define_alloc_func(SwigClassMode.klass, _wrap_Mode_allocate);
+  rb_define_method(SwigClassMode.klass, "initialize", VALUEFUNC(_wrap_new_Mode), -1);
+  rb_define_method(SwigClassMode.klass, "size=", VALUEFUNC(_wrap_Mode_size_set), -1);
+  rb_define_method(SwigClassMode.klass, "size", VALUEFUNC(_wrap_Mode_size_get), -1);
+  rb_define_method(SwigClassMode.klass, "refreshRate=", VALUEFUNC(_wrap_Mode_refreshRate_set), -1);
+  rb_define_method(SwigClassMode.klass, "refreshRate", VALUEFUNC(_wrap_Mode_refreshRate_get), -1);
+  SwigClassMode.mark = 0;
+  SwigClassMode.destroy = (void (*)(void *)) free_OneU_video_Mode;
+  SwigClassMode.trackObjects = 0;
+  
   SwigClassImage_t.klass = rb_define_class_under(mOUE, "Image_t", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__image_t, (void *) &SwigClassImage_t);
   rb_define_alloc_func(SwigClassImage_t.klass, _wrap_Image_t_allocate);
@@ -10268,6 +11819,7 @@ SWIGEXPORT void Init_OUE(void) {
   SWIG_TypeClientData(SWIGTYPE_p_OneU__IVideo, (void *) &SwigClassVideo);
   rb_undef_alloc_func(SwigClassVideo.klass);
   rb_define_method(SwigClassVideo.klass, "getName", VALUEFUNC(_wrap_Video_getName), -1);
+  rb_define_method(SwigClassVideo.klass, "prepare", VALUEFUNC(_wrap_Video_prepare), -1);
   rb_define_method(SwigClassVideo.klass, "init", VALUEFUNC(_wrap_Video_init), -1);
   rb_define_method(SwigClassVideo.klass, "switchDevice", VALUEFUNC(_wrap_Video_switchDevice), -1);
   rb_define_method(SwigClassVideo.klass, "isWindowed", VALUEFUNC(_wrap_Video_isWindowed), -1);
@@ -10278,6 +11830,7 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_method(SwigClassVideo.klass, "setRenderScene", VALUEFUNC(_wrap_Video_setRenderScene), -1);
   rb_define_method(SwigClassVideo.klass, "createRenderScene", VALUEFUNC(_wrap_Video_createRenderScene), -1);
   rb_define_method(SwigClassVideo.klass, "showInfo", VALUEFUNC(_wrap_Video_showInfo), -1);
+  rb_define_method(SwigClassVideo.klass, "getAvailableMode", VALUEFUNC(_wrap_Video_getAvailableMode), -1);
   SwigClassVideo.mark = 0;
   SwigClassVideo.destroy = (void (*)(void *)) free_OneU_IVideo;
   SwigClassVideo.trackObjects = 0;

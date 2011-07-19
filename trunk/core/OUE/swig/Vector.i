@@ -100,15 +100,19 @@ namespace OneU
 
 
 	%template(Recti_t) rect_t<int>;
+	%template(Rectu_t) rect_t<uint32>;
 	%template(Rectf_t)    rect_t<float>;
 
 	%template(Vector2i_t) Vector2<int>;
+	%template(Vector2u_t) Vector2<uint32>;
 	%template(Vector2f_t)    Vector2<float>;
 
 	%template(Vector3i_t) Vector3<int>;
+	%template(Vector3u_t) Vector3<uint32>;
 	%template(Vector3f_t)    Vector3<float>;
 
 	%template(Vector4i_t) Vector4<int>;
+	%template(Vector4u_t) Vector4<uint32>;
 	%template(Vector4f_t)    Vector4<float>;
 	
 	typedef rect_t<int> recti_t;
