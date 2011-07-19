@@ -1,4 +1,4 @@
-require 'OUE'
+olib 'OUE.so'
 
 class MySprite < OUE::Sprite
 	def initialize(file)
@@ -46,11 +46,8 @@ def NewScene(scene)
 end
 srand
 $Game = OUE.GetGame()
-OUE::Aux_GameInit("This is a game", 800, 600, true)
+OUE::Aux_GameInit("中文aaaaa", 800, 600, true)
 $Video = OUE::GetVideo();
-$Video.getAvailableMode().each do |x|
-	prompt "#{x.size.x}, #{x.size.y}, #{x.refreshRate}"
-end
 NewScene(MainScene.new)
 
 $Game.run()

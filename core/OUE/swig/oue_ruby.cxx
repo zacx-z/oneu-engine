@@ -8442,7 +8442,7 @@ _wrap_Game_init(int argc, VALUE *argv, VALUE self) {
   arg1 = reinterpret_cast< OneU::IGame * >(argp1);
   {
     if(TYPE(argv[0]) != T_STRING)
-    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "WindowName", "OneU::pcwstr","init", 2, argv[0] ));
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "WindowName", "One	U::pcwstr","init", 2, argv[0] ));
     
     temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
     arg2 = temp2;

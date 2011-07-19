@@ -22,6 +22,8 @@ THE SOFTWARE.
 */
 
 #define WIN32_LEAN_AND_MEAN
+//for SetDllDirectory
+#define _WIN32_WINNT 0x0502
 #pragma warning(disable : 4312)
 #pragma warning(disable : 4311)
 #include "RubyUtil.h"
@@ -66,12 +68,17 @@ namespace OneU
 			clog << "backtrace : " << StringValuePtr(btstr) << endl;
 		}
 
-		MessageBox(NULL, Char2Wide(clog.str().c_str()), L"Ruby", MB_OK | MB_ICONERROR);
+		ErrorBox(Char2Wide(clog.str().c_str(), 65001), L"Ruby");
 	}
 
 	static VALUE _rb_prompt(int argc, VALUE* argv, VALUE self);
-	static void _init_rb_lib(){
+	static VALUE _rb_oload(VALUE self, VALUE fname);
+	static VALUE _rb_olib(VALUE self, VALUE fname);
+	static VALUE _init_rb_lib(VALUE){
 		rb_define_global_function("prompt", (VALUE (*)(ANYARGS))_rb_prompt, -1);
+		rb_define_global_function("oload", (VALUE (*)(ANYARGS))_rb_oload, 1);
+		rb_define_global_function("olib", (VALUE (*)(ANYARGS))_rb_olib, 1);
+		return Qnil;
 	}
 	static VALUE _rb_prompt(int argc, VALUE* argv, VALUE self){
 		std::ostringstream o;
@@ -81,12 +88,46 @@ namespace OneU
 			else
 				o << StringValuePtr(argv[i]) << std::endl;
 		}
-		ONEU_PROMPT(Char2Wide(o.str().c_str()));
+		ONEU_PROMPT(Char2Wide(o.str().c_str(), 65001));
 		return Qnil;
 	}
+	static VALUE _rb_oload(VALUE self, VALUE fname){
+		FILE* f = _wfopen(Char2Wide(StringValuePtr(fname), 65001), L"rb");
+		if(!f)
+			rb_raise(rb_eArgError, "can't find the file - %s", StringValuePtr(fname));
+		struct _stat stat;
+		_fstat(fileno(f), &stat);
+		char* buf = new char[stat.st_size + 1];
+		fread(buf, stat.st_size, 1, f);
+		fclose(f);
+		buf[stat.st_size] = 0;
 
+		rb_eval_string(buf);
+		return Qnil;
+	}
+	static void _getName(const char* fname, char* name){
+		while(*fname != 0 && *fname != '.')
+			*(name++) = *(fname++);
+		*name = 0;
+	}
+	static VALUE _rb_olib(VALUE self, VALUE fname){
+		const char* fstr = StringValuePtr(fname);
+		HMODULE hDll = LoadLibrary(Char2Wide(fstr));
+		if(hDll == NULL)
+			rb_raise(rb_eArgError, "cannot find library %s.", fstr);
+		char inprocname[256] = "Init_", name[256];
+		_getName(fstr, name);
+		strcat(inprocname, name);
+		void (*proc)() = (void (*)())GetProcAddress(hDll, inprocname);
+		if(proc == NULL)
+			rb_raise(rb_eArgError, "library doesn't have %s function when loading %s!", inprocname, fstr);
+		proc();
+		return Qnil;
+	}
+#undef fopen
+#undef fclose
 	static VALUE LoadWrap(VALUE arg){
-		rb_load(rb_str_new2("script/main.rb"), false);
+		_rb_oload(Qnil, rb_str_new2((const char*)arg));
 		return Qnil;
 	}
 	static VALUE EvalStringWrap(VALUE arg){
@@ -95,35 +136,45 @@ namespace OneU
 	}
 	RUBY_GLOBAL_SETUP
 
-		ONEU_API void RubyRun(){
-			Game_build();
+	ONEU_API void RubyRun(){
+		Game_build();
 
-			char* a[] = {"a"};
-			int n = 1;
-			char** argv = a;
-			ruby_sysinit(&n, &argv);
-			{
-				RUBY_INIT_STACK;
-				ruby_init();
-				ruby_init_loadpath();
-				ruby_script("oneu");
-				rb_eval_string("$: << \"./\"");
+		char* a[] = {"a"};
+		int n = 1;
+		char** argv = a;
+		ruby_sysinit(&n, &argv);
+		{
+			RUBY_INIT_STACK;
+			ruby_init();
+			ruby_init_loadpath();
+			ruby_script("oneu");
+			rb_eval_string("$: << \"./\"");
 #ifdef _DEBUG
-				rb_eval_string("$: << \"./../debug/\"");
+			if(!SetDllDirectoryW(L"./../debug")){
+				ErrorBox(L"cannot set dll directory", L"error!");
+				ruby_finalize();
+				goto fail;
+			}
 #endif
 
-				_init_rb_lib();
-
-				int state;
-				rb_protect(LoadWrap, Qnil, &state);
-
-				if(state)
-					ThrowOnError(state);
-
+			int state;
+			rb_protect(_init_rb_lib, Qnil, &state);
+			if(state){
+				ThrowOnError(state);
 				ruby_finalize();
+				goto fail;
 			}
 
-			Game_destroy();
+			rb_protect(LoadWrap, (VALUE)"script/main.rb", &state);
+
+			if(state)
+				ThrowOnError(state);
+
+			ruby_finalize();
+		}
+fail:
+
+		Game_destroy();
 	}
 
 
@@ -140,7 +191,7 @@ namespace OneU
 
 	ONEU_API void RubyExecFile(pcwstr filename){
 		int state;
-		rb_protect(LoadWrap,rb_str_new2((const char*)Wide2Char(filename)), &state);
+		rb_protect(LoadWrap,(VALUE)(const char*)Wide2Char(filename), &state);
 		if(state)
 			ThrowOnError(state);
 	}

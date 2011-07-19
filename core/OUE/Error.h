@@ -96,7 +96,8 @@ namespace OneU
 	//只有调用ONEU_EXIT(_ExitApp)才会调用Handler
 	extern "C" ONEU_API TerminateHandler SetTerminateHandler(TerminateHandler eh);
 
-	void Prompt(pcwstr message);
+	ONEU_API void Prompt(pcwstr message);
+	ONEU_API void ErrorBox(pcwstr message, pcwstr captain);
 
 	//如果为false结束进程
 	inline void _Ensure(const char* FileName, const int Line, const char* Function, const char* expression, bool exp){

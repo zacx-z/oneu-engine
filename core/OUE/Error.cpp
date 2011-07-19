@@ -23,11 +23,11 @@ THE SOFTWARE.
 
 #include "OneUPreDef.h"
 #include "Error.h"
-#include <windows.h>
 #include <cstdlib>
 #include <errno.h>
 #include "String.h"
 #include "Logger.h"
+#include "Impl/Win32.h"
 
 #ifdef __GNUC__
 typedef int errno_t;
@@ -146,11 +146,11 @@ namespace OneU
 
 	void _TerminateApp(const char * FileName, const int Line, const char* Function, pcwstr str ){
 		if(isTerminating){
-			MessageBoxW(NULL, L"二次异常抛出！！", L"错误", MB_OK | MB_ICONERROR);
+			MessageBoxW(g_hWnd, L"二次异常抛出！！", L"错误", MB_OK | MB_ICONERROR);
 		}
 		isTerminating = true;
 		GetLogger().stream(ILogger::ML_CRITICAL) << FileName << L':' << Line << L"\nFunction:" << Function << L"\n发生异常，程序终止执行。\n异常信息：" << str;
-		::MessageBoxW(NULL, str, L"错误", MB_OK | MB_ICONERROR);
+		::MessageBoxW(g_hWnd, str, L"错误", MB_OK | MB_ICONERROR);
 
 		//调用ExitHandler
 		if(s_eh != NULL)s_eh();
@@ -168,8 +168,11 @@ namespace OneU
 		return ret;
 	}
 
-	void Prompt( pcwstr message )
+	ONEU_API void Prompt( pcwstr message )
 	{
-		::MessageBoxW(NULL, message, L"Message", MB_OK);
+		::MessageBoxW(g_hWnd, message, L"Message", MB_OK);
+	}
+	ONEU_API void ErrorBox(pcwstr message, pcwstr captain){
+		::MessageBoxW(g_hWnd, message, captain, MB_OK | MB_ICONERROR);
 	}
 }
