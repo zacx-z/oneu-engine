@@ -5,6 +5,7 @@
 %{
 #include "../Video.h"
 %}
+
 namespace OneU
 {
 	namespace video
@@ -17,6 +18,11 @@ namespace OneU
 		enum BLENDMODE{ BM_NORMAL = 0, BM_ADD };
 		enum COLOR_BLENDMODE{ CBM_NONE = 0, CBM_ADD = 1, CBM_MODULATE = 2,
 			CBM_LEFT = 0x10, CBM_RIGHT = 0x20, CBM_TOP = 0x30, CBM_DOWN = 0x40 };
+		struct Mode
+		{
+			vector2u_t size;
+			uint32 refreshRate;
+		};
 	}
 	%rename(Image_t) image_t;
 	class image_t
@@ -24,6 +30,8 @@ namespace OneU
 	public:
 		image_t();
 	};
+	
+	%ListIns(OneU::video::Mode)
 	
 	%rename(Video) IVideo;
 	class IVideo
@@ -33,6 +41,7 @@ namespace OneU
 		
 		virtual LPCTSTR getName() = 0;
 
+		virtual void prepare() = 0;
 		virtual void init(OneU::uint32 width, OneU::uint32 height, bool bWindowed) = 0;
 		
 		virtual void switchDevice(OneU::uint32 width, OneU::uint32 height, bool bWindowed) = 0;
@@ -47,5 +56,7 @@ namespace OneU
 		inline OneU::video::IRenderScene* createRenderScene();
 		
 		virtual void showInfo() = 0;
+		
+		virtual void getAvailableMode(List<video::Mode>& OUTPUT) = 0;
 	};
 }
