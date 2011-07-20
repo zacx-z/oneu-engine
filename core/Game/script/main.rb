@@ -1,5 +1,4 @@
 olib 'OUE.so'
-
 class MySprite < OUE::Sprite
 	def initialize(file)
 		super(file)
