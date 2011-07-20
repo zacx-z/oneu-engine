@@ -91,6 +91,9 @@ namespace OneU
 		ONEU_PROMPT(Char2Wide(o.str().c_str(), 65001));
 		return Qnil;
 	}
+	//ruby dllµÄµ¼³ö·ûºÅ
+	extern "C" VALUE rb_f_eval(int argc, VALUE* argv, VALUE self);
+
 	static VALUE _rb_oload(VALUE self, VALUE fname){
 		FILE* f = _wfopen(Char2Wide(StringValuePtr(fname), 65001), L"rb");
 		if(!f)
@@ -102,7 +105,8 @@ namespace OneU
 		fclose(f);
 		buf[stat.st_size] = 0;
 
-		rb_eval_string(buf);
+		VALUE arg[] = {rb_str_new2(buf), Qnil, fname};
+		rb_f_eval(3, arg, Qnil);
 		return Qnil;
 	}
 	static void _getName(const char* fname, char* name){
