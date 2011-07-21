@@ -86,8 +86,18 @@ namespace OneU
 				m_bLooped = bLooped;
 				_StreamInfo::ScopedMutex _(isStreamed() ? si->m_hMutex : NULL);
 				if(isStreamed()) si->m_waitEnd = 0;
-				if(isStreamed() || bLooped) m_pBuffer->Play(0, 0, DSBPLAY_LOOPING);
-				else m_pBuffer->Play(0, 0, 0);
+				if(isStreamed() || bLooped){
+					if(m_pBuffer->Play(0, 0, DSBPLAY_LOOPING) == DSERR_BUFFERLOST){
+						restore();
+						m_pBuffer->Play(0, 0, DSBPLAY_LOOPING);
+					}
+				}
+				else{
+					if(m_pBuffer->Play(0, 0, 0) == DSERR_BUFFERLOST){
+						restore();
+						m_pBuffer->Play(0, 0, 0);
+					}
+				}
 			}
 			void _stop(){
 				_StreamInfo::ScopedMutex _(isStreamed() ? si->m_hMutex : NULL);
@@ -97,10 +107,14 @@ namespace OneU
 			void _fillBuffer(int n_frac);
 			void _fillAll();
 		public:
+			void restore();
 			//解码线程循环
 			void _decodeLoop();
 
 			IDirectSoundBuffer* _dupBuffer(IDirectSound8* pDS){
+				DWORD status;
+				m_pBuffer->GetStatus(&status);
+				if(status & DSBSTATUS_BUFFERLOST) restore();
 				IDirectSoundBuffer* ret = NULL;
 				pDS->DuplicateSoundBuffer(m_pBuffer, &ret);
 				return ret;
@@ -200,6 +214,11 @@ namespace OneU
 			delete si;
 		}
 
+		void OggSound::restore(){
+			XV_RAISE(m_pBuffer->Restore());
+			GetLogger().logMessage(L"Sound buffer restored.", ILogger::ML_TRIVIAL);
+			if(!isStreamed()){ _fillAll(); }
+		}
 		void OggSound::_fillBuffer( int n_frac )
 		{
 			const long frac_len = m_wfx.nAvgBytesPerSec;
@@ -229,7 +248,17 @@ namespace OneU
 				DWORD size = 0;
 				//互斥锁
 				_StreamInfo::ScopedMutex _(si->m_hMutex);
-				XV_RAISE(m_pBuffer->Lock(n_frac * frac_len, frac_len, (void**)&ptr, &size, NULL, NULL, 0));//以缓冲区一半为单位，锁定一半。
+				HRESULT hr = m_pBuffer->Lock(n_frac * frac_len, frac_len, (void**)&ptr, &size, NULL, NULL, 0);//以缓冲区一半为单位，锁定一半。
+				if(FAILED(hr)){
+					if(hr == DSERR_BUFFERLOST){
+						restore();
+						hr = m_pBuffer->Lock(n_frac * frac_len, frac_len, (void**)&ptr, &size, NULL, NULL, 0);
+					}
+					if(FAILED(hr)){
+						ONEU_LOG(L"锁定声音缓冲失败！");
+						RAISE_HRESULT(hr);
+					}
+				}
 				memcpy(ptr, si->m_decodeBuffer, frac_len);
 				XV_RAISE(m_pBuffer->Unlock((void*)ptr, size, NULL, 0));
 			}
