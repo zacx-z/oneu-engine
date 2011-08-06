@@ -493,7 +493,7 @@ namespace OneU
 	}
 
 	DXVideo::~DXVideo(){
-		uninit();
+		removeAllModule();
 		if(m_pRoot != NULL){ ONEU_DELETE m_pRoot; m_pRoot = NULL; }
 		DX::Graphics.Destroy();
 	}
