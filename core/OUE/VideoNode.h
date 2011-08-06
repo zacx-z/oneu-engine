@@ -47,8 +47,8 @@ namespace OneU
 			: public Interface
 		{
 		private:
-			friend class INodeContainer;
-			INodeContainer* m_pParent;
+			friend class ILayer;
+			ILayer* m_pParent;
 			List<_NodeTag>::iterator m_It;//被parent所持有的容器的对应自己的迭代器
 
 			struct _TransformInfo2D{
@@ -100,7 +100,7 @@ namespace OneU
 			 * @remarks 若没有父亲，则返回NULL。
 			 */
 			/* ----------------------------------------------------------------------------*/
-			INodeContainer* getParent(){ return m_pParent; }
+			ILayer* getParent(){ return m_pParent; }
 
 			/* ----------------------------------------------------------------------------*/
 			/** 
@@ -251,7 +251,7 @@ namespace OneU
 				_calcTransform();
 				return Transform._2->m;
 			}
-			//为INodeContainer用
+			//为ILayer用
 			virtual void refreshAll(){}
 
 			/**
@@ -361,7 +361,7 @@ namespace OneU
 		 * 即可以有孩子的渲染节点。
 		 */
 		/* ----------------------------------------------------------------------------*/
-		class INodeContainer
+		class ILayer
 			: public INode
 		{
 			friend void _DetachNodeFromParent(INode* node);
@@ -370,7 +370,7 @@ namespace OneU
 			ListType m_Children;
 			friend class INode;
 		public:
-			virtual ~INodeContainer(){
+			virtual ~ILayer(){
 				for(ListType::iterator it = m_Children.begin(); it != m_Children.end();){
 					if(it->tag != NULL) ONEU_DELETE_T(it->tag);
 					if(it->ownFlag) ONEU_DELETE (it++)->child;//调用destroy时会使node detach，进而删除it所指元素。所以使用这种写法避免迭代器失效造成的问题。
@@ -421,7 +421,7 @@ namespace OneU
 				}
 			}
 			virtual pcwstr name(){
-				return L"NodeContainer";
+				return L"Layer";
 			}
 			virtual void _describe(String& buffer, int depth){
 				INode::_describe(buffer, depth);

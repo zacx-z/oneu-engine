@@ -135,7 +135,7 @@ namespace OneU
 
 		m_DeviceSize = vector2u_t(width, height);
 
-		m_pRoot = ONEU_NEW INodeContainer;
+		m_pRoot = ONEU_NEW ILayer;
 
 		m_pRoot->addChild(ONEU_NEW _Video_ClearNode, -100);
 
@@ -194,6 +194,14 @@ namespace OneU
 			RAISE_HRESULT(hr);
 		}
 		reloadD3DResource();
+
+		m_pD3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+		m_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+		m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+		m_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
+		m_pD3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 
 		DX::GetGraphics()->SetViewTransform((D3DMATRIX*)&(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f))));
 	}
@@ -408,12 +416,21 @@ namespace OneU
  	void DXVideo::unloadD3DResource(){
 		for(ImageTable_t::iterator it = m_ImageTable.begin(); it != m_ImageTable.end(); ++it)
 			it.getValue()->texture.Destroy();
+		for(List<ID3DXFont*>::iterator it = m_fontList.begin(); it != m_fontList.end(); ++it)
+			(*it)->OnLostDevice();
+		for(List<ID3DXSprite*>::iterator it = m_spriteList.begin(); it != m_spriteList.end(); ++it)
+			(*it)->OnLostDevice();
 	}
 	void DXVideo::reloadD3DResource(){
 		for(ImageTable_t::iterator it = m_ImageTable.begin(); it != m_ImageTable.end(); ++it){
 			_DXImageTag* p = it.getValue();
 			DX::CreateTextureFromFile(p->fileName.c_str(), p->texture, 1, DX::PXLFMT_A8R8G8B8, 0, D3DPOOL_DEFAULT);
+			D3DXGetImageInfoFromFile(p->fileName.c_str(), &p->info);
 		}
+		for(List<ID3DXFont*>::iterator it = m_fontList.begin(); it != m_fontList.end(); ++it)
+			(*it)->OnResetDevice();
+		for(List<ID3DXSprite*>::iterator it = m_spriteList.begin(); it != m_spriteList.end(); ++it)
+			(*it)->OnResetDevice();
 	}
 
 	void DXVideo::getAvailableMode(List<video::Mode>& buf){
@@ -476,8 +493,24 @@ namespace OneU
 	}
 
 	DXVideo::~DXVideo(){
+		uninit();
 		if(m_pRoot != NULL){ ONEU_DELETE m_pRoot; m_pRoot = NULL; }
 		DX::Graphics.Destroy();
+	}
+
+	List<ID3DXFont*>::iterator DXVideo::_registerD3DXFont(ID3DXFont* pFont){
+		m_fontList.pushBack(pFont);
+		return m_fontList.end().prev();
+	}
+	void DXVideo::_unregisterD3DXFont(List<ID3DXFont*>::iterator pFont){
+		m_fontList.erase(pFont);
+	}
+	List<ID3DXSprite*>::iterator DXVideo::_registerD3DXSprite(ID3DXSprite* pSprite){
+		m_spriteList.pushBack(pSprite);
+		return m_spriteList.end().prev();
+	}
+	void DXVideo::_unregisterD3DXSprite(List<ID3DXSprite*>::iterator pSprite){
+		m_spriteList.erase(pSprite);
 	}
 
 

@@ -41,7 +41,7 @@ namespace OneU
 	{
 		struct _NodeTag;
 		class INode;
-		class INodeContainer;
+		class ILayer;
 
 		class IRenderScene;
 		class IImage;
@@ -120,7 +120,7 @@ namespace OneU
 		List<video::IModule*> m_ModuleList;
 	protected:
 		video::IRenderScene* m_pRenderScene;
-		video::INodeContainer* m_pRoot;
+		video::ILayer* m_pRoot;
 	public:
 		IVideo() : m_pRenderScene(NULL), m_pRoot(NULL){}
 		inline ~IVideo();
@@ -133,6 +133,8 @@ namespace OneU
 		*/
 		/* ----------------------------------------------------------------------------*/
 		List<video::IModule*>::iterator __addModule(video::IModule* module);
+		//若仅在父类析构函数中调用可能会因为Module使用了Video（此时Video的子类已析构）而抛出异常，暂单提出一个函数
+		inline virtual void removeAllModule();
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 获取图形系统的名称
@@ -140,7 +142,7 @@ namespace OneU
 		 * @returns 图形系统的名称
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual LPCTSTR getName() = 0;
+		virtual pcwstr getName() = 0;
 
 		/* ----------------------------------------------------------------------------*/
 		/**
@@ -300,7 +302,7 @@ namespace OneU
 		 * 这三个函数一般不被用户使用
 		 */
 		//@{
-		video::INodeContainer& getRoot(){ return *m_pRoot; }
+		video::ILayer& getRoot(){ return *m_pRoot; }
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 获取活动渲染场景
@@ -390,7 +392,7 @@ namespace OneU
 		 */
 		/* ----------------------------------------------------------------------------*/
 		class IRenderScene
-			: public INodeContainer
+			: public ILayer
 		{
 		private:
 			IRenderScene(){}
@@ -398,7 +400,7 @@ namespace OneU
 		public:
 			void _describe(String& buffer, int depth){
 				buffer.append(L"<render scene>");
-				INodeContainer::_describe(buffer, depth);
+				ILayer::_describe(buffer, depth);
 			}
 		};
 	}
@@ -429,6 +431,10 @@ namespace OneU
 		};
 	}
 	inline IVideo::~IVideo(){
+		removeAllModule();
+	}
+
+	inline void IVideo::removeAllModule(){
 		for(List<video::IModule*>::iterator it = m_ModuleList.begin(); it != m_ModuleList.end();)//销毁所有模块
 			ONEU_DELETE *(it++);
 	}
