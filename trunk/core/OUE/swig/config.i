@@ -35,3 +35,15 @@ PROP_R(getter, prop)
 %rename(#prop"=") setter;
 %enddef
 #endif
+
+//find in swigtype.swg 删除了%as_voidptr
+//为了将来实现导出类，并能够追踪导出类实例而修改。这样可重载SWIG_NewPointerObj来定制对导出类的newpointer行为。
+/* Pointers, references */
+%typemap(out,noblock=1) SWIGTYPE *, SWIGTYPE &, SWIGTYPE[] {
+  %set_output(SWIG_NewPointerObj($1, $descriptor, $owner | %newpointer_flags));
+}
+
+%typemap(out, noblock=1) SWIGTYPE *const& {
+  %set_output(SWIG_NewPointerObj(*$1, $*descriptor, $owner | %newpointer_flags));
+}
+

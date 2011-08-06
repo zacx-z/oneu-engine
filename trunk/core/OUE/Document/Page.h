@@ -73,7 +73,7 @@ namespace OneU{
  * @subsection section_renderscene 图形系统和渲染场景
  * 万有引擎使用树来渲染。树中的每一个节点即表示一个渲染操作。渲染时会对树进行遍历。\n
  * 一个渲染场景即为一个渲染树。一般而言，一个场景对应一个渲染场景。\n
- * @ref video::INode即是渲染节点的接口，@ref video::INodeContainer是允许有孩子的渲染节点接口。z值表示一个渲染节点在其兄弟节点被渲染的顺序，z值小的会先被渲染。\n
+ * @ref video::INode即是渲染节点的接口，@ref video::ILayer是允许有孩子的渲染节点接口。z值表示一个渲染节点在其兄弟节点被渲染的顺序，z值小的会先被渲染。\n
  * 继承这两个类可以扩充图形系统的功能。\n
  *
  * @section section_program 编写程序

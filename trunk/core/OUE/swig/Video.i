@@ -12,7 +12,7 @@ namespace OneU
 	{
 		%nodefaultctor IRenderScene;
 		class IRenderScene
-			: public INodeContainer
+			: public ILayer
 		{};
 		
 		enum BLENDMODE{ BM_NORMAL = 0, BM_ADD };
@@ -39,7 +39,7 @@ namespace OneU
 	public:
 		IVideo();
 		
-		virtual LPCTSTR getName() = 0;
+		virtual OneU::pcwstr getName() = 0;
 
 		virtual void prepare() = 0;
 		virtual void init(OneU::uint32 width, OneU::uint32 height, bool bWindowed) = 0;
@@ -50,7 +50,7 @@ namespace OneU
 		virtual OneU::vector2u_t getDeviceSize() = 0;
 		virtual OneU::image_t loadImage(OneU::pcwstr filename) = 0;
 
-		OneU::video::INodeContainer& getRoot();
+		OneU::video::ILayer& getRoot();
 		OneU::video::IRenderScene* getRenderScene();
 		virtual OneU::video::IRenderScene* setRenderScene(OneU::video::IRenderScene* pRenderScene);
 		inline OneU::video::IRenderScene* createRenderScene();

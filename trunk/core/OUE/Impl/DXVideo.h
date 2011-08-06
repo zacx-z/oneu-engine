@@ -24,6 +24,7 @@ THE SOFTWARE.
 #include "../Video.h"
 #include "DXLib/DXGraphics.h"
 #include "DXLib/Texture.h"
+#include "DXLib/DXAUX.h"
 #include "../Table.h"
 #include "../Stack.h"
 #include <d3dx9.h>
@@ -98,15 +99,26 @@ namespace OneU
 		video::IRenderScene* getRenderScene();
 
 		_DXImageTag* _getDXImageTag(pcwstr filename);
-	private:
-		void unloadD3DResource();
-		void reloadD3DResource();
 
 	public:
 		void getAvailableMode(List<video::Mode>& buf);
 		//others
 		//不太重要的
 		void showInfo();
+
+	private:
+		void unloadD3DResource();
+		void reloadD3DResource();
+		//for d3d only
+	private:
+		List<ID3DXFont*> m_fontList;
+		List<ID3DXSprite*> m_spriteList;
+	public:
+		List<ID3DXFont*>::iterator _registerD3DXFont(ID3DXFont* pFont);
+		void _unregisterD3DXFont(List<ID3DXFont*>::iterator pFont);
+		List<ID3DXSprite*>::iterator _registerD3DXSprite(ID3DXSprite* pSprite);
+		void _unregisterD3DXSprite(List<ID3DXSprite*>::iterator pSprite);
+
 	};
 
 	struct _DXImageTag

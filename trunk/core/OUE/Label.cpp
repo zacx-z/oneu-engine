@@ -23,6 +23,7 @@ THE SOFTWARE.
 #include "Label.h"
 #include "Game.h"
 #include "Impl/DXLib/DXAUX.h"
+#include "Impl/DXVideo.h"
 
 namespace OneU
 {
@@ -31,10 +32,14 @@ namespace OneU
 	{
 	public:
 		ID3DXSprite* sprite;
+		List<ID3DXSprite*>::iterator m_spriteID;
+
 		Label_Module(){
 			sprite = DX::CreateXSprite();
+			m_spriteID = dynamic_cast<DXVideo&>(GetVideo())._registerD3DXSprite(sprite);
 		}
 		~Label_Module(){
+			dynamic_cast<DXVideo&>(GetVideo())._unregisterD3DXSprite(m_spriteID);
 			SAFE_RELEASE(sprite);
 		}
 	};
@@ -43,6 +48,7 @@ namespace OneU
 		: public ILabel
 	{
 		ID3DXFont* font;
+		List<ID3DXFont*>::iterator m_fontID;
 		float m_Width, m_Height;
 		String m_Text;
 		color_t m_Color;
@@ -56,8 +62,10 @@ namespace OneU
 			font = DX::CreateXFont(fontSize, (uint32)(fontSize * 0.4f), 1, 1, 0, fontName);
 
 			this->create2DTransform();
+			m_fontID = dynamic_cast<DXVideo&>(GetVideo())._registerD3DXFont(font);
 		}
 		~Label_Impl(){
+			dynamic_cast<DXVideo&>(GetVideo())._unregisterD3DXFont(m_fontID);
 			SAFE_RELEASE(font);
 		}
 		void setText(pcwstr text){

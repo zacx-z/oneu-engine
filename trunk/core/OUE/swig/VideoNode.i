@@ -25,7 +25,7 @@ namespace OneU
 			bool visible;
 			bool active;
 
-			OneU::video::INodeContainer* getParent();
+			OneU::video::ILayer* getParent();
 
 			void detach();
 
@@ -49,8 +49,8 @@ namespace OneU
 			float getScaleY() const;
 		};
 
-		%rename(NodeContainer) INodeContainer;
-		class INodeContainer
+		%rename(Layer) ILayer;
+		class ILayer
 			: public INode
 		{
 		public:

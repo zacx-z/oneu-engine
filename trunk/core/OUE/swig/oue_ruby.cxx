@@ -2201,51 +2201,50 @@ namespace Swig {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_LPCTSTR swig_types[0]
-#define SWIGTYPE_p_OneU__CharEvent swig_types[1]
-#define SWIGTYPE_p_OneU__IControl swig_types[2]
-#define SWIGTYPE_p_OneU__IGame swig_types[3]
-#define SWIGTYPE_p_OneU__IInputReceiver swig_types[4]
-#define SWIGTYPE_p_OneU__ILabel swig_types[5]
-#define SWIGTYPE_p_OneU__IScene swig_types[6]
-#define SWIGTYPE_p_OneU__IShape swig_types[7]
-#define SWIGTYPE_p_OneU__ISprite swig_types[8]
-#define SWIGTYPE_p_OneU__IStereo swig_types[9]
-#define SWIGTYPE_p_OneU__IVideo swig_types[10]
-#define SWIGTYPE_p_OneU__KeyEvent swig_types[11]
-#define SWIGTYPE_p_OneU__ListT_OneU__video__Mode_t swig_types[12]
-#define SWIGTYPE_p_OneU__MouseEvent swig_types[13]
-#define SWIGTYPE_p_OneU__Vector2T_float_t swig_types[14]
-#define SWIGTYPE_p_OneU__Vector2T_int_t swig_types[15]
-#define SWIGTYPE_p_OneU__Vector2T_unsigned_long_t swig_types[16]
-#define SWIGTYPE_p_OneU__Vector3T_float_t swig_types[17]
-#define SWIGTYPE_p_OneU__Vector3T_int_t swig_types[18]
-#define SWIGTYPE_p_OneU__Vector3T_unsigned_long_t swig_types[19]
-#define SWIGTYPE_p_OneU__Vector4T_float_t swig_types[20]
-#define SWIGTYPE_p_OneU__Vector4T_int_t swig_types[21]
-#define SWIGTYPE_p_OneU__Vector4T_unsigned_long_t swig_types[22]
-#define SWIGTYPE_p_OneU__color_t swig_types[23]
-#define SWIGTYPE_p_OneU__image_t swig_types[24]
-#define SWIGTYPE_p_OneU__rect_tT_float_t swig_types[25]
-#define SWIGTYPE_p_OneU__rect_tT_int_t swig_types[26]
-#define SWIGTYPE_p_OneU__rect_tT_unsigned_long_t swig_types[27]
-#define SWIGTYPE_p_OneU__sound_t swig_types[28]
+#define SWIGTYPE_p_OneU__CharEvent swig_types[0]
+#define SWIGTYPE_p_OneU__IControl swig_types[1]
+#define SWIGTYPE_p_OneU__IGame swig_types[2]
+#define SWIGTYPE_p_OneU__IInputReceiver swig_types[3]
+#define SWIGTYPE_p_OneU__ILabel swig_types[4]
+#define SWIGTYPE_p_OneU__IScene swig_types[5]
+#define SWIGTYPE_p_OneU__IShape swig_types[6]
+#define SWIGTYPE_p_OneU__ISprite swig_types[7]
+#define SWIGTYPE_p_OneU__IStereo swig_types[8]
+#define SWIGTYPE_p_OneU__IVideo swig_types[9]
+#define SWIGTYPE_p_OneU__KeyEvent swig_types[10]
+#define SWIGTYPE_p_OneU__ListT_OneU__video__Mode_t swig_types[11]
+#define SWIGTYPE_p_OneU__MouseEvent swig_types[12]
+#define SWIGTYPE_p_OneU__Vector2T_float_t swig_types[13]
+#define SWIGTYPE_p_OneU__Vector2T_int_t swig_types[14]
+#define SWIGTYPE_p_OneU__Vector2T_unsigned_long_t swig_types[15]
+#define SWIGTYPE_p_OneU__Vector3T_float_t swig_types[16]
+#define SWIGTYPE_p_OneU__Vector3T_int_t swig_types[17]
+#define SWIGTYPE_p_OneU__Vector3T_unsigned_long_t swig_types[18]
+#define SWIGTYPE_p_OneU__Vector4T_float_t swig_types[19]
+#define SWIGTYPE_p_OneU__Vector4T_int_t swig_types[20]
+#define SWIGTYPE_p_OneU__Vector4T_unsigned_long_t swig_types[21]
+#define SWIGTYPE_p_OneU__color_t swig_types[22]
+#define SWIGTYPE_p_OneU__image_t swig_types[23]
+#define SWIGTYPE_p_OneU__rect_tT_float_t swig_types[24]
+#define SWIGTYPE_p_OneU__rect_tT_int_t swig_types[25]
+#define SWIGTYPE_p_OneU__rect_tT_unsigned_long_t swig_types[26]
+#define SWIGTYPE_p_OneU__sound_t swig_types[27]
+#define SWIGTYPE_p_OneU__video__ILayer swig_types[28]
 #define SWIGTYPE_p_OneU__video__INode swig_types[29]
-#define SWIGTYPE_p_OneU__video__INodeContainer swig_types[30]
-#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[31]
-#define SWIGTYPE_p_OneU__video__Mode swig_types[32]
-#define SWIGTYPE_p_Scene swig_types[33]
-#define SWIGTYPE_p_char swig_types[34]
-#define SWIGTYPE_p_long swig_types[35]
-#define SWIGTYPE_p_long_long swig_types[36]
-#define SWIGTYPE_p_short swig_types[37]
-#define SWIGTYPE_p_unsigned_char swig_types[38]
-#define SWIGTYPE_p_unsigned_long swig_types[39]
-#define SWIGTYPE_p_unsigned_long_long swig_types[40]
-#define SWIGTYPE_p_unsigned_short swig_types[41]
-#define SWIGTYPE_p_wchar_t swig_types[42]
-static swig_type_info *swig_types[44];
-static swig_module_info swig_module = {swig_types, 43, 0, 0, 0, 0};
+#define SWIGTYPE_p_OneU__video__IRenderScene swig_types[30]
+#define SWIGTYPE_p_OneU__video__Mode swig_types[31]
+#define SWIGTYPE_p_Scene swig_types[32]
+#define SWIGTYPE_p_char swig_types[33]
+#define SWIGTYPE_p_long swig_types[34]
+#define SWIGTYPE_p_long_long swig_types[35]
+#define SWIGTYPE_p_short swig_types[36]
+#define SWIGTYPE_p_unsigned_char swig_types[37]
+#define SWIGTYPE_p_unsigned_long swig_types[38]
+#define SWIGTYPE_p_unsigned_long_long swig_types[39]
+#define SWIGTYPE_p_unsigned_short swig_types[40]
+#define SWIGTYPE_p_wchar_t swig_types[41]
+static swig_type_info *swig_types[43];
+static swig_module_info swig_module = {swig_types, 42, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2523,7 +2522,7 @@ SWIG_AsCharPtrAndSize(VALUE obj, char** cptr, size_t* psize, int *alloc)
 
 
 
-SWIGINTERN bool OneU_video_INodeContainer_addChild__SWIG_0(OneU::video::INodeContainer *self,OneU::video::INode *child,int z=0,OneU::pcwstr tag=NULL){
+SWIGINTERN bool OneU_video_ILayer_addChild__SWIG_0(OneU::video::ILayer *self,OneU::video::INode *child,int z=0,OneU::pcwstr tag=NULL){
 					return self->addChild(child, z, tag, false);//²»×ªÒÆownership
 				}
 
@@ -6617,7 +6616,7 @@ _wrap_INode_getParent(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  OneU::video::INodeContainer *result = 0 ;
+  OneU::video::ILayer *result = 0 ;
   VALUE vresult = Qnil;
   
   if ((argc < 0) || (argc > 0)) {
@@ -6628,8 +6627,8 @@ _wrap_INode_getParent(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INode *","getParent", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::video::INode * >(argp1);
-  result = (OneU::video::INodeContainer *)(arg1)->getParent();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__video__INodeContainer, 0 |  0 );
+  result = (OneU::video::ILayer *)(arg1)->getParent();
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__video__ILayer, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -7080,11 +7079,11 @@ free_OneU_video_INode(OneU::video::INode *arg1) {
     delete arg1;
 }
 
-swig_class SwigClassNodeContainer;
+swig_class SwigClassLayer;
 
 SWIGINTERN VALUE
-_wrap_NodeContainer_name(int argc, VALUE *argv, VALUE self) {
-  OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
+_wrap_Layer_name(int argc, VALUE *argv, VALUE self) {
+  OneU::video::ILayer *arg1 = (OneU::video::ILayer *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   OneU::pcwstr result;
@@ -7093,11 +7092,11 @@ _wrap_NodeContainer_name(int argc, VALUE *argv, VALUE self) {
   if ((argc < 0) || (argc > 0)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__INodeContainer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__ILayer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INodeContainer *","name", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::ILayer *","name", 1, self )); 
   }
-  arg1 = reinterpret_cast< OneU::video::INodeContainer * >(argp1);
+  arg1 = reinterpret_cast< OneU::video::ILayer * >(argp1);
   result = (OneU::pcwstr)(arg1)->name();
   {
     vresult = rb_str_new2(OneU::Wide2Char(result, 65001));
@@ -7109,8 +7108,8 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_NodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
-  OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
+_wrap_Layer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  OneU::video::ILayer *arg1 = (OneU::video::ILayer *) 0 ;
   OneU::video::INode *arg2 = (OneU::video::INode *) 0 ;
   int arg3 ;
   OneU::pcwstr arg4 = (OneU::pcwstr) 0 ;
@@ -7127,11 +7126,11 @@ _wrap_NodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
   if ((argc < 3) || (argc > 3)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 3)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__INodeContainer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__ILayer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INodeContainer *","addChild", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::ILayer *","addChild", 1, self )); 
   }
-  arg1 = reinterpret_cast< OneU::video::INodeContainer * >(argp1);
+  arg1 = reinterpret_cast< OneU::video::ILayer * >(argp1);
   res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__video__INode, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] )); 
@@ -7151,9 +7150,9 @@ _wrap_NodeContainer_addChild__SWIG_0(int argc, VALUE *argv, VALUE self) {
   }
   {
     if(arg2 == NULL)
-    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in NodeContainer_addChild");
+    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in Layer_addChild");
   }
-  result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2,arg3,(wchar_t const *)arg4);
+  result = (bool)OneU_video_ILayer_addChild__SWIG_0(arg1,arg2,arg3,(wchar_t const *)arg4);
   vresult = SWIG_From_bool(static_cast< bool >(result));
   return vresult;
 fail:
@@ -7162,8 +7161,8 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_NodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
-  OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
+_wrap_Layer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  OneU::video::ILayer *arg1 = (OneU::video::ILayer *) 0 ;
   OneU::video::INode *arg2 = (OneU::video::INode *) 0 ;
   int arg3 ;
   void *argp1 = 0 ;
@@ -7178,11 +7177,11 @@ _wrap_NodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
   if ((argc < 2) || (argc > 2)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__INodeContainer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__ILayer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INodeContainer *","addChild", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::ILayer *","addChild", 1, self )); 
   }
-  arg1 = reinterpret_cast< OneU::video::INodeContainer * >(argp1);
+  arg1 = reinterpret_cast< OneU::video::ILayer * >(argp1);
   res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__video__INode, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] )); 
@@ -7195,9 +7194,9 @@ _wrap_NodeContainer_addChild__SWIG_1(int argc, VALUE *argv, VALUE self) {
   arg3 = static_cast< int >(val3);
   {
     if(arg2 == NULL)
-    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in NodeContainer_addChild");
+    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in Layer_addChild");
   }
-  result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2,arg3);
+  result = (bool)OneU_video_ILayer_addChild__SWIG_0(arg1,arg2,arg3);
   vresult = SWIG_From_bool(static_cast< bool >(result));
   return vresult;
 fail:
@@ -7206,8 +7205,8 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_NodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
-  OneU::video::INodeContainer *arg1 = (OneU::video::INodeContainer *) 0 ;
+_wrap_Layer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
+  OneU::video::ILayer *arg1 = (OneU::video::ILayer *) 0 ;
   OneU::video::INode *arg2 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -7219,11 +7218,11 @@ _wrap_NodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__INodeContainer, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__ILayer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INodeContainer *","addChild", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::ILayer *","addChild", 1, self )); 
   }
-  arg1 = reinterpret_cast< OneU::video::INodeContainer * >(argp1);
+  arg1 = reinterpret_cast< OneU::video::ILayer * >(argp1);
   res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__video__INode, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::video::INode *","addChild", 2, argv[0] )); 
@@ -7231,9 +7230,9 @@ _wrap_NodeContainer_addChild__SWIG_2(int argc, VALUE *argv, VALUE self) {
   arg2 = reinterpret_cast< OneU::video::INode * >(argp2);
   {
     if(arg2 == NULL)
-    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in NodeContainer_addChild");
+    SWIG_exception_fail(SWIG_ValueError, "Expected a non-null pointer! Arg #2 in Layer_addChild");
   }
-  result = (bool)OneU_video_INodeContainer_addChild__SWIG_0(arg1,arg2);
+  result = (bool)OneU_video_ILayer_addChild__SWIG_0(arg1,arg2);
   vresult = SWIG_From_bool(static_cast< bool >(result));
   return vresult;
 fail:
@@ -7241,7 +7240,7 @@ fail:
 }
 
 
-SWIGINTERN VALUE _wrap_NodeContainer_addChild(int nargs, VALUE *args, VALUE self) {
+SWIGINTERN VALUE _wrap_Layer_addChild(int nargs, VALUE *args, VALUE self) {
   int argc;
   VALUE argv[5];
   int ii;
@@ -7255,21 +7254,21 @@ SWIGINTERN VALUE _wrap_NodeContainer_addChild(int nargs, VALUE *args, VALUE self
   if (argc == 2) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__video__INodeContainer, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__video__ILayer, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
       int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_OneU__video__INode, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_NodeContainer_addChild__SWIG_2(nargs, args, self);
+        return _wrap_Layer_addChild__SWIG_2(nargs, args, self);
       }
     }
   }
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__video__INodeContainer, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__video__ILayer, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
@@ -7281,7 +7280,7 @@ SWIGINTERN VALUE _wrap_NodeContainer_addChild(int nargs, VALUE *args, VALUE self
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_NodeContainer_addChild__SWIG_1(nargs, args, self);
+          return _wrap_Layer_addChild__SWIG_1(nargs, args, self);
         }
       }
     }
@@ -7289,7 +7288,7 @@ SWIGINTERN VALUE _wrap_NodeContainer_addChild(int nargs, VALUE *args, VALUE self
   if (argc == 4) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__video__INodeContainer, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__video__ILayer, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
@@ -7304,7 +7303,7 @@ SWIGINTERN VALUE _wrap_NodeContainer_addChild(int nargs, VALUE *args, VALUE self
           int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
           _v = SWIG_CheckState(res);
           if (_v) {
-            return _wrap_NodeContainer_addChild__SWIG_0(nargs, args, self);
+            return _wrap_Layer_addChild__SWIG_0(nargs, args, self);
           }
         }
       }
@@ -7323,14 +7322,14 @@ fail:
 
 #ifdef HAVE_RB_DEFINE_ALLOC_FUNC
 SWIGINTERN VALUE
-_wrap_NodeContainer_allocate(VALUE self) {
+_wrap_Layer_allocate(VALUE self) {
 #else
   SWIGINTERN VALUE
-  _wrap_NodeContainer_allocate(int argc, VALUE *argv, VALUE self) {
+  _wrap_Layer_allocate(int argc, VALUE *argv, VALUE self) {
 #endif
     
     
-    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_OneU__video__INodeContainer);
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_OneU__video__ILayer);
 #ifndef HAVE_RB_DEFINE_ALLOC_FUNC
     rb_obj_call_init(vresult, argc, argv);
 #endif
@@ -7339,14 +7338,14 @@ _wrap_NodeContainer_allocate(VALUE self) {
   
 
 SWIGINTERN VALUE
-_wrap_new_NodeContainer(int argc, VALUE *argv, VALUE self) {
-  const char *classname SWIGUNUSED = "OUE::NodeContainer";
-  OneU::video::INodeContainer *result = 0 ;
+_wrap_new_Layer(int argc, VALUE *argv, VALUE self) {
+  const char *classname SWIGUNUSED = "OUE::Layer";
+  OneU::video::ILayer *result = 0 ;
   
   if ((argc < 0) || (argc > 0)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
-  result = (OneU::video::INodeContainer *)new OneU::video::INodeContainer();
+  result = (OneU::video::ILayer *)new OneU::video::ILayer();
   DATA_PTR(self) = result;
   return self;
 fail:
@@ -7355,7 +7354,7 @@ fail:
 
 
 SWIGINTERN void
-free_OneU_video_INodeContainer(OneU::video::INodeContainer *arg1) {
+free_OneU_video_ILayer(OneU::video::ILayer *arg1) {
     delete arg1;
 }
 
@@ -7432,7 +7431,7 @@ _wrap_Mode_size_get(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::video::Mode * >(argp1);
   result = (OneU::vector2u_t *)& ((arg1)->size);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__Vector2T_unsigned_long_t, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__Vector2T_unsigned_long_t, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -7577,7 +7576,7 @@ _wrap_Video_getName(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  LPCTSTR result;
+  OneU::pcwstr result;
   VALUE vresult = Qnil;
   
   if ((argc < 0) || (argc > 0)) {
@@ -7588,8 +7587,10 @@ _wrap_Video_getName(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IVideo *","getName", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::IVideo * >(argp1);
-  result = (arg1)->getName();
-  vresult = SWIG_NewPointerObj((new LPCTSTR(static_cast< const LPCTSTR& >(result))), SWIGTYPE_p_LPCTSTR, SWIG_POINTER_OWN |  0 );
+  result = (OneU::pcwstr)(arg1)->getName();
+  {
+    vresult = rb_str_new2(OneU::Wide2Char(result, 65001));
+  }
   return vresult;
 fail:
   return Qnil;
@@ -7793,7 +7794,7 @@ _wrap_Video_getRoot(int argc, VALUE *argv, VALUE self) {
   OneU::IVideo *arg1 = (OneU::IVideo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  OneU::video::INodeContainer *result = 0 ;
+  OneU::video::ILayer *result = 0 ;
   VALUE vresult = Qnil;
   
   if ((argc < 0) || (argc > 0)) {
@@ -7804,8 +7805,8 @@ _wrap_Video_getRoot(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IVideo *","getRoot", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::IVideo * >(argp1);
-  result = (OneU::video::INodeContainer *) &(arg1)->getRoot();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__video__INodeContainer, 0 |  0 );
+  result = (OneU::video::ILayer *) &(arg1)->getRoot();
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__video__ILayer, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -7829,7 +7830,7 @@ _wrap_Video_getRenderScene(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::IVideo * >(argp1);
   result = (OneU::video::IRenderScene *)(arg1)->getRenderScene();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__video__IRenderScene, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__video__IRenderScene, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -7861,7 +7862,7 @@ _wrap_Video_setRenderScene(int argc, VALUE *argv, VALUE self) {
   }
   arg2 = reinterpret_cast< OneU::video::IRenderScene * >(argp2);
   result = (OneU::video::IRenderScene *)(arg1)->setRenderScene(arg2);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__video__IRenderScene, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__video__IRenderScene, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -7885,7 +7886,7 @@ _wrap_Video_createRenderScene(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::IVideo * >(argp1);
   result = (OneU::video::IRenderScene *)(arg1)->createRenderScene();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__video__IRenderScene, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__video__IRenderScene, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -7999,7 +8000,7 @@ _wrap_IScene_RS(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::IScene * >(argp1);
   result = (OneU::video::IRenderScene *)(arg1)->getRenderScene();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__video__IRenderScene, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__video__IRenderScene, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -8036,7 +8037,7 @@ _wrap_IScene_replaceInputFocus(int argc, VALUE *argv, VALUE self) {
   }
   arg2 = reinterpret_cast< OneU::IInputReceiver * >(argp2);
   result = (OneU::IInputReceiver *)(arg1)->replaceInputFocus(arg2);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -8089,7 +8090,7 @@ _wrap_IScene_popInputFocus(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::IScene * >(argp1);
   result = (OneU::IInputReceiver *)(arg1)->popInputFocus();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -8197,7 +8198,7 @@ _wrap_Scene___game_get(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< Scene * >(argp1);
   result = (OneU::IGame *) ((arg1)->__game);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IGame, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IGame, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -8336,7 +8337,7 @@ _wrap_Game_getVideo(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::IGame * >(argp1);
   result = (OneU::IVideo *) &(arg1)->getVideo();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IVideo, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IVideo, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -8360,7 +8361,7 @@ _wrap_Game_getStereo(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::IGame * >(argp1);
   result = (OneU::IStereo *) &(arg1)->getStereo();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IStereo, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -8384,7 +8385,7 @@ _wrap_Game_getControl(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::IGame * >(argp1);
   result = (OneU::IControl *) &(arg1)->getControl();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IControl, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IControl, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -8408,7 +8409,7 @@ _wrap_Game_getScene(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< OneU::IGame * >(argp1);
   result = (OneU::IScene *) &(arg1)->getScene();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IScene, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IScene, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -8442,7 +8443,7 @@ _wrap_Game_init(int argc, VALUE *argv, VALUE self) {
   arg1 = reinterpret_cast< OneU::IGame * >(argp1);
   {
     if(TYPE(argv[0]) != T_STRING)
-    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "WindowName", "One	U::pcwstr","init", 2, argv[0] ));
+    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "WindowName", "OneU::pcwstr","init", 2, argv[0] ));
     
     temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), 65001);
     arg2 = temp2;
@@ -8964,7 +8965,7 @@ _wrap_GetGame(int argc, VALUE *argv, VALUE self) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
   result = (OneU::IGame *) &OneU::GetGame();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IGame, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IGame, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -8980,7 +8981,7 @@ _wrap_GetVideo(int argc, VALUE *argv, VALUE self) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
   result = (OneU::IVideo *) &OneU::GetVideo();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IVideo, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IVideo, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -8996,7 +8997,7 @@ _wrap_GetStereo(int argc, VALUE *argv, VALUE self) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
   result = (OneU::IStereo *) &OneU::GetStereo();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IStereo, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -9012,7 +9013,7 @@ _wrap_GetControl(int argc, VALUE *argv, VALUE self) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
   result = (OneU::IControl *) &OneU::GetControl();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IControl, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IControl, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -9028,7 +9029,7 @@ _wrap_GetScene(int argc, VALUE *argv, VALUE self) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
   result = (OneU::IScene *) &OneU::GetScene();
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OneU__IScene, 0 |  0 );
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IScene, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -11100,28 +11101,27 @@ fail:
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
+static void *_p_OneU__video__IRenderSceneTo_p_OneU__video__ILayer(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((OneU::video::ILayer *)  ((OneU::video::IRenderScene *) x));
+}
 static void *_p_OneU__IShapeTo_p_OneU__video__INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((OneU::video::INode *)  ((OneU::IShape *) x));
 }
 static void *_p_OneU__ILabelTo_p_OneU__video__INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((OneU::video::INode *)  ((OneU::ILabel *) x));
 }
+static void *_p_OneU__video__ILayerTo_p_OneU__video__INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((OneU::video::INode *)  ((OneU::video::ILayer *) x));
+}
 static void *_p_OneU__ISpriteTo_p_OneU__video__INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((OneU::video::INode *)  ((OneU::ISprite *) x));
 }
-static void *_p_OneU__video__INodeContainerTo_p_OneU__video__INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((OneU::video::INode *)  ((OneU::video::INodeContainer *) x));
-}
 static void *_p_OneU__video__IRenderSceneTo_p_OneU__video__INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((OneU::video::INode *) (OneU::video::INodeContainer *) ((OneU::video::IRenderScene *) x));
+    return (void *)((OneU::video::INode *) (OneU::video::ILayer *) ((OneU::video::IRenderScene *) x));
 }
 static void *_p_SceneTo_p_OneU__IScene(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((OneU::IScene *)  ((Scene *) x));
 }
-static void *_p_OneU__video__IRenderSceneTo_p_OneU__video__INodeContainer(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((OneU::video::INodeContainer *)  ((OneU::video::IRenderScene *) x));
-}
-static swig_type_info _swigt__p_LPCTSTR = {"_p_LPCTSTR", "LPCTSTR *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__CharEvent = {"_p_OneU__CharEvent", "OneU::CharEvent *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__IControl = {"_p_OneU__IControl", "OneU::IControl *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__IGame = {"_p_OneU__IGame", "OneU::IGame *", 0, 0, (void*)0, 0};
@@ -11150,8 +11150,8 @@ static swig_type_info _swigt__p_OneU__rect_tT_float_t = {"_p_OneU__rect_tT_float
 static swig_type_info _swigt__p_OneU__rect_tT_int_t = {"_p_OneU__rect_tT_int_t", "OneU::recti_t *|OneU::rect_t< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__rect_tT_unsigned_long_t = {"_p_OneU__rect_tT_unsigned_long_t", "OneU::rect_t< unsigned long > *|OneU::rectu_t *|OneU::rect_t< OneU::uint32 > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__sound_t = {"_p_OneU__sound_t", "OneU::sound_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_OneU__video__ILayer = {"_p_OneU__video__ILayer", "OneU::video::ILayer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__INode = {"_p_OneU__video__INode", "OneU::video::INode *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_OneU__video__INodeContainer = {"_p_OneU__video__INodeContainer", "OneU::video::INodeContainer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__IRenderScene = {"_p_OneU__video__IRenderScene", "OneU::video::IRenderScene *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__video__Mode = {"_p_OneU__video__Mode", "OneU::video::Mode *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Scene = {"_p_Scene", "Scene *", 0, 0, (void*)0, 0};
@@ -11166,7 +11166,6 @@ static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "OneU::ui
 static swig_type_info _swigt__p_wchar_t = {"_p_wchar_t", "OneU::wchar *|wchar_t *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p_LPCTSTR,
   &_swigt__p_OneU__CharEvent,
   &_swigt__p_OneU__IControl,
   &_swigt__p_OneU__IGame,
@@ -11195,8 +11194,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_OneU__rect_tT_int_t,
   &_swigt__p_OneU__rect_tT_unsigned_long_t,
   &_swigt__p_OneU__sound_t,
+  &_swigt__p_OneU__video__ILayer,
   &_swigt__p_OneU__video__INode,
-  &_swigt__p_OneU__video__INodeContainer,
   &_swigt__p_OneU__video__IRenderScene,
   &_swigt__p_OneU__video__Mode,
   &_swigt__p_Scene,
@@ -11211,7 +11210,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_wchar_t,
 };
 
-static swig_cast_info _swigc__p_LPCTSTR[] = {  {&_swigt__p_LPCTSTR, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__CharEvent[] = {  {&_swigt__p_OneU__CharEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IControl[] = {  {&_swigt__p_OneU__IControl, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IGame[] = {  {&_swigt__p_OneU__IGame, 0, 0, 0},{0, 0, 0, 0}};
@@ -11240,8 +11238,8 @@ static swig_cast_info _swigc__p_OneU__rect_tT_float_t[] = {  {&_swigt__p_OneU__r
 static swig_cast_info _swigc__p_OneU__rect_tT_int_t[] = {  {&_swigt__p_OneU__rect_tT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__rect_tT_unsigned_long_t[] = {  {&_swigt__p_OneU__rect_tT_unsigned_long_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__sound_t[] = {  {&_swigt__p_OneU__sound_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_OneU__video__INode[] = {  {&_swigt__p_OneU__IShape, _p_OneU__IShapeTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ILabel, _p_OneU__ILabelTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ISprite, _p_OneU__ISpriteTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__INodeContainer, _p_OneU__video__INodeContainerTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__INode, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__INode, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_OneU__video__INodeContainer[] = {  {&_swigt__p_OneU__video__INodeContainer, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__INodeContainer, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_OneU__video__ILayer[] = {  {&_swigt__p_OneU__video__ILayer, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__ILayer, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_OneU__video__INode[] = {  {&_swigt__p_OneU__IShape, _p_OneU__IShapeTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ILabel, _p_OneU__ILabelTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__ILayer, _p_OneU__video__ILayerTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__ISprite, _p_OneU__ISpriteTo_p_OneU__video__INode, 0, 0},  {&_swigt__p_OneU__video__INode, 0, 0, 0},  {&_swigt__p_OneU__video__IRenderScene, _p_OneU__video__IRenderSceneTo_p_OneU__video__INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__IRenderScene[] = {  {&_swigt__p_OneU__video__IRenderScene, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__video__Mode[] = {  {&_swigt__p_OneU__video__Mode, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Scene[] = {  {&_swigt__p_Scene, 0, 0, 0},{0, 0, 0, 0}};
@@ -11256,7 +11254,6 @@ static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short
 static swig_cast_info _swigc__p_wchar_t[] = {  {&_swigt__p_wchar_t, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p_LPCTSTR,
   _swigc__p_OneU__CharEvent,
   _swigc__p_OneU__IControl,
   _swigc__p_OneU__IGame,
@@ -11285,8 +11282,8 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_OneU__rect_tT_int_t,
   _swigc__p_OneU__rect_tT_unsigned_long_t,
   _swigc__p_OneU__sound_t,
+  _swigc__p_OneU__video__ILayer,
   _swigc__p_OneU__video__INode,
-  _swigc__p_OneU__video__INodeContainer,
   _swigc__p_OneU__video__IRenderScene,
   _swigc__p_OneU__video__Mode,
   _swigc__p_Scene,
@@ -11769,17 +11766,17 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassINode.destroy = (void (*)(void *)) free_OneU_video_INode;
   SwigClassINode.trackObjects = 0;
   
-  SwigClassNodeContainer.klass = rb_define_class_under(mOUE, "NodeContainer", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__video__INodeContainer, (void *) &SwigClassNodeContainer);
-  rb_define_alloc_func(SwigClassNodeContainer.klass, _wrap_NodeContainer_allocate);
-  rb_define_method(SwigClassNodeContainer.klass, "initialize", VALUEFUNC(_wrap_new_NodeContainer), -1);
-  rb_define_method(SwigClassNodeContainer.klass, "name", VALUEFUNC(_wrap_NodeContainer_name), -1);
-  rb_define_method(SwigClassNodeContainer.klass, "addChild", VALUEFUNC(_wrap_NodeContainer_addChild), -1);
-  SwigClassNodeContainer.mark = 0;
-  SwigClassNodeContainer.destroy = (void (*)(void *)) free_OneU_video_INodeContainer;
-  SwigClassNodeContainer.trackObjects = 0;
+  SwigClassLayer.klass = rb_define_class_under(mOUE, "Layer", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__video__ILayer, (void *) &SwigClassLayer);
+  rb_define_alloc_func(SwigClassLayer.klass, _wrap_Layer_allocate);
+  rb_define_method(SwigClassLayer.klass, "initialize", VALUEFUNC(_wrap_new_Layer), -1);
+  rb_define_method(SwigClassLayer.klass, "name", VALUEFUNC(_wrap_Layer_name), -1);
+  rb_define_method(SwigClassLayer.klass, "addChild", VALUEFUNC(_wrap_Layer_addChild), -1);
+  SwigClassLayer.mark = 0;
+  SwigClassLayer.destroy = (void (*)(void *)) free_OneU_video_ILayer;
+  SwigClassLayer.trackObjects = 0;
   
-  SwigClassIRenderScene.klass = rb_define_class_under(mOUE, "IRenderScene", ((swig_class *) SWIGTYPE_p_OneU__video__INodeContainer->clientdata)->klass);
+  SwigClassIRenderScene.klass = rb_define_class_under(mOUE, "IRenderScene", ((swig_class *) SWIGTYPE_p_OneU__video__ILayer->clientdata)->klass);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__video__IRenderScene, (void *) &SwigClassIRenderScene);
   rb_undef_alloc_func(SwigClassIRenderScene.klass);
   SwigClassIRenderScene.mark = 0;
