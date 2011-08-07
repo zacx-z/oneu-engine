@@ -32,8 +32,6 @@ namespace OneU
 
 		ONEU_API void GetSystemTime(SYSTEMTIME * pSystemTime){ ::GetSystemTime( (LPSYSTEMTIME)pSystemTime ); }
 
-		ONEU_API void ShowCursor(bool bShow){ ::ShowCursor( bShow ); }
-
 		ONEU_API void SetCursorPos(int X, int Y){ ::SetCursorPos( X, Y ); }
 
 		ONEU_API wchar * GetDirectory()

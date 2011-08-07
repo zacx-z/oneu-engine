@@ -57,13 +57,13 @@ namespace OneU
 				XV(m_pBuffer->GetStatus(&status));
 				return (bool)(status & DSBSTATUS_PLAYING);
 			}
-			long getVolume(){
+			float getVolume(){
 				long ret;
 				XV(m_pBuffer->GetVolume(&ret));
-				return ret;
+				return ((float)ret - DSBVOLUME_MIN) / (DSBVOLUME_MAX - DSBVOLUME_MIN);
 			}
-			void setVolume(long volume){
-				XV(m_pBuffer->SetVolume(volume));
+			void setVolume(float volume){
+				XV(m_pBuffer->SetVolume(long(volume * (DSBVOLUME_MAX - DSBVOLUME_MIN) + DSBVOLUME_MIN)));
 			}
 			uint32 getFrequency(){
 				uint32 ret;
@@ -73,13 +73,13 @@ namespace OneU
 			void setFrequency(uint32 freq){
 				XV(m_pBuffer->SetFrequency(freq));
 			}
-			long getPan(){
+			float getPan(){
 				long ret;
 				XV(m_pBuffer->GetPan(&ret));
-				return ret;
+				return ((float)ret - DSBPAN_CENTER) / (DSBPAN_RIGHT - DSBPAN_LEFT);
 			}
-			void setPan(long pan){
-				XV(m_pBuffer->SetPan(pan));
+			void setPan(float pan){
+				XV(m_pBuffer->SetPan(long(pan * (DSBPAN_RIGHT - DSBPAN_LEFT) + DSBPAN_CENTER)));
 			}
 			void _play(bool bLooped){
 				//»¥³âËø

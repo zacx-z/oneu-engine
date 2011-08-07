@@ -2528,6 +2528,8 @@ SWIGINTERN bool OneU_video_ILayer_addChild__SWIG_0(OneU::video::ILayer *self,One
 
 #include "../Video.h"
 
+SWIGINTERN OneU::uint32 OneU_image_t_getWidth(OneU::image_t *self){ return self->get()->getWidth(); }
+SWIGINTERN OneU::uint32 OneU_image_t_getHeight(OneU::image_t *self){ return self->get()->getHeight(); }
 
 #include "../Scene.h"
 
@@ -2557,6 +2559,12 @@ SWIGINTERN void OneU_IGame_replaceScene(OneU::IGame *self,Scene *scene){
 
 #include "../Stereo.h"
 
+SWIGINTERN float OneU_sound_t_getVolume(OneU::sound_t *self){ return self->get()->getVolume(); }
+SWIGINTERN void OneU_sound_t_setVolume(OneU::sound_t *self,float volume){ return self->get()->setVolume(volume); }
+SWIGINTERN OneU::uint32 OneU_sound_t_getFrequency(OneU::sound_t *self){ return self->get()->getFrequency(); }
+SWIGINTERN void OneU_sound_t_setFrequency(OneU::sound_t *self,OneU::uint32 freq){ return self->get()->setFrequency(freq); }
+SWIGINTERN float OneU_sound_t_getPan(OneU::sound_t *self){ return self->get()->getPan(); }
+SWIGINTERN void OneU_sound_t_setPan(OneU::sound_t *self,float pan){ return self->get()->setPan(pan); }
 
 #include "../Control.h"
 
@@ -7564,6 +7572,54 @@ fail:
 }
 
 
+SWIGINTERN VALUE
+_wrap_Image_t_getWidth(int argc, VALUE *argv, VALUE self) {
+  OneU::image_t *arg1 = (OneU::image_t *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  OneU::uint32 result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__image_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::image_t *","getWidth", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::image_t * >(argp1);
+  result = (OneU::uint32)OneU_image_t_getWidth(arg1);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Image_t_getHeight(int argc, VALUE *argv, VALUE self) {
+  OneU::image_t *arg1 = (OneU::image_t *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  OneU::uint32 result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__image_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::image_t *","getHeight", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::image_t * >(argp1);
+  result = (OneU::uint32)OneU_image_t_getHeight(arg1);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
 SWIGINTERN void
 free_OneU_image_t(OneU::image_t *arg1) {
     delete arg1;
@@ -8652,6 +8708,35 @@ fail:
 
 
 SWIGINTERN VALUE
+_wrap_Game_showCursor(int argc, VALUE *argv, VALUE self) {
+  OneU::IGame *arg1 = (OneU::IGame *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IGame, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IGame *","showCursor", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::IGame * >(argp1);
+  ecode2 = SWIG_AsVal_bool(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "bool","showCursor", 2, argv[0] ));
+  } 
+  arg2 = static_cast< bool >(val2);
+  (arg1)->showCursor(arg2);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
 _wrap_Game_getFPS(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
@@ -9066,6 +9151,165 @@ _wrap_new_Sound_t(int argc, VALUE *argv, VALUE self) {
   result = (OneU::sound_t *)new OneU::sound_t();
   DATA_PTR(self) = result;
   return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Sound_t_getVolume(int argc, VALUE *argv, VALUE self) {
+  OneU::sound_t *arg1 = (OneU::sound_t *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__sound_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::sound_t *","getVolume", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::sound_t * >(argp1);
+  result = (float)OneU_sound_t_getVolume(arg1);
+  vresult = SWIG_From_float(static_cast< float >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Sound_t_setVolume(int argc, VALUE *argv, VALUE self) {
+  OneU::sound_t *arg1 = (OneU::sound_t *) 0 ;
+  float arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__sound_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::sound_t *","setVolume", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::sound_t * >(argp1);
+  ecode2 = SWIG_AsVal_float(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","setVolume", 2, argv[0] ));
+  } 
+  arg2 = static_cast< float >(val2);
+  OneU_sound_t_setVolume(arg1,arg2);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Sound_t_getFrequency(int argc, VALUE *argv, VALUE self) {
+  OneU::sound_t *arg1 = (OneU::sound_t *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  OneU::uint32 result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__sound_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::sound_t *","getFrequency", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::sound_t * >(argp1);
+  result = (OneU::uint32)OneU_sound_t_getFrequency(arg1);
+  vresult = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Sound_t_setFrequency(int argc, VALUE *argv, VALUE self) {
+  OneU::sound_t *arg1 = (OneU::sound_t *) 0 ;
+  OneU::uint32 arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__sound_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::sound_t *","setFrequency", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::sound_t * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "OneU::uint32","setFrequency", 2, argv[0] ));
+  } 
+  arg2 = static_cast< OneU::uint32 >(val2);
+  OneU_sound_t_setFrequency(arg1,arg2);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Sound_t_getPan(int argc, VALUE *argv, VALUE self) {
+  OneU::sound_t *arg1 = (OneU::sound_t *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__sound_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::sound_t *","getPan", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::sound_t * >(argp1);
+  result = (float)OneU_sound_t_getPan(arg1);
+  vresult = SWIG_From_float(static_cast< float >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_Sound_t_setPan(int argc, VALUE *argv, VALUE self) {
+  OneU::sound_t *arg1 = (OneU::sound_t *) 0 ;
+  float arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__sound_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::sound_t *","setPan", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::sound_t * >(argp1);
+  ecode2 = SWIG_AsVal_float(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","setPan", 2, argv[0] ));
+  } 
+  arg2 = static_cast< float >(val2);
+  OneU_sound_t_setPan(arg1,arg2);
+  return Qnil;
 fail:
   return Qnil;
 }
@@ -11808,6 +12052,8 @@ SWIGEXPORT void Init_OUE(void) {
   SWIG_TypeClientData(SWIGTYPE_p_OneU__image_t, (void *) &SwigClassImage_t);
   rb_define_alloc_func(SwigClassImage_t.klass, _wrap_Image_t_allocate);
   rb_define_method(SwigClassImage_t.klass, "initialize", VALUEFUNC(_wrap_new_Image_t), -1);
+  rb_define_method(SwigClassImage_t.klass, "getWidth", VALUEFUNC(_wrap_Image_t_getWidth), -1);
+  rb_define_method(SwigClassImage_t.klass, "getHeight", VALUEFUNC(_wrap_Image_t_getHeight), -1);
   SwigClassImage_t.mark = 0;
   SwigClassImage_t.destroy = (void (*)(void *)) free_OneU_image_t;
   SwigClassImage_t.trackObjects = 0;
@@ -11873,6 +12119,7 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_method(SwigClassGame.klass, "setWindowTitle", VALUEFUNC(_wrap_Game_setWindowTitle), -1);
   rb_define_method(SwigClassGame.klass, "getWindowPos", VALUEFUNC(_wrap_Game_getWindowPos), -1);
   rb_define_method(SwigClassGame.klass, "setWindowPos", VALUEFUNC(_wrap_Game_setWindowPos), -1);
+  rb_define_method(SwigClassGame.klass, "showCursor", VALUEFUNC(_wrap_Game_showCursor), -1);
   rb_define_method(SwigClassGame.klass, "getFPS", VALUEFUNC(_wrap_Game_getFPS), -1);
   rb_define_method(SwigClassGame.klass, "getTimeInterval", VALUEFUNC(_wrap_Game_getTimeInterval), -1);
   rb_define_method(SwigClassGame.klass, "replaceScene", VALUEFUNC(_wrap_Game_replaceScene), -1);
@@ -11896,6 +12143,12 @@ SWIGEXPORT void Init_OUE(void) {
   SWIG_TypeClientData(SWIGTYPE_p_OneU__sound_t, (void *) &SwigClassSound_t);
   rb_define_alloc_func(SwigClassSound_t.klass, _wrap_Sound_t_allocate);
   rb_define_method(SwigClassSound_t.klass, "initialize", VALUEFUNC(_wrap_new_Sound_t), -1);
+  rb_define_method(SwigClassSound_t.klass, "getVolume", VALUEFUNC(_wrap_Sound_t_getVolume), -1);
+  rb_define_method(SwigClassSound_t.klass, "setVolume", VALUEFUNC(_wrap_Sound_t_setVolume), -1);
+  rb_define_method(SwigClassSound_t.klass, "getFrequency", VALUEFUNC(_wrap_Sound_t_getFrequency), -1);
+  rb_define_method(SwigClassSound_t.klass, "setFrequency", VALUEFUNC(_wrap_Sound_t_setFrequency), -1);
+  rb_define_method(SwigClassSound_t.klass, "getPan", VALUEFUNC(_wrap_Sound_t_getPan), -1);
+  rb_define_method(SwigClassSound_t.klass, "setPan", VALUEFUNC(_wrap_Sound_t_setPan), -1);
   SwigClassSound_t.mark = 0;
   SwigClassSound_t.destroy = (void (*)(void *)) free_OneU_sound_t;
   SwigClassSound_t.trackObjects = 0;

@@ -11,6 +11,14 @@ namespace OneU
 	{
 	public:
 		sound_t();
+		%extend {
+			float getVolume(){ return self->get()->getVolume(); }
+			void setVolume(float volume){ return self->get()->setVolume(volume); }
+			OneU::uint32 getFrequency(){ return self->get()->getFrequency(); }
+			void setFrequency(uint32 freq){ return self->get()->setFrequency(freq); }
+			float getPan(){ return self->get()->getPan(); }
+			void setPan(float pan){ return self->get()->setPan(pan); }
+		}
 	};
 	%rename(Stereo) IStereo;
 	class IStereo

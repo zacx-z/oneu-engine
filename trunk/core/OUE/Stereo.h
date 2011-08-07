@@ -39,12 +39,12 @@ namespace OneU
 			: public InterfaceRef
 		{
 		public:
-			virtual long getVolume() = 0;
-			virtual void setVolume(long volume) = 0;
+			virtual float getVolume() = 0;
+			virtual void setVolume(float volume) = 0;
 			virtual uint32 getFrequency() = 0;
 			virtual void setFrequency(uint32 freq) = 0;
-			virtual long getPan() = 0;
-			virtual void setPan(long pan) = 0;
+			virtual float getPan() = 0;
+			virtual void setPan(float pan) = 0;
 		};
 	}
 	typedef RefWrapper<stereo::ISound> sound_t;
