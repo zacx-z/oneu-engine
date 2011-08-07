@@ -60,6 +60,7 @@ namespace OneU
 		void setWindowTitle(pcwstr title);
 		vector2i_t getWindowPos();
 		void setWindowPos(const vector2i_t& newPos);
+		void showCursor(bool bShow);
 		float getFPS();
 		float getTimeInterval();
 

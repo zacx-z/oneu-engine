@@ -30,6 +30,7 @@ namespace OneU
 		virtual void setWindowTitle(OneU::pcwstr title) = 0;
 		virtual OneU::vector2i_t getWindowPos() = 0;
 		virtual void setWindowPos(const OneU::vector2i_t& newPos) = 0;
+		virtual void showCursor(bool bShow) = 0;
 		virtual float getFPS() = 0;
 		virtual float getTimeInterval() = 0;
 			

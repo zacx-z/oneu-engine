@@ -165,6 +165,9 @@ end:
 	void Game_Win32::setWindowPos(const vector2i_t& newPos){
 		SetWindowPos(g_hWnd, HWND_TOP, newPos.x, newPos.y, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
 	}
+	void Game_Win32::showCursor(bool bShow){
+		::ShowCursor( bShow );
+	}
 
 	float Game_Win32::getFPS(){
 		return m_FPS;

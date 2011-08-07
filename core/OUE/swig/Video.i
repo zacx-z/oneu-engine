@@ -29,6 +29,10 @@ namespace OneU
 	{
 	public:
 		image_t();
+		%extend {
+			OneU::uint32 getWidth(){ return self->get()->getWidth(); }
+			OneU::uint32 getHeight(){ return self->get()->getHeight(); }
+		}
 	};
 	
 	%ListIns(OneU::video::Mode)
