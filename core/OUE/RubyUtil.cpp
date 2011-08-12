@@ -35,8 +35,18 @@ extern "C"{
 #include <ruby.h>
 };
 
+#undef fopen
+#undef fclose
+
+//ruby dll的导出符号（但未写在头文件里，在此声明）
+extern "C" VALUE rb_f_eval(int argc, VALUE* argv, VALUE self);
+
 namespace OneU
 {
+	//用于存放Dll名字的表 用于判重
+	static Table<byte>* s_MTable;
+
+	//ruby的错误处理
 	static void ThrowOnError(int error) {
 		if(error == 0)
 			return;
@@ -71,6 +81,8 @@ namespace OneU
 		ErrorBox(Char2Wide(clog.str().c_str(), 65001), L"Ruby");
 	}
 
+	//-----------------------------------------------------------------
+	//导出函数
 	static VALUE _rb_prompt(int argc, VALUE* argv, VALUE self);
 	static VALUE _rb_oload(VALUE self, VALUE fname);
 	static VALUE _rb_olib(VALUE self, VALUE fname);
@@ -80,6 +92,15 @@ namespace OneU
 		rb_define_global_function("olib", (VALUE (*)(ANYARGS))_rb_olib, 1);
 		return Qnil;
 	}
+
+
+	//内部使用函数
+	static void _getName(const char* fname, char* name){
+		while(*fname != 0 && *fname != '.')
+			*(name++) = *(fname++);
+		*name = 0;
+	}
+	//导出函数实现
 	static VALUE _rb_prompt(int argc, VALUE* argv, VALUE self){
 		std::ostringstream o;
 		for(int i = 0; i < argc; ++i){
@@ -91,8 +112,6 @@ namespace OneU
 		ONEU_PROMPT(Char2Wide(o.str().c_str(), 65001));
 		return Qnil;
 	}
-	//ruby dll的导出符号
-	extern "C" VALUE rb_f_eval(int argc, VALUE* argv, VALUE self);
 
 	static VALUE _rb_oload(VALUE self, VALUE fname){
 		FILE* f = _wfopen(Char2Wide(StringValuePtr(fname), 65001), L"rb");
@@ -109,27 +128,28 @@ namespace OneU
 		rb_f_eval(3, arg, Qnil);
 		return Qnil;
 	}
-	static void _getName(const char* fname, char* name){
-		while(*fname != 0 && *fname != '.')
-			*(name++) = *(fname++);
-		*name = 0;
-	}
 	static VALUE _rb_olib(VALUE self, VALUE fname){
 		const char* fstr = StringValuePtr(fname);
 		HMODULE hDll = LoadLibrary(Char2Wide(fstr));
 		if(hDll == NULL)
 			rb_raise(rb_eArgError, "cannot find library %s.", fstr);
-		char inprocname[256] = "Init_", name[256];
-		_getName(fstr, name);
-		strcat(inprocname, name);
-		void (*proc)() = (void (*)())GetProcAddress(hDll, inprocname);
-		if(proc == NULL)
-			rb_raise(rb_eArgError, "library doesn't have %s function when loading %s!", inprocname, fstr);
-		proc();
+		wchar dllname_buf[MAX_PATH];
+		::GetModuleFileNameW(hDll, dllname_buf, MAX_PATH);
+		if(s_MTable->insert(dllname_buf)){
+			//run the init procedure
+			char inprocname[256] = "Init_", name[256];
+			_getName(fstr, name);
+			strcat(inprocname, name);
+			void (*proc)() = (void (*)())GetProcAddress(hDll, inprocname);
+			if(proc == NULL)
+				rb_raise(rb_eArgError, "library doesn't have %s function when loading %s!", inprocname, fstr);
+			proc();
+		}
 		return Qnil;
 	}
-#undef fopen
-#undef fclose
+
+	//-----------------------------------------------------------------
+	//用于异常的封装
 	static VALUE LoadWrap(VALUE arg){
 		_rb_oload(Qnil, rb_str_new2((const char*)arg));
 		return Qnil;
@@ -143,46 +163,20 @@ namespace OneU
 	ONEU_API void RubyRun(){
 		Game_build();
 
-		char* a[] = {"a"};
-		int n = 1;
-		char** argv = a;
-		ruby_sysinit(&n, &argv);
-		{
-			RUBY_INIT_STACK;
-			ruby_init();
-			ruby_init_loadpath();
-			ruby_script("oneu");
-			rb_eval_string("$: << \"./\"");
-#ifdef _DEBUG
-			if(!SetDllDirectoryW(L"./../debug")){
-				ErrorBox(L"cannot set dll directory", L"error!");
-				ruby_finalize();
-				goto fail;
-			}
-#endif
+		if(!RubyInit())
+			goto fail;
 
-			int state;
-			rb_protect(_init_rb_lib, Qnil, &state);
-			if(state){
-				ThrowOnError(state);
-				ruby_finalize();
-				goto fail;
-			}
+		RubyExecFile(L"script/main.rb");
 
-			rb_protect(LoadWrap, (VALUE)"script/main.rb", &state);
-
-			if(state)
-				ThrowOnError(state);
-
-			ruby_finalize();
-		}
+		RubyFinalize();
 fail:
-
 		Game_destroy();
 	}
 
 
-	ONEU_API void RubyInit(){
+	ONEU_API bool RubyInit(){
+		s_MTable = new Table<byte>();
+
 		char* a[] = {"a"};
 		int n = 1;
 		char** argv = a;
@@ -191,22 +185,49 @@ fail:
 		ruby_init();
 		ruby_init_loadpath();
 		ruby_script("oneu");
+		//set load path
+		rb_eval_string("$: << \"./\"");
+#ifdef _DEBUG
+		if(!SetDllDirectoryW(L"./../debug")){
+			ErrorBox(L"cannot set dll directory", L"error!");
+			ruby_finalize();
+			goto fail;
+		}
+#endif
+
+		int state;
+		rb_protect(_init_rb_lib, Qnil, &state);
+		if(state){
+			ThrowOnError(state);
+			ruby_finalize();
+			//fail
+			delete s_MTable;
+			return false;
+		}
+		return true;
 	}
 
-	ONEU_API void RubyExecFile(pcwstr filename){
+	ONEU_API bool RubyExecFile(pcwstr filename){
 		int state;
 		rb_protect(LoadWrap,(VALUE)(const char*)Wide2Char(filename), &state);
-		if(state)
+		if(state){
 			ThrowOnError(state);
+			return false;
+		}
+		return true;
 	}
-	ONEU_API void RubyExecCode(pcstr code){
+	ONEU_API bool RubyExecCode(pcstr code){
 		int state;
 		rb_protect(EvalStringWrap,(VALUE)code, &state);
-		if(state)
+		if(state){
 			ThrowOnError(state);
+			return false;
+		}
+		return true;
 	}
 
 	ONEU_API void RubyFinalize(){
 		ruby_finalize();
+		delete s_MTable;
 	}
 }
