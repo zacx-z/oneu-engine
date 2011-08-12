@@ -25,9 +25,9 @@ THE SOFTWARE.
 
 namespace OneU
 {
-	ONEU_API void RubyInit();//结束时需要调用ruby_finalize
-	ONEU_API void RubyExecFile(pcwstr filename);
-	ONEU_API void RubyExecCode(pcstr code);
+	ONEU_API bool RubyInit();//结束时需要调用ruby_finalize
+	ONEU_API bool RubyExecFile(pcwstr filename);
+	ONEU_API bool RubyExecCode(pcstr code);
 	ONEU_API void RubyFinalize();//ruby_finalize
 
 	ONEU_API void RubyRun();

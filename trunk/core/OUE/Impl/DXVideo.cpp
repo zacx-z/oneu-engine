@@ -185,10 +185,19 @@ namespace OneU
 		d3dpp.MultiSampleType = static_cast< D3DMULTISAMPLE_TYPE >(multisample);
 		d3dpp.MultiSampleQuality = 0;
 
-		hr = m_pD3DDevice->Reset(
-			&d3dpp);
+		hr = m_pD3DDevice->TestCooperativeLevel();
+		hr = m_pD3DDevice->Reset(&d3dpp);
+		if(FAILED(hr)){
+			while(hr != D3DERR_DEVICENOTRESET){
+				if(hr == D3DERR_DRIVERINTERNALERROR) RAISE_HRESULT(hr);
+				::Sleep(1);
+				hr = m_pD3DDevice->TestCooperativeLevel();
+			}
+		}
 
-		if( FAILED( hr ) )
+		hr = m_pD3DDevice->Reset(&d3dpp);
+
+		if(FAILED( hr ))
 		{
 			ONEU_LOG( L"÷ÿ÷√Direct3D…Ë±∏ ß∞‹°£" );
 			RAISE_HRESULT(hr);
