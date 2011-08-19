@@ -52,7 +52,7 @@ namespace OneU
 			if(m_pI != NULL)
 				m_pI->release();
 			m_pI = rhs.m_pI;
-			m_pI->addRef();
+			if(m_pI) m_pI->addRef();
 			return *this;
 		}
 		RefWrapper& operator=(T* i){
