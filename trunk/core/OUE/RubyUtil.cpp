@@ -191,7 +191,7 @@ fail:
 		if(!SetDllDirectoryW(L"./../debug")){
 			ErrorBox(L"cannot set dll directory", L"error!");
 			ruby_finalize();
-			goto fail;
+			return false;
 		}
 #endif
 

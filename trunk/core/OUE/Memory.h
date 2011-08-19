@@ -128,7 +128,6 @@ namespace OneU
 		allocator->dealloc(_ptr);
 	}
 
-	//@todo 可以判断是否为内置类型来优化
 	template<class T>
 	void _doDeleteArray(T* _ptr, IAllocator* allocator, const char* filename, const int Line){
 		T* p = _ptr;

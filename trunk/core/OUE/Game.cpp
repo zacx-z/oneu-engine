@@ -35,6 +35,9 @@ THE SOFTWARE.
 #include "Impl/DXControl.h"
 #endif
 
+//输出流重定向
+#include <io.h>
+
 namespace OneU
 {
 	static IGame* s_pGame = NULL;
@@ -44,11 +47,18 @@ namespace OneU
 
 	static TerminateHandler _last_eh = NULL;
 	static void _destroyGame();
+
 	ONEU_API void Game_build()
 	{
+
 		ONEU_ASSERT(s_pGame == NULL);
 		Allocator_build(Allocator_create);
-		Logger_build(LoggerDisk_Factory);//FIXME: 见LoggerDisk.cpp ruby的fclose符号如何消除？
+		Logger_build(LoggerDisk_Factory);
+
+#ifdef _WIN32
+		//错误流重定向
+		FILE* nferr = freopen("err", "w", stderr);
+#endif
 
 #ifdef _WIN32
 		s_pGame = ONEU_NEW Game_Win32;

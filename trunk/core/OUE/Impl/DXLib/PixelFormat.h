@@ -80,11 +80,8 @@ namespace OneU
 		return ( static_cast< BYTE >( Alpha ) << 24 ) | ( static_cast< BYTE >( Red ) << 16 ) | ( static_cast< BYTE >( Green ) << 8 ) | static_cast< BYTE > ( Blue );
 	}
 
-	
-
 	namespace DX
 	{
-		//@todo 可能未来会扩充深度部分 （长期）
 		typedef enum _PXLFORMAT
 		{
 			PXLFMT_UNKNOWN = D3DFMT_UNKNOWN,

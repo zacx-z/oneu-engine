@@ -359,8 +359,5 @@ namespace OneU{
 //注：测试代码 LuaInterpreter.cpp中和RubyInterpreter.cpp将cpath设定在debug文件夹下，属测试代码。而release版由于没有把cpath设在release文件夹下，直接运行其实是不能跑的。
 //注：AtomDemo工程目前处于不可用状态。
 
-//@todo 制作Timer系统 延时一定时间执行某一函数
-//@todo 更改Resource模块里的Release原型 使其返回引用数字
-//@todo 将Resource并入主干部分
 //@todo 支持RT，支持锁定纹理。
 }
