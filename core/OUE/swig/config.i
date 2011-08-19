@@ -7,6 +7,9 @@
 
 #ifdef SWIGRUBY
 #define SUPPORT_DIRECTORS
+%header %{
+/*#include <ruby/encoding.h>*/
+%}
 #endif
 
 

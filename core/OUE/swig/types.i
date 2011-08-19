@@ -71,7 +71,7 @@ namespace OneU
 		if(TYPE($input) != T_STRING)
 			SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
 			
-		temp = OneU::Char2Wide(StringValuePtr($input), 65001);
+		temp = OneU::Char2Wide(StringValuePtr($input), /*rb_enc_get($input) == rb_utf8_encoding() ?*/ 65001 /*: 0*/);
 		$1 = temp;
 	}
 	%typemap(out) const wchar_t* {
@@ -84,7 +84,7 @@ namespace OneU
 		if(TYPE($input) != T_STRING)
 			SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "$1_name", "$1_type","$symname", $argnum, $input ));
 			
-		temp = OneU::Char2Wide(StringValuePtr($input), 65001);
+		temp = OneU::Char2Wide(StringValuePtr($input), /*rb_enc_get($input) == rb_utf8_encoding() ?*/ 65001 /*: 0*/);
 		$1 = temp;
 	}
 	

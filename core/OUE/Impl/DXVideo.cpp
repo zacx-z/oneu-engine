@@ -187,21 +187,22 @@ namespace OneU
 
 		hr = m_pD3DDevice->TestCooperativeLevel();
 		hr = m_pD3DDevice->Reset(&d3dpp);
+
 		if(FAILED(hr)){
 			while(hr != D3DERR_DEVICENOTRESET){
 				if(hr == D3DERR_DRIVERINTERNALERROR) RAISE_HRESULT(hr);
 				::Sleep(1);
 				hr = m_pD3DDevice->TestCooperativeLevel();
 			}
+			hr = m_pD3DDevice->Reset(&d3dpp);
+
+			if(FAILED( hr ))
+			{
+				ONEU_LOG( L"重置Direct3D设备失败。" );
+				RAISE_HRESULT(hr);
+			}
 		}
 
-		hr = m_pD3DDevice->Reset(&d3dpp);
-
-		if(FAILED( hr ))
-		{
-			ONEU_LOG( L"重置Direct3D设备失败。" );
-			RAISE_HRESULT(hr);
-		}
 		reloadD3DResource();
 
 		m_pD3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);

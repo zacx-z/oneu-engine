@@ -39,6 +39,7 @@ namespace OneU
 		IDirectSoundBuffer* m_pDSPrimary;
 		sound_t m_Music;
 		List<IDirectSoundBuffer*> m_playingFX;
+		List<sound_t> m_playingMusic;
 	public:
 		DXStereo()
 			: m_pDS(NULL), m_pDSPrimary(NULL){}
@@ -46,6 +47,8 @@ namespace OneU
 		void init();
 		sound_t loadSound(pcwstr filename, bool streamed);
 		void playMusic(sound_t filename, bool looped);
+		void stopMusic();
+		sound_t getPlayingMusic(){ return m_Music; }
 		void playFX(sound_t filename);
 		void update();
 	};

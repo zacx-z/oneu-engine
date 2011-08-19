@@ -68,6 +68,8 @@ namespace OneU
 		 */
 		/* ----------------------------------------------------------------------------*/
 		virtual void playMusic(sound_t sound, bool looped = true) = 0;
+		virtual void stopMusic() = 0;
+		virtual sound_t getPlayingMusic() = 0;
 
 		virtual void playFX(sound_t sound) = 0;
 		virtual void update() = 0;

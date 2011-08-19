@@ -46,7 +46,7 @@ namespace OneU
 	LoggerDisk::~LoggerDisk(void){
 		flush();
 		if(m_pLog) {
-			fclose(m_pLog);//BUGS:ruby库会导出fclose符号，该句会崩溃。WTF!
+			fclose(m_pLog);//BUGS:官方ruby库会导出fclose符号，会使这句崩溃。因此使用的是自行编译的ruby。
 		}
 	}
 
@@ -55,55 +55,13 @@ namespace OneU
 		ONEU_ASSERT(this);
 		if(!m_bValid) return;
 
-		//转化
-		char* lpstrMsg;
-		if(wcslen( lpwstrMsg ) < 500){
-			static char MsgBuf[500];
-			::WideCharToMultiByte(CP_ACP, WC_NO_BEST_FIT_CHARS, lpwstrMsg, -1, MsgBuf, 500, NULL, NULL);
-			lpstrMsg = MsgBuf;
-		}
-		else{
-			lpstrMsg = new char[wcslen(lpwstrMsg)];
-			::WideCharToMultiByte(CP_ACP, WC_NO_BEST_FIT_CHARS, lpwstrMsg, -1, lpstrMsg, 500, NULL, NULL);
-			delete lpstrMsg;
-		}
-		//
-
-		size_t len = strlen(lpstrMsg);
-		if(m_Ptr + len <= LOGGER_BUFFER_SIZE){
-			memcpy(&m_Buffer[m_Ptr], lpstrMsg, len);
-			m_Ptr += len;
-			if(m_Ptr == LOGGER_BUFFER_SIZE){
-				fwrite( m_Buffer, m_Ptr, 1, m_pLog );
-				m_Ptr = 0;
-			}
-		}
-		else{
-			//@todo（长期） 此方法效率未必高
-			size_t dist = LOGGER_BUFFER_SIZE - m_Ptr;
-			memcpy(&m_Buffer[m_Ptr], lpstrMsg, dist);
-
-			fwrite(m_Buffer, LOGGER_BUFFER_SIZE, 1, m_pLog);
-			len -= dist;
-
-			if(len>= LOGGER_BUFFER_SIZE){//当其余部分超过缓冲区长度时
-				fwrite( &lpstrMsg[ dist ], len, 1, m_pLog );
-				m_Ptr = 0;
-			}
-			else{
-				m_Ptr = len;
-				memcpy(m_Buffer, &lpstrMsg[ dist ], m_Ptr);
-			}
-		}
+		fwrite(lpwstrMsg, wcslen(lpwstrMsg) * sizeof(wchar), 1, m_pLog);
 	}
 
 	void LoggerDisk::flush(){
 		ONEU_ASSERT( this );
 		if(!m_bValid) return;
-		if(m_Ptr){
-			fwrite(m_Buffer, m_Ptr , 1, m_pLog);
-			m_Ptr = 0;
-		}
+		fflush(m_pLog);
 	}
 
 
