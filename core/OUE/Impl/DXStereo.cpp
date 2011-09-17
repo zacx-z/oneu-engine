@@ -13,6 +13,7 @@ namespace OneU
 {
 	namespace stereo
 	{
+		const int frac_l = 1;
 		static DWORD WINAPI _DecodeThreadProc(LPVOID lpParameter);
 		class DXSound_Base
 			: public ISound
@@ -29,16 +30,16 @@ namespace OneU
 
 				HANDLE m_decodeThread;
 				HANDLE m_streamEvent[3];//3为线程结束事件
-				HANDLE m_hMutex;
+				CRITICAL_SECTION m_Cs;
 				class ScopedMutex
 				{
-					HANDLE m_hMutex;
+					LPCRITICAL_SECTION pCs;
 				public:
-					ScopedMutex(HANDLE hMutex) : m_hMutex(hMutex){
-						if(m_hMutex) WaitForSingleObject(m_hMutex, INFINITE);
+					ScopedMutex(LPCRITICAL_SECTION pCs) : pCs(pCs){
+						if(pCs) EnterCriticalSection(pCs);
 					}
 					~ScopedMutex(){
-						if(m_hMutex) ::ReleaseMutex(m_hMutex);
+						if(pCs) LeaveCriticalSection(pCs);
 					}
 				};
 
@@ -58,6 +59,7 @@ namespace OneU
 			DXSound_Base();
 		protected:
 			void init(IDirectSound* pDS, pcwstr filename, bool streamed);
+			void release();
 		public:
 			~DXSound_Base();
 			bool isStreamed(){
@@ -71,10 +73,10 @@ namespace OneU
 			float getVolume(){
 				long ret;
 				XV(m_pBuffer->GetVolume(&ret));
-				return ((float)ret - DSBVOLUME_MIN) / (DSBVOLUME_MAX - DSBVOLUME_MIN);
+				return (pow(((float)ret - DSBVOLUME_MAX) / (DSBVOLUME_MAX - DSBVOLUME_MIN), 10));
 			}
 			void setVolume(float volume){
-				XV(m_pBuffer->SetVolume(long(volume * (DSBVOLUME_MAX - DSBVOLUME_MIN) + DSBVOLUME_MIN)));
+				XV(m_pBuffer->SetVolume(volume < 0.02f ? DSBVOLUME_MIN : long(log10(volume) * (DSBVOLUME_MAX - DSBVOLUME_MIN) + DSBVOLUME_MAX)));
 			}
 			uint32 getFrequency(){
 				uint32 ret;
@@ -92,39 +94,19 @@ namespace OneU
 			void setPan(float pan){
 				XV(m_pBuffer->SetPan(long(pan * (DSBPAN_RIGHT - DSBPAN_LEFT) + DSBPAN_CENTER)));
 			}
-			void _play(bool bLooped){
-				//互斥锁
-				m_bLooped = bLooped;
-				_StreamInfo::ScopedMutex _(isStreamed() ? si->m_hMutex : NULL);
-				if(isStreamed()) si->m_waitEnd = 0;
-				if(isStreamed() || bLooped){
-					if(m_pBuffer->Play(0, 0, DSBPLAY_LOOPING) == DSERR_BUFFERLOST){
-						restore();
-						m_pBuffer->Play(0, 0, DSBPLAY_LOOPING);
-					}
-				}
-				else{
-					if(m_pBuffer->Play(0, 0, 0) == DSERR_BUFFERLOST){
-						restore();
-						m_pBuffer->Play(0, 0, 0);
-					}
-				}
-			}
-			void _stopBuffer(){
-				_StreamInfo::ScopedMutex _(isStreamed() ? si->m_hMutex : NULL);
+			void Play(bool bLooped);
+			void Stop();
+			void _stopBuffer(bool synchronized = true){
+				_StreamInfo::ScopedMutex _(synchronized && isStreamed() ? &si->m_Cs : NULL);
 				m_pBuffer->Stop();
 			}
-			void _stop(){
-				_stopBuffer();
-				m_pBuffer->SetCurrentPosition(0);
-				seekBegin();
-				if(isStreamed()){ _fillBuffer(0); _fillBuffer(1);}
-			}
 		private:
-			void _fillBuffer(int n_frac);
+			void _fillBuffer(int n_frac, bool synchronized = true);
 			void _fillAll();
 		public:
 			void restore();
+			void createDecodeThread();
+			void releaseDecodeThread();
 			//解码线程循环
 			void _decodeLoop();
 
@@ -145,7 +127,7 @@ namespace OneU
 				if(isFadingOut){
 					m_timeLeft -= GetGame().getTimeInterval();
 					if(m_timeLeft < 0){
-						this->_stop();
+						this->Stop();
 						isFadingOut = false;
 					}else
 						setVolume(m_timeLeft / m_timeTotal * m_lastVol);
@@ -166,6 +148,11 @@ namespace OneU
 		DXSound_Base::DXSound_Base()
 			: si(NULL), m_bLooped(false), isFadingOut(false)
 		{}
+
+		DXSound_Base::~DXSound_Base(){
+			ONEU_ASSERT(m_pBuffer == NULL);
+		}
+
 		void DXSound_Base::init(IDirectSound* pDS, pcwstr filename, bool streamed)
 		{
 			//打开文件
@@ -179,52 +166,59 @@ namespace OneU
 			if(streamed){
 				si = new _StreamInfo;
 				//创建编码缓冲
-				const long frac_len = m_wfx.nAvgBytesPerSec;
+				const long frac_len = frac_l * m_wfx.nAvgBytesPerSec;
 				si->m_decodeBuffer = new char[frac_len];
 
 				//创建互斥锁
-				si->m_hMutex = CreateMutex(NULL, FALSE, NULL);
-
-				_fillBuffer(0);
-
-				//获取通告
-				XV_RAISE(m_pBuffer->QueryInterface(IID_IDirectSoundNotify8, (void**)&si->m_pNotify));
-				//创建流事件
-				si->m_streamEvent[0] = CreateEvent(NULL, FALSE, FALSE, NULL);
-				si->m_streamEvent[1] = CreateEvent(NULL, FALSE, FALSE, NULL);
-				DSBPOSITIONNOTIFY dspn[2];
-				dspn[0].dwOffset = 0;
-				dspn[0].hEventNotify = si->m_streamEvent[0];
-				dspn[1].dwOffset = frac_len;
-				dspn[1].hEventNotify = si->m_streamEvent[1];
-				//第3个流事件用于通知线程结束
-				si->m_streamEvent[2] = CreateEvent(NULL, FALSE, FALSE, NULL);
-
-				//设置通告
-				XV_RAISE(si->m_pNotify->SetNotificationPositions(2, dspn));
-
-				//创建解码线程
-				si->m_decodeThread = ::CreateThread(NULL, 0, _DecodeThreadProc, this,0, NULL);
+				InitializeCriticalSection(&si->m_Cs);
 			}else
 				_fillAll();
 		}
-
-		DXSound_Base::~DXSound_Base()
-		{
-			_stopBuffer();
+		void DXSound_Base::release(){
+			Stop();
 			if(si){
-				SetEvent(si->m_streamEvent[2]);//通知解码线程结束
-				WaitForSingleObject(si->m_decodeThread, INFINITE);//等待线程结束
-
-				CloseHandle(si->m_hMutex);
-				for(int i = 0; i < 3; ++i)
-					CloseHandle(si->m_streamEvent[i]);
-				SAFE_RELEASE(si->m_pNotify);
+				DeleteCriticalSection(&si->m_Cs);
 				delete [](si->m_decodeBuffer);
-			}
-			SAFE_RELEASE(m_pBuffer);
 
-			delete si;
+				delete si;
+				si = NULL;
+			}
+			closeFile();
+			SAFE_RELEASE(m_pBuffer);
+		}
+
+		void DXSound_Base::createDecodeThread(){
+			const long frac_len = frac_l * m_wfx.nAvgBytesPerSec;
+			//创建流事件
+			si->m_streamEvent[0] = CreateEvent(NULL, FALSE, FALSE, NULL);
+			si->m_streamEvent[1] = CreateEvent(NULL, FALSE, FALSE, NULL);
+			//第3个流事件用于通知线程结束
+			si->m_streamEvent[2] = CreateEvent(NULL, FALSE, FALSE, NULL);
+
+			//获取通告
+			XV_RAISE(m_pBuffer->QueryInterface(IID_IDirectSoundNotify8, (void**)&si->m_pNotify));
+			DSBPOSITIONNOTIFY dspn[2];
+			dspn[0].dwOffset = 0;
+			dspn[0].hEventNotify = si->m_streamEvent[0];
+			dspn[1].dwOffset = frac_len;
+			dspn[1].hEventNotify = si->m_streamEvent[1];
+
+			//设置通告
+			XV_RAISE(si->m_pNotify->SetNotificationPositions(2, dspn));
+
+			//创建解码线程
+			si->m_decodeThread = ::CreateThread(NULL, 0, _DecodeThreadProc, this,0, NULL);
+
+		}
+		void DXSound_Base::releaseDecodeThread()
+		{
+			SetEvent(si->m_streamEvent[2]);//通知解码线程结束
+			WaitForSingleObject(si->m_decodeThread, INFINITE);//等待线程结束
+			CloseHandle(si->m_decodeThread);
+			si->m_decodeThread = NULL;
+			SAFE_RELEASE(si->m_pNotify);
+			for(int i = 0; i < 3; ++i)
+				CloseHandle(si->m_streamEvent[i]);
 		}
 
 		void DXSound_Base::restore(){
@@ -232,9 +226,12 @@ namespace OneU
 			GetLogger().logMessage(L"Sound buffer restored.", ILogger::ML_TRIVIAL);
 			if(!isStreamed()){ _fillAll(); }
 		}
-		void DXSound_Base::_fillBuffer( int n_frac )
-		{
-			const long frac_len = m_wfx.nAvgBytesPerSec;
+
+		void DXSound_Base::_fillBuffer(int n_frac, bool synchronized /*= true */){
+			//互斥锁
+			_StreamInfo::ScopedMutex _(synchronized ? &si->m_Cs : NULL);
+
+			const long frac_len = frac_l * m_wfx.nAvgBytesPerSec;
 
 			long left = frac_len, curpos = 0;
 			if(load2Buffer(si->m_decodeBuffer, frac_len, m_bLooped))
@@ -243,8 +240,6 @@ namespace OneU
 			{
 				char *ptr = NULL;
 				DWORD size = 0;
-				//互斥锁
-				_StreamInfo::ScopedMutex _(si->m_hMutex);
 
 				HRESULT hr = m_pBuffer->Lock(n_frac * frac_len, frac_len, (void**)&ptr, &size, NULL, NULL, 0);//以缓冲区一半为单位，锁定一半。
 				if(FAILED(hr)){
@@ -262,16 +257,46 @@ namespace OneU
 			}
 		}
 
-		void DXSound_Base::_fillAll()
-		{
+		void DXSound_Base::_fillAll(){
 			char* ptr = NULL; DWORD size = 0;
 			XV_RAISE(m_pBuffer->Lock(0, 0, (void**)&ptr, &size, NULL, NULL, DSBLOCK_ENTIREBUFFER));
 			load2Buffer(ptr, size, false);
 			XV_RAISE(m_pBuffer->Unlock((void*)ptr, size, NULL, 0));
 		}
 
-		void DXSound_Base::_decodeLoop()
-		{
+		void DXSound_Base::Play(bool bLooped){
+			//互斥锁
+			_StreamInfo::ScopedMutex _(isStreamed() ? &si->m_Cs : NULL);
+			m_bLooped = bLooped;
+			if(isStreamed()){ si->m_waitEnd = 0; 
+					_fillBuffer(0);
+					createDecodeThread();
+			}
+			if(isStreamed() || bLooped){
+				if(m_pBuffer->Play(0, 0, DSBPLAY_LOOPING) == DSERR_BUFFERLOST){
+					restore();
+					m_pBuffer->Play(0, 0, DSBPLAY_LOOPING);
+				}
+			}
+			else{
+				if(m_pBuffer->Play(0, 0, 0) == DSERR_BUFFERLOST){
+					restore();
+					m_pBuffer->Play(0, 0, 0);
+				}
+			}
+		}
+
+		void DXSound_Base::Stop(){
+			if(!isPlaying()) return;
+			_stopBuffer();
+			if(isStreamed()) releaseDecodeThread();
+			_StreamInfo::ScopedMutex _(isStreamed() ? &si->m_Cs : NULL);
+			seekBegin();
+			m_pBuffer->SetCurrentPosition(0);
+		}
+
+		void DXSound_Base::_decodeLoop(){
+			ONEU_ENSURE(this != NULL);
 			while(true){
 				DWORD ret;
 				if((ret = WaitForMultipleObjects(3, si->m_streamEvent, FALSE, INFINITE)) == WAIT_FAILED)
@@ -280,8 +305,9 @@ namespace OneU
 				if(n == 2)//线程结束的事件被触发
 					break;
 				else {
+					ONEU_ENSURE(this != NULL);
 					if(n == 2 - si->m_waitEnd){
-						_StreamInfo::ScopedMutex _(si->m_hMutex);
+						_StreamInfo::ScopedMutex _(&si->m_Cs);
 						m_pBuffer->Stop();
 						si->m_waitEnd = 0;
 					}
@@ -327,7 +353,7 @@ namespace OneU
 				memset(&dsbd, 0, sizeof(dsbd));
 				dsbd.dwSize = sizeof(dsbd);
 				dsbd.dwFlags = DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLPAN | DSBCAPS_CTRLPOSITIONNOTIFY;
-				dsbd.dwBufferBytes = streamed ? m_wfx.nAvgBytesPerSec * 2 : (DWORD)ov_pcm_total(m_pVorbisFile, -1);
+				dsbd.dwBufferBytes = streamed ? frac_l * m_wfx.nAvgBytesPerSec * 2 : (DWORD)(ov_time_total(m_pVorbisFile, -1) * m_wfx.nAvgBytesPerSec);
 				dsbd.lpwfxFormat = &m_wfx;
 
 				HRESULT hr;
@@ -378,7 +404,7 @@ namespace OneU
 				init(pDS, filename, streamed);
 			}
 			~DXOggSound(){
-				closeFile();
+				release();
 			}
 		};
 	}
@@ -416,7 +442,7 @@ namespace OneU
 
 	void DXStereo::playMusic(sound_t sound, bool looped){
 		stereo::DXSound_Base* m = (dynamic_cast<stereo::DXSound_Base*>(m_Music.get()));
-		if(m){
+		if(m && m->isPlaying()){
 			m->fadeOut(2.0);
 		}
 		m_Music = sound;
@@ -427,19 +453,19 @@ namespace OneU
 			if(it->get() == s){
 				stereo::DXSound_Base* sound = dynamic_cast<stereo::DXSound_Base*>(s);
 				sound->stopEffects();
-				sound->_stop();
-				sound->_play(looped);
+				sound->Stop();
+				sound->Play(looped);
 				return;
 			}
 		}
 		//when sound is not in m_playingMusic
-		dynamic_cast<stereo::DXSound_Base*>(s)->_play(looped);
+		dynamic_cast<stereo::DXSound_Base*>(s)->Play(looped);
 		m_playingMusic.pushBack(sound);
 	}
 
 	void DXStereo::stopMusic(){
 		stereo::DXSound_Base* m = (dynamic_cast<stereo::DXSound_Base*>(m_Music.get()));
-		if(m){
+		if(m && m->isPlaying()){
 			m->fadeOut(2.0);
 		}
 	}
@@ -453,7 +479,7 @@ namespace OneU
 			IDirectSoundBuffer* buf = s->_dupBuffer(m_pDS);
 			buf->Play(0, 0, 0);
 			m_playingFX.pushBack(buf);
-		}else s->_play(false);
+		}else s->Play(false);
 	}
 
 	void DXStereo::update(){
@@ -461,16 +487,18 @@ namespace OneU
 		for(List<IDirectSoundBuffer*>::iterator it = m_playingFX.begin(); it != m_playingFX.end();){
 			DWORD status;
 			(*it)->GetStatus(&status);
-			if(!(status & DSBSTATUS_PLAYING))
-				m_playingFX.erase(it++);
-			else
+			//if(!(status & DSBSTATUS_PLAYING))
+			//	m_playingFX.erase(it++);
+			//else
 				++it;
 		}
 		for(List<sound_t>::iterator it = m_playingMusic.begin(); it != m_playingMusic.end();){
 			stereo::DXSound_Base* m = dynamic_cast<stereo::DXSound_Base*>(it->get());
 			m->update();
-			if(!m->isPlaying())
+			if(!m->isPlaying()){
+				m->stopEffects();
 				m_playingMusic.erase(it++);
+			}
 			else
 				++it;
 		}

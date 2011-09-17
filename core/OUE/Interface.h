@@ -185,11 +185,11 @@ namespace OneU
 		const T& operator*() const{ return *this->get(); }
 
 		T* get(const char* srcname, int line, const char* function){
-			if(!isValid()) ONEU_RAISE(String().format(L"¾ä±úÒÑÊ§Ð§£¡\n%s(%d)\nFunction:%s", srcname, line, function).c_str());
+			if(!isValid()) ONEU_RAISE(L"¾ä±úÒÑÊ§Ð§£¡\n%s(%d)\nFunction:%s", srcname, line, function);
 			return m_hInfo ? (T*)m_hInfo->pI : NULL;
 		}
 		const T* get(const char* srcname, int line, const char* function) const{
-			if(!isValid()) ONEU_RAISE(String().format(L"¾ä±úÒÑÊ§Ð§£¡\n%s(%d)\nFunction:%s", srcname, line, function).c_str());
+			if(!isValid()) ONEU_RAISE(L"¾ä±úÒÑÊ§Ð§£¡\n%s(%d)\nFunction:%s", srcname, line, function);
 			return m_hInfo ? (const T*)m_hInfo->pI : NULL;
 		}
 	};

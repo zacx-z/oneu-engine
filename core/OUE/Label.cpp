@@ -85,7 +85,7 @@ namespace OneU
 		void paint(){
 			if(m_Text == L"") return;
 			GetVideo().setBlendMode(video::BM_NORMAL);
-			uint32 flag = DT_EXPANDTABS;
+			uint32 flag = DT_EXPANDTABS | DT_WORDBREAK;
 			if(m_Align & T_RIGHT) flag |= DT_RIGHT;
 			else if(m_Align & T_CENTER) flag |= DT_CENTER;
 			if(m_Align & T_BOTTOM) flag |= DT_BOTTOM;

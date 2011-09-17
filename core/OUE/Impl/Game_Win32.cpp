@@ -150,6 +150,9 @@ end:
 			m_pBroadcast->sendEvent(event::WINDOW_ACTIVE);
 		else
 			m_pBroadcast->sendEvent(event::WINDOW_DEACTIVE);
+		//refresh control
+		//ignore the event when window is not in front
+		if(m_pControl != NULL) {  m_pControl->update();}
 	}
 
 	void Game_Win32::setWindowTitle(pcwstr title){
@@ -272,6 +275,9 @@ namespace OneU
 			ONEU_LOG(L"´´½¨´°¿ÚÊ§°Ü");
 			ONEU_RAISE(WinErrorString(::GetLastError()).c_str());
 		}
+
+		//TODO: This tells you how to set icon, but we can't use it because we don't have a icon in the dll. we want to user to configure it.
+		//::SendMessage(g_hWnd, WM_SETICON, ICON_BIG, ::LoadIcon(g_hInstance, IDI_ICON));
 
 		::ShowWindow (g_hWnd, SW_SHOW);
 

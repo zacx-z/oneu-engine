@@ -117,7 +117,7 @@ namespace OneU
 
 			if( FAILED( hr ) )
 			{
-				ONEU_LOG( "创建Direct3D设备失败" );
+				ONEU_LOG(L"创建Direct3D设备失败");
 				RAISE_HRESULT(hr);
 			}
 
@@ -217,7 +217,7 @@ namespace OneU
 
 			if( FAILED( hr ) )
 			{
-				ONEU_LOG( "重置Direct3D设备失败" );
+				ONEU_LOG(L"重置Direct3D设备失败");
 				RAISE_HRESULT(hr);
 			}
 
@@ -257,7 +257,7 @@ namespace OneU
 
 			if( FAILED( hr ) )
 			{
-				ONEU_LOG( "重置Direct3D设备失败" );
+				ONEU_LOG(L"重置Direct3D设备失败");
 				RAISE_HRESULT(hr);
 			}
 
