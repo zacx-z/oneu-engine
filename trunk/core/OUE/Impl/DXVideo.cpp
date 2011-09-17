@@ -214,6 +214,20 @@ namespace OneU
 		m_pD3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 
 		DX::GetGraphics()->SetViewTransform((D3DMATRIX*)&(matrix().setScale(vector3(2.0f / width, -2.0f / height, 1.0f)) * matrix().setTranslation(vector3(-1.0f, 1.0f, 0.0f))));
+
+		LONG style = WS_OVERLAPPEDWINDOW;
+		::SetWindowLongPtr(g_hWnd, GWL_STYLE, style);
+
+		RECT prev_rc;
+		GetClientRect(g_hWnd, &prev_rc);
+		int iWidth = prev_rc.right - prev_rc.left, iHeight = prev_rc.bottom - prev_rc.top;
+		int iX = (GetSystemMetrics(SM_CXFULLSCREEN) - iWidth) / 2,
+			iY = (GetSystemMetrics(SM_CYFULLSCREEN) - iHeight) / 2;
+
+		RECT rc = {iX, iY, iWidth + iX, iHeight + iY};
+		::AdjustWindowRectEx(&rc, WS_OVERLAPPEDWINDOW, FALSE, 0);
+		MoveWindow(g_hWnd, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, FALSE);
+		ShowWindow(g_hWnd, SW_SHOW);
 	}
 	vector2u_t DXVideo::getDeviceSize(){
 		return m_DeviceSize;

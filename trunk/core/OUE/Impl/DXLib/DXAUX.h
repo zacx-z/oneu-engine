@@ -42,7 +42,7 @@ namespace OneU
 			{
 				GetLogger().stream() << TimeInfo << L"从文件创建纹理失败！\n文件名：" << pSrcFile
 					<< L"\nDX错误：" << DXERRGET_STR(hr) << L"\n";
-				ONEU_RAISE(String().format(L"无法读取图片。\n路径：%s\nDX错误：%s", pSrcFile, DXERRGET_STR(hr)).c_str());
+				ONEU_RAISE(L"无法读取图片。\n路径：%s\nDX错误：%s", pSrcFile, DXERRGET_STR(hr));
 			}
 
 			txTexture._Create( pITexture );

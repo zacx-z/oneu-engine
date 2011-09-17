@@ -55,7 +55,8 @@ namespace OneU
 		ONEU_ASSERT(this);
 		if(!m_bValid) return;
 
-		fwrite(lpwstrMsg, wcslen(lpwstrMsg) * sizeof(wchar), 1, m_pLog);
+		AutoPtr<char> p = Wide2Char(lpwstrMsg, 65001);
+		fwrite(&(*p), strlen(&(*p)) * sizeof(char), 1, m_pLog);
 	}
 
 	void LoggerDisk::flush(){

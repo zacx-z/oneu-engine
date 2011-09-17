@@ -14,7 +14,7 @@ namespace OneU
 		%extend {
 			float getVolume(){ return self->get() ? self->get()->getVolume() : 0.0f; }
 			void setVolume(float volume){ if(self->get()) self->get()->setVolume(volume); }
-			OneU::uint32 getFrequency(){ return self->get() ? self->get()->getFrequency() : 0.0f; }
+			OneU::uint32 getFrequency(){ return self->get() ? self->get()->getFrequency() : 0; }
 			void setFrequency(uint32 freq){ if(self->get()) self->get()->setFrequency(freq); }
 			float getPan(){ return self->get() ? self->get()->getPan() : 0.0f; }
 			void setPan(float pan){ if(self->get()) self->get()->setPan(pan); }

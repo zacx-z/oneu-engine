@@ -108,7 +108,7 @@ namespace OneU
 
 //先执行TernimateHandler
 //再析构全局对象
-#define ONEU_RAISE(description) OneU::_TerminateApp(__FILE__, __LINE__, __FUNCTION__, description)
-#define ONEU_PROMPT(message) OneU::Prompt(message)
+#define ONEU_RAISE(description, ...) OneU::_TerminateApp(__FILE__, __LINE__, __FUNCTION__, String().format(description, __VA_ARGS__).c_str())
+#define ONEU_PROMPT(message, ...) OneU::Prompt(String().format(message, __VA_ARGS__).c_str())
 
 #define ONEU_ENSURE(exp) OneU::_Ensure(__FILE__, __LINE__, __FUNCTION__, #exp, exp)//与ASSERT不同 在发布版本也会执行的代码 如果为false结束进程

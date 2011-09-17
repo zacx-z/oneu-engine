@@ -2564,7 +2564,7 @@ SWIGINTERN void OneU_IGame_replaceScene(OneU::IGame *self,Scene *scene){
 
 SWIGINTERN float OneU_sound_t_getVolume(OneU::sound_t *self){ return self->get() ? self->get()->getVolume() : 0.0f; }
 SWIGINTERN void OneU_sound_t_setVolume(OneU::sound_t *self,float volume){ if(self->get()) self->get()->setVolume(volume); }
-SWIGINTERN OneU::uint32 OneU_sound_t_getFrequency(OneU::sound_t *self){ return self->get() ? self->get()->getFrequency() : 0.0f; }
+SWIGINTERN OneU::uint32 OneU_sound_t_getFrequency(OneU::sound_t *self){ return self->get() ? self->get()->getFrequency() : 0; }
 SWIGINTERN void OneU_sound_t_setFrequency(OneU::sound_t *self,OneU::uint32 freq){ if(self->get()) self->get()->setFrequency(freq); }
 SWIGINTERN float OneU_sound_t_getPan(OneU::sound_t *self){ return self->get() ? self->get()->getPan() : 0.0f; }
 SWIGINTERN void OneU_sound_t_setPan(OneU::sound_t *self,float pan){ if(self->get()) self->get()->setPan(pan); }
