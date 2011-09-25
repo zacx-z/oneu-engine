@@ -45,7 +45,7 @@ namespace OneU
 			: m_pDS(NULL), m_pDSPrimary(NULL){}
 		~DXStereo();
 		void init();
-		sound_t loadSound(pcwstr filename, bool streamed);
+		stereo::ISound* _loadSound(pcwstr filename, bool streamed);
 		void playMusic(sound_t filename, bool looped);
 		void stopMusic();
 		sound_t getPlayingMusic(){ return m_Music; }

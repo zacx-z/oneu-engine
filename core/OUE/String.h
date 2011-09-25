@@ -225,5 +225,6 @@ namespace OneU
 	inline AutoPtr<char> Wide2Char(pcwstr cstr, uint32 codepage = 0){
 		return AutoPtr<char>(_Wide2Char(cstr));
 	}
-//#define SPrintf String().format
 }
+
+#define ONEU_FORMAT(formatString, ...) OneU::String().format(formatString, __VA_ARGS__).c_str()

@@ -436,7 +436,7 @@ namespace OneU
 		XV_RAISE(m_pDSPrimary->Play(0, 0, DSBPLAY_LOOPING));
 	}
 
-	sound_t DXStereo::loadSound(pcwstr filename, bool streamed){
+	stereo::ISound* DXStereo::_loadSound(pcwstr filename, bool streamed){
 		return ONEU_NEW stereo::DXOggSound(m_pDS, filename, streamed);
 	}
 

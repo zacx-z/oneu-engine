@@ -214,10 +214,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\LuaUtil.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Memory.cpp"
 				>
 			</File>
@@ -285,10 +281,6 @@
 			</File>
 			<File
 				RelativePath=".\Logger.h"
-				>
-			</File>
-			<File
-				RelativePath=".\LuaUtil.h"
 				>
 			</File>
 			<File

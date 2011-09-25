@@ -96,19 +96,58 @@ namespace OneU
 	//只有调用ONEU_EXIT(_ExitApp)才会调用Handler
 	extern "C" ONEU_API TerminateHandler SetTerminateHandler(TerminateHandler eh);
 
+	/* ----------------------------------------------------------------------------*/
+	/** 
+	 * @brief 弹出提示对话框
+	 * 
+	 * @param message 提示消息
+	 */
+	/* ----------------------------------------------------------------------------*/
 	ONEU_API void Prompt(pcwstr message);
+	/* ----------------------------------------------------------------------------*/
+	/** 
+	 * @brief 弹出错误对话框
+	 * 
+	 * @param message 错误消息
+	 * @param captain 错误对话框标题
+	 */
+	/* ----------------------------------------------------------------------------*/
 	ONEU_API void ErrorBox(pcwstr message, pcwstr captain);
 
 	//如果为false结束进程
 	inline void _Ensure(const char* FileName, const int Line, const char* Function, const char* expression, bool exp){
 		if(!exp)
-			_TerminateApp(FileName, Line, Function, String().format(L"The ensured expression '%S' equal to false!", expression).c_str());
+			_TerminateApp(FileName, Line, Function, ONEU_FORMAT(L"The ensured expression '%S' equal to false!", expression));
 	}
 }
 
 //先执行TernimateHandler
 //再析构全局对象
-#define ONEU_RAISE(description, ...) OneU::_TerminateApp(__FILE__, __LINE__, __FUNCTION__, String().format(description, __VA_ARGS__).c_str())
-#define ONEU_PROMPT(message, ...) OneU::Prompt(String().format(message, __VA_ARGS__).c_str())
 
+/* ----------------------------------------------------------------------------*/
+/** 
+ * @brief 抛出异常
+ * 
+ * @param string 异常信息，可以为格式串，后面跟随对应的变量。
+ */
+/* ----------------------------------------------------------------------------*/
+#define ONEU_RAISE(string, ...) OneU::_TerminateApp(__FILE__, __LINE__, __FUNCTION__, ONEU_FORMAT(string, __VA_ARGS__))
+
+/* ----------------------------------------------------------------------------*/
+/** 
+ * @brief 弹出提示框
+ * 
+ * @param message 提示信息，可以为格式串，后面跟随对应的变量。
+ */
+/* ----------------------------------------------------------------------------*/
+#define ONEU_PROMPT(message, ...) OneU::Prompt(ONEU_FORMAT(message, __VA_ARGS__))
+
+/* ----------------------------------------------------------------------------*/
+/** 
+ * @brief 断言
+ * 
+ * @param exp 断言表达式，为false时终止程序（相当于调用ONEU_RAISE）。
+ * @remarks 与ONEU_ASSERT的区别是任何版本都不会被省略掉。
+ */
+/* ----------------------------------------------------------------------------*/
 #define ONEU_ENSURE(exp) OneU::_Ensure(__FILE__, __LINE__, __FUNCTION__, #exp, exp)//与ASSERT不同 在发布版本也会执行的代码 如果为false结束进程
