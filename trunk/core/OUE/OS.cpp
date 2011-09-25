@@ -41,8 +41,6 @@ namespace OneU
 			return strDirectory;
 		}
 
-		ONEU_API void ErrorBox(pcwstr Errorinfo){ ::MessageBoxW(NULL, Errorinfo, L"Error", MB_OK | MB_ICONERROR ); }
-
 		//随机种子在Game_Win32中被初始化
 		ONEU_API float Rand(){return ((float)rand()) / RAND_MAX;}
 	}

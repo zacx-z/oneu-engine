@@ -114,6 +114,7 @@ namespace OneU
 	 * 针对于Hold-a一个引用，并不会管理对象生存期，不会尝试销毁对象。仅能用于Interface。
 	 */
 	/* ----------------------------------------------------------------------------*/
+	//动机是来自于脚本中有些变量被回收掉（但在主程序中持有引用）引发程序崩溃而无法追踪错误的问题。
 	template<class T>
 	class Handle
 	{
@@ -195,8 +196,9 @@ namespace OneU
 	};
 #define SAFE_H(handle) (handle.get(__FILE__, __LINE__, __FUNCTION__))
 
+	//Utilities
 	//主要用于容器 保证被正确删除
-	//@todo 目前不支持InterfaceRef
+	//不支持InterfaceRef
 	template<class T>
 	class InterfacePtr
 	{

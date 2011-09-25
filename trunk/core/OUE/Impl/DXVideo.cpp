@@ -272,7 +272,7 @@ namespace OneU
 		}
 	}
 
-	image_t DXVideo::loadImage(pcwstr filename){
+	video::IImage* DXVideo::_loadImage(pcwstr filename){
 		DXImage* p = ONEU_NEW DXImage(_getDXImageTag(filename));
 		return p;
 	}

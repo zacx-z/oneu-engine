@@ -52,7 +52,7 @@ namespace OneU
 		virtual ~IAllocator(){}
 	public:
 		virtual void* alloc(size_t count) = 0;
-		virtual void* alloc(size_t count, const char* filename, const int Line, const wchar* comment = NULL) = 0;
+		virtual void* alloc(size_t count, const char* filename, const int Line){ return alloc(count); }
 		virtual void dealloc(void* _ptr) = 0;
 		virtual void destroy() = 0;
 		//调试版本具备检查内存泄露功能
@@ -61,28 +61,10 @@ namespace OneU
 		 * @brief 检查是否有内存泄露
 		 *
 		 * 一般来说只有调试版本才有作用。
-		 *
-		 * @todo 目前该函数时针对默认内存分配器实现的。应该将分配器与检验内存泄露二者代码分离，以能够自定义内存分配器。（不过这个功能是否需要有待考证）
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual void checkLeaks() = 0;
+		virtual void checkLeaks(){};
 	};
-	/* ----------------------------------------------------------------------------*/
-	/**
-	 * @brief 默认内存分配器工厂
-	 *
-	 * @return 内存分配器接口
-	 */
-	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_API IAllocator* Allocator_create();
-	/* ----------------------------------------------------------------------------*/
-	/**
-	 * @brief 创建内存分配器单件
-	 *
-	 * @param af 内存分配器工厂
-	 */
-	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_API void Allocator_build(IAllocator* (*af)());
 	/* ----------------------------------------------------------------------------*/
 	/**
 	 * @brief 获取内存分配器单件
@@ -91,32 +73,26 @@ namespace OneU
 	 */
 	/* ----------------------------------------------------------------------------*/
 	extern "C" ONEU_API IAllocator& GetAllocator();
-	/* ----------------------------------------------------------------------------*/
-	/**
-	 * @brief 销毁内存分配器单件
-	 */
-	/* ----------------------------------------------------------------------------*/
-	extern "C" ONEU_API void Allocator_destroy();
 }
 
 //comment会被记录到内存块中
-inline void* operator new(size_t count, OneU::IAllocator* allocator, int/*目前用以区分AllocatedObject的new的原型 避免笔误*/, const char* filename, const int Line, const OneU::wchar* comment = NULL){
-	return allocator->alloc(count, filename, Line, comment);
+inline void* operator new(size_t count, OneU::IAllocator* allocator, const char* filename, const int Line){
+	return allocator->alloc(count, filename, Line);
 }
 //comment会被记录到内存块中
-inline void* operator new[](size_t count, OneU::IAllocator* allocator, const char* filename, const int Line, int/*防止系统选择operator new函数而不是operator new[]*/, const OneU::wchar* comment = NULL){
-	size_t* p = (size_t*)allocator->alloc(count + sizeof(size_t), filename, Line, comment);
+inline void* operator new[](size_t count, OneU::IAllocator* allocator, const char* filename, const int Line, int/*防止系统选择operator new函数而不是operator new[]*/){
+	size_t* p = (size_t*)allocator->alloc(count + sizeof(size_t), filename, Line);
 
 	*p = count;
 	return ++p;
 }
 
 //见effective c++ #52
-inline void operator delete(void* _ptr, OneU::IAllocator* allocator, int, const char* filename, const int Line, const OneU::wchar* comment){
+inline void operator delete(void* _ptr, OneU::IAllocator* allocator, const char* filename, const int Line){
 	allocator->dealloc(_ptr);
 }
 //见effective c++ #52
-inline void operator delete[](void* _ptr, OneU::IAllocator* allocator, const char* filename, const int Line, int, const OneU::wchar* comment){
+inline void operator delete[](void* _ptr, OneU::IAllocator* allocator, const char* filename, const int Line, int){
 	allocator->dealloc((size_t*)_ptr - 1);
 }
 
@@ -139,6 +115,8 @@ namespace OneU
 	}
 }
 
+//使用ONEU内存分配器单件创建对象。
+//使用该宏创建的对象可以跨dll销毁。
 /* ----------------------------------------------------------------------------*/
 /**
  * @brief new宏
@@ -146,9 +124,7 @@ namespace OneU
  * 创建AllocatedObject（包括Interface）时，使用该宏而非new可以在Debug模式下追踪其内存。
  */
 /* ----------------------------------------------------------------------------*/
-//使用ONEU内存分配器单件创建对象。
-//使用该宏创建的对象可以跨dll销毁。
-#define ONEU_NEW new(&OneU::GetAllocator(), __FILE__, __LINE__)
+#define ONEU_NEW new(__FILE__, __LINE__)
 #define ONEU_DELETE delete
 
 
@@ -160,21 +136,11 @@ namespace OneU
  * 使用ONEU_DELETE_T删除。
  */
 /* ----------------------------------------------------------------------------*/
-#define ONEU_NEW_T(v) new(&OneU::GetAllocator(), int(), __FILE__, __LINE__) v
+#define ONEU_NEW_T(v) new(&OneU::GetAllocator(), __FILE__, __LINE__) v
+#define ONEU_NEW_ARRAY_T(v) new(&OneU::GetAllocator(), __FILE__, __LINE__, int()) v
 
-/* ----------------------------------------------------------------------------*/
-/**
- * @brief OneU new宏（附加注释）
- *
- * @todo 附加了注释。未实现。
- */
-/* ----------------------------------------------------------------------------*/
-#define ONEU_NEW_C(v, comment) new(&OneU::GetAllocator(), __FILE__, __LINE__, c) v
-//使用ONEU内置的内存池创建数组
-//不能直接用内存池函数释放 必须调用ONEU_DELETE宏
-#define ONEU_NEW_ARRAY_T(v) new(&OneU::GetAllocator(), __FILE__, __LINE__, int(), NULL) v
-#define ONEU_NEW_ARRAY_T_C(v) new(&OneU::GetAllocator(), __FILE__, __LINE__, int(), c) v
-
+#define ONEU_NEW_TA(v, allocator) new(allocator, __FILE__, __LINE__) v
+#define ONEU_NEW_ARRAY_TA(v, allocator) new(allocator, __FILE__, __LINE__, int()) v
 /* ----------------------------------------------------------------------------*/
 /**
  * @brief delete宏
@@ -182,6 +148,9 @@ namespace OneU
 /* ----------------------------------------------------------------------------*/
 #define ONEU_DELETE_T(v) _doDelete(v, &OneU::GetAllocator(), __FILE__, __LINE__)
 #define ONEU_DELETE_ARRAY_T(v) _doDeleteArray(v, &OneU::GetAllocator(), __FILE__, __LINE__)
+
+#define ONEU_DELETE_TA(v, allocator) _doDelete(v, allocator, __FILE__, __LINE__)
+#define ONEU_DELETE_ARRAY_TA(v, allocator) _doDeleteArray(v, allocator, __FILE__, __LINE__)
 
 /* ----------------------------------------------------------------------------*/
 /**
@@ -192,7 +161,6 @@ namespace OneU
  */
 /* ----------------------------------------------------------------------------*/
 #define ONEU_ALLOC(size) OneU::GetAllocator().alloc(size, __FILE__, __LINE__)
-#define ONEU_ALLOC_C(size,comment) OneU::GetAllocator().alloc(size, __FILE__, __LINE__, c)
 
 /* ----------------------------------------------------------------------------*/
 /**
@@ -200,7 +168,6 @@ namespace OneU
  */
 /* ----------------------------------------------------------------------------*/
 #define ONEU_DEALLOC(p) OneU::GetAllocator().dealloc(p)
-
 
 namespace OneU
 {
@@ -215,20 +182,20 @@ namespace OneU
 	/* ----------------------------------------------------------------------------*/
 	class AllocatedObject{
 	public:
-		void* operator new(size_t count, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment = NULL){
-			return allocator->alloc(count, filename, Line, comment);
+		void* operator new(size_t count, const char* filename, const int Line){
+			return GetAllocator().alloc(count, filename, Line);
 		}
 		void* operator new(size_t count){
 			return GetAllocator().alloc(count);
 		}
-		void operator delete(void* _ptr, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment){
+		void operator delete(void* _ptr, const char* filename, const int Line){
 			GetAllocator().dealloc(_ptr);
 		}
 		void operator delete(void* _ptr){
 			GetAllocator().dealloc(_ptr);
 		}
-		void* operator new[](size_t count, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment = NULL){
-			return allocator->alloc(count, filename, Line, comment);
+		void* operator new[](size_t count, const char* filename, const int Line){
+			return GetAllocator().alloc(count, filename, Line);
 		}
 		void* operator new[](size_t count){
 			return GetAllocator().alloc(count);
@@ -236,7 +203,7 @@ namespace OneU
 		void operator delete[](void* _ptr){
 			GetAllocator().dealloc(_ptr);
 		}
-		void operator delete[](void* _ptr, OneU::IAllocator* allocator, const char* filename, const int Line, const OneU::wchar* comment){
+		void operator delete[](void* _ptr, const char* filename, const int Line){
 			GetAllocator().dealloc(_ptr);
 		}
 	};

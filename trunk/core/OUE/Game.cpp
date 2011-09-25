@@ -52,13 +52,10 @@ namespace OneU
 	{
 
 		ONEU_ASSERT(s_pGame == NULL);
-		Allocator_build(Allocator_create);
 		Logger_build(LoggerDisk_Factory);
 
-#ifdef _WIN32
 		//错误流重定向
 		FILE* nferr = freopen("err", "w", stderr);
-#endif
 
 #ifdef _WIN32
 		s_pGame = ONEU_NEW Game_Win32;
@@ -73,7 +70,6 @@ namespace OneU
 		//销毁日志系统	其中Logger在Game_build中初始化
 		Logger_destroy();
 		GetAllocator().checkLeaks();
-		Allocator_destroy();
 	}
 
 	void _destroyGame()

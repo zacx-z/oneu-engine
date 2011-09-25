@@ -57,6 +57,7 @@ namespace OneU
 		DXVideo();
 		~DXVideo();
 
+		//Standard Override
 		LPCTSTR getName(){ return L"OneU D3D Video 1.0"; }
 
 		void prepare();
@@ -70,19 +71,20 @@ namespace OneU
 		void update(float dt);
 		void flip();
 
-		image_t loadImage(pcwstr filename);
+		video::IImage* _loadImage(pcwstr filename);
 
 	private:
+		//Renderer State
 		rect m_ImageSource;
 		color_t mix_color;
 		uint32 mix_mode;
 
-		//implement
+		//Implement
 		void _RenderImage_SetState();
 		template<class T>
 		inline void _RenderImage_SetDiffuse(T vertex[]);
 	public:
-		//Rendering functions
+		//Rendering Functions
 		void renderImage(video::IImage& image, const rect& dest);
 		void renderImage_d(video::IImage& image, const rect& dest);
 		void setTransform(const matrix& m);
@@ -90,7 +92,7 @@ namespace OneU
 		void setBlendMode(video::BLENDMODE mode);
 		void setBlendColor(uint32 mode, color_t color){ mix_mode = mode; mix_color = color; }
 
-		//äÖÈ¾Ê÷º¯Êý
+		//Renderable Node Functions
 		video::IRenderScene* setRenderScene(video::IRenderScene* pRenderScene){
 			if(m_pRenderScene)m_pRenderScene->detach();
 			if(pRenderScene) m_pRoot->addChild(pRenderScene, 0);
@@ -107,13 +109,17 @@ namespace OneU
 		void showInfo();
 
 	private:
+		//Resource Functions
+		//called when device is lost
 		void unloadD3DResource();
 		void reloadD3DResource();
+		//Auxiliary library
 		//for d3d only
 	private:
 		List<ID3DXFont*> m_fontList;
 		List<ID3DXSprite*> m_spriteList;
 	public:
+		//for resource manage
 		List<ID3DXFont*>::iterator _registerD3DXFont(ID3DXFont* pFont);
 		void _unregisterD3DXFont(List<ID3DXFont*>::iterator pFont);
 		List<ID3DXSprite*>::iterator _registerD3DXSprite(ID3DXSprite* pSprite);

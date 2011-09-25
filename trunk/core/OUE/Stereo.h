@@ -58,19 +58,37 @@ namespace OneU
 		 */
 		/* ----------------------------------------------------------------------------*/
 		virtual void init() = 0;
-		virtual sound_t loadSound(pcwstr filename, bool streamed) = 0;
+		virtual stereo::ISound* _loadSound(pcwstr filename, bool streamed) = 0;
+		sound_t loadSound(pcwstr filename, bool streamed){
+			return _loadSound(filename, streamed);
+		}
 		/* ----------------------------------------------------------------------------*/
 		/**
-		 * @brief 播放音乐流
+		 * @brief 播放背景音乐
 		 *
-		 * @param filename 音乐的流文件路径
+		 * @param filename 音乐的文件路径
 		 * @remarks 会停止当前播放的音乐
 		 */
 		/* ----------------------------------------------------------------------------*/
 		virtual void playMusic(sound_t sound, bool looped = true) = 0;
+		/* ----------------------------------------------------------------------------*/
+		/**
+		* @brief 停止背景音乐
+		*/
+		/* ----------------------------------------------------------------------------*/
 		virtual void stopMusic() = 0;
+		/* ----------------------------------------------------------------------------*/
+		/**
+		* @brief 获取当前背景音乐
+		*/
+		/* ----------------------------------------------------------------------------*/
 		virtual sound_t getPlayingMusic() = 0;
 
+		/* ----------------------------------------------------------------------------*/
+		/**
+		* @brief 播放效果音
+		*/
+		/* ----------------------------------------------------------------------------*/
 		virtual void playFX(sound_t sound) = 0;
 		virtual void update() = 0;
 	};

@@ -57,7 +57,8 @@ namespace OneU{
  *  管理整个游戏程序流程，负责配置和创建、刷新各子系统。最顶级接口。
  *  - 广播接口 @ref IBroadcast\n
  *  处理全局事件。
- *  - 图形接口 @ref IVideo
+ *  - 音响接口 @ref IStereo\n
+ *  - 图形接口 @ref IVideo\n
  *  负责显示和管理图像、动画。
  *  - 控制接口 @ref IControl\n
  *  负责处理键盘和鼠标等输入设备。
@@ -65,7 +66,7 @@ namespace OneU{
  *  负责处理游戏逻辑。一个场景是一个逻辑单元，被游戏对象所持有和处理。
  * .
  * 
- * @subsection section_event 事件系统
+ * @subsection section_event 事件系统(未完成，depracated)
  * 事件系统由事件派发器，监听器和事件（包括事件参数）组成。使用字符串来区分一类事件。事件派发器是接受事件的类，通过向事件派发器添加监听器来处理某一个事件。监听器可添加多个。\n
  * 目前的事件机制没有采用队列，是在发送消息的同时执行监听器的触发函数。\n
  * 公共事件会通过广播系统传播。广播类是事件派发器的继承类。\n
@@ -194,6 +195,7 @@ namespace OneU{
  * @endcode
  * 编译运行，图像会每隔一帧闪烁一次。\n
  * @ref video::INode::update函数是在visible和active均为true时，每一帧都会调用的函数，用于刷新动画。\n
+ * @subpage page_memory。
  * @subsection section_to_extend 进阶：扩展引擎
  * 在扩展引擎之前，请确保首先阅读了@ref page_principles并了解了必须遵守的原则。
  * 参见@ref page_extending。
@@ -246,11 +248,7 @@ namespace OneU{
  *  - operator new和operator delete重载需谨慎。
  *  - 谨慎使用全局变量，原则上只有Allocator单件被创建了以后其他类的实例才能够被创建，因此不允许任意定义全局变量。
  *  .
- * @section section_memory 内存管理策略
- *  - 派生自AllocatedObject的对象可以被直接管理内存（使用类属new等）。可以使用ONEU_NEW代替NEW来实现追踪内存（否则无法得知其语句的文件和行数等）。
- *  - 原生类型可以使用ONEU_NEW_T（以及ONEU_NEW_ARRAY_T），会使用默认内存池管理内存（单继承对象实质也能使用，不过不建议，最好派生自AllocatedObject）。
- *  - C++默认new依然有效，采用new处理原生类型或者普通对象依然是默认行为。
- *  .
+ * @ref page_memory
  */
 
 /* ----------------------------------------------------------------------------*/
@@ -287,25 +285,19 @@ namespace OneU{
  * 在当前的版本中，只有一个内存分配器，通过调用@ref GetAllocator来获取引用。\n
  * @ref AllocatedObject 是内存被管理的类的基类。派生自该类的对象使用new来分配内存时，自动会使用内存分配器。\n
  * 对于内存分配器的内存，可不受dll局限，在任何位置被创建和销毁。\n
+ * 重写IAllocator可以实现自定义的内存分配器，用于原生类型。AllocatedObject目前不支持自定义内存分配器。\n
  * C++默认的new仍然可以使用，但是按照C++的规则，同一个dll创建的内存必须在同一个dll里释放。\n
  * 为了使用方便，提供了一组宏用于分配内存。这组宏可以开启内存追踪功能，侦查内存泄露。\n
  * - ONEU_NEW 用于AllocatedObject的派生类。
  * - ONEU_NEW_T 用于原生类型。
+ * - ONEU_NEW_TA 用于原生类型，使用自定义内存分配器。
  * - ONEU_NEW_ARRAY_T 用于原生类型数组。
+ * - ONEU_NEW_ARRAY_TA 用于原生类型数组，使用自定义内存分配器。
  * - ONEU_ALLOC 直接分配内存。
  * .
  * 
 */
 /* ----------------------------------------------------------------------------*/
-/**
- * @page page_matrix_stack 矩阵栈(add 11.5.31)
- * @ref IVideo 包含矩阵栈操作函数，可以将矩阵压入栈中或者弹栈，此行为应在Video的绘制期间执行，即在某个INode的paint函数里。\n
- * 调用@ref IVideo::_getTransform 可获得当前的矩阵栈中所有矩阵相乘的结果，即当前INode绘制时所做的变换。其中调用@ref IVideo::renderImage 会自动应用矩阵栈的变换。
- * 其他情况若想支持矩阵栈的变化则要调用该函数获取变换并尝试应用到自己的绘图中。\n
- * \n
- * 每一个INode可选带有2D变换信息。若一个INode带有变换信息，则会在绘制时压入栈中。（此类似于OGRE中DeriveOrientation等……OGRE将其分解的更细小。此处看矩阵栈是存在缺陷的，
- * 关于矩阵栈暂时这样设计。）
- */
 /* ----------------------------------------------------------------------------*/
 /**
  * @page page_extending 扩展引擎
@@ -321,23 +313,18 @@ namespace OneU{
 /* ----------------------------------------------------------------------------*/
 /**
  * @page page_script 使用脚本编写游戏
- * 目前脚本处于比较纠结的状态，是附加特性，因此许多东西的支持都比较简单。
- * 目前实现了Lua和Ruby的接口，由于在SWIG里Lua不支持Directors，所以功能很受限，一般只能做单场景游戏。
- * 1.使用ruby(recommanded)
- * 提供便利函数@ref RubyRun。直接在主函数调用即可，不需要做任何其他事。
+ * 使用ruby编写游戏。
+ * C++部分：参见Game/main.cpp，在主函数调用便利函数@ref RubyRun。
+ * Ruby脚本：程序所在文件夹下编写script/main.rb。
  * 除了Game_build, Game_destroy所有逻辑都在Ruby中编写。
- * 2.使用Lua
- * 需要自己编写一个场景（是唯一的场景），参考r19的Game\\main.cpp。(注：由于新版的改动，需要在run函数后调用Game_destroy）
- * Game_build，Game.run等基本逻辑在C++里编写。
  */
+/* ----------------------------------------------------------------------------*/
 /**
  * @page page_problems PROBLEMS
  * PROBLEMS:
- * - Ruby和Lua使用方式有点迥异。参见上面。
  * - Ruby的异常处理与C是脱节的（貌似是使用longjmp)。也就是说如果使用Director时某些函数的局部变量会被直接抛弃。一些处理也会有点失控。
  *   对于这个问题，只要保证所有的系统资源间接被Game持有，Game_destroy确保被执行，就可以保证不出现资源泄露。
  * - 要先销毁脚本解释器再销毁Game，因为脚本解释器里的变量可能关乎资源。
- * - 相当多函数和类（主要是接口类，也有core中的类）都需要在有内存分配器的存在才可被使用。而Game_destroy会销毁掉内存分配器。所以在Game_build之前和Game_destroy之后都不能使用。
  *   对于上述Ruby逻辑编写方式而言，由于开始解释的时候没有内存分配器，因此连RubyInterpreter都不能创建。所以才会出现了不使用内存分配器的RubyRun便利函数。
  * - 关于脚本语言协作，涉及到Ownership，见SWIG。有时Script调用某函数会获取到Ownership，有时又会失去。当Ownership获取的时候一般通过返回值，而对于某些会失去Ownership时此时该变量必须有Ownership。Ownership的转移会带来过多复杂性，已经被取消。
  * - win32：一旦调用了PostQuitMessage，就无法显示MessageBox了。
@@ -352,12 +339,11 @@ namespace OneU{
  * - @ref IGame::replaceScene，同上，需要使用变量保持（建议用全局变量），否则会引起段错误。
  * - @ref INode::addChild不将ownership转移给父节点，脚本若不保持该变量可能会使显示元素消失。
  * .
- * @attention 重要改动，Game.run后需要调用Game.destroy
  * @remarks 具体接口参见swig/*.i文件。
  */
 /* ----------------------------------------------------------------------------*/
-//注：测试代码 LuaInterpreter.cpp中和RubyInterpreter.cpp将cpath设定在debug文件夹下，属测试代码。而release版由于没有把cpath设在release文件夹下，直接运行其实是不能跑的。
-//注：AtomDemo工程目前处于不可用状态。
+//注：测试代码 RubyUtil.cpp将cpath设定在debug文件夹下，属测试代码。而release版由于没有把cpath设在release文件夹下，直接运行其实是不能跑的。
 
 //@todo 支持RT，支持锁定纹理。
+//@todo oload等详细写。
 }

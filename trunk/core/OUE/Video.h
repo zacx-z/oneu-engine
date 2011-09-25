@@ -232,7 +232,11 @@ namespace OneU
 		 * @attention 图片接口必须在Video销毁前销毁。
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual image_t loadImage(pcwstr filename) = 0;
+		image_t loadImage(pcwstr filename){
+			return _loadImage(filename);
+		}
+
+		virtual video::IImage* _loadImage(pcwstr filename) = 0;
 
 		/**
 		 * @name 渲染函数

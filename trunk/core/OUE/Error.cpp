@@ -157,7 +157,6 @@ namespace OneU
 
 		//Logger和Allocator应该在Game析构函数（在s_eh中）销毁 为了顾及不安全情况 在这里再调用销毁函数一次
 		Logger_destroy();
-		Allocator_destroy();
 		exit(-1);
 	}
 
