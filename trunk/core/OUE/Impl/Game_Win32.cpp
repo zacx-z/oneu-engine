@@ -26,7 +26,7 @@ THE SOFTWARE.
 #include "../Event.h"
 #include "../Broadcast.h"
 #include "../Video.h"
-#include "../Stereo.h"
+#include "../Audio.h"
 #include "../Scene.h"
 #include "../Control.h"
 //#include "Shell.h"
@@ -42,7 +42,7 @@ namespace OneU
 		if(m_pScene != NULL){ ONEU_DELETE m_pScene; m_pScene = NULL;}
 		if(m_pBroadcast != NULL) m_pBroadcast->sendEvent(event::DESTROY);
 		if(m_pControl != NULL){ ONEU_DELETE m_pControl; m_pControl = NULL;}
-		if(m_pStereo != NULL){ ONEU_DELETE m_pStereo; m_pStereo = NULL; }
+		if(m_pAudio != NULL){ ONEU_DELETE m_pAudio; m_pAudio = NULL; }
 		if(m_pVideo != NULL){ ONEU_DELETE m_pVideo; m_pVideo = NULL;}
 		::DestroyWindow(g_hWnd);
 		if(m_pBroadcast != NULL){ ONEU_DELETE m_pBroadcast; m_pBroadcast = NULL;}
@@ -62,8 +62,7 @@ namespace OneU
 		ONEU_ASSERT(m_pVideo == NULL);
 		m_pVideo = Video_create();
 
-
-		m_pStereo = Stereo_create();
+		m_pAudio = Audio_create();
 		ONEU_ASSERT(m_pControl == NULL);
 		m_pControl = Control_create();
 
@@ -137,7 +136,7 @@ end:
 		m_pControl->update();
 		m_pBroadcast->sendEvent(event::ENTER_FRAME);
 		if(m_pScene != NULL) m_pScene->update(m_TimeInterval);
-		m_pStereo->update();
+		m_pAudio->update();
 		m_pVideo->update(m_TimeInterval);
 		m_pVideo->render();
 		m_pVideo->flip();

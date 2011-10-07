@@ -1,7 +1,7 @@
 %module(directors = "1") OUE
 
 %{
-#include "../Stereo.h"
+#include "../Audio.h"
 %}
 
 namespace OneU
@@ -20,8 +20,8 @@ namespace OneU
 			void setPan(float pan){ if(self->get()) self->get()->setPan(pan); }
 		}
 	};
-	%rename(Stereo) IStereo;
-	class IStereo
+	%rename(Audio) IAudio;
+	class IAudio
 	{
 	public:
 		virtual void init() = 0;

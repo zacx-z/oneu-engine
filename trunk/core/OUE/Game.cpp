@@ -30,7 +30,7 @@ THE SOFTWARE.
 #ifdef ONEU_USE_DIRECT3D
 #include "Impl/DXVideo.h"
 #endif
-#include "Impl/DXStereo.h"
+#include "Impl/DXAudio.h"
 #ifdef ONEU_USE_DIRECTINPUT
 #include "Impl/DXControl.h"
 #endif
@@ -85,8 +85,8 @@ namespace OneU
 		return ONEU_NEW DXVideo;
 #endif
 	}
-	ONEU_API IStereo* Stereo_create(){
-		return ONEU_NEW DXStereo;
+	ONEU_API IAudio* Audio_create(){
+		return ONEU_NEW DXAudio;
 	}
 	ONEU_API IControl* Control_create(){
 #ifdef ONEU_USE_DIRECTINPUT
@@ -99,7 +99,7 @@ namespace OneU
 		g.init(WindowName, width, height, bWindowed);
 
 		g.getVideo().init(width, height, bWindowed);
-		g.getStereo().init();
+		g.getAudio().init();
 		g.getControl().init();
 	}
 }

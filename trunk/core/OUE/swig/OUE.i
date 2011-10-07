@@ -10,7 +10,7 @@
 %include "Game.i"
 
 %include "Video.i"
-%include "Stereo.i"
+%include "Audio.i"
 %include "Control.i"
 %include "Scene.i"
 

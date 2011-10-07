@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 /**
- * @file Stereo.h
+ * @file Audio.h
  * @brief 音响系统
  * @author Ladace
  * @version 1.0.0.1
@@ -33,7 +33,7 @@ THE SOFTWARE.
 
 namespace OneU
 {
-	namespace stereo
+	namespace audio
 	{
 		class ISound
 			: public InterfaceRef
@@ -47,8 +47,8 @@ namespace OneU
 			virtual void setPan(float pan) = 0;
 		};
 	}
-	typedef RefWrapper<stereo::ISound> sound_t;
-	class IStereo
+	typedef RefWrapper<audio::ISound> sound_t;
+	class IAudio
 		: public Interface
 	{
 	public:
@@ -58,7 +58,7 @@ namespace OneU
 		 */
 		/* ----------------------------------------------------------------------------*/
 		virtual void init() = 0;
-		virtual stereo::ISound* _loadSound(pcwstr filename, bool streamed) = 0;
+		virtual audio::ISound* _loadSound(pcwstr filename, bool streamed) = 0;
 		sound_t loadSound(pcwstr filename, bool streamed){
 			return _loadSound(filename, streamed);
 		}
@@ -66,7 +66,8 @@ namespace OneU
 		/**
 		 * @brief 播放背景音乐
 		 *
-		 * @param filename 音乐的文件路径
+		 * @param sound 声音对象
+		 * @param looped 是否循环播放
 		 * @remarks 会停止当前播放的音乐
 		 */
 		/* ----------------------------------------------------------------------------*/
@@ -100,5 +101,5 @@ namespace OneU
 	 * @return 音响接口
 	 */
 	/* ----------------------------------------------------------------------------*/
-	ONEU_API IStereo* Stereo_create();
+	ONEU_API IAudio* Audio_create();
 }

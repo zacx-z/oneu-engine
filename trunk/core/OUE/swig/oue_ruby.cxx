@@ -2202,14 +2202,14 @@ namespace Swig {
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define SWIGTYPE_p_OneU__CharEvent swig_types[0]
-#define SWIGTYPE_p_OneU__IControl swig_types[1]
-#define SWIGTYPE_p_OneU__IGame swig_types[2]
-#define SWIGTYPE_p_OneU__IInputReceiver swig_types[3]
-#define SWIGTYPE_p_OneU__ILabel swig_types[4]
-#define SWIGTYPE_p_OneU__IScene swig_types[5]
-#define SWIGTYPE_p_OneU__IShape swig_types[6]
-#define SWIGTYPE_p_OneU__ISprite swig_types[7]
-#define SWIGTYPE_p_OneU__IStereo swig_types[8]
+#define SWIGTYPE_p_OneU__IAudio swig_types[1]
+#define SWIGTYPE_p_OneU__IControl swig_types[2]
+#define SWIGTYPE_p_OneU__IGame swig_types[3]
+#define SWIGTYPE_p_OneU__IInputReceiver swig_types[4]
+#define SWIGTYPE_p_OneU__ILabel swig_types[5]
+#define SWIGTYPE_p_OneU__IScene swig_types[6]
+#define SWIGTYPE_p_OneU__IShape swig_types[7]
+#define SWIGTYPE_p_OneU__ISprite swig_types[8]
 #define SWIGTYPE_p_OneU__IVideo swig_types[9]
 #define SWIGTYPE_p_OneU__KeyEvent swig_types[10]
 #define SWIGTYPE_p_OneU__ListT_OneU__video__Mode_t swig_types[11]
@@ -2560,7 +2560,7 @@ SWIGINTERN void OneU_IGame_replaceScene(OneU::IGame *self,Scene *scene){
 			s->__isActive = false;
 		}
 
-#include "../Stereo.h"
+#include "../Audio.h"
 
 SWIGINTERN float OneU_sound_t_getVolume(OneU::sound_t *self){ return self->get() ? self->get()->getVolume() : 0.0f; }
 SWIGINTERN void OneU_sound_t_setVolume(OneU::sound_t *self,float volume){ if(self->get()) self->get()->setVolume(volume); }
@@ -8404,11 +8404,11 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Game_getStereo(int argc, VALUE *argv, VALUE self) {
+_wrap_Game_getAudio(int argc, VALUE *argv, VALUE self) {
   OneU::IGame *arg1 = (OneU::IGame *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  OneU::IStereo *result = 0 ;
+  OneU::IAudio *result = 0 ;
   VALUE vresult = Qnil;
   
   if ((argc < 0) || (argc > 0)) {
@@ -8416,11 +8416,11 @@ _wrap_Game_getStereo(int argc, VALUE *argv, VALUE self) {
   }
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IGame, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IGame *","getStereo", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IGame *","getAudio", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::IGame * >(argp1);
-  result = (OneU::IStereo *) &(arg1)->getStereo();
-  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  result = (OneU::IAudio *) &(arg1)->getAudio();
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IAudio, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -9077,15 +9077,15 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_GetStereo(int argc, VALUE *argv, VALUE self) {
-  OneU::IStereo *result = 0 ;
+_wrap_GetAudio(int argc, VALUE *argv, VALUE self) {
+  OneU::IAudio *result = 0 ;
   VALUE vresult = Qnil;
   
   if ((argc < 0) || (argc > 0)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
-  result = (OneU::IStereo *) &OneU::GetStereo();
-  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  result = (OneU::IAudio *) &OneU::GetAudio();
+  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IAudio, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -9323,22 +9323,22 @@ free_OneU_sound_t(OneU::sound_t *arg1) {
     delete arg1;
 }
 
-swig_class SwigClassStereo;
+swig_class SwigClassAudio;
 
 SWIGINTERN VALUE
-_wrap_Stereo_init(int argc, VALUE *argv, VALUE self) {
-  OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
+_wrap_Audio_init(int argc, VALUE *argv, VALUE self) {
+  OneU::IAudio *arg1 = (OneU::IAudio *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   
   if ((argc < 0) || (argc > 0)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IAudio, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IStereo *","init", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IAudio *","init", 1, self )); 
   }
-  arg1 = reinterpret_cast< OneU::IStereo * >(argp1);
+  arg1 = reinterpret_cast< OneU::IAudio * >(argp1);
   (arg1)->init();
   return Qnil;
 fail:
@@ -9347,8 +9347,8 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Stereo_loadSound(int argc, VALUE *argv, VALUE self) {
-  OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
+_wrap_Audio_loadSound(int argc, VALUE *argv, VALUE self) {
+  OneU::IAudio *arg1 = (OneU::IAudio *) 0 ;
   OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
   bool arg3 ;
   void *argp1 = 0 ;
@@ -9362,11 +9362,11 @@ _wrap_Stereo_loadSound(int argc, VALUE *argv, VALUE self) {
   if ((argc < 2) || (argc > 2)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IAudio, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IStereo *","loadSound", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IAudio *","loadSound", 1, self )); 
   }
-  arg1 = reinterpret_cast< OneU::IStereo * >(argp1);
+  arg1 = reinterpret_cast< OneU::IAudio * >(argp1);
   {
     if(TYPE(argv[0]) != T_STRING)
     SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "filename", "OneU::pcwstr","loadSound", 2, argv[0] ));
@@ -9388,8 +9388,8 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Stereo_playMusic__SWIG_0(int argc, VALUE *argv, VALUE self) {
-  OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
+_wrap_Audio_playMusic__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  OneU::IAudio *arg1 = (OneU::IAudio *) 0 ;
   OneU::sound_t arg2 ;
   bool arg3 ;
   void *argp1 = 0 ;
@@ -9402,11 +9402,11 @@ _wrap_Stereo_playMusic__SWIG_0(int argc, VALUE *argv, VALUE self) {
   if ((argc < 2) || (argc > 2)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IAudio, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IStereo *","playMusic", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IAudio *","playMusic", 1, self )); 
   }
-  arg1 = reinterpret_cast< OneU::IStereo * >(argp1);
+  arg1 = reinterpret_cast< OneU::IAudio * >(argp1);
   {
     res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__sound_t,  0 );
     if (!SWIG_IsOK(res2)) {
@@ -9431,8 +9431,8 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Stereo_playMusic__SWIG_1(int argc, VALUE *argv, VALUE self) {
-  OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
+_wrap_Audio_playMusic__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  OneU::IAudio *arg1 = (OneU::IAudio *) 0 ;
   OneU::sound_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -9442,11 +9442,11 @@ _wrap_Stereo_playMusic__SWIG_1(int argc, VALUE *argv, VALUE self) {
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IAudio, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IStereo *","playMusic", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IAudio *","playMusic", 1, self )); 
   }
-  arg1 = reinterpret_cast< OneU::IStereo * >(argp1);
+  arg1 = reinterpret_cast< OneU::IAudio * >(argp1);
   {
     res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__sound_t,  0 );
     if (!SWIG_IsOK(res2)) {
@@ -9465,7 +9465,7 @@ fail:
 }
 
 
-SWIGINTERN VALUE _wrap_Stereo_playMusic(int nargs, VALUE *args, VALUE self) {
+SWIGINTERN VALUE _wrap_Audio_playMusic(int nargs, VALUE *args, VALUE self) {
   int argc;
   VALUE argv[4];
   int ii;
@@ -9479,21 +9479,21 @@ SWIGINTERN VALUE _wrap_Stereo_playMusic(int nargs, VALUE *args, VALUE self) {
   if (argc == 2) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__IStereo, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__IAudio, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
       int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_OneU__sound_t, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_Stereo_playMusic__SWIG_1(nargs, args, self);
+        return _wrap_Audio_playMusic__SWIG_1(nargs, args, self);
       }
     }
   }
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__IStereo, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OneU__IAudio, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
@@ -9505,35 +9505,35 @@ SWIGINTERN VALUE _wrap_Stereo_playMusic(int nargs, VALUE *args, VALUE self) {
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_Stereo_playMusic__SWIG_0(nargs, args, self);
+          return _wrap_Audio_playMusic__SWIG_0(nargs, args, self);
         }
       }
     }
   }
   
 fail:
-  Ruby_Format_OverloadedError( argc, 4, "Stereo.playMusic", 
-    "    void Stereo.playMusic(OneU::sound_t sound, bool looped)\n"
-    "    void Stereo.playMusic(OneU::sound_t sound)\n");
+  Ruby_Format_OverloadedError( argc, 4, "Audio.playMusic", 
+    "    void Audio.playMusic(OneU::sound_t sound, bool looped)\n"
+    "    void Audio.playMusic(OneU::sound_t sound)\n");
   
   return Qnil;
 }
 
 
 SWIGINTERN VALUE
-_wrap_Stereo_stopMusic(int argc, VALUE *argv, VALUE self) {
-  OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
+_wrap_Audio_stopMusic(int argc, VALUE *argv, VALUE self) {
+  OneU::IAudio *arg1 = (OneU::IAudio *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   
   if ((argc < 0) || (argc > 0)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IAudio, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IStereo *","stopMusic", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IAudio *","stopMusic", 1, self )); 
   }
-  arg1 = reinterpret_cast< OneU::IStereo * >(argp1);
+  arg1 = reinterpret_cast< OneU::IAudio * >(argp1);
   (arg1)->stopMusic();
   return Qnil;
 fail:
@@ -9542,8 +9542,8 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Stereo_getPlayingMusic(int argc, VALUE *argv, VALUE self) {
-  OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
+_wrap_Audio_getPlayingMusic(int argc, VALUE *argv, VALUE self) {
+  OneU::IAudio *arg1 = (OneU::IAudio *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   OneU::sound_t result;
@@ -9552,11 +9552,11 @@ _wrap_Stereo_getPlayingMusic(int argc, VALUE *argv, VALUE self) {
   if ((argc < 0) || (argc > 0)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IAudio, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IStereo *","getPlayingMusic", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IAudio *","getPlayingMusic", 1, self )); 
   }
-  arg1 = reinterpret_cast< OneU::IStereo * >(argp1);
+  arg1 = reinterpret_cast< OneU::IAudio * >(argp1);
   result = (arg1)->getPlayingMusic();
   vresult = SWIG_NewPointerObj((new OneU::sound_t(static_cast< const OneU::sound_t& >(result))), SWIGTYPE_p_OneU__sound_t, SWIG_POINTER_OWN |  0 );
   return vresult;
@@ -9566,8 +9566,8 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Stereo_playFX(int argc, VALUE *argv, VALUE self) {
-  OneU::IStereo *arg1 = (OneU::IStereo *) 0 ;
+_wrap_Audio_playFX(int argc, VALUE *argv, VALUE self) {
+  OneU::IAudio *arg1 = (OneU::IAudio *) 0 ;
   OneU::sound_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -9577,11 +9577,11 @@ _wrap_Stereo_playFX(int argc, VALUE *argv, VALUE self) {
   if ((argc < 1) || (argc > 1)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
   }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IStereo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IAudio, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IStereo *","playFX", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IAudio *","playFX", 1, self )); 
   }
-  arg1 = reinterpret_cast< OneU::IStereo * >(argp1);
+  arg1 = reinterpret_cast< OneU::IAudio * >(argp1);
   {
     res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_OneU__sound_t,  0 );
     if (!SWIG_IsOK(res2)) {
@@ -9601,7 +9601,7 @@ fail:
 
 
 SWIGINTERN void
-free_OneU_IStereo(OneU::IStereo *arg1) {
+free_OneU_IAudio(OneU::IAudio *arg1) {
     delete arg1;
 }
 
@@ -11415,6 +11415,7 @@ static void *_p_SceneTo_p_OneU__IScene(void *x, int *SWIGUNUSEDPARM(newmemory)) 
     return (void *)((OneU::IScene *)  ((Scene *) x));
 }
 static swig_type_info _swigt__p_OneU__CharEvent = {"_p_OneU__CharEvent", "OneU::CharEvent *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_OneU__IAudio = {"_p_OneU__IAudio", "OneU::IAudio *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__IControl = {"_p_OneU__IControl", "OneU::IControl *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__IGame = {"_p_OneU__IGame", "OneU::IGame *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__IInputReceiver = {"_p_OneU__IInputReceiver", "OneU::IInputReceiver *", 0, 0, (void*)0, 0};
@@ -11422,7 +11423,6 @@ static swig_type_info _swigt__p_OneU__ILabel = {"_p_OneU__ILabel", "OneU::ILabel
 static swig_type_info _swigt__p_OneU__IScene = {"_p_OneU__IScene", "OneU::IScene *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__IShape = {"_p_OneU__IShape", "OneU::IShape *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__ISprite = {"_p_OneU__ISprite", "OneU::ISprite *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_OneU__IStereo = {"_p_OneU__IStereo", "OneU::IStereo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__IVideo = {"_p_OneU__IVideo", "OneU::IVideo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__KeyEvent = {"_p_OneU__KeyEvent", "OneU::KeyEvent *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OneU__ListT_OneU__video__Mode_t = {"_p_OneU__ListT_OneU__video__Mode_t", "OneU::List< OneU::video::Mode > *", 0, 0, (void*)0, 0};
@@ -11459,6 +11459,7 @@ static swig_type_info _swigt__p_wchar_t = {"_p_wchar_t", "OneU::wchar *|wchar_t 
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_OneU__CharEvent,
+  &_swigt__p_OneU__IAudio,
   &_swigt__p_OneU__IControl,
   &_swigt__p_OneU__IGame,
   &_swigt__p_OneU__IInputReceiver,
@@ -11466,7 +11467,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_OneU__IScene,
   &_swigt__p_OneU__IShape,
   &_swigt__p_OneU__ISprite,
-  &_swigt__p_OneU__IStereo,
   &_swigt__p_OneU__IVideo,
   &_swigt__p_OneU__KeyEvent,
   &_swigt__p_OneU__ListT_OneU__video__Mode_t,
@@ -11503,6 +11503,7 @@ static swig_type_info *swig_type_initial[] = {
 };
 
 static swig_cast_info _swigc__p_OneU__CharEvent[] = {  {&_swigt__p_OneU__CharEvent, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_OneU__IAudio[] = {  {&_swigt__p_OneU__IAudio, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IControl[] = {  {&_swigt__p_OneU__IControl, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IGame[] = {  {&_swigt__p_OneU__IGame, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IInputReceiver[] = {  {&_swigt__p_OneU__IInputReceiver, 0, 0, 0},{0, 0, 0, 0}};
@@ -11510,7 +11511,6 @@ static swig_cast_info _swigc__p_OneU__ILabel[] = {  {&_swigt__p_OneU__ILabel, 0,
 static swig_cast_info _swigc__p_OneU__IScene[] = {  {&_swigt__p_OneU__IScene, 0, 0, 0},  {&_swigt__p_Scene, _p_SceneTo_p_OneU__IScene, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IShape[] = {  {&_swigt__p_OneU__IShape, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__ISprite[] = {  {&_swigt__p_OneU__ISprite, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_OneU__IStereo[] = {  {&_swigt__p_OneU__IStereo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__IVideo[] = {  {&_swigt__p_OneU__IVideo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__KeyEvent[] = {  {&_swigt__p_OneU__KeyEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OneU__ListT_OneU__video__Mode_t[] = {  {&_swigt__p_OneU__ListT_OneU__video__Mode_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -11547,6 +11547,7 @@ static swig_cast_info _swigc__p_wchar_t[] = {  {&_swigt__p_wchar_t, 0, 0, 0},{0,
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_OneU__CharEvent,
+  _swigc__p_OneU__IAudio,
   _swigc__p_OneU__IControl,
   _swigc__p_OneU__IGame,
   _swigc__p_OneU__IInputReceiver,
@@ -11554,7 +11555,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_OneU__IScene,
   _swigc__p_OneU__IShape,
   _swigc__p_OneU__ISprite,
-  _swigc__p_OneU__IStereo,
   _swigc__p_OneU__IVideo,
   _swigc__p_OneU__KeyEvent,
   _swigc__p_OneU__ListT_OneU__video__Mode_t,
@@ -12156,7 +12156,7 @@ SWIGEXPORT void Init_OUE(void) {
   SWIG_TypeClientData(SWIGTYPE_p_OneU__IGame, (void *) &SwigClassGame);
   rb_undef_alloc_func(SwigClassGame.klass);
   rb_define_method(SwigClassGame.klass, "getVideo", VALUEFUNC(_wrap_Game_getVideo), -1);
-  rb_define_method(SwigClassGame.klass, "getStereo", VALUEFUNC(_wrap_Game_getStereo), -1);
+  rb_define_method(SwigClassGame.klass, "getAudio", VALUEFUNC(_wrap_Game_getAudio), -1);
   rb_define_method(SwigClassGame.klass, "getControl", VALUEFUNC(_wrap_Game_getControl), -1);
   rb_define_method(SwigClassGame.klass, "getScene", VALUEFUNC(_wrap_Game_getScene), -1);
   rb_define_method(SwigClassGame.klass, "init", VALUEFUNC(_wrap_Game_init), -1);
@@ -12183,7 +12183,7 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_module_function(mOUE, "Aux_GameInit", VALUEFUNC(_wrap_Aux_GameInit), -1);
   rb_define_module_function(mOUE, "GetGame", VALUEFUNC(_wrap_GetGame), -1);
   rb_define_module_function(mOUE, "GetVideo", VALUEFUNC(_wrap_GetVideo), -1);
-  rb_define_module_function(mOUE, "GetStereo", VALUEFUNC(_wrap_GetStereo), -1);
+  rb_define_module_function(mOUE, "GetAudio", VALUEFUNC(_wrap_GetAudio), -1);
   rb_define_module_function(mOUE, "GetControl", VALUEFUNC(_wrap_GetControl), -1);
   rb_define_module_function(mOUE, "GetScene", VALUEFUNC(_wrap_GetScene), -1);
   
@@ -12201,18 +12201,18 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassSound_t.destroy = (void (*)(void *)) free_OneU_sound_t;
   SwigClassSound_t.trackObjects = 0;
   
-  SwigClassStereo.klass = rb_define_class_under(mOUE, "Stereo", rb_cObject);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__IStereo, (void *) &SwigClassStereo);
-  rb_undef_alloc_func(SwigClassStereo.klass);
-  rb_define_method(SwigClassStereo.klass, "init", VALUEFUNC(_wrap_Stereo_init), -1);
-  rb_define_method(SwigClassStereo.klass, "loadSound", VALUEFUNC(_wrap_Stereo_loadSound), -1);
-  rb_define_method(SwigClassStereo.klass, "playMusic", VALUEFUNC(_wrap_Stereo_playMusic), -1);
-  rb_define_method(SwigClassStereo.klass, "stopMusic", VALUEFUNC(_wrap_Stereo_stopMusic), -1);
-  rb_define_method(SwigClassStereo.klass, "getPlayingMusic", VALUEFUNC(_wrap_Stereo_getPlayingMusic), -1);
-  rb_define_method(SwigClassStereo.klass, "playFX", VALUEFUNC(_wrap_Stereo_playFX), -1);
-  SwigClassStereo.mark = 0;
-  SwigClassStereo.destroy = (void (*)(void *)) free_OneU_IStereo;
-  SwigClassStereo.trackObjects = 0;
+  SwigClassAudio.klass = rb_define_class_under(mOUE, "Audio", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__IAudio, (void *) &SwigClassAudio);
+  rb_undef_alloc_func(SwigClassAudio.klass);
+  rb_define_method(SwigClassAudio.klass, "init", VALUEFUNC(_wrap_Audio_init), -1);
+  rb_define_method(SwigClassAudio.klass, "loadSound", VALUEFUNC(_wrap_Audio_loadSound), -1);
+  rb_define_method(SwigClassAudio.klass, "playMusic", VALUEFUNC(_wrap_Audio_playMusic), -1);
+  rb_define_method(SwigClassAudio.klass, "stopMusic", VALUEFUNC(_wrap_Audio_stopMusic), -1);
+  rb_define_method(SwigClassAudio.klass, "getPlayingMusic", VALUEFUNC(_wrap_Audio_getPlayingMusic), -1);
+  rb_define_method(SwigClassAudio.klass, "playFX", VALUEFUNC(_wrap_Audio_playFX), -1);
+  SwigClassAudio.mark = 0;
+  SwigClassAudio.destroy = (void (*)(void *)) free_OneU_IAudio;
+  SwigClassAudio.trackObjects = 0;
   
   SwigClassControl.klass = rb_define_class_under(mOUE, "Control", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__IControl, (void *) &SwigClassControl);

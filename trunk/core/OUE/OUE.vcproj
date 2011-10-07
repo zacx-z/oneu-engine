@@ -252,6 +252,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\Audio.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Base.h"
 				>
 			</File>
@@ -316,10 +320,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Stereo.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Stream.h"
 				>
 			</File>
@@ -352,19 +352,19 @@
 			Name="implement"
 			>
 			<File
+				RelativePath=".\Impl\DXAudio.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Impl\DXAudio.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Impl\DXControl.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\Impl\DXControl.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Impl\DXStereo.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Impl\DXStereo.h"
 				>
 			</File>
 			<File
@@ -500,6 +500,10 @@
 			Name="swig"
 			>
 			<File
+				RelativePath=".\swig\Audio.i"
+				>
+			</File>
+			<File
 				RelativePath=".\swig\Broadcast.i"
 				>
 			</File>
@@ -545,10 +549,6 @@
 			</File>
 			<File
 				RelativePath=".\swig\Sprite.i"
-				>
-			</File>
-			<File
-				RelativePath=".\swig\Stereo.i"
 				>
 			</File>
 			<File

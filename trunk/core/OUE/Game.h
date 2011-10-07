@@ -43,7 +43,7 @@ namespace OneU
 	//@{
 	class IGame;
 	class IVideo;
-	class IStereo;
+	class IAudio;
 	class IControl;
 	class IScene;
 	class IBroadcast;
@@ -70,17 +70,17 @@ namespace OneU
 	protected:
 		IBroadcast* m_pBroadcast;
 		IVideo* m_pVideo;
-		IStereo* m_pStereo;
+		IAudio* m_pAudio;
 		IControl* m_pControl;
 		IScene* m_pScene;
 	public:
 		IGame()
-			: m_pBroadcast(NULL), m_pVideo(NULL), m_pStereo(NULL), m_pControl(NULL), m_pScene(NULL)
+			: m_pBroadcast(NULL), m_pVideo(NULL), m_pAudio(NULL), m_pControl(NULL), m_pScene(NULL)
 		{}
 		~IGame(){
 			ONEU_ASSERT(m_pScene == NULL);
 			ONEU_ASSERT(m_pControl == NULL);
-			ONEU_ASSERT(m_pStereo == NULL);
+			ONEU_ASSERT(m_pAudio == NULL);
 			ONEU_ASSERT(m_pVideo == NULL);
 			ONEU_ASSERT(m_pBroadcast == NULL);
 		}
@@ -108,7 +108,7 @@ namespace OneU
 		 * @returns 音响系统对象
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual IStereo& getStereo(){ return *m_pStereo;}
+		virtual IAudio& getAudio(){ return *m_pAudio;}
 		/* ----------------------------------------------------------------------------*/
 		/** 
 		 * @brief 获取控制系统对象
@@ -369,7 +369,7 @@ namespace OneU
 	 * @returns 音响系统对象
 	 */
 	/* ----------------------------------------------------------------------------*/
-	inline IStereo& GetStereo(){ return GetGame().getStereo(); }
+	inline IAudio& GetAudio(){ return GetGame().getAudio(); }
 	/* ----------------------------------------------------------------------------*/
 	/** 
 	 * @brief 获取控制系统对象
