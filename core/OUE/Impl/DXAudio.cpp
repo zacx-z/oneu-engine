@@ -1,4 +1,4 @@
-#include "DXStereo.h"
+#include "DXAudio.h"
 #include "Win32.h"
 #include "DXLib/DXDefs.h"
 #include "../Game.h"
@@ -11,7 +11,7 @@
 
 namespace OneU
 {
-	namespace stereo
+	namespace audio
 	{
 		const int frac_l = 1;
 		static DWORD WINAPI _DecodeThreadProc(LPVOID lpParameter);
@@ -410,7 +410,7 @@ namespace OneU
 	}
 
 
-	void DXStereo::init(){
+	void DXAudio::init(){
 		XV_RAISE(DirectSoundCreate8(NULL, &m_pDS, NULL));
 		XV_RAISE(m_pDS->SetCooperativeLevel(g_hWnd, DSSCL_PRIORITY));
 
@@ -436,22 +436,22 @@ namespace OneU
 		XV_RAISE(m_pDSPrimary->Play(0, 0, DSBPLAY_LOOPING));
 	}
 
-	stereo::ISound* DXStereo::_loadSound(pcwstr filename, bool streamed){
-		return ONEU_NEW stereo::DXOggSound(m_pDS, filename, streamed);
+	audio::ISound* DXAudio::_loadSound(pcwstr filename, bool streamed){
+		return ONEU_NEW audio::DXOggSound(m_pDS, filename, streamed);
 	}
 
-	void DXStereo::playMusic(sound_t sound, bool looped){
-		stereo::DXSound_Base* m = (dynamic_cast<stereo::DXSound_Base*>(m_Music.get()));
+	void DXAudio::playMusic(sound_t sound, bool looped){
+		audio::DXSound_Base* m = (dynamic_cast<audio::DXSound_Base*>(m_Music.get()));
 		if(m && m->isPlaying()){
 			m->fadeOut(2.0);
 		}
 		m_Music = sound;
 
-		stereo::ISound* s = sound.get();
+		audio::ISound* s = sound.get();
 		//check if sound is in m_playingMusic.
 		for(List<sound_t>::iterator it = m_playingMusic.begin(); it != m_playingMusic.end();++it){
 			if(it->get() == s){
-				stereo::DXSound_Base* sound = dynamic_cast<stereo::DXSound_Base*>(s);
+				audio::DXSound_Base* sound = dynamic_cast<audio::DXSound_Base*>(s);
 				sound->stopEffects();
 				sound->Stop();
 				sound->Play(looped);
@@ -459,19 +459,19 @@ namespace OneU
 			}
 		}
 		//when sound is not in m_playingMusic
-		dynamic_cast<stereo::DXSound_Base*>(s)->Play(looped);
+		dynamic_cast<audio::DXSound_Base*>(s)->Play(looped);
 		m_playingMusic.pushBack(sound);
 	}
 
-	void DXStereo::stopMusic(){
-		stereo::DXSound_Base* m = (dynamic_cast<stereo::DXSound_Base*>(m_Music.get()));
+	void DXAudio::stopMusic(){
+		audio::DXSound_Base* m = (dynamic_cast<audio::DXSound_Base*>(m_Music.get()));
 		if(m && m->isPlaying()){
 			m->fadeOut(2.0);
 		}
 	}
 
-	void DXStereo::playFX(sound_t sound){
-		stereo::DXSound_Base* s = (dynamic_cast<stereo::DXSound_Base*>(sound.get()));
+	void DXAudio::playFX(sound_t sound){
+		audio::DXSound_Base* s = (dynamic_cast<audio::DXSound_Base*>(sound.get()));
 		if(!s->isStreamed()){
 			//若非流音频
 			//复制缓冲并播放
@@ -482,7 +482,7 @@ namespace OneU
 		}else s->Play(false);
 	}
 
-	void DXStereo::update(){
+	void DXAudio::update(){
 		//检查播放完的音效并删除
 		for(List<IDirectSoundBuffer*>::iterator it = m_playingFX.begin(); it != m_playingFX.end();){
 			DWORD status;
@@ -493,7 +493,7 @@ namespace OneU
 				++it;
 		}
 		for(List<sound_t>::iterator it = m_playingMusic.begin(); it != m_playingMusic.end();){
-			stereo::DXSound_Base* m = dynamic_cast<stereo::DXSound_Base*>(it->get());
+			audio::DXSound_Base* m = dynamic_cast<audio::DXSound_Base*>(it->get());
 			m->update();
 			if(!m->isPlaying()){
 				m->stopEffects();
@@ -504,7 +504,7 @@ namespace OneU
 		}
 	}
 
-	DXStereo::~DXStereo(){
+	DXAudio::~DXAudio(){
 		m_Music = NULL;//析构缓冲
 		m_playingMusic.clear();
 		m_playingFX.clear();

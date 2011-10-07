@@ -33,7 +33,7 @@ THE SOFTWARE.
 #include "OS.h"
 
 #include "Video.h"
-#include "Stereo.h"
+#include "Audio.h"
 #include "Control.h"
 #include "Broadcast.h"
 #include "Scene.h"

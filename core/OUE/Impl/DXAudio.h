@@ -20,7 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include "../Stereo.h"
+#include "../Audio.h"
 #include "DXLib/DXDefs.h"
 #include <dsound.h>
 #include <dxerr.h>
@@ -31,8 +31,8 @@ THE SOFTWARE.
 
 namespace OneU
 {
-	class DXStereo
-		: public IStereo
+	class DXAudio
+		: public IAudio
 	{
 		//DirectSound
 		IDirectSound8* m_pDS;
@@ -41,11 +41,11 @@ namespace OneU
 		List<IDirectSoundBuffer*> m_playingFX;
 		List<sound_t> m_playingMusic;
 	public:
-		DXStereo()
+		DXAudio()
 			: m_pDS(NULL), m_pDSPrimary(NULL){}
-		~DXStereo();
+		~DXAudio();
 		void init();
-		stereo::ISound* _loadSound(pcwstr filename, bool streamed);
+		audio::ISound* _loadSound(pcwstr filename, bool streamed);
 		void playMusic(sound_t filename, bool looped);
 		void stopMusic();
 		sound_t getPlayingMusic(){ return m_Music; }

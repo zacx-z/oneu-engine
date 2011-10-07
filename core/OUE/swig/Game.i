@@ -16,7 +16,7 @@ namespace OneU
 	public:
 		//virtual IBroadcast& getBroadcast(){ return *m_pBroadcast; }//reserved
 		virtual OneU::IVideo& getVideo();
-		virtual OneU::IStereo& getStereo();
+		virtual OneU::IAudio& getAudio();
 		virtual OneU::IControl& getControl();
 		virtual OneU::IScene& getScene();
 	
@@ -62,7 +62,7 @@ namespace OneU
 	
 	//OneU::IBroadcast& GetBroadcast();//reserved
 	OneU::IVideo& GetVideo();
-	OneU::IStereo& GetStereo();
+	OneU::IAudio& GetAudio();
 	OneU::IControl& GetControl();
 	OneU::IScene& GetScene();
 }

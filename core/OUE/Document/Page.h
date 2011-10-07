@@ -57,7 +57,7 @@ namespace OneU{
  *  管理整个游戏程序流程，负责配置和创建、刷新各子系统。最顶级接口。
  *  - 广播接口 @ref IBroadcast\n
  *  处理全局事件。
- *  - 音响接口 @ref IStereo\n
+ *  - 音响接口 @ref IAudio\n
  *  - 图形接口 @ref IVideo\n
  *  负责显示和管理图像、动画。
  *  - 控制接口 @ref IControl\n
@@ -70,7 +70,7 @@ namespace OneU{
  * 事件系统由事件派发器，监听器和事件（包括事件参数）组成。使用字符串来区分一类事件。事件派发器是接受事件的类，通过向事件派发器添加监听器来处理某一个事件。监听器可添加多个。\n
  * 目前的事件机制没有采用队列，是在发送消息的同时执行监听器的触发函数。\n
  * 公共事件会通过广播系统传播。广播类是事件派发器的继承类。\n
- * 键盘事件：调用@ref IGame::pushInputFocus将一个事件派发器设为输入焦点，该事件派发器可以接收到键盘的输入事件。
+ * 键盘事件：调用@ref IScene::pushInputFocus将一个事件派发器设为输入焦点，该事件派发器可以接收到键盘的输入事件。
  * @subsection section_renderscene 图形系统和渲染场景
  * 万有引擎使用树来渲染。树中的每一个节点即表示一个渲染操作。渲染时会对树进行遍历。\n
  * 一个渲染场景即为一个渲染树。一般而言，一个场景对应一个渲染场景。\n
@@ -313,10 +313,11 @@ namespace OneU{
 /* ----------------------------------------------------------------------------*/
 /**
  * @page page_script 使用脚本编写游戏
- * 使用ruby编写游戏。
- * C++部分：参见Game/main.cpp，在主函数调用便利函数@ref RubyRun。
- * Ruby脚本：程序所在文件夹下编写script/main.rb。
- * 除了Game_build, Game_destroy所有逻辑都在Ruby中编写。
+ * 使用ruby编写游戏。\n
+ * C++部分：参见Game/main.cpp，在主函数调用便利函数@ref RubyRun。\n
+ * Ruby脚本：程序所在文件夹下编写script/main.rb。\n
+ * 除了Game_build, Game_destroy所有逻辑都在Ruby中编写。\n
+ * 请checkout OUE/swig下代码来获取脚本参考。
  */
 /* ----------------------------------------------------------------------------*/
 /**
@@ -330,20 +331,64 @@ namespace OneU{
  * - win32：一旦调用了PostQuitMessage，就无法显示MessageBox了。
  * - 目前基本类型的typemap可能不够完善。
  * - 由于该SDK并不是完全面向脚本编写的，因此导出到脚本时出现了Ownership等复杂的问题（且由于SWIG是外部Wrap的方式，不具有内建的优势，如果面向脚本编写则要抛弃SWIG或自己写SWIG扩展）。
- *	- 每次调用Get函数或其他方法获取某个对象时，其实是新建了一个script里的Wrapper，所以一个对象可能对应许多wrapper。而最多一个有ownership，只有有ownership的对象才能销毁内容。而如果通过调用某个函数ownership被C++内核拿走，则要求传入的必须是有ownership的对象。这为脚本带来了不必要的复杂性。如果想消除这种复杂性，则要在每个导出的类里定义一个对应脚本里的VALUE，也就是侵入式编程，一要框架重新设计，二则难以使用SWIG。（SWIG是非侵入式编程）
- *  - SWIG导出返回pcwstr的director虚函数可能会有内存被提前释放的问题。（未验证）
- *	.
+ *		- 每次调用Get函数或其他方法获取某个对象时，其实是新建了一个script里的Wrapper，所以一个对象可能对应许多wrapper。而最多一个有ownership，只有有ownership的对象才能销毁内容。而如果通过调用某个函数ownership被C++内核拿走，则要求传入的必须是有ownership的对象。这为脚本带来了不必要的复杂性。如果想消除这种复杂性，则要在每个导出的类里定义一个对应脚本里的VALUE，也就是侵入式编程，一要框架重新设计，二则难以使用SWIG。（SWIG是非侵入式编程）
+ *		- SWIG导出返回pcwstr的director虚函数可能会有内存被提前释放的问题。（未验证）
+ *		.
  * .
  * 脚本与C++边缘（容易出莫名其妙错误的地方，需要特别注意）：
- * - @ref IGame::pushInputReceiver，如果不在脚本中保持该变量，则会引起空引用错误，且该错误出现的时机是随机的。
+ * - @ref IScene::pushInputFocus，如果不在脚本中保持该变量，则会引起空引用错误，且该错误出现的时机是随机的。
  * - @ref IGame::replaceScene，同上，需要使用变量保持（建议用全局变量），否则会引起段错误。
- * - @ref INode::addChild不将ownership转移给父节点，脚本若不保持该变量可能会使显示元素消失。
+ * - @ref video::ILayer::addChild不将ownership转移给父节点，脚本若不保持该变量可能会使显示元素消失。
  * .
  * @remarks 具体接口参见swig/*.i文件。
  */
-/* ----------------------------------------------------------------------------*/
+
 //注：测试代码 RubyUtil.cpp将cpath设定在debug文件夹下，属测试代码。而release版由于没有把cpath设在release文件夹下，直接运行其实是不能跑的。
 
+/**
+ * @page page_ruby_reference ruby参考
+ *
+ * <h2>Module Functions</h2>
+ *
+ * <h3>Aux_GameInit</h3>
+ * <h3>GetVideo</h3>
+ * <h3>GetAudio</h3>
+ * <h3>GetControl</h3>
+ * <h3>GetScene</h3>
+ *
+ *
+ * <h2><b>Game</b> Class</h2>
+ *
+ * <h3>getVideo</h3>
+ * <h3>getAudio</h3>
+ * <h3>getControl</h3>
+ * <h3>getScene</h3>
+ * 
+ * <h3>init</h3>
+ * <h3>run</h3>
+ * <h3>quit</h3>
+ *
+ * <h3>onFrame</h3>
+ * <h3>onActiveWindow</h3>
+ *
+ * <h3>setWindowTitle</h3>
+ * <h3>getWindowPos</h3>
+ * <h3>setWindowPos</h3>
+ * <h3>showCursor</h3>
+ * <h3>getFPS</h3>
+ * <h3>getTimeInverval</h3>
+ * <h3>replaceScene</h3>
+ * 
+ * <h3>onChar</h3>
+ * <h3>onKey</h3>
+ * <h3>onMouse</h3>
+ *
+ * <h3>runShell</h3>
+ * <h3>output</h3>
+ *
+ * <h3>showInfo</h3>
+ *
+ */
 //@todo 支持RT，支持锁定纹理。
 //@todo oload等详细写。
 }
