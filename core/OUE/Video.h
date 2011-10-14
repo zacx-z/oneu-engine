@@ -52,7 +52,7 @@ namespace OneU
 		/**
 		 * @brief 颜色混合模式
 		 *
-		 * CBM_LEFT表示颜色只混合左半部，可与CBM_MODULATE等位或来作为标识。其它同理。
+		 * CBM_LEFT表示颜色只混合左半部，可与CBM_MODULATE等结合（位或）来作为标识。其它同理。
 		 *
 		 * @sa IVideo::setBlendColor
 		 */
@@ -96,7 +96,7 @@ namespace OneU
 		/* ----------------------------------------------------------------------------*/
 		struct Mode
 		{
-			vector2u_t size;
+			vector2i_t size;
 			uint32 refreshRate;
 		};
 	}
@@ -219,7 +219,7 @@ namespace OneU
 		 * @returns 页面宽高向量
 		 */
 		/* ----------------------------------------------------------------------------*/
-		virtual vector2u_t getDeviceSize() = 0;
+		virtual vector2i_t getDeviceSize() = 0;
 
 		/* ----------------------------------------------------------------------------*/
 		/** 

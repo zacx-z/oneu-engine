@@ -16,7 +16,6 @@ namespace OneU
 		video::IRenderScene* getRenderScene();
 		virtual ~IScene();
 		
-		OneU::IInputReceiver* replaceInputFocus(OneU::IInputReceiver* pIR);
 		void pushInputFocus(OneU::IInputReceiver* pIR);
 		OneU::IInputReceiver* popInputFocus();
 	};

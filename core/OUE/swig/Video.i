@@ -20,7 +20,7 @@ namespace OneU
 			CBM_LEFT = 0x10, CBM_RIGHT = 0x20, CBM_TOP = 0x30, CBM_DOWN = 0x40 };
 		struct Mode
 		{
-			vector2u_t size;
+			vector2i_t size;
 			uint32 refreshRate;
 		};
 	}
@@ -28,6 +28,8 @@ namespace OneU
 	class image_t
 	{
 	public:
+		PROP_R(getWidth, width);
+		PROP_R(getHeight, height);
 		image_t();
 		%extend {
 			OneU::uint32 getWidth(){ return self->get()->getWidth(); }
@@ -51,7 +53,7 @@ namespace OneU
 		virtual void switchDevice(OneU::uint32 width, OneU::uint32 height, bool bWindowed) = 0;
 		virtual bool isWindowed() = 0;
 		
-		virtual OneU::vector2u_t getDeviceSize() = 0;
+		virtual OneU::vector2i_t getDeviceSize() = 0;
 		virtual OneU::image_t loadImage(OneU::pcwstr filename) = 0;
 
 		OneU::video::ILayer& getRoot();

@@ -81,6 +81,7 @@ namespace OneU
 		void setAlign(uint32 align){
 			m_Align = align;
 		}
+		uint32 getAlign() { return m_Align; }
 
 		void paint(){
 			if(m_Text == L"") return;

@@ -348,46 +348,524 @@ namespace OneU{
 /**
  * @page page_ruby_reference ruby参考
  *
+ * <h2>Basic Types</h2>
+ * 注：{xyz}表示该处字符可用大括号中任意字符（如x，y，z）替换，是从openGL文档中借鉴过来的写法。（一般i表示int，f表示浮点数）
+ * <h3>Color</h3>
+ * 三个或四个浮点数的数组表示为Color类型，分别代表颜色的red, green, blue, alpha分量。
+ * <h3>Rect{if}.new</h3>
+ * <h3>Rect{if}.new(left, top, right, bottom)</h3>
+ * 用四个坐标表示一个矩形。
+ * 属性：
+ *  - left
+ *  - top
+ *  - right
+ *  - bottom
+ *  .
+ *
+ * <h3>Vector{234}{if}.new</h3>
+ * <h3>Vector{234}{if}.new(x, y, [z, [w]])</h3>
+ * 2~4维向量。
+ * 属性：
+ *  - x
+ *  - y
+ *  - z（3维向量，4维向量）
+ *  - w（4维向量）
+ *  .
+ *
  * <h2>Module Functions</h2>
  *
- * <h3>Aux_GameInit</h3>
+ * <h3>Aux_GameInit(windowTitle, width, height, windowed)</h3>
+ * 辅助库：初始化函数。初始化各系统。未给出详细配置系统的能力。
+ * 初始化windowTitle名称的窗口，以width*height为分辨率。若windowed为false，则游戏是全屏的。
+ * <h3>GetGame</h3>
+ * 获取主游戏。Game类的实例。
  * <h3>GetVideo</h3>
+ * 获取图形模块。Video类的实例。
  * <h3>GetAudio</h3>
+ * 获取音响模块。Audio类的实例。
  * <h3>GetControl</h3>
+ * 获取控制模块。Control类的实例。
  * <h3>GetScene</h3>
+ * 获取场景。Scene类的实例。
  *
  *
- * <h2><b>Game</b> Class</h2>
+ * <h2>Game Class</h2>
+ * 管理所有游戏资源的顶层类。
  *
  * <h3>getVideo</h3>
+ * 获取图形模块。Video类的实例。
  * <h3>getAudio</h3>
+ * 获取音响模块。Audio类的实例。
  * <h3>getControl</h3>
+ * 获取控制模块。Control类的实例。
  * <h3>getScene</h3>
+ * 获取场景。Scene类的实例。
  * 
- * <h3>init</h3>
+ * <h3>init(windowTitle, width, height, windowed)</h3>
+ * 初始化。注意该函数并不初始化各模块。一般使用Aux_GameInit初始化。
  * <h3>run</h3>
+ * 启动游戏。
  * <h3>quit</h3>
+ * 退出游戏。
  *
  * <h3>onFrame</h3>
- * <h3>onActiveWindow</h3>
+ * 为游戏发送帧事件。
+ * <h3>onActiveWindow(actived)</h3>
+ * 为游戏窗口发送激活或反激活事件。
  *
  * <h3>setWindowTitle</h3>
+ * 设置窗口标题。
  * <h3>getWindowPos</h3>
- * <h3>setWindowPos</h3>
- * <h3>showCursor</h3>
+ * 获取窗口位置。
+ * <h3>setWindowPos(pos)</h3>
+ * 设置窗口位置。
+ * 窗口位置用Vector2i表示。
+ * <h3>showCursor(show)</h3>
+ * 设置光标显示状态。
+ *
  * <h3>getFPS</h3>
+ * 获取当前FPS。
  * <h3>getTimeInverval</h3>
- * <h3>replaceScene</h3>
+ * 获取这一帧的长度。
+ * <h3>replaceScene(scene)</h3>
+ * 替换新场景。
+ * @attention 需要保留scene的引用，否则scene可能会因为垃圾回收而消失进而抛出错误。
  * 
  * <h3>onChar</h3>
+ * 发送字符事件。
  * <h3>onKey</h3>
+ * 发送按键事件。
  * <h3>onMouse</h3>
+ * 发送鼠标事件。
  *
  * <h3>runShell</h3>
  * <h3>output</h3>
  *
  * <h3>showInfo</h3>
  *
+ * 
+ * <h2>Video Class</h2>
+ * 图形模块。
+ * <h3>Constant(in Module)</h3>
+ *  - Blend Mode
+ *    混合模式。决定了该图形以何种方式作用到画布上。
+ *  	- BM_NORMAL
+ *  	普通模式。
+ *  	- BM_ADD
+ *  	加法模式。
+ *  	.
+ *  - Color Blend Mode
+ *    颜色混合模式。将该图形与某种颜色以该模式混合画到画布上。可将表方位的和算法的结合使用。
+ *  	- CBM_NONE
+ *  	不混合。
+ *  	- CBM_ADD
+ *  	加法模式。
+ *  	- CBM_MODULATE
+ *  	调制模式。即乘法模式。
+ *  	- CBM_LEFT
+ *  	左混合。
+ *  	- CBM_RIGHT
+ *  	右混合。
+ *  	- CBM_TOP
+ *  	上混合。
+ *  	- CBM_DOWN
+ *  	下混合。
+ *  	.
+ *  .
+ *
+ * <h3>Image_t Class</h3>
+ * 图像类。管理一块图像缓存。
+ * 只读属性：
+ *  - width
+ *  - height
+ *  .
+ *
+ *  
+ * <h3>getName</h3>
+ * <h3>prepare</h3>
+ * <h3>init</h3>
+ * 
+ * <h3>switchDevice(width, height, windowed)</h3>
+ * 切换设备，到width * height分辨率。若windowed为true，则窗口化。
+ * <h3>isWindowed</h3>
+ * 是否窗口化
+ * <h3>getDeviceSize</h3>
+ * 获取分辨率大小。
+ * <h3>loadImage(filename)</h3>
+ * 读取图像。
+ * <h3>getRoot</h3>
+ * 获取根渲染结点。
+ * <h3>getRenderScene</h3>
+ * 获取当前渲染场景。
+ * <h3>setRenderScene</h3>
+ * 设置当前渲染场景。
+ * <h3>createRenderScene</h3>
+ * 创建渲染场景。
+ * <h3>showInfo</h3>
+ * <h3>getAvailableMode</h3>
+ * 获取允许运行的显示模式。
+ *
+ * 
+ * <h2>Audio Class</h2>
+ * 音响模块。
+ *
+ * <h3>Sound_t</h3>
+ *
+ * <h3>init</h3>
+ * <h3>loadSound(filename, streamed)</h3>
+ * 读取声音。目前只支持ogg。当streamed为true，声音以流载入。
+ * <h3>playMusic</h3>
+ * 将声音作为背景音乐播放。
+ * <h3>stopMusic</h3>
+ * 停止当前背景音乐。
+ * <h3>getPlayingMusic</h3>
+ * 获取当前声音。
+ * <h3>playFX</h3>
+ * 播放特效。
+ *
+ *
+ * <h2>Control Class</h2>
+ * 
+ * <h3>init</h3>
+ * <h3>keyIsDown(scancode)</h3>
+ * <h3>keyPress(scancode)</h3>
+ * <h3>keyRelease(scancode)</h3>
+ * 分别表示扫描码为scancode的键盘按键是否被按下、在该帧被按下、在该帧被释放。
+ * <h3>buttonIsDown(id)</h3>
+ * <h3>buttonRelease(id)</h3>
+ * <h3>buttonPress(id)</h3>
+ * 分别表示id代表的鼠标按键是否被按下、在该帧被按下、在该帧被释放。
+ * <h3>mouseOffset</h3>
+ * 前一帧到当前帧间隔内鼠标移动的偏移量。
+ *
+ * <h3>Key Scan Code Constant(in Module)</h3>
+ * @ref page_key_scan_code
+ *
+ * <h2>Scene Class</h2>
+ * Abstract Class.
+ *
+ * <h3>RS</h3>
+ * 该场景对应的渲染场景。inherits Layer.
+ * <h3>pushInputFocus(ir)</h3>
+ * <h3>popInputFocus</h3>
+ * 输入焦点压栈，弹栈。弹栈返回顶端的输入焦点。
+ * 
+ * override
+ * <h3>update(dt)</h3>
+ * 更新函数。dt为当前帧的时间长度。需要被重写。
+ *
+ *
+ * <h2>VideoNode Class</h2>
+ *
+ * 可渲染节点类。
+ * <h3>{xy}</h3>
+ * <h3>{xy}=</h3>
+ * x，y坐标。
+ * <h3>o{xy}</h3>
+ * <h3>o{xy}=</h3>
+ * 中心x，y坐标。
+ * <h3>rotation</h3>
+ * <h3>rotation=</h3>
+ * 旋转度。逆时针为正。以角度计。
+ * <h3>scale{XY}</h3>
+ * <h3>scale{XY}=</h3>
+ * x，y上的缩放。
+ * <h3>visible</h3>
+ * <h3>visible=</h3>
+ * 是否可见。
+ * <h3>active</h3>
+ * <h3>active=</h3>
+ * 是否活动。（即是否会调用更新函数）
+ *
+ * <h3>parent</h3>
+ * 父节点。
+ * <h3>detach</h3>
+ * 从父节点中脱离。
+ * <h3>update(dt)</h3>
+ * 更新节点。
+ * <h3>name</h3>
+ * <h3>create2DTransform</h3>
+ * 创建2D变换，某些渲染节点要创建2D变换才能使变换属性有作用。//todo
+ *
+ * <h2>Layer Class</h2>
+ * Inherits VideoNode.
+ * <h3>name</h3>
+ * <h3>addChild(child, z)</h3>
+ * 加入孩子。z为所在深度。
+ * @attention 需要在脚本中保留child的引用，否则该节点可能会因为垃圾回收而消失。
+ *
+ *
+ * <h2>Sprite Class</h2>
+ * Inherits VideoNode.
+ * 精灵，显示图像。
+ *
+ * <h3>new(filename)</h3>
+ * <h3>new(image)</h3>
+ * 创建精灵。
+ * <h3>o{hv}</h3>
+ * <h3>o{hv}=</h3>
+ * 中心坐标，归一化后。
+ * <h3>color</h3>
+ * <h3>color=</h3>
+ * 叠加的颜色。
+ * <h3>alpha</h3>
+ * <h3>alpha=</h3>
+ * 透明度。
+ * <h3>srcRect</h3>
+ * <h3>srcRect=</h3>
+ * 从图形文件获取的源矩形。
+ * <h3>width</h3>
+ * <h3>height</h3>
+ * 图形宽高。
+ *
+ * <h3>image</h3>
+ * <h3>image=</h3>
+ * 显示图像。
+ *
+ * <h3>blendMode</h3>
+ * <h3>blendMode=</h3>
+ * 混合模式。
+ * <h3>colorBlendMode</h3>
+ * <h3>colorBlendMode=</h3>
+ * 颜色混合模式。
+ * 
+ * <h2>Label Class</h2>
+ * Inherits VideoNode.
+ * 标签，显示文本。
+ *
+ * <h3>Constant(in Module)</h3>
+ * 对齐方式
+ *  - T_LEFT
+ *  - T_RIGHT
+ *  - T_CENTER
+ *  - T_TOP
+ *  - T_BOTTOM
+ *  - T_VCENTER
+ *  .
+ * 
+ * <h3>new(width, height, fontSize, font = default)</h3>
+ * 创建标签。font为字符串，表示字体名称。
+ * <h3>alpha</h3>
+ * <h3>alpha=</h3>
+ * 透明度。
+ * <h3>text</h3>
+ * <h3>text=</h3>
+ * 显示文本。
+ * <h3>color</h3>
+ * <h3>color=</h3>
+ * 文本颜色。
+ * <h3>align</h3>
+ * <h3>align=</h3>
+ * 文本对齐方式。
+ * 
+ *
+ * <h2>Shape Class</h2>
+ * Inherits VideoNode.
+ * 形状。
+ * 
+ * <h3>new(rect)</h3>
+ * 创建矩形形状。
+ * <h3>color</h3>
+ * <h3>color=</h3>
+ * 形状颜色。
+ * <h3>mode</h3>
+ * <h3>mode=</h3>
+ * 是否只绘制边框。
+ *
+ * <h2>Event Classes</h2>
+ * <h3>CharEvent</h3>
+ * getChar - 返回字符。
+ * <h3>KeyEvent</h3>
+ * getCode - 返回扫描码。
+ * isRelease - 是否为按键释放事件。
+ * isPress - 是否为按键按下事件。
+ * <h3>MouseEvent</h3>
+ * getButtonID - 获得按钮ID。
+ * isRelease - 是否为按钮释放事件。
+ * isPress - 是否为按钮按下事件。
+ *
+ *
+ * <h2>InputReceiver Classes</h2>
+ * 输入接收器。
+ * 可用来重写来定制行为。
+ * override
+ * <h3>onChar(event)</h3>
+ * 接收CharEvent，当活动InputReceiver收到字符事件时被调用。
+ * <h3>onKey(event)</h3>
+ * 接收KeyEvent，当活动InputReceiver收到键盘事件时被调用。
+ * <h3>onMouse(event)</h3>
+ * 接收MouseEvent，当活动InputReceiver收到鼠标事件时被调用。
+ *
+ * ...todo remove BroadCast?
+ * ...todo remove Shell?
+ */
+/**
+ * @page page_key_scan_code 扫描码列表
+ *
+ * - IK_ESCAPE
+ * - IK_1
+ * - IK_2
+ * - IK_3
+ * - IK_4
+ * - IK_5
+ * - IK_6
+ * - IK_7
+ * - IK_8
+ * - IK_9
+ * - IK_0
+ * - IK_MINUS
+ * - IK_EQUALS
+ * - IK_BACK
+ * - IK_TAB
+ * - IK_Q
+ * - IK_W
+ * - IK_E
+ * - IK_R
+ * - IK_T
+ * - IK_Y
+ * - IK_U
+ * - IK_I
+ * - IK_O
+ * - IK_P
+ * - IK_LBRACKET
+ * - IK_RBRACKET
+ * - IK_RETURN
+ * - IK_LCONTROL
+ * - IK_A
+ * - IK_S
+ * - IK_D
+ * - IK_F
+ * - IK_G
+ * - IK_H
+ * - IK_J
+ * - IK_K
+ * - IK_L
+ * - IK_SEMICOLON
+ * - IK_APOSTROPHE
+ * - IK_GRAVE
+ * - IK_LSHIFT
+ * - IK_BACKSLASH
+ * - IK_Z
+ * - IK_X
+ * - IK_C
+ * - IK_V
+ * - IK_B
+ * - IK_N
+ * - IK_M
+ * - IK_COMMA
+ * - IK_PERIOD
+ * - IK_SLASH
+ * - IK_RSHIFT
+ * - IK_MULTIPLY
+ * - IK_LMENU
+ * - IK_SPACE
+ * - IK_CAPITAL
+ * - IK_F1
+ * - IK_F2
+ * - IK_F3
+ * - IK_F4
+ * - IK_F5
+ * - IK_F6
+ * - IK_F7
+ * - IK_F8
+ * - IK_F9
+ * - IK_F10
+ * - IK_NUMLOCK
+ * - IK_SCROLL
+ * - IK_NUMPAD7
+ * - IK_NUMPAD8
+ * - IK_NUMPAD9
+ * - IK_SUBTRACT
+ * - IK_NUMPAD4
+ * - IK_NUMPAD5
+ * - IK_NUMPAD6
+ * - IK_ADD
+ * - IK_NUMPAD1
+ * - IK_NUMPAD2
+ * - IK_NUMPAD3
+ * - IK_NUMPAD0
+ * - IK_DECIMAL
+ * - IK_OEM_102
+ * - IK_F11
+ * - IK_F12
+ * - IK_F13
+ * - IK_F14
+ * - IK_F15
+ * - IK_KANA
+ * - IK_ABNT_C1
+ * - IK_CONVERT
+ * - IK_NOCONVERT
+ * - IK_YEN
+ * - IK_ABNT_C2
+ * - IK_NUMPADEQUALS
+ * - IK_PREVTRACK
+ * - IK_AT
+ * - IK_COLON
+ * - IK_UNDERLINE
+ * - IK_KANJI
+ * - IK_STOP
+ * - IK_AX
+ * - IK_UNLABELED
+ * - IK_NEXTTRACK
+ * - IK_NUMPADENTER
+ * - IK_RCONTROL
+ * - IK_MUTE
+ * - IK_CALCULATOR
+ * - IK_PLAYPAUSE
+ * - IK_MEDIASTOP
+ * - IK_VOLUMEDOWN
+ * - IK_VOLUMEUP
+ * - IK_WEBHOME
+ * - IK_NUMPADCOMMA
+ * - IK_DIVIDE
+ * - IK_SYSRQ
+ * - IK_RMENU
+ * - IK_PAUSE
+ * - IK_HOME
+ * - IK_UP
+ * - IK_PRIOR
+ * - IK_LEFT
+ * - IK_RIGHT
+ * - IK_END
+ * - IK_DOWN
+ * - IK_NEXT
+ * - IK_INSERT
+ * - IK_DELETE
+ * - IK_LWIN
+ * - IK_RWIN
+ * - IK_APPS
+ * - IK_POWER
+ * - IK_SLEEP
+ * - IK_WAKE
+ * - IK_WEBSEARCH
+ * - IK_WEBFAVORITES
+ * - IK_WEBREFRESH
+ * - IK_WEBSTOP
+ * - IK_WEBFORWARD
+ * - IK_WEBBACK
+ * - IK_MYCOMPUTER
+ * - IK_MAIL
+ * - IK_MEDIASELECT
+ *
+ * - IK_BACKSPACE
+ * - IK_NUMPADSTAR
+ * - IK_LALT
+ * - IK_CAPSLOCK
+ * - IK_NUMPADMINUS
+ * - IK_NUMPADPLUS
+ * - IK_NUMPADPERIOD
+ * - IK_NUMPADSLASH
+ * - IK_RALT
+ * - IK_UPARROW
+ * - IK_PGUP
+ * - IK_LEFTARROW
+ * - IK_RIGHTARROW
+ * - IK_DOWNARROW
+ * - IK_PGDN
+ *
+ * - IK_CIRCUMFLEX
+ * .
+ * 
  */
 //@todo 支持RT，支持锁定纹理。
 //@todo oload等详细写。
