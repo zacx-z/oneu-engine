@@ -11,6 +11,7 @@ namespace OneU
 	namespace video
 	{
 		%nodefaultctor INode;
+		%rename(VideoNode) INode;
 		class INode
 		{
 		public:
@@ -21,6 +22,7 @@ namespace OneU
 			PROP_RW(getRotation, setRotation, rotation);
 			PROP_RW(getScaleX, setScaleX, scaleX);
 			PROP_RW(getScaleY, setScaleY, scaleY);
+			PROP_R(getParent, parent);
 			
 			bool visible;
 			bool active;
@@ -30,7 +32,8 @@ namespace OneU
 			void detach();
 
 			virtual OneU::pcwstr name();
-
+			virtual void update(float dt);
+			
 			void create2DTransform();
 
 			void setX(float x);

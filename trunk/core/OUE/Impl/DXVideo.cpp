@@ -133,7 +133,7 @@ namespace OneU
 
 		m_pD3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 
-		m_DeviceSize = vector2u_t(width, height);
+		m_DeviceSize = vector2i_t(width, height);
 
 		m_pRoot = ONEU_NEW ILayer;
 
@@ -149,7 +149,7 @@ namespace OneU
 			width = m_DeviceSize.x;
 			height = m_DeviceSize.y;
 		}else{
-			m_DeviceSize = vector2u_t(width, height);
+			m_DeviceSize = vector2i_t(width, height);
 		}
 
 		HRESULT hr;
@@ -229,7 +229,7 @@ namespace OneU
 		MoveWindow(g_hWnd, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, FALSE);
 		ShowWindow(g_hWnd, SW_SHOW);
 	}
-	vector2u_t DXVideo::getDeviceSize(){
+	vector2i_t DXVideo::getDeviceSize(){
 		return m_DeviceSize;
 	}
 	void DXVideo::render(){
@@ -465,7 +465,7 @@ namespace OneU
 			D3DDISPLAYMODE mode;
 			XV(m_pD3D->EnumAdapterModes(D3DADAPTER_DEFAULT, D3DFMT_X8R8G8B8, i, &mode));
 			video::Mode m;
-			m.size = vector2u_t(mode.Width, mode.Height);
+			m.size = vector2i_t(mode.Width, mode.Height);
 			m.refreshRate = mode.RefreshRate;
 			buf.pushBack(m);
 		}

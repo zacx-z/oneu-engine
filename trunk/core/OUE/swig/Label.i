@@ -18,6 +18,7 @@ namespace OneU
 		PROP_RW(getAlpha, setAlpha, alpha);
 		PROP_RW(getText, setText, text);
 		PROP_RW(getColor, setColor, color);
+		PROP_RW(getAlign, setAlign, align);
 		
 		virtual void setText(OneU::pcwstr text);
 		virtual OneU::pcwstr getText();
@@ -26,7 +27,7 @@ namespace OneU
 		virtual void setAlpha(OneU::ubyte alpha);
 		OneU::ubyte getAlpha();
 		virtual void setAlign(OneU::uint32 align);
-		
+		virtual uint32 getAlign();
 	};
 	
 	%extend ILabel{

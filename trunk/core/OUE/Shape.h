@@ -49,6 +49,7 @@ namespace OneU
 		virtual color_t getColor() = 0;
 
 		virtual void setMode(bool bBorder) = 0;
+		virtual bool getMode() = 0;
 	};
 
 	/* ----------------------------------------------------------------------------*/

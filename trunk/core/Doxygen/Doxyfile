@@ -585,7 +585,6 @@ WARN_LOGFILE           =
 # with spaces.
 
 INPUT                  = ../OUE \
-                         ../Base \
                          ../OUE/Document
 
 # This tag can be used to specify the character encoding of the source files 

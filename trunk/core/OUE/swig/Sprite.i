@@ -18,6 +18,9 @@ namespace OneU
 		PROP_RW(getSrcRect, setSrcRect, srcRect);
 		PROP_R(getWidth, width);
 		PROP_R(getHeight, height);
+		PROP_RW(getImage, setImage, image);
+		PROP_RW(getBlendMode, setBlendMode, blendMode);
+		PROP_RW(getColorBlendMode, setColorBlendMode, colorBlendMode);
 		
 		virtual void setImage(OneU::image_t img);
 		virtual OneU::image_t getImage();

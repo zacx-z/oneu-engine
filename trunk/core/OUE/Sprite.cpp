@@ -73,7 +73,7 @@ namespace OneU
 
 	void Sprite_Impl::paint(){
 		IVideo& Vi = GetVideo();
-		vector2u_t ss = Vi.getDeviceSize();
+		vector2i_t ss = Vi.getDeviceSize();
 
 		Vi.setBlendColor(m_CMode, color);
 		Vi.setBlendMode(m_Mode);

@@ -43,6 +43,7 @@ namespace OneU
 		void setColor(color_t color){ m_Color = color; }
 		color_t getColor(){ return m_Color; }
 		void setMode(bool bBorder){m_bBorder = bBorder; }
+		bool getMode(){ return m_bBorder;}
 
 		void paint();
 		void _describe(String& buffer, int depth){ buffer.append(L"<shape rect>\n"); }

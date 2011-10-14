@@ -99,35 +99,27 @@ namespace OneU
 	};
 
 
-	%template(Recti_t) rect_t<int>;
-	%template(Rectu_t) rect_t<uint32>;
-	%template(Rectf_t)    rect_t<float>;
+	%template(Recti) rect_t<int>;
+	%template(Rectf)    rect_t<float>;
 
-	%template(Vector2i_t) Vector2<int>;
-	%template(Vector2u_t) Vector2<uint32>;
-	%template(Vector2f_t)    Vector2<float>;
+	%template(Vector2i) Vector2<int>;
+	%template(Vector2f)    Vector2<float>;
 
-	%template(Vector3i_t) Vector3<int>;
-	%template(Vector3u_t) Vector3<uint32>;
-	%template(Vector3f_t)    Vector3<float>;
+	%template(Vector3i) Vector3<int>;
+	%template(Vector3f)    Vector3<float>;
 
-	%template(Vector4i_t) Vector4<int>;
-	%template(Vector4u_t) Vector4<uint32>;
-	%template(Vector4f_t)    Vector4<float>;
+	%template(Vector4i) Vector4<int>;
+	%template(Vector4f)    Vector4<float>;
 	
 	typedef rect_t<int> recti_t;
-	typedef rect_t<uint32> rectu_t;
 	typedef rect_t<float> rect;
 
 	typedef Vector2<int> vector2i_t;
-	typedef Vector2<uint32> vector2u_t;
 	typedef Vector2<float> vector2;
 
 	typedef Vector3<int> vector3i_t;
-	typedef Vector3<uint32> vector3u_t;
 	typedef Vector3<float> vector3;
 
 	typedef Vector4<int> vector4i_t;
-	typedef Vector4<uint32> vector4u_t;
 	typedef Vector4<float> vector4;
 }

@@ -47,7 +47,7 @@ namespace OneU
 		ImageTable_t m_ImageTable;
 		friend class DXImage;
 
-		vector2u_t m_DeviceSize;
+		vector2i_t m_DeviceSize;
 		bool m_IsWindowed;
 
 		//D3D
@@ -65,7 +65,7 @@ namespace OneU
 		void switchDevice(uint32 width, uint32 height, bool bWindowed);
 
 		bool isWindowed(){ return m_IsWindowed;}
-		vector2u_t getDeviceSize();
+		vector2i_t getDeviceSize();
 
 		void render();
 		void update(float dt);

@@ -13,7 +13,7 @@ namespace OneU
 	class CharEvent
 	{
 	public:
-		wchar getCode() const;
+		wchar getChar() const;
 	};
 	class KeyEvent
 	{

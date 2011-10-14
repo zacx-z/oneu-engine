@@ -53,7 +53,15 @@ namespace OneU
 		virtual color_t getColor() = 0;
 		virtual void setAlpha(ubyte alpha) = 0;
 		ubyte getAlpha(){ return getColor().getAlpha(); }
+		/* ----------------------------------------------------------------------------*/
+		/**
+		 * @brief 设置对齐方式
+		 *
+		 * @param align 可为T_ALIGN_V和T_ALIGN_H的结合（位或）。
+		 */
+		/* ----------------------------------------------------------------------------*/
 		virtual void setAlign(uint32 align) = 0;
+		virtual uint32 getAlign() = 0;
 	};
 	/* ----------------------------------------------------------------------------*/
 	/**

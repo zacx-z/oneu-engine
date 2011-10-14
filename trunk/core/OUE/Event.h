@@ -197,7 +197,7 @@ namespace OneU
 		 * @returns 字符编码
 		 */
 		/* ----------------------------------------------------------------------------*/
-		wchar getCode() const{ return charCode;}
+		wchar getChar() const{ return charCode;}
 	};
 	/* ----------------------------------------------------------------------------*/
 	/**
@@ -270,7 +270,7 @@ namespace OneU
 	 * @brief 输入接收器
 	 *
 	 * 接收输入事件的类。派生自该类可以接收输入事件。
-	 * @remarks 需要调用@ref IScene::pushInputFocus()或@ref IScene::replaceInputFocus，将其注册到栈中才能接收到输入事件。
+	 * @remarks 需要调用@ref IScene::pushInputFocus()，将其注册到栈中才能接收到输入事件。
 	 * @sa IGame::pushInputFocus()
 	 */
 	/* ----------------------------------------------------------------------------*/
