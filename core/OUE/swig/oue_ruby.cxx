@@ -5431,10 +5431,10 @@ free_OneU_Vector4_Sl_float_Sg_(OneU::Vector4< float > *arg1) {
     delete arg1;
 }
 
-swig_class SwigClassNode;
+swig_class SwigClassVideoNode;
 
 SWIGINTERN VALUE
-_wrap_Node_visible_set(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_visible_set(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   bool arg2 ;
   void *argp1 = 0 ;
@@ -5463,7 +5463,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_visible_get(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_visible_get(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5487,7 +5487,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_active_set(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_active_set(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   bool arg2 ;
   void *argp1 = 0 ;
@@ -5516,7 +5516,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_active_get(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_active_get(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5540,7 +5540,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_getParent(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_parent(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5564,7 +5564,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_detach(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_detach(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5585,7 +5585,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_name(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_name(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5611,7 +5611,36 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_create2DTransform(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_update(int argc, VALUE *argv, VALUE self) {
+  OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
+  float arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__video__INode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::video::INode *","update", 1, self )); 
+  }
+  arg1 = reinterpret_cast< OneU::video::INode * >(argp1);
+  ecode2 = SWIG_AsVal_float(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "float","update", 2, argv[0] ));
+  } 
+  arg2 = static_cast< float >(val2);
+  (arg1)->update(arg2);
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_VideoNode_create2DTransform(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5632,7 +5661,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_xe___(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_xe___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5661,7 +5690,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_x(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_x(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5685,7 +5714,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_ye___(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_ye___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5714,7 +5743,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_y(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_y(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5738,7 +5767,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_oxe___(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_oxe___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5767,7 +5796,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_ox(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_ox(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5791,7 +5820,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_oye___(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_oye___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5820,7 +5849,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_oy(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_oy(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5844,7 +5873,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_rotatione___(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_rotatione___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5873,7 +5902,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_rotation(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_rotation(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5897,7 +5926,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_scaleXe___(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_scaleXe___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5926,7 +5955,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_scaleX(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_scaleX(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -5950,7 +5979,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_scaleYe___(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_scaleYe___(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   float arg2 ;
   void *argp1 = 0 ;
@@ -5979,7 +6008,7 @@ fail:
 
 
 SWIGINTERN VALUE
-_wrap_Node_scaleY(int argc, VALUE *argv, VALUE self) {
+_wrap_VideoNode_scaleY(int argc, VALUE *argv, VALUE self) {
   OneU::video::INode *arg1 = (OneU::video::INode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -6989,38 +7018,6 @@ free_OneU_IScene(OneU::IScene *arg1) {
 }
 
 SWIGINTERN VALUE
-_wrap_IScene_replaceInputFocus(int argc, VALUE *argv, VALUE self) {
-  OneU::IScene *arg1 = (OneU::IScene *) 0 ;
-  OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  OneU::IInputReceiver *result = 0 ;
-  VALUE vresult = Qnil;
-  
-  if ((argc < 1) || (argc > 1)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IScene, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IScene *","replaceInputFocus", 1, self )); 
-  }
-  arg1 = reinterpret_cast< OneU::IScene * >(argp1);
-  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "OneU::IInputReceiver *","replaceInputFocus", 2, argv[0] )); 
-  }
-  arg2 = reinterpret_cast< OneU::IInputReceiver * >(argp2);
-  result = (OneU::IInputReceiver *)(arg1)->replaceInputFocus(arg2);
-  vresult = SWIG_NewPointerObj(result, SWIGTYPE_p_OneU__IInputReceiver, 0 |  0 );
-  return vresult;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE
 _wrap_IScene_pushInputFocus(int argc, VALUE *argv, VALUE self) {
   OneU::IScene *arg1 = (OneU::IScene *) 0 ;
   OneU::IInputReceiver *arg2 = (OneU::IInputReceiver *) 0 ;
@@ -7823,36 +7820,6 @@ _wrap_Game_onMouse(int argc, VALUE *argv, VALUE self) {
   }
   arg2 = reinterpret_cast< OneU::MouseEvent * >(argp2);
   (arg1)->onMouse((OneU::MouseEvent const &)*arg2);
-  return Qnil;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN VALUE
-_wrap_Game_runShell(int argc, VALUE *argv, VALUE self) {
-  OneU::IGame *arg1 = (OneU::IGame *) 0 ;
-  OneU::pcwstr arg2 = (OneU::pcwstr) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  OneU::AutoPtr< wchar_t > temp2 ;
-  
-  if ((argc < 1) || (argc > 1)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
-  }
-  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__IGame, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::IGame *","runShell", 1, self )); 
-  }
-  arg1 = reinterpret_cast< OneU::IGame * >(argp1);
-  {
-    if(TYPE(argv[0]) != T_STRING)
-    SWIG_exception_fail(SWIG_TypeError, Ruby_Format_TypeError( "command", "OneU::pcwstr","runShell", 2, argv[0] ));
-    
-    temp2 = OneU::Char2Wide(StringValuePtr(argv[0]), /*rb_enc_get(argv[0]) == rb_utf8_encoding() ?*/ 65001 /*: 0*/);
-    arg2 = temp2;
-  }
-  (arg1)->runShell(arg2);
   return Qnil;
 fail:
   return Qnil;
@@ -9952,7 +9919,7 @@ free_OneU_ILabel(OneU::ILabel *arg1) {
 swig_class SwigClassCharEvent;
 
 SWIGINTERN VALUE
-_wrap_CharEvent_getCode(int argc, VALUE *argv, VALUE self) {
+_wrap_CharEvent_getChar(int argc, VALUE *argv, VALUE self) {
   OneU::CharEvent *arg1 = (OneU::CharEvent *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -9964,10 +9931,10 @@ _wrap_CharEvent_getCode(int argc, VALUE *argv, VALUE self) {
   }
   res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_OneU__CharEvent, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::CharEvent const *","getCode", 1, self )); 
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "OneU::CharEvent const *","getChar", 1, self )); 
   }
   arg1 = reinterpret_cast< OneU::CharEvent * >(argp1);
-  result = ((OneU::CharEvent const *)arg1)->getCode();
+  result = ((OneU::CharEvent const *)arg1)->getChar();
   vresult = SWIG_From_wchar_t(static_cast< wchar_t >(result));
   return vresult;
 fail:
@@ -10918,34 +10885,35 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassVector4f.destroy = (void (*)(void *)) free_OneU_Vector4_Sl_float_Sg_;
   SwigClassVector4f.trackObjects = 0;
   
-  SwigClassNode.klass = rb_define_class_under(mOUE, "Node", rb_cObject);
-  SWIG_TypeClientData(SWIGTYPE_p_OneU__video__INode, (void *) &SwigClassNode);
-  rb_undef_alloc_func(SwigClassNode.klass);
-  rb_define_method(SwigClassNode.klass, "visible=", VALUEFUNC(_wrap_Node_visible_set), -1);
-  rb_define_method(SwigClassNode.klass, "visible", VALUEFUNC(_wrap_Node_visible_get), -1);
-  rb_define_method(SwigClassNode.klass, "active=", VALUEFUNC(_wrap_Node_active_set), -1);
-  rb_define_method(SwigClassNode.klass, "active", VALUEFUNC(_wrap_Node_active_get), -1);
-  rb_define_method(SwigClassNode.klass, "getParent", VALUEFUNC(_wrap_Node_getParent), -1);
-  rb_define_method(SwigClassNode.klass, "detach", VALUEFUNC(_wrap_Node_detach), -1);
-  rb_define_method(SwigClassNode.klass, "name", VALUEFUNC(_wrap_Node_name), -1);
-  rb_define_method(SwigClassNode.klass, "create2DTransform", VALUEFUNC(_wrap_Node_create2DTransform), -1);
-  rb_define_method(SwigClassNode.klass, "x=", VALUEFUNC(_wrap_Node_xe___), -1);
-  rb_define_method(SwigClassNode.klass, "x", VALUEFUNC(_wrap_Node_x), -1);
-  rb_define_method(SwigClassNode.klass, "y=", VALUEFUNC(_wrap_Node_ye___), -1);
-  rb_define_method(SwigClassNode.klass, "y", VALUEFUNC(_wrap_Node_y), -1);
-  rb_define_method(SwigClassNode.klass, "ox=", VALUEFUNC(_wrap_Node_oxe___), -1);
-  rb_define_method(SwigClassNode.klass, "ox", VALUEFUNC(_wrap_Node_ox), -1);
-  rb_define_method(SwigClassNode.klass, "oy=", VALUEFUNC(_wrap_Node_oye___), -1);
-  rb_define_method(SwigClassNode.klass, "oy", VALUEFUNC(_wrap_Node_oy), -1);
-  rb_define_method(SwigClassNode.klass, "rotation=", VALUEFUNC(_wrap_Node_rotatione___), -1);
-  rb_define_method(SwigClassNode.klass, "rotation", VALUEFUNC(_wrap_Node_rotation), -1);
-  rb_define_method(SwigClassNode.klass, "scaleX=", VALUEFUNC(_wrap_Node_scaleXe___), -1);
-  rb_define_method(SwigClassNode.klass, "scaleX", VALUEFUNC(_wrap_Node_scaleX), -1);
-  rb_define_method(SwigClassNode.klass, "scaleY=", VALUEFUNC(_wrap_Node_scaleYe___), -1);
-  rb_define_method(SwigClassNode.klass, "scaleY", VALUEFUNC(_wrap_Node_scaleY), -1);
-  SwigClassNode.mark = 0;
-  SwigClassNode.destroy = (void (*)(void *)) free_OneU_video_INode;
-  SwigClassNode.trackObjects = 0;
+  SwigClassVideoNode.klass = rb_define_class_under(mOUE, "VideoNode", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_OneU__video__INode, (void *) &SwigClassVideoNode);
+  rb_undef_alloc_func(SwigClassVideoNode.klass);
+  rb_define_method(SwigClassVideoNode.klass, "visible=", VALUEFUNC(_wrap_VideoNode_visible_set), -1);
+  rb_define_method(SwigClassVideoNode.klass, "visible", VALUEFUNC(_wrap_VideoNode_visible_get), -1);
+  rb_define_method(SwigClassVideoNode.klass, "active=", VALUEFUNC(_wrap_VideoNode_active_set), -1);
+  rb_define_method(SwigClassVideoNode.klass, "active", VALUEFUNC(_wrap_VideoNode_active_get), -1);
+  rb_define_method(SwigClassVideoNode.klass, "parent", VALUEFUNC(_wrap_VideoNode_parent), -1);
+  rb_define_method(SwigClassVideoNode.klass, "detach", VALUEFUNC(_wrap_VideoNode_detach), -1);
+  rb_define_method(SwigClassVideoNode.klass, "name", VALUEFUNC(_wrap_VideoNode_name), -1);
+  rb_define_method(SwigClassVideoNode.klass, "update", VALUEFUNC(_wrap_VideoNode_update), -1);
+  rb_define_method(SwigClassVideoNode.klass, "create2DTransform", VALUEFUNC(_wrap_VideoNode_create2DTransform), -1);
+  rb_define_method(SwigClassVideoNode.klass, "x=", VALUEFUNC(_wrap_VideoNode_xe___), -1);
+  rb_define_method(SwigClassVideoNode.klass, "x", VALUEFUNC(_wrap_VideoNode_x), -1);
+  rb_define_method(SwigClassVideoNode.klass, "y=", VALUEFUNC(_wrap_VideoNode_ye___), -1);
+  rb_define_method(SwigClassVideoNode.klass, "y", VALUEFUNC(_wrap_VideoNode_y), -1);
+  rb_define_method(SwigClassVideoNode.klass, "ox=", VALUEFUNC(_wrap_VideoNode_oxe___), -1);
+  rb_define_method(SwigClassVideoNode.klass, "ox", VALUEFUNC(_wrap_VideoNode_ox), -1);
+  rb_define_method(SwigClassVideoNode.klass, "oy=", VALUEFUNC(_wrap_VideoNode_oye___), -1);
+  rb_define_method(SwigClassVideoNode.klass, "oy", VALUEFUNC(_wrap_VideoNode_oy), -1);
+  rb_define_method(SwigClassVideoNode.klass, "rotation=", VALUEFUNC(_wrap_VideoNode_rotatione___), -1);
+  rb_define_method(SwigClassVideoNode.klass, "rotation", VALUEFUNC(_wrap_VideoNode_rotation), -1);
+  rb_define_method(SwigClassVideoNode.klass, "scaleX=", VALUEFUNC(_wrap_VideoNode_scaleXe___), -1);
+  rb_define_method(SwigClassVideoNode.klass, "scaleX", VALUEFUNC(_wrap_VideoNode_scaleX), -1);
+  rb_define_method(SwigClassVideoNode.klass, "scaleY=", VALUEFUNC(_wrap_VideoNode_scaleYe___), -1);
+  rb_define_method(SwigClassVideoNode.klass, "scaleY", VALUEFUNC(_wrap_VideoNode_scaleY), -1);
+  SwigClassVideoNode.mark = 0;
+  SwigClassVideoNode.destroy = (void (*)(void *)) free_OneU_video_INode;
+  SwigClassVideoNode.trackObjects = 0;
   
   SwigClassLayer.klass = rb_define_class_under(mOUE, "Layer", ((swig_class *) SWIGTYPE_p_OneU__video__INode->clientdata)->klass);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__video__ILayer, (void *) &SwigClassLayer);
@@ -11020,7 +10988,6 @@ SWIGEXPORT void Init_OUE(void) {
   rb_undef_alloc_func(SwigClassIScene.klass);
   rb_define_method(SwigClassIScene.klass, "update", VALUEFUNC(_wrap_IScene_update), -1);
   rb_define_method(SwigClassIScene.klass, "RS", VALUEFUNC(_wrap_IScene_RS), -1);
-  rb_define_method(SwigClassIScene.klass, "replaceInputFocus", VALUEFUNC(_wrap_IScene_replaceInputFocus), -1);
   rb_define_method(SwigClassIScene.klass, "pushInputFocus", VALUEFUNC(_wrap_IScene_pushInputFocus), -1);
   rb_define_method(SwigClassIScene.klass, "popInputFocus", VALUEFUNC(_wrap_IScene_popInputFocus), -1);
   SwigClassIScene.mark = 0;
@@ -11063,7 +11030,6 @@ SWIGEXPORT void Init_OUE(void) {
   rb_define_method(SwigClassGame.klass, "onChar", VALUEFUNC(_wrap_Game_onChar), -1);
   rb_define_method(SwigClassGame.klass, "onKey", VALUEFUNC(_wrap_Game_onKey), -1);
   rb_define_method(SwigClassGame.klass, "onMouse", VALUEFUNC(_wrap_Game_onMouse), -1);
-  rb_define_method(SwigClassGame.klass, "runShell", VALUEFUNC(_wrap_Game_runShell), -1);
   rb_define_method(SwigClassGame.klass, "output", VALUEFUNC(_wrap_Game_output), -1);
   rb_define_method(SwigClassGame.klass, "showInfo", VALUEFUNC(_wrap_Game_showInfo), -1);
   SwigClassGame.mark = 0;
@@ -11341,7 +11307,7 @@ SWIGEXPORT void Init_OUE(void) {
   SwigClassCharEvent.klass = rb_define_class_under(mOUE, "CharEvent", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_OneU__CharEvent, (void *) &SwigClassCharEvent);
   rb_undef_alloc_func(SwigClassCharEvent.klass);
-  rb_define_method(SwigClassCharEvent.klass, "getCode", VALUEFUNC(_wrap_CharEvent_getCode), -1);
+  rb_define_method(SwigClassCharEvent.klass, "getChar", VALUEFUNC(_wrap_CharEvent_getChar), -1);
   SwigClassCharEvent.mark = 0;
   SwigClassCharEvent.destroy = (void (*)(void *)) free_OneU_CharEvent;
   SwigClassCharEvent.trackObjects = 0;

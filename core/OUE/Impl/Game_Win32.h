@@ -65,7 +65,6 @@ namespace OneU
 		float getTimeInterval();
 
 		//tools
-		void runShell(pcwstr command);
 		void output(pcwstr data);
 
 		//不太重要的

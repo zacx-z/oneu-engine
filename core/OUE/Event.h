@@ -99,37 +99,12 @@ namespace OneU
 		virtual void onEvent(pcwstr event, EventArgs* pArg, IEventDispatcher* source) = 0;
 	};
 
-	/*
-	template<class T>
-	class ISEventListener{
-	public:
-		virtual void onEvent(T& event) = 0;
-	};
-	template<class T>
-	class ISEventReceiver
-		: public Interface
-	{
-	private:
-		typedef InterfacePtr<ISEventListener<T>> HandlerHolder;
-		typedef List<HandlerHolder> EventList_t;
-		EventList_t m_event_list;
-	public:
-		virtual void addListener(IEventListener* listener){
-			m_event_list.pushBack(listener);
-		}
-		virtual void trigger(T& event){
-			for(EventList_t::iterator iter = m_event_list.begin(); iter != m_event_list.end(); ++iter){
-				(*iter)->onEvent(event);
-			}
-		}
-	};*/
-
 	/* ----------------------------------------------------------------------------*/
 	/** 
-	* @brief 事件调度器
-	* 
-	* 继承该接口可以使类可处理事件
-	*/
+	 * @brief 事件调度器
+	 * 
+	 * 继承该接口可以使类可处理事件。
+	 */
 	/* ----------------------------------------------------------------------------*/
 	class IEventDispatcher
 		: public Interface
@@ -267,7 +242,7 @@ namespace OneU
 
 	/* ----------------------------------------------------------------------------*/
 	/**
-	 * @brief 输入接收器
+	 * @brief 输入事件接收器
 	 *
 	 * 接收输入事件的类。派生自该类可以接收输入事件。
 	 * @remarks 需要调用@ref IScene::pushInputFocus()，将其注册到栈中才能接收到输入事件。

@@ -438,7 +438,6 @@ namespace OneU{
  * <h3>onMouse</h3>
  * 发送鼠标事件。
  *
- * <h3>runShell</h3>
  * <h3>output</h3>
  *
  * <h3>showInfo</h3>
@@ -696,8 +695,6 @@ namespace OneU{
  * <h3>onMouse(event)</h3>
  * 接收MouseEvent，当活动InputReceiver收到鼠标事件时被调用。
  *
- * ...todo remove BroadCast?
- * ...todo remove Shell?
  */
 /**
  * @page page_key_scan_code 扫描码列表
@@ -867,6 +864,5 @@ namespace OneU{
  * .
  * 
  */
-//@todo 支持RT，支持锁定纹理。
 //@todo oload等详细写。
 }
