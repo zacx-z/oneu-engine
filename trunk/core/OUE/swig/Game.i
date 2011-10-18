@@ -50,7 +50,6 @@ namespace OneU
 		virtual void onMouse(const OneU::MouseEvent& event);	
 #endif
 		
-		virtual void runShell(OneU::pcwstr command) = 0;
 		virtual void output(OneU::pcwstr data) = 0;
 
 		virtual void showInfo() = 0;

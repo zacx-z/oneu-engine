@@ -65,11 +65,6 @@ namespace OneU
 		m_pAudio = Audio_create();
 		ONEU_ASSERT(m_pControl == NULL);
 		m_pControl = Control_create();
-
-		//shell³õÊ¼»¯
-		//m_pShell = tool::Shell_config();
-		//showInfo();
-		//m_pVideo->showInfo();
 	}
 	int Game_Win32::run(){
 		while(true){
@@ -178,11 +173,8 @@ end:
 		return m_TimeInterval;
 	}
 
-	void Game_Win32::runShell( pcwstr command ){
-		//if(m_pShell) m_pShell->runCommand(command);
-	}
 	void Game_Win32::output( pcwstr data ){
-		//if(m_pShell) m_pShell->output(data);
+		TRACE(data);
 	}
 
 	void Game_Win32::showInfo()
